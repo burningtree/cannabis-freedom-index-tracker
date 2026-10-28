@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+import WorldMap from "../components/WorldMap.astro";
+import ReportItem from "../components/ReportItem.astro";
+import { reports, reportsOf, countriesWithReports, totals } from "../lib/reports.js";
+import { countries } from "../lib/countries.js";
+import { TYPES } from "../lib/types.js";
+const years = [...new Set(reports.map((r) => r.year))].sort((a, b) => b - a);
+// the country filter: every country with reports, its own or its states', and those states under it
+const places = countries.filter((c) => !c.parent && reportsOf(c.id).length).sort((a, b) => a.name.localeCompare(b.name))
+  .flatMap((c) => [{ id: c.id, name: c.name, count: reportsOf(c.id).length },
+    ...countries.filter((s) => s.parent === c.id && reportsOf(s.id).length).map((s) => ({ id: s.id, name: `\u2003${s.name}`, count: reportsOf(s.id).length }))]);
+const countryCount = countriesWithReports().length;
+const usedTypes = Object.entries(TYPES).filter(([t]) => reports.some((r) => r.type === t || r.also?.includes(t)));
+const t = totals(reports);
+const fmt = (n) => n.toLocaleString("en-GB");
+---
+<Base wide>
+  <h1>Cannabis Enforcement Tracker</h1>
+  <p class="lead">
+    Fields burned, homes raided, people arrested, jailed and executed: an open, sourced record of what
+    cannabis prohibition does to people around the world. {fmt(t.reports)} reports from {countryCount} countries and states so far.
+  </p>
+
+  <WorldMap reports={reports} label="World map of enforcement reports" />
+  <ul class="legend">
+    {usedTypes.map(([, v]) => <li class="type" style={`--c:${v.color}`} title={v.help}>{v.label}</li>)}
+  </ul>
+
+  <form class="filters" role="search" onsubmit="return false">
+    <input type="search" id="q" placeholder="Search reports, places, tags…" aria-label="Search" />
+    <select id="type" aria-label="Type">
+      <option value="">All types</option>
+      {usedTypes.map(([id, v]) => <option value={id}>{v.plural}</option>)}
+    </select>
+    <select id="country" aria-label="Country">
+      <option value="">All countries</option>
+      {places.map((c) => <option value={c.id}>{c.name} ({c.count})</option>)}
+    </select>
+    <select id="year" aria-label="Year">
+      <option value="">All years</option>
+      {years.map((y) => <option value={y}>{y}</option>)}
+    </select>
+  </form>
+  <p class="count" id="count" aria-live="polite">{reports.length} reports</p>
+  <ul class="reports" id="list">
+    {reports.map((r) => <ReportItem r={r} />)}
+  </ul>
+  <p class="empty" id="empty" hidden>No report matches these filters.</p>
+</Base>
+
+<script>
+  // The filters: type, country, year and free text. They hide list items and map dots, and are kept
+  // in the address (?type=raid&country=ng) so a filtered view can be shared.
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const fields = ["q", "type", "country", "year"];
+  const items = [...document.querySelectorAll<HTMLElement>("#list .report-item")];
+  const params = new URLSearchParams(location.search);
+  for (const f of fields) if (params.get(f)) $(f).value = params.get(f)!;
+
+  function apply() {
+    const q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const type = $("type").value, country = $("country").value, year = $("year").value;
+    const shown = new Set<string>();
+    for (const li of items) {
+      const d = li.dataset;
+      const ok = (!type || d.type === type || d.also!.split(" ").includes(type))
+        && (!country || d.country === country || d.parent === country)
+        && (!year || d.year === year)
+        && q.every((w) => d.text!.includes(w));
+      li.hidden = !ok;
+      if (ok) shown.add(d.id!);
+    }
+    $("count").textContent = `${shown.size} of ${items.length} reports`;
+    document.getElementById("empty")!.hidden = shown.size > 0;
+    (window as any).__reportsShown = shown; // for a map that loads after the filters ran
+    document.dispatchEvent(new CustomEvent("reports:filter", { detail: shown }));
+    const p = new URLSearchParams();
+    for (const f of fields) if ($(f).value) p.set(f, $(f).value);
+    history.replaceState(null, "", p.size ? `?${p}` : location.pathname);
+  }
+  for (const f of fields) $(f).addEventListener("input", apply);
+  if (fields.some((f) => $(f).value)) apply();
+</script>

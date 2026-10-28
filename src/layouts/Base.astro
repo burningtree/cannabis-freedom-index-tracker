@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+const { title, description = "An open record of cannabis eradication, seizures, raids, arrests, prosecutions and sentences around the world.", wide = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const fullTitle = title ? `${title} · Cannabis Enforcement Tracker` : "Cannabis Enforcement Tracker";
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const here = Astro.url.pathname.replace(base, "/");
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#0c0c0b" />
+    <link rel="alternate" type="application/json" href={`${base}api/reports.json`} title="All reports (JSON)" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href={base}><span class="brand-mark" aria-hidden="true">✕</span>Cannabis Enforcement Tracker</a>
+      <nav class="nav">
+        <a href={base} aria-current={here === "/" ? "page" : undefined}>Reports</a>
+        <a href={`${base}country/`} aria-current={here.startsWith("/country") ? "page" : undefined}>Countries</a>
+        <a href={`${base}stats/`} aria-current={here.startsWith("/stats") ? "page" : undefined}>Statistics</a>
+        <a href={`${base}about/`} aria-current={here.startsWith("/about") ? "page" : undefined}>About</a>
+      </nav>
+    </header>
+    <main class:list={["page", { wide }]}>
+      <slot />
+    </main>
+    <footer class="footer">
+      <p>
+        A companion to the <a href="https://cannabisfreedom.fyi/" class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
+        Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a>.
+      </p>
+    </footer>
+  </body>
+</html>

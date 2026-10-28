@@ -1,0 +1,2410 @@
+[
+ {
+  "id": "ad",
+  "name": "Andorra",
+  "region": "Europe",
+  "iso_numeric": 20,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ae",
+  "name": "United Arab Emirates",
+  "region": "Asia",
+  "iso_numeric": 784,
+  "recreational": "death",
+  "medical": "limited"
+ },
+ {
+  "id": "af",
+  "name": "Afghanistan",
+  "region": "Asia",
+  "iso_numeric": 4,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ag",
+  "name": "Antigua and Barbuda",
+  "region": "North America",
+  "iso_numeric": 28,
+  "recreational": "legal",
+  "medical": "limited"
+ },
+ {
+  "id": "al",
+  "name": "Albania",
+  "region": "Europe",
+  "iso_numeric": 8,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "am",
+  "name": "Armenia",
+  "region": "Asia",
+  "iso_numeric": 51,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "ao",
+  "name": "Angola",
+  "region": "Africa",
+  "iso_numeric": 24,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ar",
+  "name": "Argentina",
+  "region": "South America",
+  "iso_numeric": 32,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "at",
+  "name": "Austria",
+  "region": "Europe",
+  "iso_numeric": 40,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "au",
+  "name": "Australia",
+  "region": "Oceania",
+  "iso_numeric": 36,
+  "recreational": "partial",
+  "medical": "legal"
+ },
+ {
+  "id": "au/act",
+  "name": "Australian Capital Territory",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "au/nsw",
+  "name": "New South Wales",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "au/nt",
+  "name": "Northern Territory",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "au/qld",
+  "name": "Queensland",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "au/sa",
+  "name": "South Australia",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "au/tas",
+  "name": "Tasmania",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "au/vic",
+  "name": "Victoria",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "au/wa",
+  "name": "Western Australia",
+  "parent": "au",
+  "region": "Oceania",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "aw",
+  "name": "Aruba",
+  "region": "North America",
+  "iso_numeric": 533,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "az",
+  "name": "Azerbaijan",
+  "region": "Asia",
+  "iso_numeric": 31,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ba",
+  "name": "Bosnia and Herzegovina",
+  "region": "Europe",
+  "iso_numeric": 70,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "bb",
+  "name": "Barbados",
+  "region": "North America",
+  "iso_numeric": 52,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "bd",
+  "name": "Bangladesh",
+  "region": "Asia",
+  "iso_numeric": 50,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "be",
+  "name": "Belgium",
+  "region": "Europe",
+  "iso_numeric": 56,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "bf",
+  "name": "Burkina Faso",
+  "region": "Africa",
+  "iso_numeric": 854,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bg",
+  "name": "Bulgaria",
+  "region": "Europe",
+  "iso_numeric": 100,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bh",
+  "name": "Bahrain",
+  "region": "Asia",
+  "iso_numeric": 48,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "bi",
+  "name": "Burundi",
+  "region": "Africa",
+  "iso_numeric": 108,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bj",
+  "name": "Benin",
+  "region": "Africa",
+  "iso_numeric": 204,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bm",
+  "name": "Bermuda",
+  "region": "North America",
+  "iso_numeric": 60,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "bn",
+  "name": "Brunei",
+  "region": "Asia",
+  "iso_numeric": 96,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "bo",
+  "name": "Bolivia",
+  "region": "South America",
+  "iso_numeric": 68,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "br",
+  "name": "Brazil",
+  "region": "South America",
+  "iso_numeric": 76,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "bs",
+  "name": "Bahamas",
+  "region": "North America",
+  "iso_numeric": 44,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bt",
+  "name": "Bhutan",
+  "region": "Asia",
+  "iso_numeric": 64,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bw",
+  "name": "Botswana",
+  "region": "Africa",
+  "iso_numeric": 72,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "by",
+  "name": "Belarus",
+  "region": "Europe",
+  "iso_numeric": 112,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "bz",
+  "name": "Belize",
+  "region": "North America",
+  "iso_numeric": 84,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "ca",
+  "name": "Canada",
+  "region": "North America",
+  "iso_numeric": 124,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/ab",
+  "name": "Alberta",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/bc",
+  "name": "British Columbia",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/mb",
+  "name": "Manitoba",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/nb",
+  "name": "New Brunswick",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/nl",
+  "name": "Newfoundland and Labrador",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/ns",
+  "name": "Nova Scotia",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/nt",
+  "name": "Northwest Territories",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/nu",
+  "name": "Nunavut",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/on",
+  "name": "Ontario",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/pe",
+  "name": "Prince Edward Island",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/qc",
+  "name": "Quebec",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/sk",
+  "name": "Saskatchewan",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "ca/yt",
+  "name": "Yukon",
+  "parent": "ca",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "cd",
+  "name": "DR Congo",
+  "region": "Africa",
+  "iso_numeric": 180,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "cf",
+  "name": "Central African Republic",
+  "region": "Africa",
+  "iso_numeric": 140,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "cg",
+  "name": "Congo",
+  "region": "Africa",
+  "iso_numeric": 178,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ch",
+  "name": "Switzerland",
+  "region": "Europe",
+  "iso_numeric": 756,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "ci",
+  "name": "Côte d'Ivoire",
+  "region": "Africa",
+  "iso_numeric": 384,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "cl",
+  "name": "Chile",
+  "region": "South America",
+  "iso_numeric": 152,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "cm",
+  "name": "Cameroon",
+  "region": "Africa",
+  "iso_numeric": 120,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "cn",
+  "name": "China",
+  "region": "Asia",
+  "iso_numeric": 156,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "co",
+  "name": "Colombia",
+  "region": "South America",
+  "iso_numeric": 170,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "cr",
+  "name": "Costa Rica",
+  "region": "North America",
+  "iso_numeric": 188,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "cu",
+  "name": "Cuba",
+  "region": "North America",
+  "iso_numeric": 192,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "cv",
+  "name": "Cabo Verde",
+  "region": "Africa",
+  "iso_numeric": 132,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "cw",
+  "name": "Curaçao",
+  "region": "North America",
+  "iso_numeric": 531,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "cy",
+  "name": "Cyprus",
+  "region": "Europe",
+  "iso_numeric": 196,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "cz",
+  "name": "Czechia",
+  "region": "Europe",
+  "iso_numeric": 203,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "de",
+  "name": "Germany",
+  "region": "Europe",
+  "iso_numeric": 276,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "dj",
+  "name": "Djibouti",
+  "region": "Africa",
+  "iso_numeric": 262,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "dk",
+  "name": "Denmark",
+  "region": "Europe",
+  "iso_numeric": 208,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "dm",
+  "name": "Dominica",
+  "region": "North America",
+  "iso_numeric": 212,
+  "recreational": "legal",
+  "medical": "none"
+ },
+ {
+  "id": "do",
+  "name": "Dominican Republic",
+  "region": "North America",
+  "iso_numeric": 214,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "dz",
+  "name": "Algeria",
+  "region": "Africa",
+  "iso_numeric": 12,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "ec",
+  "name": "Ecuador",
+  "region": "South America",
+  "iso_numeric": 218,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "ee",
+  "name": "Estonia",
+  "region": "Europe",
+  "iso_numeric": 233,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "eg",
+  "name": "Egypt",
+  "region": "Africa",
+  "iso_numeric": 818,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "er",
+  "name": "Eritrea",
+  "region": "Africa",
+  "iso_numeric": 232,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "es",
+  "name": "Spain",
+  "region": "Europe",
+  "iso_numeric": 724,
+  "recreational": "partial",
+  "medical": "limited"
+ },
+ {
+  "id": "et",
+  "name": "Ethiopia",
+  "region": "Africa",
+  "iso_numeric": 231,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "fi",
+  "name": "Finland",
+  "region": "Europe",
+  "iso_numeric": 246,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "fj",
+  "name": "Fiji",
+  "region": "Oceania",
+  "iso_numeric": 242,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "fm",
+  "name": "Micronesia",
+  "region": "Oceania",
+  "iso_numeric": 583,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "fo",
+  "name": "Faroe Islands",
+  "region": "Europe",
+  "iso_numeric": 234,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "fr",
+  "name": "France",
+  "region": "Europe",
+  "iso_numeric": 250,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "ga",
+  "name": "Gabon",
+  "region": "Africa",
+  "iso_numeric": 266,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gb",
+  "name": "United Kingdom",
+  "region": "Europe",
+  "iso_numeric": 826,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "gd",
+  "name": "Grenada",
+  "region": "North America",
+  "iso_numeric": 308,
+  "recreational": "legal",
+  "medical": "none"
+ },
+ {
+  "id": "ge",
+  "name": "Georgia",
+  "region": "Asia",
+  "iso_numeric": 268,
+  "recreational": "partial",
+  "medical": "none"
+ },
+ {
+  "id": "gg",
+  "name": "Guernsey",
+  "region": "Europe",
+  "iso_numeric": 831,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "gh",
+  "name": "Ghana",
+  "region": "Africa",
+  "iso_numeric": 288,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gi",
+  "name": "Gibraltar",
+  "region": "Europe",
+  "iso_numeric": 292,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "gl",
+  "name": "Greenland",
+  "region": "North America",
+  "iso_numeric": 304,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "gm",
+  "name": "Gambia",
+  "region": "Africa",
+  "iso_numeric": 270,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gn",
+  "name": "Guinea",
+  "region": "Africa",
+  "iso_numeric": 324,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gq",
+  "name": "Equatorial Guinea",
+  "region": "Africa",
+  "iso_numeric": 226,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gr",
+  "name": "Greece",
+  "region": "Europe",
+  "iso_numeric": 300,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "gt",
+  "name": "Guatemala",
+  "region": "North America",
+  "iso_numeric": 320,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gu",
+  "name": "Guam",
+  "region": "Oceania",
+  "iso_numeric": 316,
+  "recreational": "legal",
+  "medical": "limited"
+ },
+ {
+  "id": "gw",
+  "name": "Guinea-Bissau",
+  "region": "Africa",
+  "iso_numeric": 624,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "gy",
+  "name": "Guyana",
+  "region": "South America",
+  "iso_numeric": 328,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "hk",
+  "name": "Hong Kong",
+  "region": "Asia",
+  "iso_numeric": 344,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "hn",
+  "name": "Honduras",
+  "region": "North America",
+  "iso_numeric": 340,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "hr",
+  "name": "Croatia",
+  "region": "Europe",
+  "iso_numeric": 191,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "ht",
+  "name": "Haiti",
+  "region": "North America",
+  "iso_numeric": 332,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "hu",
+  "name": "Hungary",
+  "region": "Europe",
+  "iso_numeric": 348,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "id",
+  "name": "Indonesia",
+  "region": "Asia",
+  "iso_numeric": 360,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "ie",
+  "name": "Ireland",
+  "region": "Europe",
+  "iso_numeric": 372,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "il",
+  "name": "Israel",
+  "region": "Asia",
+  "iso_numeric": 376,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "im",
+  "name": "Isle of Man",
+  "region": "Europe",
+  "iso_numeric": 833,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "in",
+  "name": "India",
+  "region": "Asia",
+  "iso_numeric": 356,
+  "recreational": "death",
+  "medical": "limited"
+ },
+ {
+  "id": "iq",
+  "name": "Iraq",
+  "region": "Asia",
+  "iso_numeric": 368,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "ir",
+  "name": "Iran",
+  "region": "Asia",
+  "iso_numeric": 364,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "is",
+  "name": "Iceland",
+  "region": "Europe",
+  "iso_numeric": 352,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "it",
+  "name": "Italy",
+  "region": "Europe",
+  "iso_numeric": 380,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "je",
+  "name": "Jersey",
+  "region": "Europe",
+  "iso_numeric": 832,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "jm",
+  "name": "Jamaica",
+  "region": "North America",
+  "iso_numeric": 388,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "jo",
+  "name": "Jordan",
+  "region": "Asia",
+  "iso_numeric": 400,
+  "recreational": "death",
+  "medical": "limited"
+ },
+ {
+  "id": "jp",
+  "name": "Japan",
+  "region": "Asia",
+  "iso_numeric": 392,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "ke",
+  "name": "Kenya",
+  "region": "Africa",
+  "iso_numeric": 404,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "kg",
+  "name": "Kyrgyzstan",
+  "region": "Asia",
+  "iso_numeric": 417,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "kh",
+  "name": "Cambodia",
+  "region": "Asia",
+  "iso_numeric": 116,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ki",
+  "name": "Kiribati",
+  "region": "Oceania",
+  "iso_numeric": 296,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "km",
+  "name": "Comoros",
+  "region": "Africa",
+  "iso_numeric": 174,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "kn",
+  "name": "Saint Kitts and Nevis",
+  "region": "North America",
+  "iso_numeric": 659,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "kp",
+  "name": "North Korea",
+  "region": "Asia",
+  "iso_numeric": 408,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "kr",
+  "name": "South Korea",
+  "region": "Asia",
+  "iso_numeric": 410,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "kw",
+  "name": "Kuwait",
+  "region": "Asia",
+  "iso_numeric": 414,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "ky",
+  "name": "Cayman Islands",
+  "region": "North America",
+  "iso_numeric": 136,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "kz",
+  "name": "Kazakhstan",
+  "region": "Asia",
+  "iso_numeric": 398,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "la",
+  "name": "Laos",
+  "region": "Asia",
+  "iso_numeric": 418,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "lb",
+  "name": "Lebanon",
+  "region": "Asia",
+  "iso_numeric": 422,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "lc",
+  "name": "Saint Lucia",
+  "region": "North America",
+  "iso_numeric": 662,
+  "recreational": "legal",
+  "medical": "none"
+ },
+ {
+  "id": "li",
+  "name": "Liechtenstein",
+  "region": "Europe",
+  "iso_numeric": 438,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "lk",
+  "name": "Sri Lanka",
+  "region": "Asia",
+  "iso_numeric": 144,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "lr",
+  "name": "Liberia",
+  "region": "Africa",
+  "iso_numeric": 430,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ls",
+  "name": "Lesotho",
+  "region": "Africa",
+  "iso_numeric": 426,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "lt",
+  "name": "Lithuania",
+  "region": "Europe",
+  "iso_numeric": 440,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "lu",
+  "name": "Luxembourg",
+  "region": "Europe",
+  "iso_numeric": 442,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "lv",
+  "name": "Latvia",
+  "region": "Europe",
+  "iso_numeric": 428,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "ly",
+  "name": "Libya",
+  "region": "Africa",
+  "iso_numeric": 434,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "ma",
+  "name": "Morocco",
+  "region": "Africa",
+  "iso_numeric": 504,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "mc",
+  "name": "Monaco",
+  "region": "Europe",
+  "iso_numeric": 492,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "md",
+  "name": "Moldova",
+  "region": "Europe",
+  "iso_numeric": 498,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "me",
+  "name": "Montenegro",
+  "region": "Europe",
+  "iso_numeric": 499,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "mg",
+  "name": "Madagascar",
+  "region": "Africa",
+  "iso_numeric": 450,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "mh",
+  "name": "Marshall Islands",
+  "region": "Oceania",
+  "iso_numeric": 584,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "mk",
+  "name": "North Macedonia",
+  "region": "Europe",
+  "iso_numeric": 807,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "ml",
+  "name": "Mali",
+  "region": "Africa",
+  "iso_numeric": 466,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "mm",
+  "name": "Myanmar",
+  "region": "Asia",
+  "iso_numeric": 104,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "mn",
+  "name": "Mongolia",
+  "region": "Asia",
+  "iso_numeric": 496,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "mo",
+  "name": "Macau",
+  "region": "Asia",
+  "iso_numeric": 446,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "mp",
+  "name": "Northern Mariana Islands",
+  "region": "Oceania",
+  "iso_numeric": 580,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "mr",
+  "name": "Mauritania",
+  "region": "Africa",
+  "iso_numeric": 478,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "mt",
+  "name": "Malta",
+  "region": "Europe",
+  "iso_numeric": 470,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "mu",
+  "name": "Mauritius",
+  "region": "Africa",
+  "iso_numeric": 480,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "mv",
+  "name": "Maldives",
+  "region": "Asia",
+  "iso_numeric": 462,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "mw",
+  "name": "Malawi",
+  "region": "Africa",
+  "iso_numeric": 454,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "mx",
+  "name": "Mexico",
+  "region": "North America",
+  "iso_numeric": 484,
+  "recreational": "partial",
+  "medical": "limited"
+ },
+ {
+  "id": "my",
+  "name": "Malaysia",
+  "region": "Asia",
+  "iso_numeric": 458,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "mz",
+  "name": "Mozambique",
+  "region": "Africa",
+  "iso_numeric": 508,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "na",
+  "name": "Namibia",
+  "region": "Africa",
+  "iso_numeric": 516,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ne",
+  "name": "Niger",
+  "region": "Africa",
+  "iso_numeric": 562,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ng",
+  "name": "Nigeria",
+  "region": "Africa",
+  "iso_numeric": 566,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ni",
+  "name": "Nicaragua",
+  "region": "North America",
+  "iso_numeric": 558,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "nl",
+  "name": "Netherlands",
+  "region": "Europe",
+  "iso_numeric": 528,
+  "recreational": "partial",
+  "medical": "legal"
+ },
+ {
+  "id": "no",
+  "name": "Norway",
+  "region": "Europe",
+  "iso_numeric": 578,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "np",
+  "name": "Nepal",
+  "region": "Asia",
+  "iso_numeric": 524,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "nr",
+  "name": "Nauru",
+  "region": "Oceania",
+  "iso_numeric": 520,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "nz",
+  "name": "New Zealand",
+  "region": "Oceania",
+  "iso_numeric": 554,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "om",
+  "name": "Oman",
+  "region": "Asia",
+  "iso_numeric": 512,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "pa",
+  "name": "Panama",
+  "region": "North America",
+  "iso_numeric": 591,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "pe",
+  "name": "Peru",
+  "region": "South America",
+  "iso_numeric": 604,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "pf",
+  "name": "French Polynesia",
+  "region": "Oceania",
+  "iso_numeric": 258,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "pg",
+  "name": "Papua New Guinea",
+  "region": "Oceania",
+  "iso_numeric": 598,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ph",
+  "name": "Philippines",
+  "region": "Asia",
+  "iso_numeric": 608,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "pk",
+  "name": "Pakistan",
+  "region": "Asia",
+  "iso_numeric": 586,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "pl",
+  "name": "Poland",
+  "region": "Europe",
+  "iso_numeric": 616,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "pr",
+  "name": "Puerto Rico",
+  "region": "North America",
+  "iso_numeric": 630,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "ps",
+  "name": "Palestine",
+  "region": "Asia",
+  "iso_numeric": 275,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "pt",
+  "name": "Portugal",
+  "region": "Europe",
+  "iso_numeric": 620,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "pw",
+  "name": "Palau",
+  "region": "Oceania",
+  "iso_numeric": 585,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "py",
+  "name": "Paraguay",
+  "region": "South America",
+  "iso_numeric": 600,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "qa",
+  "name": "Qatar",
+  "region": "Asia",
+  "iso_numeric": 634,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "re",
+  "name": "Réunion",
+  "region": "Africa",
+  "iso_numeric": 638,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "ro",
+  "name": "Romania",
+  "region": "Europe",
+  "iso_numeric": 642,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "rs",
+  "name": "Serbia",
+  "region": "Europe",
+  "iso_numeric": 688,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ru",
+  "name": "Russia",
+  "region": "Europe",
+  "iso_numeric": 643,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "rw",
+  "name": "Rwanda",
+  "region": "Africa",
+  "iso_numeric": 646,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sa",
+  "name": "Saudi Arabia",
+  "region": "Asia",
+  "iso_numeric": 682,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "sb",
+  "name": "Solomon Islands",
+  "region": "Oceania",
+  "iso_numeric": 90,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sc",
+  "name": "Seychelles",
+  "region": "Africa",
+  "iso_numeric": 690,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sd",
+  "name": "Sudan",
+  "region": "Africa",
+  "iso_numeric": 729,
+  "recreational": "death",
+  "medical": "limited"
+ },
+ {
+  "id": "se",
+  "name": "Sweden",
+  "region": "Europe",
+  "iso_numeric": 752,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sg",
+  "name": "Singapore",
+  "region": "Asia",
+  "iso_numeric": 702,
+  "recreational": "death",
+  "medical": "limited"
+ },
+ {
+  "id": "si",
+  "name": "Slovenia",
+  "region": "Europe",
+  "iso_numeric": 705,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "sk",
+  "name": "Slovakia",
+  "region": "Europe",
+  "iso_numeric": 703,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "sl",
+  "name": "Sierra Leone",
+  "region": "Africa",
+  "iso_numeric": 694,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "sm",
+  "name": "San Marino",
+  "region": "Europe",
+  "iso_numeric": 674,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sn",
+  "name": "Senegal",
+  "region": "Africa",
+  "iso_numeric": 686,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "so",
+  "name": "Somalia",
+  "region": "Africa",
+  "iso_numeric": 706,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "sr",
+  "name": "Suriname",
+  "region": "South America",
+  "iso_numeric": 740,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ss",
+  "name": "South Sudan",
+  "region": "Africa",
+  "iso_numeric": 728,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "st",
+  "name": "São Tomé and Príncipe",
+  "region": "Africa",
+  "iso_numeric": 678,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "sv",
+  "name": "El Salvador",
+  "region": "North America",
+  "iso_numeric": 222,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "sx",
+  "name": "Sint Maarten",
+  "region": "North America",
+  "iso_numeric": 534,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "sy",
+  "name": "Syria",
+  "region": "Asia",
+  "iso_numeric": 760,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "sz",
+  "name": "Eswatini",
+  "region": "Africa",
+  "iso_numeric": 748,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "td",
+  "name": "Chad",
+  "region": "Africa",
+  "iso_numeric": 148,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "tg",
+  "name": "Togo",
+  "region": "Africa",
+  "iso_numeric": 768,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "th",
+  "name": "Thailand",
+  "region": "Asia",
+  "iso_numeric": 764,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "tj",
+  "name": "Tajikistan",
+  "region": "Asia",
+  "iso_numeric": 762,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "tl",
+  "name": "Timor-Leste",
+  "region": "Asia",
+  "iso_numeric": 626,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "tm",
+  "name": "Turkmenistan",
+  "region": "Asia",
+  "iso_numeric": 795,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "tn",
+  "name": "Tunisia",
+  "region": "Africa",
+  "iso_numeric": 788,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "to",
+  "name": "Tonga",
+  "region": "Oceania",
+  "iso_numeric": 776,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "tr",
+  "name": "Türkiye",
+  "region": "Asia",
+  "iso_numeric": 792,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "tt",
+  "name": "Trinidad and Tobago",
+  "region": "North America",
+  "iso_numeric": 780,
+  "recreational": "legal",
+  "medical": "limited"
+ },
+ {
+  "id": "tv",
+  "name": "Tuvalu",
+  "region": "Oceania",
+  "iso_numeric": 798,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "tw",
+  "name": "Taiwan",
+  "region": "Asia",
+  "iso_numeric": 158,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "tz",
+  "name": "Tanzania",
+  "region": "Africa",
+  "iso_numeric": 834,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ua",
+  "name": "Ukraine",
+  "region": "Europe",
+  "iso_numeric": 804,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "ug",
+  "name": "Uganda",
+  "region": "Africa",
+  "iso_numeric": 800,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "us",
+  "name": "United States",
+  "region": "North America",
+  "iso_numeric": 840,
+  "recreational": "partial",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ak",
+  "name": "Alaska",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/al",
+  "name": "Alabama",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "us/ar",
+  "name": "Arkansas",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/az",
+  "name": "Arizona",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ca",
+  "name": "California",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/co",
+  "name": "Colorado",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ct",
+  "name": "Connecticut",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/dc",
+  "name": "District of Columbia",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/de",
+  "name": "Delaware",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/fl",
+  "name": "Florida",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ga",
+  "name": "Georgia",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/hi",
+  "name": "Hawaii",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ia",
+  "name": "Iowa",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "us/id",
+  "name": "Idaho",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/il",
+  "name": "Illinois",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/in",
+  "name": "Indiana",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/ks",
+  "name": "Kansas",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/ky",
+  "name": "Kentucky",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/la",
+  "name": "Louisiana",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ma",
+  "name": "Massachusetts",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/md",
+  "name": "Maryland",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/me",
+  "name": "Maine",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/mi",
+  "name": "Michigan",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/mn",
+  "name": "Minnesota",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/mo",
+  "name": "Missouri",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ms",
+  "name": "Mississippi",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "us/mt",
+  "name": "Montana",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/nc",
+  "name": "North Carolina",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "none"
+ },
+ {
+  "id": "us/nd",
+  "name": "North Dakota",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ne",
+  "name": "Nebraska",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "limited"
+ },
+ {
+  "id": "us/nh",
+  "name": "New Hampshire",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "us/nj",
+  "name": "New Jersey",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/nm",
+  "name": "New Mexico",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/nv",
+  "name": "Nevada",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ny",
+  "name": "New York",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/oh",
+  "name": "Ohio",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ok",
+  "name": "Oklahoma",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/or",
+  "name": "Oregon",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/pa",
+  "name": "Pennsylvania",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/ri",
+  "name": "Rhode Island",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/sc",
+  "name": "South Carolina",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/sd",
+  "name": "South Dakota",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/tn",
+  "name": "Tennessee",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/tx",
+  "name": "Texas",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "us/ut",
+  "name": "Utah",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/va",
+  "name": "Virginia",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/vt",
+  "name": "Vermont",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/wa",
+  "name": "Washington",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/wi",
+  "name": "Wisconsin",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "us/wv",
+  "name": "West Virginia",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "legal"
+ },
+ {
+  "id": "us/wy",
+  "name": "Wyoming",
+  "parent": "us",
+  "region": "North America",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "uy",
+  "name": "Uruguay",
+  "region": "South America",
+  "iso_numeric": 858,
+  "recreational": "legal",
+  "medical": "legal"
+ },
+ {
+  "id": "uz",
+  "name": "Uzbekistan",
+  "region": "Asia",
+  "iso_numeric": 860,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "vc",
+  "name": "Saint Vincent and the Grenadines",
+  "region": "North America",
+  "iso_numeric": 670,
+  "recreational": "decriminalised",
+  "medical": "legal"
+ },
+ {
+  "id": "ve",
+  "name": "Venezuela",
+  "region": "South America",
+  "iso_numeric": 862,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "vg",
+  "name": "British Virgin Islands",
+  "region": "North America",
+  "iso_numeric": 92,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "vi",
+  "name": "US Virgin Islands",
+  "region": "North America",
+  "iso_numeric": 850,
+  "recreational": "legal",
+  "medical": "limited"
+ },
+ {
+  "id": "vn",
+  "name": "Vietnam",
+  "region": "Asia",
+  "iso_numeric": 704,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "vu",
+  "name": "Vanuatu",
+  "region": "Oceania",
+  "iso_numeric": 548,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "ws",
+  "name": "Samoa",
+  "region": "Oceania",
+  "iso_numeric": 882,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "xa",
+  "name": "Abkhazia",
+  "region": "Asia",
+  "iso_numeric": null,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "xk",
+  "name": "Kosovo",
+  "region": "Europe",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "xn",
+  "name": "Northern Cyprus",
+  "region": "Europe",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "xs",
+  "name": "Somaliland",
+  "region": "Africa",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "xt",
+  "name": "Transnistria",
+  "region": "Europe",
+  "iso_numeric": null,
+  "recreational": "illegal",
+  "medical": "none"
+ },
+ {
+  "id": "ye",
+  "name": "Yemen",
+  "region": "Asia",
+  "iso_numeric": 887,
+  "recreational": "death",
+  "medical": "none"
+ },
+ {
+  "id": "za",
+  "name": "South Africa",
+  "region": "Africa",
+  "iso_numeric": 710,
+  "recreational": "legal",
+  "medical": "limited"
+ },
+ {
+  "id": "zm",
+  "name": "Zambia",
+  "region": "Africa",
+  "iso_numeric": 894,
+  "recreational": "illegal",
+  "medical": "limited"
+ },
+ {
+  "id": "zw",
+  "name": "Zimbabwe",
+  "region": "Africa",
+  "iso_numeric": 716,
+  "recreational": "illegal",
+  "medical": "none"
+ }
+]

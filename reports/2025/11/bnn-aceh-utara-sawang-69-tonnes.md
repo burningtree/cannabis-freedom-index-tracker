@@ -1,0 +1,33 @@
+---
+date: 2025-11-06
+country: id
+place: Teupin Rusep, Sawang, North Aceh
+coordinates: [5.1, 96.95]
+precision: district
+type: eradication
+title: 97,000 cannabis plants destroyed in North Aceh
+summary: >-
+  Indonesia's national narcotics agency led 151 officers into six fields near the village of Teupin
+  Rusep and destroyed about 97,000 plants, some 69 tonnes by wet weight, on 6.5 hectares.
+figures:
+  plants_destroyed: 97000
+  hectares: 6.5
+  kg_seized: 69000
+status: verified
+tags: [bnn, aceh]
+sources:
+  - title: BNN Musnahkan 69 Ton Ganja di Aceh Utara
+    url: https://www.metrotvnews.com/read/bw6CgqR5-bnn-musnahkan-69-ton-ganja-di-aceh-utara
+    publisher: Metro TV News
+    date: 2025-11-06
+    language: id
+---
+
+Indonesia's National Narcotics Agency (BNN) destroyed cannabis growing on six fields around the
+village of Teupin Rusep, in the Sawang district of North Aceh. [@1] The fields covered about 6.5
+hectares and held an estimated 97,000 plants, with a wet weight of around 69 tonnes. [@1]
+
+The operation was led by the head of the BNN, Commissioner General Suyudi Ario Seto, and involved 151
+people from the BNN, the army, the police, the civil service police, the prosecutor's office, customs,
+and the local agriculture and forestry offices. [@1] No arrests were reported. [@1] Suyudi asked
+people to report any sign of drug use or trafficking to the authorities. [@1]

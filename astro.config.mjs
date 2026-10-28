@@ -1,0 +1,73 @@
+import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
+
+// Fully static output: one HTML file per report and per country, plus the JSON files under /api/.
+const base = (process.env.BASE_PATH || "").replace(/\/+$/, "") + "/";
+
+// Links in a report's text: one that leaves the site opens in a new tab and is marked `ext`;
+// one that starts with "/" is a page of this site and gets the base path in front.
+function markdownLinks() {
+  const walk = (node) => {
+    if (node.tagName === "a" && typeof node.properties?.href === "string") {
+      const href = node.properties.href;
+      if (/^https?:\/\//.test(href)) {
+        node.properties.target = "_blank";
+        node.properties.rel = "noopener noreferrer";
+        node.properties.className = [...(node.properties.className ?? []), "ext"];
+      } else if (href.startsWith("/") && !href.startsWith("//")) {
+        node.properties.href = base + href.slice(1);
+      }
+    }
+    node.children?.forEach(walk);
+  };
+  return walk;
+}
+
+// Inline citations, Wikipedia style, as on the Cannabis Freedom Index: [@2] or [@1,3] marks the
+// sources, by their place in the front matter's `sources` list, that support what comes before it.
+// Each becomes a superscript number linked to the report's list of sources; sources are numbered by
+// their first citation, and the order is left in the front matter as `citeOrder`. Every source must
+// be cited at least once, and a citation must name a source that exists.
+function markdownCitations() {
+  const MARK = /\s?\[@([^\]]+)\]/g;
+  const sup = (n) => `<sup class="cite"><a href="#ref-${n}" aria-label="Source ${n}">[${n}]</a></sup>`;
+  return (tree, file) => {
+    const fm = file.data.astro?.frontmatter;
+    const count = fm?.sources?.length ?? 0;
+    if (!count) return;
+    const where = file.history?.[0]?.split("/").slice(-3).join("/") ?? "a report";
+    const order = [];
+    const numberOf = (i) => {
+      if (!Number.isInteger(i) || i < 1 || i > count) throw new Error(`${where}: the citation [@${i}] names no source (it has ${count})`);
+      if (!order.includes(i)) order.push(i);
+      return order.indexOf(i) + 1;
+    };
+    const walk = (node) => {
+      if (!node.children) return;
+      node.children = node.children.flatMap((child) => {
+        if (child.type !== "text" || !child.value.includes("[@")) { walk(child); return [child]; }
+        const out = [];
+        let last = 0;
+        for (const m of child.value.matchAll(MARK)) {
+          if (m.index > last) out.push({ type: "text", value: child.value.slice(last, m.index) });
+          out.push({ type: "html", value: m[1].split(",").map((x) => sup(numberOf(Number(x.trim())))).join("") });
+          last = m.index + m[0].length;
+        }
+        if (last < child.value.length) out.push({ type: "text", value: child.value.slice(last) });
+        return out;
+      });
+    };
+    walk(tree);
+    const missing = Array.from({ length: count }, (_, i) => i + 1).filter((i) => !order.includes(i));
+    if (missing.length) throw new Error(`${where}: never cites ${missing.map((i) => `[@${i}]`).join(", ")}`);
+    fm.citeOrder = order;
+  };
+}
+
+export default defineConfig({
+  site: process.env.SITE || "https://tracker.cannabisfreedom.fyi",
+  base,
+  markdown: {
+    processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks] }),
+  },
+});

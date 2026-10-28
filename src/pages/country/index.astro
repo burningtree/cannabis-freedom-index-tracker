@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import { countriesWithReports, reportsOf, totals } from "../../lib/reports.js";
+import { countryOf, flagOf } from "../../lib/countries.js";
+const base = import.meta.env.BASE_URL;
+const list = countriesWithReports().map((c) => ({ ...c, region: countryOf(c.id).region, t: totals(reportsOf(c.id)) }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+const fmt = (n) => (n ? n.toLocaleString("en-GB") : "–");
+---
+<Base title="Countries" description="Cannabis enforcement reports by country.">
+  <h1>Countries</h1>
+  <p class="lead">Every country and state with at least one report. Ids are those of the Cannabis Freedom Index.</p>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Country</th><th>Region</th><th class="num">Reports</th><th class="num">Arrested</th><th class="num">Plants</th><th class="num">Hectares</th></tr></thead>
+      <tbody>
+        {list.map((c) => (
+          <tr>
+            <td><a href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a></td>
+            <td class="muted">{c.region}</td>
+            <td class="num">{c.count}</td>
+            <td class="num">{fmt(c.t.arrested)}</td>
+            <td class="num">{fmt(c.t.plants_destroyed)}</td>
+            <td class="num">{fmt(c.t.hectares)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>

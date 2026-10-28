@@ -1,0 +1,56 @@
+---
+// One page per country (or state) that has reports: its reports, totals and map.
+import Base from "../../layouts/Base.astro";
+import WorldMap from "../../components/WorldMap.astro";
+import ReportItem from "../../components/ReportItem.astro";
+import { reportsOf, totals, countByType } from "../../lib/reports.js";
+import { countries, countryName, countryOf, flagOf, cfiUrl } from "../../lib/countries.js";
+import { TYPES } from "../../lib/types.js";
+
+export function getStaticPaths() {
+  return countries.filter((c) => reportsOf(c.id).length).map((c) => ({ params: { id: c.id } }));
+}
+const { id } = Astro.params;
+const c = countryOf(id);
+const name = countryName(id);
+const list = reportsOf(id);
+const t = totals(list);
+const byType = Object.entries(countByType(list)).filter(([, n]) => n);
+const states = countries.filter((s) => s.parent === id && reportsOf(s.id).length);
+const base = import.meta.env.BASE_URL;
+const fmt = (n) => n.toLocaleString("en-GB");
+const REC = { legal: "legal", partial: "partly legal", decriminalised: "decriminalised", illegal: "illegal", death: "illegal, with the death penalty for trafficking" };
+---
+<Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`}>
+  <nav class="crumbs"><a href={`${base}country/`}>Countries</a>{c.parent && <> / <a href={`${base}country/${c.parent}/`}>{countryName(c.parent)}</a></>}</nav>
+  <h1>{flagOf(id)} {name}</h1>
+  <p class="lead">
+    {list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.
+    Recreational cannabis is {REC[c.recreational] ?? c.recreational} here, according to the{" "}
+    <a href={cfiUrl(id)} class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
+  </p>
+
+  <div class="tiles">
+    <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>
+    {t.arrested > 0 && <div class="tile"><div class="big">{fmt(t.arrested)}</div><div class="label">People arrested</div></div>}
+    {t.plants_destroyed > 0 && <div class="tile"><div class="big">{fmt(t.plants_destroyed)}</div><div class="label">Plants destroyed</div></div>}
+    {t.hectares > 0 && <div class="tile"><div class="big">{fmt(t.hectares)}</div><div class="label">Hectares destroyed</div></div>}
+    {t.kg_seized > 0 && <div class="tile"><div class="big">{fmt(t.kg_seized)}</div><div class="label">kg of cannabis</div></div>}
+    {t.deaths > 0 && <div class="tile"><div class="big">{fmt(t.deaths)}</div><div class="label">Deaths</div></div>}
+  </div>
+  <p class="note">Totals add up only what the reports state; most operations are never reported in numbers.</p>
+
+  <WorldMap reports={list} fit label={`Map of reports in ${name}`} />
+  <ul class="legend">{byType.map(([tid, n]) => <li class="type" style={`--c:${TYPES[tid].color}`}>{TYPES[tid].label} · {n}</li>)}</ul>
+
+  {states.length > 0 && (
+    <>
+      <h2>By state</h2>
+      <ul class="cards">{states.map((s) => <li><a href={`${base}country/${s.id}/`}>{s.name} <span class="muted">· {reportsOf(s.id).length}</span></a></li>)}</ul>
+    </>
+  )}
+
+  <h2>Reports</h2>
+  <ul class="reports">{list.map((r) => <ReportItem r={r} search={false} />)}</ul>
+  <p class="note">This country's reports as data: <a href={`${base}api/country/${id}.json`}>{`/api/country/${id}.json`}</a></p>
+</Base>

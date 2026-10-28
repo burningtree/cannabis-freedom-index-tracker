@@ -1,0 +1,87 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import WorldMap from "../../components/WorldMap.astro";
+import ReportItem from "../../components/ReportItem.astro";
+import { reports, related, formatDate, isoDate } from "../../lib/reports.js";
+import { TYPES, STATUS, PRECISION } from "../../lib/types.js";
+import { flagOf, cfiUrl } from "../../lib/countries.js";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("reports");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const r = reports.find((x) => x.id === entry.id);
+const { Content, remarkPluginFrontmatter } = await render(entry);
+const order = remarkPluginFrontmatter.citeOrder ?? r.sources.map((_, i) => i + 1);
+const cited = order.map((i) => r.sources[i - 1]);
+const base = import.meta.env.BASE_URL;
+const more = related(r);
+const others = reports.filter((x) => x.id !== r.id);
+const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" }).of(code);
+---
+<Base title={r.title} description={r.summary}>
+  <nav class="crumbs"><a href={base}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
+  <article>
+    <header class="report-head">
+      <div class="meta">
+        <span class="type" style={`--c:${r.color}`}>{r.typeLabel}</span>
+        {r.also?.map((t) => <span class="type" style={`--c:${TYPES[t].color}`}>{TYPES[t].label}</span>)}
+        <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time>
+        <span class:list={["status", r.status]} title={STATUS[r.status]}>{r.status}</span>
+      </div>
+      <h1>{r.title}</h1>
+      <p class="lead">{r.summary}</p>
+      <p class="muted">{flagOf(r.country)} {[r.place, r.countryName].filter(Boolean).join(" · ")}</p>
+    </header>
+
+    {r.cover && (
+      <figure class="cover">
+        <Image src={r.cover.image} alt={r.cover.alt} widths={[640, 960, 1280]} sizes="(max-width: 860px) 100vw, 860px" />
+        <figcaption><a href={r.cover.url} class="ext" target="_blank" rel="noopener">{r.cover.credit}</a> · {r.cover.licence}</figcaption>
+      </figure>
+    )}
+
+    {r.figureRows.length > 0 && (
+      <dl class="figures">
+        {r.figureRows.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+      </dl>
+    )}
+
+    <div class="prose"><Content /></div>
+
+    <h2 id="sources">Sources</h2>
+    <ol class="sources">
+      {cited.map((s, i) => (
+        <li id={`ref-${i + 1}`}>
+          <a href={s.url} class="ext" target="_blank" rel="noopener noreferrer">{s.title}</a>.
+          {" "}{s.publisher}{s.date && `, ${formatDate(s.date)}`}.
+          {s.language && <span class="muted"> In {languageName(s.language)}.</span>}
+          {s.archived && <> <a href={s.archived} target="_blank" rel="noopener">Archived copy</a>.</>}
+        </li>
+      ))}
+    </ol>
+  </article>
+
+  <div class="side-grid">
+    <section>
+      <h2>Where</h2>
+      {r.coordinates ? <div class="pin-map"><WorldMap reports={[r, ...others]} focus={r} label={`Map: ${r.place ?? r.countryName}`} /></div> : <p class="muted">No location given.</p>}
+      {r.precision && <p class="note">The dot marks {PRECISION[r.precision]}{r.precision === "country" ? " (no closer place given)" : ""}.</p>}
+    </section>
+    <section>
+      <h2>The law there</h2>
+      <p>How {r.countryName} treats cannabis today, its penalties and its history: <a href={cfiUrl(r.country)} class="ext" target="_blank" rel="noopener">{r.countryName} on the Cannabis Freedom Index</a>.</p>
+      <p><a href={`${base}country/${r.country}/`}>All reports from {r.countryName} →</a></p>
+    </section>
+  </div>
+
+  {more.length > 0 && (
+    <section>
+      <h2>Related reports</h2>
+      <ul class="reports">{more.map((x) => <ReportItem r={x} search={false} />)}</ul>
+    </section>
+  )}
+</Base>

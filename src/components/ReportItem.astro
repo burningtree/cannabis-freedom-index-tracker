@@ -1,0 +1,23 @@
+---
+// One report in a list: type, date, place, title, summary and its main figures.
+import { formatDate, isoDate } from "../lib/reports.js";
+import { flagOf } from "../lib/countries.js";
+const { r, search = true } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const haystack = [r.title, r.summary, r.place, r.countryName, r.typeLabel, ...(r.tags ?? [])].join(" ").toLowerCase();
+---
+<li class="report-item" data-id={r.id} data-type={r.type} data-also={(r.also ?? []).join(" ")}
+  data-country={r.country} data-parent={r.parent ?? undefined} data-year={r.year} data-text={search ? haystack : undefined}>
+  <div class="meta">
+    <span class="type" style={`--c:${r.color}`}>{r.typeLabel}</span>
+    <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time>
+    <a href={`${base}country/${r.country}/`}>{flagOf(r.country)} {r.countryName}</a>
+  </div>
+  <h3><a href={`${base}${r.url}`}>{r.title}</a></h3>
+  <p>{r.summary}</p>
+  {r.figureRows.length > 0 && (
+    <div class="figs-inline">
+      {r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => <span>{f.label} <b>{f.value}</b></span>)}
+    </div>
+  )}
+</li>

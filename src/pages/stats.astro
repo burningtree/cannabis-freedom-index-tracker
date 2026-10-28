@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import { reports, totals, countByType, countriesWithReports, formatDate, isoDate } from "../lib/reports.js";
+import { TYPES } from "../lib/types.js";
+import { countryOf } from "../lib/countries.js";
+const base = import.meta.env.BASE_URL;
+const t = totals(reports);
+const fmt = (n) => n.toLocaleString("en-GB");
+const byType = Object.entries(countByType(reports)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
+const maxType = Math.max(...byType.map(([, n]) => n));
+const regions = Object.entries(Object.groupBy(reports, (r) => countryOf(r.country)?.region ?? "Other")).map(([k, v]) => [k, v.length]).sort((a, b) => b[1] - a[1]);
+const maxRegion = Math.max(...regions.map(([, n]) => n));
+const byYear = Object.entries(Object.groupBy(reports, (r) => r.year)).sort((a, b) => b[0] - a[0]);
+---
+<Base title="Statistics" description="Totals and a timeline of the cannabis enforcement reports.">
+  <h1>Statistics</h1>
+  <p class="lead">What the {reports.length} reports in the tracker add up to. These are only the figures the sources state, not estimates of all enforcement.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>
+    <div class="tile"><div class="big">{countriesWithReports().length}</div><div class="label">Countries and states</div></div>
+    <div class="tile"><div class="big">{fmt(t.arrested)}</div><div class="label">People arrested</div></div>
+    <div class="tile"><div class="big">{fmt(t.plants_destroyed)}</div><div class="label">Plants destroyed</div></div>
+    <div class="tile"><div class="big">{fmt(Math.round(t.hectares))}</div><div class="label">Hectares destroyed</div></div>
+    <div class="tile"><div class="big">{fmt(t.deaths)}</div><div class="label">Deaths</div></div>
+  </div>
+
+  <div class="side-grid">
+    <section>
+      <h2>By type</h2>
+      <ul class="bars">{byType.map(([id, n]) => <li><span>{TYPES[id].plural}</span><span class="bar" style={`--c:${TYPES[id].color}`}><i style={`width:${(n / maxType) * 100}%`}></i></span><span class="num">{n}</span></li>)}</ul>
+    </section>
+    <section>
+      <h2>By region</h2>
+      <ul class="bars">{regions.map(([k, n]) => <li><span>{k}</span><span class="bar"><i style={`width:${(n / maxRegion) * 100}%`}></i></span><span class="num">{n}</span></li>)}</ul>
+    </section>
+  </div>
+
+  <h2>Timeline</h2>
+  {byYear.map(([year, list]) => (
+    <section>
+      <h3>{year} <span class="muted">· {list.length}</span></h3>
+      <ol class="timeline">
+        {list.map((r) => (
+          <li style={`--c:${r.color}`}>
+            <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time> · <span class="muted">{r.countryName}</span><br />
+            <a href={`${base}${r.url}`}>{r.title}</a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+</Base>

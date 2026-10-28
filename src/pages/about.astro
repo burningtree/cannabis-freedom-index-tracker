@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { TYPES, STATUS } from "../lib/types.js";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="About" description="What the Cannabis Enforcement Tracker records, and how.">
+  <h1>About the tracker</h1>
+  <div class="prose">
+    <p>The Cannabis Enforcement Tracker is an open record of what the prohibition of cannabis does in practice:
+      fields destroyed, homes and shops raided, people arrested, tried, jailed and executed. It counts the human,
+      economic and cultural cost that a law's text does not show.</p>
+    <p>It is a companion to the <a href="https://cannabisfreedom.fyi/">Cannabis Freedom Index</a>, which scores what
+      each country's laws allow. Country ids are the same, so each report links to the law behind it.</p>
+    <h2>What a report is</h2>
+    <p>One event or one campaign, told plainly: what happened, to whom, and what it cost. Every sentence rests on
+      a source that was opened and read, cited in the text. A report without a source is refused by the build.</p>
+    <h2>Types</h2>
+    <ul>{Object.values(TYPES).map((t) => <li><span class="type" style={`--c:${t.color}`}>{t.label}</span> {t.help}</li>)}</ul>
+    <h2>Status</h2>
+    <ul>{Object.entries(STATUS).map(([k, v]) => <li><b>{k}</b>: {v}</li>)}</ul>
+    <h2>Figures</h2>
+    <p>Numbers are what the sources state, often the authorities' own. Values of seized cannabis are official
+      estimates and usually high. Totals on this site add up only the reports in it.</p>
+    <h2>Data</h2>
+    <p>All reports as JSON: <a href={`${base}api/reports.json`}>/api/reports.json</a>; one country:
+      <code>/api/country/&lt;id&gt;.json</code>. The source files are YAML front matter and Markdown, one per report.</p>
+  </div>
+</Base>
