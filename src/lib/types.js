@@ -1,14 +1,16 @@
 // The kinds of enforcement a report can be about, in the order they are listed and filtered.
-// Each has a colour for its dot on the map: the one place colour appears besides the photos.
+// Each has a colour for its marker on the map: warm, hostile tones for what the authorities do to
+// land and people, cooler ones for the courts. No green: green is the Landrace.wiki layers (living
+// landrace cannabis), so the two never read alike.
 export const TYPES = {
-  eradication: { label: "Eradication", plural: "Eradications", color: "#5f9e57", help: "Fields or plants destroyed" },
-  seizure: { label: "Seizure", plural: "Seizures", color: "#d9a43c", help: "Cannabis, money or property taken" },
-  raid: { label: "Raid", plural: "Raids", color: "#d9733c", help: "Homes, shops, clubs or farms searched" },
-  arrest: { label: "Arrest", plural: "Arrests", color: "#c94f4f", help: "People detained" },
-  prosecution: { label: "Prosecution", plural: "Prosecutions", color: "#8f6fc9", help: "Charges and trials" },
-  sentence: { label: "Sentence", plural: "Sentences", color: "#5c8fd6", help: "Prison terms, fines, caning" },
-  execution: { label: "Execution", plural: "Executions", color: "#e8e6df", help: "People put to death for cannabis" },
-  death: { label: "Death", plural: "Deaths", color: "#9a9890", help: "People killed in enforcement or in custody" },
+  eradication: { label: "Eradication", plural: "Eradications", color: "#e8743b", help: "Fields or plants destroyed" },
+  seizure: { label: "Seizure", plural: "Seizures", color: "#e3b341", help: "Cannabis, money or property taken" },
+  raid: { label: "Raid", plural: "Raids", color: "#e0565b", help: "Homes, shops, clubs or farms searched" },
+  arrest: { label: "Arrest", plural: "Arrests", color: "#c23a4a", help: "People detained" },
+  prosecution: { label: "Prosecution", plural: "Prosecutions", color: "#a56cc1", help: "Charges and trials" },
+  sentence: { label: "Sentence", plural: "Sentences", color: "#6b8fd6", help: "Prison terms, fines, caning" },
+  execution: { label: "Execution", plural: "Executions", color: "#f2f0e9", help: "People put to death for cannabis" },
+  death: { label: "Death", plural: "Deaths", color: "#8f8d85", help: "People killed in enforcement or in custody" },
 };
 export const TYPE_IDS = Object.keys(TYPES);
 
@@ -29,3 +31,21 @@ export const STATUS = {
   reported: "As reported, not yet checked",
   disputed: "Sources disagree",
 };
+
+// Each type's map marker: a diamond in its colour with a small pictogram, as on war maps. The same
+// SVG draws the dots on the map (src/components/WorldMap.astro) and the legend.
+const GLYPHS = {
+  eradication: '<path d="M16 9.2c2.1 2.9 4.2 4.6 4.2 7.6a4.2 4.2 0 0 1-8.4 0c0-1.7.8-2.8 1.7-3.6.2 1.2.8 2 1.7 2.2-.4-2.3.1-4.5.8-6.2z" fill="currentColor"/>',
+  seizure: '<rect x="11" y="12" width="10" height="9" rx=".6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11 15.2h10M16 12v3.2" stroke="currentColor" stroke-width="1.7"/>',
+  raid: '<path d="M18.5 10.5h3.2v11h-3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 16h6.5m-2.6-2.7 2.7 2.7-2.7 2.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>',
+  arrest: '<circle cx="12.8" cy="17.6" r="2.7" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="19.2" cy="17.6" r="2.7" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12.8 14.9 16 12.2l3.2 2.7" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+  prosecution: '<path d="m11.3 13.6 3.1-3.1 4.2 4.2-3.1 3.1z" fill="currentColor"/><path d="m16.8 16.8 4.4 4.4M10 22.2h6.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  sentence: '<rect x="11" y="10.5" width="10" height="11" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M14.4 10.5v11M17.6 10.5v11" stroke="currentColor" stroke-width="1.5"/>',
+  execution: '<path d="m12 12 8 8m0-8-8 8" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>',
+  death: '<path d="M16 10v12M12.4 14h7.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>',
+};
+const light = (hex) => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000 > 150; };
+export function typeIcon(type, size = 32) {
+  const { color } = TYPES[type];
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="${size}" height="${size}" style="color:${light(color) ? "#0c0c0b" : "#fff"}"><path d="M16 1.5 30.5 16 16 30.5 1.5 16z" fill="${color}" stroke="#0c0c0b" stroke-width="1.6" stroke-linejoin="round"/>${GLYPHS[type]}</svg>`;
+}

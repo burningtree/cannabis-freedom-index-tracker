@@ -4,7 +4,7 @@ import WorldMap from "../components/WorldMap.astro";
 import ReportItem from "../components/ReportItem.astro";
 import { reports, reportsOf, countriesWithReports, totals, years } from "../lib/reports.js";
 import { countries } from "../lib/countries.js";
-import { TYPES } from "../lib/types.js";
+import { TYPES, typeIcon } from "../lib/types.js";
 
 // The newest reports are on the page itself (for readers without scripts and for search engines);
 // filtering, search and "Show more" work on the shared index of all reports (/api/index.json).
@@ -20,47 +20,54 @@ const MONTHS = ["January", "February", "March", "April", "May", "June", "July", 
 const base = import.meta.env.BASE_URL;
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color }]));
 ---
-<Base wide>
-  <h1>Cannabis Enforcement Tracker</h1>
-  <p class="lead">
-    Fields burned, homes raided, people arrested, jailed and executed: an open, sourced record of what
-    cannabis prohibition does to people around the world. {fmt(t.reports)} reports from {countriesWithReports().length} countries and states so far.
-  </p>
+<Base app>
+  <div class="home">
+    <div class="home-map"><WorldMap label="World map of enforcement reports" /></div>
+    <aside class="home-pane" aria-label="Reports">
+      <header class="pane-head">
+        <h1>Cannabis Enforcement Tracker</h1>
+        <p>Fields burned, homes raided, people arrested, jailed and executed: a sourced record of what
+          cannabis prohibition does to people. {fmt(t.reports)} reports, {countriesWithReports().length} countries and states.</p>
+        <ul class="legend">
+          {usedTypes.map(([id, v]) => <li class="type" title={v.help}><Fragment set:html={typeIcon(id, 16)} />{v.label}</li>)}
+        </ul>
+      </header>
 
-  <WorldMap label="World map of enforcement reports" />
-  <ul class="legend">
-    {usedTypes.map(([, v]) => <li class="type" style={`--c:${v.color}`} title={v.help}>{v.label}</li>)}
-  </ul>
-
-  <form class="filters" role="search" onsubmit="return false">
-    <input type="search" id="q" placeholder="Search reports, places, tags…" aria-label="Search" />
-    <select id="type" aria-label="Type">
-      <option value="">All types</option>
-      {usedTypes.map(([id, v]) => <option value={id}>{v.plural}</option>)}
-    </select>
-    <select id="country" aria-label="Country">
-      <option value="">All countries</option>
-      {places.map((c) => <option value={c.id}>{c.name} ({c.count})</option>)}
-    </select>
-    <select id="year" aria-label="Year">
-      <option value="">All years</option>
-      {years.map((y) => <option value={y}>{y}</option>)}
-    </select>
-    <select id="month" aria-label="Month">
-      <option value="">All months</option>
-      {MONTHS.map((m, i) => <option value={String(i + 1).padStart(2, "0")}>{m}</option>)}
-    </select>
-  </form>
-  <div class="months" id="months" aria-label="Reports per month; choose a month to filter" hidden></div>
-  <p class="count" id="count" aria-live="polite">{fmt(reports.length)} reports · newest first</p>
-  <ul class="reports" id="list" data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
-    {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} />)}
-  </ul>
-  <p class="empty" id="empty" hidden>No report matches these filters.</p>
-  <p class="more-row">
-    <button type="button" class="more" id="more" hidden={reports.length <= PAGE}>Show more</button>
-    <a class="muted" href={`${base}${years[0] ?? ""}/`}>Browse by month →</a>
-  </p>
+      <form class="filters" role="search" onsubmit="return false">
+        <input type="search" id="q" placeholder="Search reports, places, tags…" aria-label="Search" />
+        <select id="type" aria-label="Type">
+          <option value="">All types</option>
+          {usedTypes.map(([id, v]) => <option value={id}>{v.plural}</option>)}
+        </select>
+        <select id="country" aria-label="Country">
+          <option value="">All countries</option>
+          {places.map((c) => <option value={c.id}>{c.name} ({c.count})</option>)}
+        </select>
+        <select id="year" aria-label="Year">
+          <option value="">All years</option>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+        <select id="month" aria-label="Month">
+          <option value="">All months</option>
+          {MONTHS.map((m, i) => <option value={String(i + 1).padStart(2, "0")}>{m}</option>)}
+        </select>
+      </form>
+      <div class="months" id="months" aria-label="Reports per month; choose a month to filter" hidden></div>
+      <p class="count" id="count" aria-live="polite">{fmt(reports.length)} reports · newest first</p>
+      <ul class="reports" id="list" data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
+        {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} />)}
+      </ul>
+      <p class="empty" id="empty" hidden>No report matches these filters.</p>
+      <p class="more-row">
+        <button type="button" class="more" id="more" hidden={reports.length <= PAGE}>Show more</button>
+        <a class="muted" href={`${base}${years[0] ?? ""}/`}>Browse by month →</a>
+      </p>
+      <footer class="pane-foot">
+        A companion to the <a href="https://cannabisfreedom.fyi/" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
+        Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a> · <a href={`${base}feed.xml`}>RSS</a>.
+      </footer>
+    </aside>
+  </div>
 </Base>
 
 <script>
@@ -82,7 +89,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   let rows: Row[] = [], countries: Record<string, string> = {}, haystack = new Map<Row, string>();
   let shown: Row[] = [], limit = PAGE;
 
-  const item = (r: Row) => `<li class="report-item">
+  const item = (r: Row) => `<li class="report-item" data-id="${r.i}">
     <div class="meta"><span class="type" style="--c:${types[r.t].color}">${esc(types[r.t].label)}</span>
       <time datetime="${r.d}">${fmtDate(r.d)}</time>
       <a href="${base}country/${r.c}/">${flag(r.c)} ${esc(countries[r.c])}</a></div>
@@ -138,6 +145,11 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     for (const f of fields) if ($(f).value) p.set(f, $(f).value);
     history.replaceState(null, "", p.size ? `?${p}` : location.pathname);
   }
+
+  // pointing at a report in the list rings its marker on the map
+  const hover = (id: string | null) => document.dispatchEvent(new CustomEvent("reports:hover", { detail: id }));
+  list.addEventListener("mouseover", (e) => hover((e.target as HTMLElement).closest<HTMLElement>(".report-item")?.dataset.id ?? null));
+  list.addEventListener("mouseleave", () => hover(null));
 
   loadIndex(base).then((idx) => {
     rows = idx.reports; countries = idx.countries;

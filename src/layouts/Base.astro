@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-const { title, description = "An open record of cannabis eradication, seizures, raids, arrests, prosecutions and sentences around the world.", wide = false } = Astro.props;
+const { title, description = "An open record of cannabis eradication, seizures, raids, arrests, prosecutions and sentences around the world.", wide = false, app = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const fullTitle = title ? `${title} · Cannabis Enforcement Tracker` : "Cannabis Enforcement Tracker";
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -22,7 +22,7 @@ const here = Astro.url.pathname.replace(base, "/");
     <link rel="alternate" type="application/json" href={`${base}api/reports.json`} title="All reports (JSON)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
   </head>
-  <body>
+  <body class:list={{ "app-body": app }}>
     <header class="topbar">
       <a class="brand" href={base}><span class="brand-mark" aria-hidden="true">✕</span>Cannabis Enforcement Tracker</a>
       <nav class="nav">
@@ -32,14 +32,16 @@ const here = Astro.url.pathname.replace(base, "/");
         <a href={`${base}about/`} aria-current={here.startsWith("/about") ? "page" : undefined}>About</a>
       </nav>
     </header>
-    <main class:list={["page", { wide }]}>
+    <main class:list={[app ? "app" : "page", { wide }]}>
       <slot />
     </main>
+    {!app && (
     <footer class="footer">
-      <p>
-        A companion to the <a href="https://cannabisfreedom.fyi/" class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
-        Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a> · <a href={`${base}feed.xml`}>RSS</a>.
-      </p>
-    </footer>
+        <p>
+          A companion to the <a href="https://cannabisfreedom.fyi/" class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
+          Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a> · <a href={`${base}feed.xml`}>RSS</a>.
+        </p>
+      </footer>
+    )}
   </body>
 </html>

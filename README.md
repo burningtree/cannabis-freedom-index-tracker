@@ -17,7 +17,7 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 
 | Address | What it shows |
 |---|---|
-| `/` | Map of all reports (dots coloured by type, clustered where they crowd) and the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
+| `/` | A full-screen map of all reports (a diamond marker per type, clustered where they crowd) with a pane on the right: the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
 | `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
 | `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports |
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
@@ -29,7 +29,24 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 
 The map is [MapLibre GL JS](https://maplibre.org/) on [OpenFreeMap](https://openfreemap.org/)'s
 dark vector style (OpenStreetMap data, no API key). The style URL is `MAP_STYLE` in
-`src/lib/map.js`.
+`src/lib/map.js`. Each type has a diamond marker with a pictogram (`typeIcon` in `src/lib/types.js`,
+also used by the legend), in warm colours for what is done to land and people and cooler ones for
+the courts; there is no green, which belongs to the Landrace layers.
+
+### Landrace layers
+
+The map's "Layers" switch shows [Landrace.wiki](https://landrace.wiki/)'s growing areas (on by
+default) and accessions: where landrace cannabis has been grown and collected for generations, next
+to where it is destroyed. The data is a snapshot in `public/layers/landrace.geojson`, © Landrace.wiki
+contributors, **CC BY-SA 4.0**, with coordinates already offset by about 500 m by Landrace.wiki. It
+loads only when a layer is on. Refresh it by hand with
+
+```bash
+node scripts/sync-landrace.mjs
+```
+
+(four polite requests to their API). Their API page asks to be emailed (privacy@landrace.wiki) before
+any regular harvest, so don't put it on a schedule without that.
 
 ## Adding a report
 

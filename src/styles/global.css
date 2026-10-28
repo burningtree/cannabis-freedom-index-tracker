@@ -81,6 +81,18 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .map-tip .maplibregl-popup-tip { display: none; }
 .map-tip strong { display: block; font-weight: 600; margin: 4px 0 2px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; padding: 0; list-style: none; }
+.legend .type::before { display: none; }
+.legend .type svg { width: 16px; height: 16px; flex: none; }
+.map-layers { position: absolute; left: 10px; top: 10px; z-index: 3; max-width: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font-size: 12.5px; }
+.map-layers summary { padding: 6px 10px; cursor: pointer; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
+.map-layers label { display: flex; align-items: center; gap: 7px; padding: 4px 10px; cursor: pointer; }
+.map-layers p { margin: 4px 10px 8px; color: var(--muted); font-size: 11.5px; line-height: 1.4; }
+.map-layers a { color: var(--text-2); text-decoration: underline; }
+.swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.swatch.area { background: rgba(63,154,95,.35); border: 1px solid #5fbf7f; }
+.swatch.accession { border: 1.5px solid #7fcf98; width: 9px; height: 9px; }
+.type.landrace { color: #7fcf98; }
+.type.landrace::before { display: none; }
 
 /* ── Filters and list ───────────────────────────────── */
 .filters { display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 8px; margin: 28px 0 8px; }
@@ -176,3 +188,27 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .month-chart rect { fill: var(--muted); }
 .month-chart a:hover rect { fill: var(--text); }
 .month-chart text { font: 11px var(--mono); fill: var(--muted); }
+
+/* ── Home: the map with a pane of reports on the right ── */
+.app-body { height: 100vh; overflow: hidden; }
+.app { flex: 1; min-height: 0; }
+.home { display: grid; grid-template-columns: minmax(0, 1fr) 440px; height: 100%; }
+.home-map { position: relative; min-height: 0; }
+.home-map .map { height: 100%; border: 0; border-radius: 0; }
+.home-pane { overflow-y: auto; border-left: 1px solid var(--border); background: var(--bg); padding: 20px 20px 28px; }
+.pane-head h1 { font-size: 30px; margin: 0 0 8px; }
+.pane-head p { color: var(--text-2); font-size: 14px; margin: 0 0 12px; }
+.home-pane .filters { grid-template-columns: 1fr 1fr; margin: 18px 0 6px; }
+.home-pane .filters input { grid-column: 1 / -1; }
+.home-pane .report-item h3 { font-size: 18px; }
+.home-pane .report-item p { font-size: 13.5px; }
+.home-pane .report-item.has-thumb { grid-template-columns: 1fr 84px; }
+.home-pane .report-item .thumb { width: 84px; height: 64px; }
+.pane-foot { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
+.pane-foot a { color: var(--text-2); }
+@media (max-width: 860px) {
+  .app-body { height: auto; overflow: visible; }
+  .home { display: block; }
+  .home-map { height: 58vh; }
+  .home-pane { border-left: 0; overflow: visible; }
+}

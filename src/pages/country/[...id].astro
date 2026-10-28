@@ -5,7 +5,7 @@ import WorldMap from "../../components/WorldMap.astro";
 import ReportItem from "../../components/ReportItem.astro";
 import { reportsOf, totals, countByType, isoDate } from "../../lib/reports.js";
 import { countries, countryName, countryOf, flagOf, cfiUrl } from "../../lib/countries.js";
-import { TYPES } from "../../lib/types.js";
+import { TYPES, typeIcon } from "../../lib/types.js";
 
 export function getStaticPaths() {
   return countries.filter((c) => reportsOf(c.id).length).map((c) => ({ params: { id: c.id } }));
@@ -44,7 +44,7 @@ const REC = { legal: "legal", partial: "partly legal", decriminalised: "decrimin
   <p class="note">Totals add up only what the reports state; most operations are never reported in numbers.</p>
 
   <WorldMap country={id} label={`Map of reports in ${name}`} />
-  <ul class="legend">{byType.map(([tid, n]) => <li class="type" style={`--c:${TYPES[tid].color}`}>{TYPES[tid].label} · {n}</li>)}</ul>
+  <ul class="legend">{byType.map(([tid, n]) => <li class="type"><Fragment set:html={typeIcon(tid, 16)} />{TYPES[tid].label} · {n}</li>)}</ul>
 
   {states.length > 0 && (
     <>
