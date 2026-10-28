@@ -17,10 +17,12 @@ figures:
 media:
   - kind: photo
     url: https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
+    archived: https://web.archive.org/web/20260901051852/https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
     publisher: La Nación (Paraguay)
     caption: Agents pull up plants in a cleared forest plot, a police helicopter behind them
   - kind: photo
     url: https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
+    archived: https://web.archive.org/web/20260825034441/https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
     publisher: A Crítica
     caption: A helicopter lands beside a cannabis field among tree stumps
 status: verified
@@ -28,11 +30,13 @@ tags: [nueva-alianza, brazil, protected-areas, joint-operation, deforestation]
 sources:
   - title: Nueva Alianza 57 asesta golpe de más USD 100 millones al narcotráfico
     url: https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
+    archived: https://web.archive.org/web/20260901051852/https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
     publisher: La Nación (Paraguay)
     date: 2026-08-31
     language: es
   - title: Operação destrói 145 hectares de maconha plantados dentro de reserva da biosfera da Unesco no Paraguai
     url: https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
+    archived: https://web.archive.org/web/20260825034441/https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
     publisher: A Crítica (Campo Grande)
     date: 2026-08-24
     language: pt

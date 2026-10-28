@@ -21,10 +21,12 @@ tags: [trafficking, foreigners, plea-deal, thailand]
 sources:
   - title: Pregnant British woman freed in Georgia after drug smuggling case
     url: https://www.frontnews.ge/en/news/britanetis-mokalake-bela-mei-kali-saprotseso-shetankhmebis-saphudzvelze-gatavisuphlda
+    archived: https://web.archive.org/web/20251103133249/https://frontnews.ge/en/news/britanetis-mokalake-bela-mei-kali-saprotseso-shetankhmebis-saphudzvelze-gatavisuphlda
     publisher: Front News Georgia
     date: 2025-11-03
   - title: Pregnant Brit facing jail after 'smuggling 14kg of cannabis into Georgia' tells court 'I didn't think this would happen to me'
     url: https://www.lbc.co.uk/crime/brit-smuggling-cannabis-georgia-bella-culley/
+    archived: https://web.archive.org/web/20250724143711/https://www.lbc.co.uk/crime/brit-smuggling-cannabis-georgia-bella-culley/
     publisher: LBC
     date: 2025-07-24
 ---

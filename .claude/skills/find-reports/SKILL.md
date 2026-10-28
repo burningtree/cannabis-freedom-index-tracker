@@ -81,7 +81,14 @@ node scripts/archive-media.mjs <slug> <slug> …
 ```
 
 Keeps local copies of every picture on the sources and media pages (`archive/`, not committed or
-published). Where the Wayback Machine already has a copy of a source, add it as `archived`.
+published). Then
+
+```bash
+node scripts/archive-sources.mjs <slug> <slug> …
+```
+
+adds the Wayback Machine's snapshot of each source and media page as `archived:`. Pages it has no
+copy of are listed; `--save` asks it to save them (only when the user has agreed to submit pages).
 
 ## 6. Check and commit
 

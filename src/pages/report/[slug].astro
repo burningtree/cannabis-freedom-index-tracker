@@ -57,7 +57,7 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
         <h2 id="media">Photos and video</h2>
         <ul class="media">
           {r.media.map((m) => (
-            <li><a href={m.url} class="ext" target="_blank" rel="noopener noreferrer">{m.caption}</a> <span class="muted">{m.kind === "video" ? "Video" : "Photos"}: {m.publisher}</span></li>
+            <li><a href={m.url} class="ext" target="_blank" rel="noopener noreferrer">{m.caption}</a> <span class="muted">{m.kind === "video" ? "Video" : "Photos"}: {m.publisher}{m.archived && <>, <a href={m.archived} target="_blank" rel="noopener">archived copy</a></>}</span></li>
           ))}
         </ul>
       </>

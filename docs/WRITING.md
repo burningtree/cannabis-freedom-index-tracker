@@ -99,8 +99,9 @@ copied** to this site.
 - **Archive everything.** Pages and pictures disappear, and they are the evidence. After writing a
   report, run `node scripts/archive-media.mjs <slug>`: it keeps a copy of every picture on the
   report's source and media pages in `archive/<slug>/`, with a manifest (page, image URL, date,
-  SHA-256). `archive/` is not committed or published; back it up privately. Also add an `archived`
-  copy (Wayback Machine or archive.today) to each source where one exists.
+  SHA-256). `archive/` is not committed or published; back it up privately. Then run
+  `node scripts/archive-sources.mjs <slug>` to add the Wayback Machine's copy of each source and
+  media page as `archived:` (`--save` asks it to save pages it lacks).
 
 ## 8. Status
 

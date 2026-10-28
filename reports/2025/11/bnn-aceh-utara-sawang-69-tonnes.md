@@ -18,6 +18,7 @@ tags: [bnn, aceh]
 sources:
   - title: BNN Musnahkan 69 Ton Ganja di Aceh Utara
     url: https://www.metrotvnews.com/read/bw6CgqR5-bnn-musnahkan-69-ton-ganja-di-aceh-utara
+    archived: https://web.archive.org/web/20251107152055/https://www.metrotvnews.com/read/bw6CgqR5-bnn-musnahkan-69-ton-ganja-di-aceh-utara
     publisher: Metro TV News
     date: 2025-11-06
     language: id

@@ -206,6 +206,27 @@ to `archive/<slug>/` with a manifest (page, image URL, date fetched, SHA-256), s
 survives if the pages change or disappear. `archive/` is ignored by git and not part of the site,
 because most of the pictures belong to their publishers; back it up privately.
 
+## Archived copies of sources
+
+`node scripts/archive-sources.mjs` looks up each source and media page in the Wayback Machine and
+writes the newest snapshot into the report as `archived:`. With `--save` it also asks the Wayback
+Machine to save pages it has no copy of yet; with slugs it does only those reports; `--dry` writes
+nothing.
+
+## Deployment
+
+`.github/workflows/deploy.yml` builds and publishes the site to GitHub Pages on every push to `main`
+(the tests run first; a failure stops the deploy). To set it up once:
+
+1. Push the repository to GitHub.
+2. Settings → Pages → Source: **GitHub Actions**.
+3. Settings → Pages → Custom domain: `tracker.cannabisfreedom.fyi` (also in `public/CNAME`), and at
+   the DNS host a `CNAME` record `tracker` → `<user>.github.io`. Turn on "Enforce HTTPS" once the
+   certificate is issued.
+
+The site address and base path come from the Pages settings, so the build also works on
+`<user>.github.io/<repo>/` before the domain is set.
+
 ## Planned
 
 - AI-assisted collection: drafts from news and agency feeds, saved with `status: reported`, then

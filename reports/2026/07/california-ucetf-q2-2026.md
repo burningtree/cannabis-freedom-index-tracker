@@ -20,6 +20,7 @@ tags: [ucetf, unlicensed-market, pesticides]
 sources:
   - title: California continues illegal cannabis crackdown, seizing more than 63,000 pounds of illegal cannabis in three months
     url: https://www.gov.ca.gov/2026/07/08/california-continues-illegal-cannabis-crackdown-seizing-more-than-63000-pounds-of-illegal-cannabis-in-three-months/
+    archived: https://web.archive.org/web/20260728233532/https://www.gov.ca.gov/2026/07/08/california-continues-illegal-cannabis-crackdown-seizing-more-than-63000-pounds-of-illegal-cannabis-in-three-months/
     publisher: Office of the Governor of California
     date: 2026-07-08
   - title: California continues illegal cannabis crackdown, seizing more than 63,000 pounds of illegal cannabis in three months

@@ -17,6 +17,7 @@ tags: [death-penalty, mandatory-sentence, courier]
 sources:
   - title: Singapore Executes Man for Cannabis Importation Amid Rising Drug-Related Executions
     url: https://deathpenaltyinfo.org/singapore-executes-man-for-cannabis-importation-amid-rising-drug-related-executions
+    archived: https://web.archive.org/web/20261022013703/https://deathpenaltyinfo.org/singapore-executes-man-for-cannabis-importation-amid-rising-drug-related-executions
     publisher: Death Penalty Information Center
     date: 2026-04-23
 ---

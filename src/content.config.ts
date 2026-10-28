@@ -61,6 +61,7 @@ const reports = defineCollection({
       url: z.string().url(),
       publisher: z.string().min(1),
       caption: z.string().min(1), // what it shows
+      archived: z.string().url().optional(), // a copy in the Wayback Machine
     }).strict()).optional(),
     status: z.enum(Object.keys(STATUS) as [string, ...string[]]),
     tags: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
