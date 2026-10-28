@@ -14,19 +14,28 @@ figures:
   hectares: 222
   kg_seized: 5250
   value: { amount: 100687500, currency: USD }
+media:
+  - kind: photo
+    url: https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
+    publisher: La Nación (Paraguay)
+    caption: Agents pull up plants in a cleared forest plot, a police helicopter behind them
+  - kind: photo
+    url: https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
+    publisher: A Crítica
+    caption: A helicopter lands beside a cannabis field among tree stumps
 status: verified
-tags: [nueva-alianza, brazil, protected-areas, joint-operation]
+tags: [nueva-alianza, brazil, protected-areas, joint-operation, deforestation]
 sources:
   - title: Nueva Alianza 57 asesta golpe de más USD 100 millones al narcotráfico
     url: https://www.lanacion.com.py/pais/2026/08/31/nueva-alianza-57-asesta-golpe-de-mas-usd-100-millones-al-narcotrafico/
     publisher: La Nación (Paraguay)
     date: 2026-08-31
     language: es
-  - title: Eliminan 98 hectáreas de marihuana en la frontera
-    url: https://www.hoy.com.py/nacionales/2025/10/24/eliminan-98-hectareas-de-marihuana-en-la-frontera
-    publisher: Hoy
-    date: 2025-10-24
-    language: es
+  - title: Operação destrói 145 hectares de maconha plantados dentro de reserva da biosfera da Unesco no Paraguai
+    url: https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
+    publisher: A Crítica (Campo Grande)
+    date: 2026-08-24
+    language: pt
 ---
 
 Paraguay's National Anti-Drug Secretariat (Senad) announced on 31 August 2026 the results of the
@@ -42,7 +51,11 @@ command and the public prosecutor's office. [@1] The report names no arrests. [@
 ## Inside the reserves
 
 Most of the work was in protected areas: the Mbaracayú Forest Nature Reserve, the Morombí and
-Caaguazú reserves and Estancia Pindó. [@1] Paraguay's anti-drug minister, Jalil Rachid, said in
-October 2025 that illegal cannabis growing had cleared more than 5,000 hectares of forest in two
-years. [@2] In that phase, the 53rd, teams eradicated 98 hectares in Caaguazú, Canindeyú and Alto Paraná.
-[@2]
+Caaguazú reserves and Estancia Pindó. [@1] Mbaracayú became Paraguay's first UNESCO biosphere reserve
+in 2000, and with Morombí it protects some of what remains of the Atlantic Forest of Alto Paraná.
+[@2] On 24 August, with the operation still under way, the count stood at 145 hectares eradicated and
+24 camps dismantled. [@2]
+
+Eradication removes the plants, not the clearings cut for them, which can be planted again. [@2]
+Neither Senad nor the Federal Police has said whether the cleared land in the reserves will be
+restored. [@2]

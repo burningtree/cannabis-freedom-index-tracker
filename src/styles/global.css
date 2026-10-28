@@ -116,6 +116,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .prose a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--muted); }
 sup.cite { font: 600 10.5px var(--mono); margin-left: 1px; }
 sup.cite a { color: var(--cite); text-decoration: none; }
+.media { padding-left: 18px; font-size: 14.5px; }
+.media li { margin-bottom: 6px; }
+.report-item.has-thumb { display: grid; grid-template-columns: 1fr 132px; gap: 0 18px; }
+.report-item .thumb { grid-column: 2; grid-row: 1 / span 4; width: 132px; height: 92px; object-fit: cover; border-radius: var(--r); margin-top: 4px; }
+@media (max-width: 560px) { .report-item.has-thumb { grid-template-columns: 1fr 84px; } .report-item .thumb { width: 84px; height: 64px; } }
 .sources { padding-left: 22px; font-size: 14px; color: var(--text-2); }
 .sources li { margin-bottom: 8px; scroll-margin-top: 80px; }
 .sources li:target { color: var(--text); }

@@ -54,6 +54,14 @@ const reports = defineCollection({
       licence: z.string().min(1),
       url: z.string().url(), // where the picture and its licence can be checked
     }).strict().optional(),
+    // photos or video of the event that may not be copied here (a newspaper's or an agency's):
+    // shown as links to where they are published
+    media: z.array(z.object({
+      kind: z.enum(["photo", "video"]),
+      url: z.string().url(),
+      publisher: z.string().min(1),
+      caption: z.string().min(1), // what it shows
+    }).strict()).optional(),
     status: z.enum(Object.keys(STATUS) as [string, ...string[]]),
     tags: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
     sources: z.array(source).min(1, { message: "a report needs at least one source" }),

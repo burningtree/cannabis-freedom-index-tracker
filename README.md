@@ -40,6 +40,9 @@ dark vector style (OpenStreetMap data, no API key). The style URL is `MAP_STYLE`
    number of the source in `sources`. Every source must be cited at least once.
 4. Run `npm test` (a second) and `npm run build`.
 
+The full guide is [docs/WRITING.md](docs/WRITING.md); to find new events, see
+[.claude/skills/find-reports/SKILL.md](.claude/skills/find-reports/SKILL.md).
+
 Writing: lead with what happened to people (who was arrested, jailed, lost their crop or land),
 then the figures, then context. Use the source's numbers, and say whose numbers they are ("the
 agency valued them at …"). No law-number lists, no adjectives the source does not support.
@@ -74,6 +77,11 @@ cover:                           # optional; a local picture with an open licenc
   credit: Photographer / agency
   licence: CC BY-SA 4.0
   url: https://commons.wikimedia.org/wiki/File:…
+media:                           # optional; photos or video of the event that can't be copied here
+  - kind: photo                  # photo | video
+    url: https://…               # the page they are on
+    publisher: La Nación (Paraguay)
+    caption: Agents pull up plants in a cleared forest plot
 status: verified                 # verified (checked against opened sources) | reported | disputed
 tags: [ndlea, farmers]           # optional, lower-case-with-hyphens
 sources:                         # at least one
@@ -190,6 +198,13 @@ reports (`us.json` lists `us/ca`'s).
 `coordinates` falls back to the middle of the country (`precision: "country"`) when the report gives
 none. `figures` holds only the keys a report states. Fields may be added in later versions; existing
 fields keep their meaning while `version` is 1.
+
+## Evidence archive
+
+`node scripts/archive-media.mjs [slug …]` saves every picture on each report's source and media pages
+to `archive/<slug>/` with a manifest (page, image URL, date fetched, SHA-256), so the evidence
+survives if the pages change or disappear. `archive/` is ignored by git and not part of the site,
+because most of the pictures belong to their publishers; back it up privately.
 
 ## Planned
 

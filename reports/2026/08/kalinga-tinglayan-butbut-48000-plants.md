@@ -14,6 +14,12 @@ figures:
   hectares: 0.6
   arrested: 0
   value: { amount: 9600000, currency: PHP }
+cover:
+  image: ../../../src/assets/reports/kalinga-tinglayan-eradication-2026.jpg
+  alt: Police and drug agents in uniform climb a steep, cleared mountain slope in Tinglayan, with misty green ridges behind them
+  credit: PDEA Cordillera, via Daily Tribune
+  licence: Work of the Government of the Philippines (no copyright, RA 8293 §176)
+  url: https://tribune.net.ph/2026/08/04/p96-million-worth-of-weeds-destroyed-in-kalinga
 status: verified
 tags: [cordillera, communal-land]
 sources:

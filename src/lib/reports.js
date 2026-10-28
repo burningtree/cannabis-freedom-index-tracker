@@ -91,6 +91,8 @@ export function compact(r, site) {
     status: r.status,
     figures: r.figures ?? {},
     tags: r.tags ?? [],
+    cover: r.cover ? { url: new URL(r.cover.image.src, site).href, alt: r.cover.alt, credit: r.cover.credit, licence: r.cover.licence, source: r.cover.url } : null,
+    media: r.media ?? [],
     sources: r.sources.map((s) => ({ title: s.title, url: s.url, publisher: s.publisher, date: s.date ? isoDate(s.date) : null, archived: s.archived ?? null })),
   };
 }
