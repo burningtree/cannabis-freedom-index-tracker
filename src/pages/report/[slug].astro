@@ -19,7 +19,6 @@ const order = remarkPluginFrontmatter.citeOrder ?? r.sources.map((_, i) => i + 1
 const cited = order.map((i) => r.sources[i - 1]);
 const base = import.meta.env.BASE_URL;
 const more = related(r);
-const others = reports.filter((x) => x.id !== r.id);
 const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" }).of(code);
 ---
 <Base title={r.title} description={r.summary}>
@@ -79,7 +78,7 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
   <div class="side-grid">
     <section>
       <h2>Where</h2>
-      {r.coordinates ? <div class="pin-map"><WorldMap reports={[r, ...others]} focus={r} label={`Map: ${r.place ?? r.countryName}`} /></div> : <p class="muted">No location given.</p>}
+      {r.coordinates ? <div class="pin-map"><WorldMap focus={r} label={`Map: ${r.place ?? r.countryName}`} /></div> : <p class="muted">No location given.</p>}
       {r.precision && <p class="note">The dot marks {PRECISION[r.precision]}{r.precision === "country" ? " (no closer place given)" : ""}.</p>}
     </section>
     <section>

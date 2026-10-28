@@ -34,8 +34,9 @@ const figures = z.object({
 }).strict();
 
 const reports = defineCollection({
-  // reports/<year>/<month>/<slug>.md; the slug alone is the report's id and address
-  loader: glob({ pattern: "**/*.md", base: "./reports", generateId: ({ entry }) => entry.split("/").pop()!.replace(/\.md$/, "") }),
+  // reports/<year>/<month>/<slug>.md; the slug alone is the report's id and address. REPORTS_DIR
+  // builds from another folder (scripts/load-test.mjs)
+  loader: glob({ pattern: "**/*.md", base: process.env.REPORTS_DIR || "./reports", generateId: ({ entry }) => entry.split("/").pop()!.replace(/\.md$/, "") }),
   schema: ({ image }) => z.object({
     date: day, // when it happened (or, for a campaign, when it ended or was announced)
     country: z.enum(COUNTRY_IDS), // a country file of the Cannabis Freedom Index: "de", "us/ca"

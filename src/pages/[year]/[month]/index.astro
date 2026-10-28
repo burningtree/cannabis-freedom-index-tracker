@@ -1,0 +1,26 @@
+---
+// A month: all its reports, newest first.
+import Base from "../../../layouts/Base.astro";
+import ReportItem from "../../../components/ReportItem.astro";
+import { byMonth, reportsOfMonth, monthName, countByType } from "../../../lib/reports.js";
+import { TYPES } from "../../../lib/types.js";
+
+export const getStaticPaths = () => [...byMonth.keys()].map((m) => { const [year, month] = m.split("-"); return { params: { year, month } }; });
+const { year, month } = Astro.params;
+const key = `${year}-${month}`;
+const list = reportsOfMonth(key);
+const base = import.meta.env.BASE_URL;
+const all = [...byMonth.keys()].sort();
+const prev = all[all.indexOf(key) - 1], next = all[all.indexOf(key) + 1];
+const byType = Object.entries(countByType(list)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
+---
+<Base title={monthName(key)} description={`${list.length} sourced reports of cannabis enforcement in ${monthName(key)}.`}>
+  <nav class="crumbs"><a href={base}>Reports</a> / <a href={`${base}${year}/`}>{year}</a></nav>
+  <h1>{monthName(key)}</h1>
+  <p class="lead">{list.length.toLocaleString("en-GB")} {list.length === 1 ? "report" : "reports"}. {byType.map(([t, n]) => `${TYPES[t].plural} ${n}`).join(" · ")}</p>
+  <nav class="pager">
+    {prev ? <a href={`${base}${prev.replace("-", "/")}/`}>← {monthName(prev)}</a> : <span></span>}
+    {next ? <a href={`${base}${next.replace("-", "/")}/`}>{monthName(next)} →</a> : <span></span>}
+  </nav>
+  <ul class="reports">{list.map((r) => <ReportItem r={r} search={false} />)}</ul>
+</Base>

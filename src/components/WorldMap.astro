@@ -1,59 +1,74 @@
 ---
-// The map with one dot per report, coloured by type: MapLibre GL JS on OpenFreeMap's dark vector
-// tiles (src/lib/map.js). The reports go to the page as GeoJSON; the script draws them, shows a
-// hover box and opens a report on click. `focus` centres the map on one report (the report page),
-// `fit` zooms to all the reports given (a country page), otherwise the whole world is shown. The
-// home page's filters hide dots through the "reports:filter" event.
+// The map of reports: MapLibre GL JS on OpenFreeMap's dark vector tiles (src/lib/map.js), one dot
+// per report coloured by type, grouped into numbered clusters where they crowd. The dots come from
+// the shared index (/api/index.json), loaded once and cached by the browser, so a page does not
+// carry the reports itself however many there are.
+//   focus: a report to centre on and ring (the report page)
+//   country: show only this country's reports (its states included) and zoom to them
+//   otherwise all reports and the whole world; the home page's filters narrow it through the
+//   "reports:filter" event.
 import { MAP_STYLE } from "../lib/map.js";
-import { formatDate } from "../lib/reports.js";
-const { reports, focus = null, fit = false, label = "Map of reports" } = Astro.props;
-const base = import.meta.env.BASE_URL;
+import { TYPES } from "../lib/types.js";
+const { focus = null, country = null, label = "Map of reports" } = Astro.props;
 const ZOOM = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
-const data = {
-  type: "FeatureCollection",
-  features: reports.filter((r) => r.coordinates).map((r) => ({
-    type: "Feature",
-    geometry: { type: "Point", coordinates: [r.coordinates[1], r.coordinates[0]] },
-    properties: {
-      id: r.id, url: `${base}${r.url}`, title: r.title, type: r.typeLabel, color: r.color,
-      date: formatDate(r.date), place: [r.place, r.countryName].filter(Boolean).join(" · "),
-      focus: focus?.id === r.id,
-    },
-  })),
-};
 const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordinates[0]], zoom: ZOOM[focus.precision] ?? 5 } : null;
+const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color }]));
 ---
-<div class="map" data-map data-style={MAP_STYLE} data-view={view ? JSON.stringify(view) : undefined} data-fit={fit ? "" : undefined} role="region" aria-label={label}>
-  <script type="application/json" set:html={JSON.stringify(data).replace(/</g, "\\u003c")} />
-</div>
+<div class="map" data-map data-style={MAP_STYLE} data-base={import.meta.env.BASE_URL}
+  data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined}
+  data-types={JSON.stringify(types)} role="region" aria-label={label}></div>
 
 <script>
   import maplibregl from "maplibre-gl";
   import "maplibre-gl/dist/maplibre-gl.css";
+  import { loadIndex, inCountry, type Row } from "../scripts/report-index";
 
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+  const fmtDate = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
   for (const box of document.querySelectorAll<HTMLElement>("[data-map]")) {
-    const data = JSON.parse(box.querySelector("script")!.textContent!);
-    // the whole inhabited world, fitted to the box, unless a report or a country is in focus
-    const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] as [[number, number], [number, number]] };
+    const { base = "/", focus, country } = box.dataset;
+    const types = JSON.parse(box.dataset.types!);
+    const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] };
     const map = new maplibregl.Map({
       container: box, style: box.dataset.style!, ...view,
-      minZoom: -1, maxZoom: 14, renderWorldCopies: false, // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
+      minZoom: -1, maxZoom: 14, renderWorldCopies: false,
+      // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
       attributionControl: { compact: true },
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
-    if (box.dataset.fit != null && data.features.length) {
-      const b = new maplibregl.LngLatBounds();
-      data.features.forEach((f: any) => b.extend(f.geometry.coordinates));
-      map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
-    }
 
-    map.on("load", () => {
-      map.addSource("reports", { type: "geojson", data });
+    let rows: Row[] = [];
+    let index: Awaited<ReturnType<typeof loadIndex>>;
+    const geojson = (list: Row[]) => ({
+      type: "FeatureCollection" as const,
+      features: list.filter((r) => r.ll).map((r) => ({
+        type: "Feature" as const,
+        geometry: { type: "Point" as const, coordinates: r.ll! },
+        properties: { id: r.i, title: r.ti, type: types[r.t].label, color: types[r.t].color, date: fmtDate(r.d), place: [r.p, index.countries[r.c]].filter(Boolean).join(" · "), focus: r.i === focus },
+      })),
+    });
+
+    Promise.all([loadIndex(base), new Promise((ok) => map.on("load", ok))]).then(([idx]) => {
+      index = idx;
+      rows = country ? idx.reports.filter((r) => inCountry(r, country)) : idx.reports;
+      map.addSource("reports", { type: "geojson", data: geojson(rows), cluster: true, clusterRadius: 36, clusterMaxZoom: 7 });
+      // clusters: a neutral disc with the number of reports
       map.addLayer({
-        id: "reports", type: "circle", source: "reports",
+        id: "clusters", type: "circle", source: "reports", filter: ["has", "point_count"],
+        paint: {
+          "circle-color": "#f2f0e9", "circle-opacity": 0.85, "circle-stroke-color": "#0c0c0b", "circle-stroke-width": 1.5,
+          "circle-radius": ["step", ["get", "point_count"], 11, 10, 15, 50, 20, 250, 26],
+        },
+      });
+      map.addLayer({
+        id: "cluster-count", type: "symbol", source: "reports", filter: ["has", "point_count"],
+        layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Regular"], "text-size": 11.5, "text-allow-overlap": true },
+        paint: { "text-color": "#0c0c0b" },
+      });
+      map.addLayer({
+        id: "reports", type: "circle", source: "reports", filter: ["!", ["has", "point_count"]],
         paint: {
           "circle-color": ["get", "color"],
           "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, ["case", ["get", "focus"], 7, 5], 8, ["case", ["get", "focus"], 11, 8]],
@@ -61,6 +76,11 @@ const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordin
           "circle-stroke-width": ["case", ["get", "focus"], 2.5, 1.2],
         },
       });
+      if (country && rows.some((r) => r.ll)) {
+        const b = new maplibregl.LngLatBounds();
+        rows.forEach((r) => r.ll && b.extend(r.ll));
+        map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
+      }
 
       // the hover box
       const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, maxWidth: "280px", className: "map-tip" });
@@ -72,10 +92,17 @@ const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordin
           .addTo(map);
       });
       map.on("mouseleave", "reports", () => { map.getCanvas().style.cursor = ""; popup.remove(); });
-      map.on("click", "reports", (e) => { location.href = (e.features![0].properties as any).url; });
+      map.on("click", "reports", (e) => { location.href = `${base}report/${(e.features![0].properties as any).id}/`; });
+      map.on("mouseenter", "clusters", () => { map.getCanvas().style.cursor = "zoom-in"; });
+      map.on("mouseleave", "clusters", () => { map.getCanvas().style.cursor = ""; });
+      map.on("click", "clusters", async (e) => {
+        const f = e.features![0];
+        const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(f.properties!.cluster_id);
+        map.easeTo({ center: (f.geometry as any).coordinates, zoom });
+      });
 
       // the home page's filters say which reports to show
-      const filter = (ids: Set<string>) => map.setFilter("reports", ["in", ["get", "id"], ["literal", [...ids]]]);
+      const filter = (ids: Set<string>) => (map.getSource("reports") as maplibregl.GeoJSONSource).setData(geojson(rows.filter((r) => ids.has(r.i))));
       document.addEventListener("reports:filter", ((e: CustomEvent<Set<string>>) => filter(e.detail)) as EventListener);
       if ((window as any).__reportsShown) filter((window as any).__reportsShown);
     });

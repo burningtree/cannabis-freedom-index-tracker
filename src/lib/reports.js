@@ -34,6 +34,7 @@ export const reports = entries.map(({ id, data, body }) => {
     countryName: countryName(data.country),
     parent: countryOf(data.country)?.parent ?? null,
     year: data.date.getUTCFullYear(),
+    month: isoDate(data.date).slice(0, 7), // "2026-08"
     typeLabel: TYPES[data.type].label,
     color: TYPES[data.type].color,
     coordinates,
@@ -42,8 +43,34 @@ export const reports = entries.map(({ id, data, body }) => {
   };
 }).sort((a, b) => b.date - a.date || a.title.localeCompare(b.title));
 
-// the reports about a country, its states included ("us" also lists "us/ca")
-export const reportsOf = (id) => reports.filter((r) => r.country === id || r.parent === id);
+// Indexes, so pages stay quick with thousands of reports: by country (a country's list includes
+// its states': "us" also lists "us/ca"), by type, and by month ("2026-08"), each newest first.
+const group = (key) => {
+  const m = new Map();
+  for (const r of reports) for (const k of [key(r)].flat().filter(Boolean)) (m.get(k) ?? m.set(k, []).get(k)).push(r);
+  return m;
+};
+const byCountry = group((r) => [r.country, r.parent]);
+const byType = group((r) => r.type);
+export const byMonth = group((r) => r.month);
+export const reportsOf = (id) => byCountry.get(id) ?? [];
+export const reportsOfMonth = (month) => byMonth.get(month) ?? [];
+export const years = [...new Set(reports.map((r) => r.year))].sort((a, b) => b - a);
+export const monthsOf = (year) => [...byMonth.keys()].filter((m) => m.startsWith(`${year}-`)).sort().reverse();
+// every month from the first report to the last, with how many reports: for timelines
+export function monthSeries(list = reports) {
+  if (!list.length) return [];
+  const counts = new Map();
+  for (const r of list) counts.set(r.month, (counts.get(r.month) ?? 0) + 1);
+  const months = [...counts.keys()].sort();
+  const out = [];
+  for (let [y, m] = months[0].split("-").map(Number); `${y}-${String(m).padStart(2, "0")}` <= months.at(-1); m === 12 ? (y++, m = 1) : m++) {
+    const k = `${y}-${String(m).padStart(2, "0")}`;
+    out.push({ month: k, count: counts.get(k) ?? 0 });
+  }
+  return out;
+}
+export const monthName = (month, style = "long") => new Date(`${month}-01T00:00:00Z`).toLocaleDateString("en-GB", { month: style, year: "numeric", timeZone: "UTC" });
 
 // totals of the figures over a set of reports
 export function totals(list) {
@@ -67,10 +94,26 @@ export const countriesWithReports = () => {
   return [...m].map(([id, n]) => ({ id, name: countryName(id), count: n })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 };
 
-// reports like this one: same country first, then same type, newest first
+// reports like this one: same country and type first, then same country, then same type; nearest
+// in time first. Looks only at the report's country and type, not at every report.
 export function related(r, n = 4) {
-  const score = (o) => (o.country === r.country || o.parent === r.country || r.parent === o.country ? 2 : 0) + (o.type === r.type ? 1 : 0);
-  return reports.filter((o) => o.id !== r.id && score(o) > 0).sort((a, b) => score(b) - score(a) || b.date - a.date).slice(0, n);
+  const sameCountry = reportsOf(r.parent ?? r.country);
+  const pool = new Set([...sameCountry, ...(byType.get(r.type) ?? []).slice(0, 200)]);
+  pool.delete(r);
+  const score = (o) => (sameCountry.includes(o) ? 2 : 0) + (o.type === r.type ? 1 : 0);
+  return [...pool].sort((a, b) => score(b) - score(a) || Math.abs(a.date - r.date) - Math.abs(b.date - r.date)).slice(0, n);
+}
+
+// One report as a row of the shared index (/api/index.json) that the map and the home page's
+// filters load: short keys, only what a list item and a map dot need.
+export function indexRow(r) {
+  return {
+    i: r.id, d: isoDate(r.date), c: r.country, t: r.type, a: r.also ?? [],
+    ti: r.title, s: r.summary, p: r.place ?? null,
+    ll: r.coordinates ? [r.coordinates[1], r.coordinates[0]] : null, // [lon, lat], as GeoJSON
+    f: r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => [f.label, f.value]),
+    k: (r.tags ?? []).join(" "),
+  };
 }
 
 // the compact form used by the JSON files (see README: "JSON API")

@@ -1,20 +1,25 @@
 ---
 import Base from "../layouts/Base.astro";
-import { reports, totals, countByType, countriesWithReports, formatDate, isoDate } from "../lib/reports.js";
+import { reports, totals, countByType, countriesWithReports, monthSeries, monthName, years } from "../lib/reports.js";
 import { TYPES } from "../lib/types.js";
-import { countryOf } from "../lib/countries.js";
+import { countryOf, flagOf } from "../lib/countries.js";
 const base = import.meta.env.BASE_URL;
 const t = totals(reports);
 const fmt = (n) => n.toLocaleString("en-GB");
 const byType = Object.entries(countByType(reports)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
-const maxType = Math.max(...byType.map(([, n]) => n));
+const maxType = Math.max(1, ...byType.map(([, n]) => n));
 const regions = Object.entries(Object.groupBy(reports, (r) => countryOf(r.country)?.region ?? "Other")).map(([k, v]) => [k, v.length]).sort((a, b) => b[1] - a[1]);
-const maxRegion = Math.max(...regions.map(([, n]) => n));
-const byYear = Object.entries(Object.groupBy(reports, (r) => r.year)).sort((a, b) => b[0] - a[0]);
+const maxRegion = Math.max(1, ...regions.map(([, n]) => n));
+const top = countriesWithReports().slice(0, 25);
+// every month from the first report to the last, as bars
+const series = monthSeries();
+const maxMonth = Math.max(1, ...series.map((m) => m.count));
+const W = 900, H = 140, bw = series.length ? W / series.length : W;
+const yearRows = years.map((y) => { const list = reports.filter((r) => r.year === y); return { y, list, t: totals(list), types: countByType(list) }; });
 ---
 <Base title="Statistics" description="Totals and a timeline of the cannabis enforcement reports.">
   <h1>Statistics</h1>
-  <p class="lead">What the {reports.length} reports in the tracker add up to. These are only the figures the sources state, not estimates of all enforcement.</p>
+  <p class="lead">What the {fmt(reports.length)} reports in the tracker add up to. These are only the figures the sources state, not estimates of all enforcement.</p>
 
   <div class="tiles">
     <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>
@@ -24,6 +29,21 @@ const byYear = Object.entries(Object.groupBy(reports, (r) => r.year)).sort((a, b
     <div class="tile"><div class="big">{fmt(Math.round(t.hectares))}</div><div class="label">Hectares destroyed</div></div>
     <div class="tile"><div class="big">{fmt(t.deaths)}</div><div class="label">Deaths</div></div>
   </div>
+
+  <h2>Reports per month</h2>
+  {series.length > 0 && (
+    <figure class="month-chart">
+      <svg viewBox={`0 0 ${W} ${H + 18}`} role="img" aria-label={`Reports per month, ${monthName(series[0].month)} to ${monthName(series.at(-1).month)}`}>
+        {series.map((m, i) => (
+          <a href={`${base}${m.month.replace("-", "/")}/`}>
+            <rect x={i * bw + 0.5} y={H - (m.count / maxMonth) * H} width={Math.max(1, bw - 1)} height={Math.max(m.count ? 1 : 0, (m.count / maxMonth) * H)}><title>{monthName(m.month)}: {m.count}</title></rect>
+          </a>
+        ))}
+        <text x="0" y={H + 14}>{monthName(series[0].month, "short")}</text>
+        <text x={W} y={H + 14} text-anchor="end">{monthName(series.at(-1).month, "short")}</text>
+      </svg>
+    </figure>
+  )}
 
   <div class="side-grid">
     <section>
@@ -36,18 +56,20 @@ const byYear = Object.entries(Object.groupBy(reports, (r) => r.year)).sort((a, b
     </section>
   </div>
 
-  <h2>Timeline</h2>
-  {byYear.map(([year, list]) => (
-    <section>
-      <h3>{year} <span class="muted">· {list.length}</span></h3>
-      <ol class="timeline">
-        {list.map((r) => (
-          <li style={`--c:${r.color}`}>
-            <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time> · <span class="muted">{r.countryName}</span><br />
-            <a href={`${base}${r.url}`}>{r.title}</a>
-          </li>
-        ))}
-      </ol>
-    </section>
-  ))}
+  <h2>By year</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Year</th><th class="num">Reports</th>{byType.map(([id]) => <th class="num">{TYPES[id].plural}</th>)}<th class="num">Arrested</th><th class="num">Hectares</th></tr></thead>
+      <tbody>{yearRows.map((r) => <tr><td><a href={`${base}${r.y}/`}>{r.y}</a></td><td class="num">{fmt(r.list.length)}</td>{byType.map(([id]) => <td class="num">{r.types[id] || "–"}</td>)}<td class="num">{fmt(r.t.arrested)}</td><td class="num">{fmt(Math.round(r.t.hectares))}</td></tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2>Countries with the most reports</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Country</th><th class="num">Reports</th></tr></thead>
+      <tbody>{top.map((c) => <tr><td><a href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a></td><td class="num">{c.count}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <p><a href={`${base}country/`}>All countries →</a> · <a href={`${base}${years[0] ?? ""}/`}>Browse by month →</a></p>
 </Base>

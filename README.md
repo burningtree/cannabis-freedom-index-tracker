@@ -17,11 +17,13 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 
 | Address | What it shows |
 |---|---|
-| `/` | Map of all reports (dots coloured by type, zoom, hover box) and the list, filterable by type, country, year and free text; filters are kept in the address (`/?type=sentence&country=ge`) |
+| `/` | Map of all reports (dots coloured by type, clustered where they crowd) and the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
+| `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
 | `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports |
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
 | `/country/` | All countries with reports |
-| `/stats/` | Totals, reports by type and region, timeline |
+| `/stats/` | Totals, reports per month since the first report, by type, region and year, top countries |
+| `/feed.xml` | RSS feed of the 50 newest reports |
 | `/about/` | What a report is, the types and statuses |
 | `/api/…` | JSON, see below |
 
@@ -138,6 +140,18 @@ build for another address. `npm run dev` starts a local dev server.
 
 All files are static and rebuilt with the site. Dates are `YYYY-MM-DD`, coordinates `[lat, lon]`.
 
+### Files
+
+| File | What |
+|---|---|
+| `/api/reports.json` | every report |
+| `/api/reports/<year>.json` | one year's reports (`/api/reports/2026.json`) |
+| `/api/latest.json` | the 100 newest, with `total` |
+| `/api/country/<id>.json` | one country or state |
+
+`/api/index.json` is the site's own compact index for the map and the filters; it may change
+without notice.
+
 ### `/api/reports.json`
 
 Every report, newest first.
@@ -213,6 +227,23 @@ because most of the pictures belong to their publishers; back it up privately.
 writes the newest snapshot into the report as `archived:`. With `--save` it also asks the Wayback
 Machine to save pages it has no copy of yet; with slugs it does only those reports; `--dry` writes
 nothing.
+
+## Built for thousands of reports
+
+The tracker is organised by date: files in `reports/<year>/<month>/`, archive pages per year and
+month, a timeline per month. Pages do not grow with the number of reports: the home page carries the
+30 newest and loads one compact, cached index (`/api/index.json`, about 135 KB gzipped for 5,000
+reports) for the map, the filters and "Show more"; the map clusters dots; report pages load the same
+index for their map instead of embedding other reports; a country page shows its 20 newest in full
+and the rest as one line each, by year.
+
+```bash
+node scripts/load-test.mjs 5000
+```
+
+builds the site from 5,000 synthetic reports in `.cache/load-test/` (not in `reports/`) and prints
+the build time and the size of the main pages and files. With 5,000 reports: about 18 s, home page
+37 KB, a report page 8 KB.
 
 ## Deployment
 

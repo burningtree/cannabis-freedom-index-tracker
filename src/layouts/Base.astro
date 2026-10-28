@@ -18,6 +18,7 @@ const here = Astro.url.pathname.replace(base, "/");
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="theme-color" content="#0c0c0b" />
+    <link rel="alternate" type="application/rss+xml" href={`${base}feed.xml`} title="New reports (RSS)" />
     <link rel="alternate" type="application/json" href={`${base}api/reports.json`} title="All reports (JSON)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
   </head>
@@ -37,7 +38,7 @@ const here = Astro.url.pathname.replace(base, "/");
     <footer class="footer">
       <p>
         A companion to the <a href="https://cannabisfreedom.fyi/" class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
-        Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a>.
+        Every report cites its sources. Data: <a href={`${base}api/reports.json`}>JSON</a> · <a href={`${base}feed.xml`}>RSS</a>.
       </p>
     </footer>
   </body>

@@ -83,8 +83,17 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; padding: 0; list-style: none; }
 
 /* ── Filters and list ───────────────────────────────── */
-.filters { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 8px; margin: 28px 0 8px; }
-@media (max-width: 700px) { .filters { grid-template-columns: 1fr 1fr; } .filters input { grid-column: 1 / -1; } }
+.filters { display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 8px; margin: 28px 0 8px; }
+@media (max-width: 800px) { .filters { grid-template-columns: 1fr 1fr; } .filters input { grid-column: 1 / -1; } }
+.months { position: relative; display: flex; align-items: flex-end; gap: 2px; height: 56px; margin: 10px 0 22px; }
+.months button { flex: 1; height: 100%; display: flex; align-items: flex-end; padding: 0; background: none; border: 0; cursor: pointer; }
+.months button i { display: block; width: 100%; min-height: 1px; background: var(--muted); border-radius: 1px; }
+.months button:hover i, .months button.on i { background: var(--text); }
+.months-axis { position: absolute; left: 0; right: 0; bottom: -18px; display: flex; justify-content: space-between; font: 11px var(--mono); color: var(--muted); pointer-events: none; }
+.more-row { display: flex; align-items: center; gap: 18px; margin-top: 18px; }
+.more { padding: 9px 16px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--r); font: inherit; cursor: pointer; }
+.more:hover { background: var(--surface-2); }
+.more[hidden] { display: none; }
 .filters input, .filters select {
   width: 100%; padding: 9px 10px; background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--r); font: inherit;
@@ -150,3 +159,20 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; list-style: none; padding: 0; }
 .cards a { display: block; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); }
 .cards a:hover { border-color: var(--muted); text-decoration: none; }
+
+/* ── Archive by date ────────────────────────────────── */
+.pager { display: flex; justify-content: space-between; margin: 8px 0 20px; font-size: 14px; color: var(--text-2); }
+.year-bars { list-style: none; display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; height: 120px; padding: 0; margin: 20px 0 36px; }
+.year-bars li { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+.year-bars a, .year-bars li > span:first-child { flex: 1; display: flex; align-items: flex-end; }
+.year-bars i { display: block; width: 100%; min-height: 1px; background: var(--muted); border-radius: 1px; }
+.year-bars a:hover i { background: var(--text); }
+.year-bars .label { font: 11px var(--mono); color: var(--muted); text-align: center; margin-top: 4px; }
+.compact-list { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.compact-list li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.compact-list time { font: 12px var(--mono); color: var(--muted); padding-top: 2px; }
+.month-chart { margin: 8px 0 0; }
+.month-chart svg { width: 100%; height: auto; display: block; }
+.month-chart rect { fill: var(--muted); }
+.month-chart a:hover rect { fill: var(--text); }
+.month-chart text { font: 11px var(--mono); fill: var(--muted); }
