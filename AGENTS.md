@@ -4,6 +4,7 @@ The Cannabis Enforcement Tracker: sourced reports of cannabis eradication, seizu
 prosecutions, sentences, executions and deaths, built with Astro. Companion to the Cannabis Freedom
 Index (country ids are the CFI's).
 
+- **To add a report from a URL** the user gives, follow `.claude/skills/add-report/SKILL.md`.
 - **To find and add reports**, follow `.claude/skills/find-reports/SKILL.md`. Start with
   `node scripts/coverage.mjs`.
 - **How a report is written** (one event, sources, figures, pictures): `docs/WRITING.md`.

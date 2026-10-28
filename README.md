@@ -40,7 +40,8 @@ dark vector style (OpenStreetMap data, no API key). The style URL is `MAP_STYLE`
    number of the source in `sources`. Every source must be cited at least once.
 4. Run `npm test` (a second) and `npm run build`.
 
-The full guide is [docs/WRITING.md](docs/WRITING.md); to find new events, see
+The full guide is [docs/WRITING.md](docs/WRITING.md). For agents: to add a report from a URL, see
+[.claude/skills/add-report/SKILL.md](.claude/skills/add-report/SKILL.md); to find new events,
 [.claude/skills/find-reports/SKILL.md](.claude/skills/find-reports/SKILL.md).
 
 Writing: lead with what happened to people (who was arrested, jailed, lost their crop or land),
