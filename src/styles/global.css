@@ -21,6 +21,24 @@
   --shadow: 0 10px 40px rgba(0, 0, 0, .45);
   color-scheme: dark;
 }
+/* the light theme, as on the Cannabis Freedom Index: ink on warm paper */
+:root[data-theme="light"] {
+  --bg: #f4f2eb;
+  --surface: #fbfaf5;
+  --surface-2: #eae7dd;
+  --border: #d9d5c8;
+  --text: #11110f;
+  --text-2: #4b4a43;
+  --muted: #7a786d;
+  --accent: #11110f;
+  --accent-ink: #f4f2eb;
+  --cite: #2f65a3;
+  --land: #e2dfd4;
+  --land-edge: #f4f2eb;
+  --sea: #eae7dd;
+  --shadow: 0 10px 40px rgba(20, 20, 16, .14);
+  color-scheme: light;
+}
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -56,6 +74,12 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .nav { display: flex; gap: 18px; margin-left: auto; flex-wrap: wrap; }
 .nav a { color: var(--text-2); font-weight: 500; }
 .nav a[aria-current] { color: var(--text); }
+.theme-toggle { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: none; color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; }
+.theme-toggle:hover { color: var(--text); background: var(--surface); }
+.theme-toggle svg { width: 16px; height: 16px; }
+:root[data-theme="light"] .theme-toggle .moon, :root:not([data-theme="light"]) .theme-toggle .sun { display: none; }
+.type.landrace { color: var(--landrace, #7fcf98); }
+:root[data-theme="light"] { --landrace: #23703f; }
 .page { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
 .page.wide { max-width: 1200px; }
 .footer { border-top: 1px solid var(--border); padding: 20px clamp(16px, 4vw, 40px); color: var(--muted); font-size: 13px; }
@@ -72,11 +96,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .pin-map .map { height: 300px; }
 .maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--border); border-radius: var(--r) !important; box-shadow: none !important; }
 .maplibregl-ctrl-group button + button { border-top-color: var(--border) !important; }
-.maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+:root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
 .maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--bg) 80%, transparent) !important; color: var(--muted); font-size: 11px; }
 .maplibregl-ctrl-attrib, .maplibregl-ctrl-attrib-inner { color: var(--muted) !important; }
 .maplibregl-ctrl-attrib a { color: var(--text-2) !important; }
-.maplibregl-ctrl-attrib-button { filter: invert(1); }
+:root:not([data-theme="light"]) .maplibregl-ctrl-attrib-button { filter: invert(1); }
 .map-tip .maplibregl-popup-content { padding: 10px 12px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); font: 13px/1.4 Inter, system-ui, sans-serif; }
 .map-tip .maplibregl-popup-tip { display: none; }
 .map-tip strong { display: block; font-weight: 600; margin: 4px 0 2px; }

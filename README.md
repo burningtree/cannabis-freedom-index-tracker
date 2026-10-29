@@ -28,8 +28,9 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 | `/api/…` | JSON, see below |
 
 The map is [MapLibre GL JS](https://maplibre.org/) on [OpenFreeMap](https://openfreemap.org/)'s
-dark vector style (OpenStreetMap data, no API key). The style URL is `MAP_STYLE` in
-`src/lib/map.js`. Each type has a diamond marker with a pictogram (`typeIcon` in `src/lib/types.js`,
+dark and light (positron) vector styles (OpenStreetMap data, no API key), switched with the site's
+dark/light theme (the button in the top bar; the reader's choice is remembered, otherwise the
+system's is followed). The style URLs are `MAP_STYLES` in `src/lib/map.js`. Each type has a diamond marker with a pictogram (`typeIcon` in `src/lib/types.js`,
 also used by the legend), in warm colours for what is done to land and people and cooler ones for
 the courts; there is no green, which belongs to the Landrace layers.
 

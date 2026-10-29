@@ -1,23 +1,23 @@
 ---
-// The map of reports: MapLibre GL JS on OpenFreeMap's dark vector tiles (src/lib/map.js), one dot
-// per report coloured by type, grouped into numbered clusters where they crowd. The dots come from
-// the shared index (/api/index.json), loaded once and cached by the browser, so a page does not
-// carry the reports itself however many there are.
+// The map of reports: MapLibre GL JS on OpenFreeMap's vector tiles (src/lib/map.js), dark or light
+// with the site's theme, a diamond marker per report by type, grouped into numbered clusters where
+// they crowd. The markers come from the shared index (/api/index.json), loaded once and cached by the
+// browser, so a page does not carry the reports itself however many there are.
 //   focus: a report to centre on and ring (the report page)
 //   country: show only this country's reports (its states included) and zoom to them
 //   otherwise all reports and the whole world; the home page's filters narrow it through the
-//   "reports:filter" event.
+//   "reports:filter" event, and pointing at a report in its list rings it ("reports:hover").
 // Two optional layers show Landrace.wiki's growing areas and accessions (CC BY-SA 4.0, a snapshot
 // in public/layers/landrace.geojson, loaded only when switched on): where cannabis has been grown
 // for generations, next to where it is destroyed.
-import { MAP_STYLE } from "../lib/map.js";
+import { MAP_STYLES } from "../lib/map.js";
 import { TYPES, typeIcon } from "../lib/types.js";
 const { focus = null, country = null, label = "Map of reports" } = Astro.props;
 const ZOOM = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
 const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordinates[0]], zoom: ZOOM[focus.precision] ?? 5 } : null;
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color, icon: typeIcon(k, 64) }]));
 ---
-<div class="map" data-map data-style={MAP_STYLE} data-base={import.meta.env.BASE_URL}
+<div class="map" data-map data-styles={JSON.stringify(MAP_STYLES)} data-base={import.meta.env.BASE_URL}
   data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined}
   data-types={JSON.stringify(types)} role="region" aria-label={label}>
   <details class="map-layers">
@@ -35,13 +35,20 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
   const fmtDate = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  const theme = () => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
+  // the colours drawn on top of the basemap, per theme
+  const INK = {
+    dark: { ink: "#f2f0e9", bg: "#0c0c0b", green: "#5fbf7f", greenFill: "#3f9a5f", greenText: "#7fcf98" },
+    light: { ink: "#11110f", bg: "#f4f2eb", green: "#2e8a4f", greenFill: "#3f9a5f", greenText: "#23703f" },
+  };
 
   for (const box of document.querySelectorAll<HTMLElement>("[data-map]")) {
     const { base = "/", focus, country } = box.dataset;
     const types = JSON.parse(box.dataset.types!);
+    const styles = JSON.parse(box.dataset.styles!);
     const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] };
     const map = new maplibregl.Map({
-      container: box, style: box.dataset.style!, ...view,
+      container: box, style: styles[theme()], ...view,
       minZoom: -1, maxZoom: 14, renderWorldCopies: false,
       // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
@@ -49,8 +56,15 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
-    let rows: Row[] = [];
     let index: Awaited<ReturnType<typeof loadIndex>>;
+    let rows: Row[] = [];        // this map's reports
+    let shown: Row[] = [];       // those the filters let through
+    let hovered = "";
+    let landraceData: unknown = null;
+    const KEY = "map-layers";    // which Landrace layers are on, remembered in this browser
+    let chosen: Record<string, boolean> = { area: true, accession: false };
+    try { chosen = { ...chosen, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") }; } catch {}
+
     const geojson = (list: Row[]) => ({
       type: "FeatureCollection" as const,
       features: list.filter((r) => r.ll).map((r) => ({
@@ -62,40 +76,58 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 
     // the type markers, from the same SVG as the legend
     const icons = () => Promise.all(Object.entries(types).map(async ([k, v]: [string, any]) => {
+      if (map.hasImage(`t-${k}`)) return;
       const img = new Image(64, 64);
       img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(v.icon)}`;
       await img.decode();
       map.addImage(`t-${k}`, img, { pixelRatio: 2 });
     }));
 
-    Promise.all([loadIndex(base), new Promise((ok) => map.on("load", ok)).then(icons)]).then(([idx]) => {
-      index = idx;
-      rows = country ? idx.reports.filter((r) => inCountry(r, country)) : idx.reports;
-      map.addSource("reports", { type: "geojson", data: geojson(rows), cluster: true, clusterRadius: 26, clusterMaxZoom: 5 });
+    // the Landrace layers, under the reports; drawn when first switched on
+    function addLandrace() {
+      if (!landraceData || map.getSource("landrace")) return;
+      const c = INK[theme()];
+      map.addSource("landrace", { type: "geojson", data: landraceData as any });
+      map.addLayer({
+        id: "landrace-area", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "area"],
+        layout: { visibility: chosen.area ? "visible" : "none" },
+        paint: {
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5, 6, 14, 10, 34],
+          "circle-color": c.greenFill, "circle-opacity": 0.22, "circle-stroke-color": c.green, "circle-stroke-width": 1, "circle-stroke-opacity": 0.8,
+        },
+      }, "clusters");
+      map.addLayer({
+        id: "landrace-area-label", type: "symbol", source: "landrace", filter: ["==", ["get", "kind"], "area"], minzoom: 4.5,
+        layout: { visibility: chosen.area ? "visible" : "none", "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11, "text-offset": [0, 1.6], "text-optional": true },
+        paint: { "text-color": c.greenText, "text-halo-color": c.bg, "text-halo-width": 1.2 },
+      }, "clusters");
+      map.addLayer({
+        id: "landrace-accession", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "accession"],
+        layout: { visibility: chosen.accession ? "visible" : "none" },
+        paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 8, 4.5], "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": c.greenText, "circle-stroke-width": 1.2 },
+      }, "clusters");
+    }
+
+    // everything drawn on the basemap; runs again after the basemap changes with the theme, which
+    // drops all added sources and layers
+    async function build() {
+      await icons();
+      const c = INK[theme()];
+      map.addSource("reports", { type: "geojson", data: geojson(shown), cluster: true, clusterRadius: 26, clusterMaxZoom: 5 });
       // clusters: a neutral disc with the number of reports
       map.addLayer({
         id: "clusters", type: "circle", source: "reports", filter: ["has", "point_count"],
-        paint: {
-          "circle-color": "#f2f0e9", "circle-opacity": 0.85, "circle-stroke-color": "#0c0c0b", "circle-stroke-width": 1.5,
-          "circle-radius": ["step", ["get", "point_count"], 11, 10, 15, 50, 20, 250, 26],
-        },
+        paint: { "circle-color": c.ink, "circle-opacity": 0.85, "circle-stroke-color": c.bg, "circle-stroke-width": 1.5, "circle-radius": ["step", ["get", "point_count"], 11, 10, 15, 50, 20, 250, 26] },
       });
       map.addLayer({
         id: "cluster-count", type: "symbol", source: "reports", filter: ["has", "point_count"],
         layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Regular"], "text-size": 11.5, "text-allow-overlap": true },
-        paint: { "text-color": "#0c0c0b" },
+        paint: { "text-color": c.bg },
       });
-      // a ring under the report the reader points at in a list (the home page)
-      map.addLayer({
-        id: "hover", type: "circle", source: "reports", filter: ["==", ["get", "id"], ""],
-        paint: { "circle-radius": 18, "circle-color": "rgba(242,240,233,.18)", "circle-stroke-color": "#f2f0e9", "circle-stroke-width": 2 },
-      });
-      document.addEventListener("reports:hover", ((e: CustomEvent<string | null>) => map.setFilter("hover", ["==", ["get", "id"], e.detail ?? ""])) as EventListener);
-      // a ring under the report this page is about
-      map.addLayer({
-        id: "focus", type: "circle", source: "reports", filter: ["all", ["!", ["has", "point_count"]], ["get", "focus"]],
-        paint: { "circle-radius": 17, "circle-color": "rgba(242,240,233,.15)", "circle-stroke-color": "#f2f0e9", "circle-stroke-width": 1.5 },
-      });
+      const ring = (r: number, w: number) => ({ "circle-radius": r, "circle-color": theme() === "dark" ? "rgba(242,240,233,.16)" : "rgba(17,17,15,.10)", "circle-stroke-color": c.ink, "circle-stroke-width": w });
+      // a ring under the report the reader points at in a list, and under the one this page is about
+      map.addLayer({ id: "hover", type: "circle", source: "reports", filter: ["==", ["get", "id"], hovered], paint: ring(18, 2) });
+      map.addLayer({ id: "focus", type: "circle", source: "reports", filter: ["all", ["!", ["has", "point_count"]], ["get", "focus"]], paint: ring(17, 1.5) });
       map.addLayer({
         id: "reports", type: "symbol", source: "reports", filter: ["!", ["has", "point_count"]],
         layout: {
@@ -105,70 +137,40 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
           "symbol-sort-key": ["case", ["get", "focus"], 1, 0],
         },
       });
+      addLandrace();
+    }
+
+    const showLandrace = async (kind: string, on: boolean) => {
+      if (on && !landraceData) { landraceData = await fetch(`${base}layers/landrace.geojson`).then((r) => r.json()); addLandrace(); }
+      for (const id of kind === "area" ? ["landrace-area", "landrace-area-label"] : ["landrace-accession"]) {
+        if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
+      }
+    };
+
+    Promise.all([loadIndex(base), new Promise((ok) => map.once("load", ok))]).then(async ([idx]) => {
+      index = idx;
+      rows = country ? idx.reports.filter((r) => inCountry(r, country)) : idx.reports;
+      const pre: Set<string> | undefined = (window as any).__reportsShown; // filters that ran before the map
+      shown = pre ? rows.filter((r) => pre.has(r.i)) : rows;
+      await build();
       if (country && rows.some((r) => r.ll)) {
         const b = new maplibregl.LngLatBounds();
         rows.forEach((r) => r.ll && b.extend(r.ll));
         map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
       }
 
-      // Landrace.wiki layers, under the reports; the choice is remembered in this browser
-      const KEY = "map-layers";
-      let chosen: Record<string, boolean> = { area: true, accession: false };
-      try { chosen = { ...chosen, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") }; } catch {}
-      let landrace: Promise<void> | null = null;
-      const loadLandrace = () => landrace ??= fetch(`${base}layers/landrace.geojson`).then((r) => r.json()).then((data) => {
-        map.addSource("landrace", { type: "geojson", data, attribution: "" });
-        map.addLayer({
-          id: "landrace-area", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "area"],
-          layout: { visibility: "none" },
-          paint: {
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5, 6, 14, 10, 34],
-            "circle-color": "#3f9a5f", "circle-opacity": 0.22, "circle-stroke-color": "#5fbf7f", "circle-stroke-width": 1, "circle-stroke-opacity": 0.8,
-          },
-        }, "clusters");
-        map.addLayer({
-          id: "landrace-area-label", type: "symbol", source: "landrace", filter: ["==", ["get", "kind"], "area"], minzoom: 4.5,
-          layout: { visibility: "none", "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11, "text-offset": [0, 1.6], "text-optional": true },
-          paint: { "text-color": "#7fcf98", "text-halo-color": "#0c0c0b", "text-halo-width": 1.2 },
-        }, "clusters");
-        map.addLayer({
-          id: "landrace-accession", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "accession"],
-          layout: { visibility: "none" },
-          paint: {
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 8, 4.5],
-            "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": "#7fcf98", "circle-stroke-width": 1.2,
-          },
-        }, "clusters");
-        const lpop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, maxWidth: "260px", className: "map-tip" });
-        for (const id of ["landrace-area", "landrace-accession"]) {
-          map.on("mouseenter", id, (e) => {
-            map.getCanvas().style.cursor = "pointer";
-            const p = e.features![0].properties as any;
-            const what = p.kind === "area" ? "Landrace growing area" : `Landrace accession${p.year ? `, collected ${p.year}` : ""}`;
-            lpop.setLngLat((e.features![0].geometry as any).coordinates)
-              .setHTML(`<span class="type landrace">${what}</span><strong>${esc(p.name)}</strong><span class="muted">${esc([p.area ?? p.region, p.country].filter(Boolean).join(" · "))}<br>Landrace.wiki</span>`).addTo(map);
-          });
-          map.on("mouseleave", id, () => { map.getCanvas().style.cursor = ""; lpop.remove(); });
-          map.on("click", id, (e) => { if (!map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length) window.open((e.features![0].properties as any).url, "_blank", "noopener"); });
-        }
-      });
-      const show = async (kind: string, on: boolean) => {
-        if (on) await loadLandrace();
-        if (!map.getLayer(`landrace-${kind}`)) return;
-        for (const id of kind === "area" ? ["landrace-area", "landrace-area-label"] : ["landrace-accession"]) map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
-      };
       for (const input of box.querySelectorAll<HTMLInputElement>("[data-layer]")) {
         const kind = input.dataset.layer!;
         input.checked = chosen[kind];
-        show(kind, input.checked);
+        if (input.checked) showLandrace(kind, true);
         input.addEventListener("change", () => {
           chosen[kind] = input.checked;
           try { localStorage.setItem(KEY, JSON.stringify(chosen)); } catch {}
-          show(kind, input.checked);
+          showLandrace(kind, input.checked);
         });
       }
 
-      // the hover box
+      // hover boxes and clicks; bound to layer names, so they keep working after a rebuild
       const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, maxWidth: "280px", className: "map-tip" });
       map.on("mouseenter", "reports", (e) => {
         map.getCanvas().style.cursor = "pointer";
@@ -186,11 +188,32 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(f.properties!.cluster_id);
         map.easeTo({ center: (f.geometry as any).coordinates, zoom });
       });
+      for (const id of ["landrace-area", "landrace-accession"]) {
+        map.on("mouseenter", id, (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          const p = e.features![0].properties as any;
+          const what = p.kind === "area" ? "Landrace growing area" : `Landrace accession${p.year ? `, collected ${p.year}` : ""}`;
+          popup.setLngLat((e.features![0].geometry as any).coordinates)
+            .setHTML(`<span class="type landrace">${what}</span><strong>${esc(p.name)}</strong><span class="muted">${esc([p.area ?? p.region, p.country].filter(Boolean).join(" · "))}<br>Landrace.wiki</span>`).addTo(map);
+        });
+        map.on("mouseleave", id, () => { map.getCanvas().style.cursor = ""; popup.remove(); });
+        map.on("click", id, (e) => { if (!map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length) window.open((e.features![0].properties as any).url, "_blank", "noopener"); });
+      }
 
-      // the home page's filters say which reports to show
-      const filter = (ids: Set<string>) => (map.getSource("reports") as maplibregl.GeoJSONSource).setData(geojson(rows.filter((r) => ids.has(r.i))));
-      document.addEventListener("reports:filter", ((e: CustomEvent<Set<string>>) => filter(e.detail)) as EventListener);
-      if ((window as any).__reportsShown) filter((window as any).__reportsShown);
+      // the home page's filters and list
+      document.addEventListener("reports:filter", ((e: CustomEvent<Set<string>>) => {
+        shown = rows.filter((r) => e.detail.has(r.i));
+        (map.getSource("reports") as maplibregl.GeoJSONSource | undefined)?.setData(geojson(shown));
+      }) as EventListener);
+      document.addEventListener("reports:hover", ((e: CustomEvent<string | null>) => {
+        hovered = e.detail ?? "";
+        if (map.getLayer("hover")) map.setFilter("hover", ["==", ["get", "id"], hovered]);
+      }) as EventListener);
+      // the site's theme switch: the other basemap, then everything drawn on it again
+      document.addEventListener("theme:change", () => {
+        map.setStyle(styles[theme()], { diff: false });
+        map.once("style.load", build);
+      });
     });
   }
 </script>

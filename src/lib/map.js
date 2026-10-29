@@ -5,8 +5,8 @@ import { feature } from "topojson-client";
 import detail from "world-atlas/countries-50m.json";
 import { countries } from "./countries.js";
 
-// the basemap: OpenFreeMap's dark vector style (OpenStreetMap data, no key needed)
-export const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark";
+// the basemaps: OpenFreeMap's vector styles (OpenStreetMap data, no key needed), one per theme
+export const MAP_STYLES = { dark: "https://tiles.openfreemap.org/styles/dark", light: "https://tiles.openfreemap.org/styles/positron" };
 
 const centres = new Map(feature(detail, detail.objects.countries).features.map((f) => {
   const [lon, lat] = geoCentroid(f);
