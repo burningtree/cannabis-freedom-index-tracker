@@ -75,7 +75,7 @@ func (r Runner) importOpenCode2Auth(ctx context.Context, binary string, command 
 func userHome() string { home, _ := os.UserHomeDir(); return home }
 
 // Write native v2 configuration only in the disposable evidence snapshot.
-func configureOpenCode2(input string, steps int) error {
+func configureOpenCode2(input string, steps int, toolOutput ...string) error {
 	if steps <= 0 {
 		steps = 24
 	}
@@ -83,6 +83,11 @@ func configureOpenCode2(input string, steps int) error {
 	rules := append([]map[string]string(nil), deny...)
 	for _, action := range []string{"read", "glob", "grep", "skill", "webfetch", "websearch"} {
 		rules = append(rules, map[string]string{"action": action, "resource": "*", "effect": "allow"})
+	}
+	// Large tool results spill into the isolated session's XDG data directory,
+	// outside the read-only evidence input. Only that generated folder is external context.
+	for _, directory := range toolOutput {
+		rules = append(rules, map[string]string{"action": "external_directory", "resource": filepath.ToSlash(filepath.Clean(directory)) + "/*", "effect": "allow"})
 	}
 	agents := map[string]any{"enforcement-probe": map[string]any{
 		"description": "Short connectivity check", "mode": "primary", "steps": 2,

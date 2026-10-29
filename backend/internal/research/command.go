@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"gopkg.in/yaml.v3"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -40,6 +41,9 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 		return nil, nil, resolveErr
 	}
 	if r.Config.ResearchRunner != "local" {
+		if err := configureLegacyToolOutput(input, "/tmp/data/opencode/tool-output"); err != nil {
+			return nil, nil, err
+		}
 		name := "tracker-research-" + run
 		docker := []string{"run", "--rm", "--name", name, "--init", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges", "--pids-limit=128", "--memory=1g", "--cpus=1", "--user", "65534:65534", "--network", r.Config.ResearchNetwork, "--tmpfs", "/tmp:rw,noexec,nosuid,size=128m,mode=1777", "--mount", "type=bind,src=" + input + ",dst=/work,readonly", "--workdir", "/work", "--env", "HOME=/tmp", "--env", "XDG_CONFIG_HOME=/tmp/config", "--env", "XDG_DATA_HOME=/tmp/data", "--env", "XDG_CACHE_HOME=/tmp/cache", "--env", "RESEARCH_API_KEY", "--env", "OPENAI_API_KEY", "--entrypoint", "/usr/local/bin/tracker-research", r.Config.ResearchImage}
 		cmd := exec.CommandContext(ctx, "docker", append(docker, args...)...)
@@ -72,9 +76,6 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 	isV2 := openCode2(version)
 	if isV2 {
 		args = v2Args(args)
-		if err = configureOpenCode2(input, r.Config.ResearchMaxSteps); err != nil {
-			return nil, nil, err
-		}
 	}
 	home, err := os.MkdirTemp(filepath.Dir(input), ".opencode-session-")
 	if err != nil {
@@ -88,6 +89,16 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 	}()
 	for _, path := range []string{"config", "data", "cache", "state", "tmp"} {
 		if err = os.MkdirAll(filepath.Join(home, path), 0700); err != nil {
+			return nil, nil, err
+		}
+	}
+	toolOutput := filepath.Join(home, "data", "opencode", "tool-output")
+	if isV2 {
+		if err = configureOpenCode2(input, r.Config.ResearchMaxSteps, toolOutput); err != nil {
+			return nil, nil, err
+		}
+	} else {
+		if err = configureLegacyToolOutput(input, toolOutput); err != nil {
 			return nil, nil, err
 		}
 	}
@@ -122,7 +133,7 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 			init.Env, init.Dir = cmd.Env, cmd.Dir
 			_ = init.Run()
 		}
-		enableWebSearch(db)
+		enableWebSearch(db, r.Config.ResearchWebSearch)
 	}
 	prepared = true
 	return cmd, func() { _ = os.RemoveAll(home) }, nil
@@ -172,10 +183,13 @@ func (r Runner) copySavedAuth(home string) error {
 
 // OpenCode 2 searches the web only after a search provider has been chosen, a choice it stores in
 // its own database ("websearch:provider") and otherwise asks for in a prompt. A headless run cannot
-// answer the prompt, so every search ended as "Web search cancelled". Choose "random" (any provider
-// OpenCode has) in the run's isolated database, as the user's own OpenCode does. If the database or
-// table is not there, the run goes on without it.
-func enableWebSearch(path string) {
+// answer the prompt, so every search ended as "Web search cancelled". Choose the configured service
+// (RESEARCH_WEBSEARCH, Exa by default: it needs no key) in the run's isolated database. If the
+// database or table is not there, the run goes on without it.
+func enableWebSearch(path, provider string) {
+	if provider == "" {
+		provider = "exa"
+	}
 	if _, err := os.Stat(path); err != nil {
 		return
 	}
@@ -185,5 +199,35 @@ func enableWebSearch(path string) {
 	}
 	defer db.Close()
 	now := time.Now().UnixMilli()
-	_, _ = db.Exec("INSERT INTO kv (key, value, time_created, time_updated) VALUES ('websearch:provider', '\"random\"', ?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, time_updated=excluded.time_updated", now, now)
+	_, _ = db.Exec("INSERT INTO kv (key, value, time_created, time_updated) VALUES ('websearch:provider', ?, ?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, time_updated=excluded.time_updated", strconv.Quote(provider), now, now)
+}
+
+// Rewrite only the disposable agent frontmatter, never repository or home config.
+func configureLegacyToolOutput(input, toolOutput string) error {
+	path := filepath.Join(input, ".opencode", "agents", "enforcement-researcher.md")
+	data, err := os.ReadFile(path)
+	if os.IsNotExist(err) {
+		return nil
+	} // connectivity probes have no research agent
+	if err != nil {
+		return err
+	}
+	parts := strings.SplitN(string(data), "---", 3)
+	if len(parts) != 3 {
+		return errors.New("research agent instructions are invalid")
+	}
+	var header map[string]any
+	if err = yaml.Unmarshal([]byte(parts[1]), &header); err != nil {
+		return err
+	}
+	permissions, ok := header["permission"].(map[string]any)
+	if !ok {
+		return errors.New("research agent permissions are missing")
+	}
+	permissions["external_directory"] = map[string]string{"*": "deny", filepath.ToSlash(filepath.Clean(toolOutput)) + "/*": "allow"}
+	encoded, err := yaml.Marshal(header)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, []byte("---\n"+string(encoded)+"---"+parts[2]), 0644)
 }

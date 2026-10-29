@@ -194,31 +194,116 @@ func (r Result) Validate(countries map[string]bool) error {
 	return nil
 }
 func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl.Evidence, error) {
-	return r.VerifyWith(ctx, initial, safeurl.Fetch)
+	_, evidence, _, err := r.Confirm(ctx, initial, safeurl.Fetch)
+	return evidence, err
 }
-func (r Result) VerifyWith(ctx context.Context, initial safeurl.Evidence, fetch func(context.Context, string) (safeurl.Evidence, error)) ([]safeurl.Evidence, error) {
-	out := []safeurl.Evidence{}
+
+// Validation is how an answer was checked, for the request page: each source, whether the service
+// could open it again and how many of its quotations it found; the facts left out; the verdict.
+type Validation struct {
+	Sources   []SourceCheck `json:"sources"`
+	Facts     int           `json:"facts"`     // facts in the answer
+	Checked   int           `json:"checked"`   // facts whose source opened, so their quotation could be looked for
+	Confirmed int           `json:"confirmed"` // of those, the ones whose quotation was found
+	LeftOut   []string      `json:"left_out,omitempty"`
+	Passed    bool          `json:"passed"`
+	Reason    string        `json:"reason,omitempty"` // why it did not pass
+}
+type SourceCheck struct {
+	Title     string `json:"title"`
+	Publisher string `json:"publisher"`
+	URL       string `json:"url"`
+	Opened    bool   `json:"opened"`
+	Error     string `json:"error,omitempty"`
+	Facts     int    `json:"facts"`
+	Confirmed int    `json:"confirmed"`
+}
+
+// Confirm opens every source again and looks for each fact's quotation in it. Only a really bad
+// answer is refused: one with no confirmed fact, or one where most quotations checked are missing
+// (a sign of invented quotes). Otherwise the answer is kept, made sound and its gaps said:
+//   - a source the service cannot open again (a site that blocks it with 403, a paywall) stays, with
+//     its facts as the AI read them, and a note in the uncertainties;
+//   - a fact whose quotation is missing from a source that did open is left out, with a note;
+//   - a source no longer cited after that is left out, and the facts renumbered.
+//
+// It returns the answer to publish, the evidence that was opened and how it went.
+func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch func(context.Context, string) (safeurl.Evidence, error)) (Result, []safeurl.Evidence, Validation, error) {
+	v := Validation{Facts: len(r.Facts), Sources: make([]SourceCheck, len(r.Sources))}
+	fail := func(err error) (Result, []safeurl.Evidence, Validation, error) {
+		v.Reason = err.Error()
+		return r, nil, v, err
+	}
+	evidence := []safeurl.Evidence{}
+	opened := make([]*safeurl.Evidence, len(r.Sources))
 	for i, s := range r.Sources {
+		v.Sources[i] = SourceCheck{Title: s.Title, Publisher: s.Publisher, URL: s.URL}
 		u, err := safeurl.Normalize(s.URL)
 		if err != nil {
-			return nil, err
+			return fail(err)
 		}
 		e := initial
 		if (u != initial.URL && u != initial.FinalURL) || initial.Content == "" {
-			e, err = fetch(ctx, u)
-			if err != nil {
-				return nil, err
+			if e, err = fetch(ctx, u); err != nil {
+				if ctx.Err() != nil {
+					return r, nil, v, ctx.Err()
+				}
+				v.Sources[i].Error = err.Error()
+				r.Uncertainties = append(r.Uncertainties, fmt.Sprintf("%s (%s) could not be opened again to check its quotations (%s); what it says is as the AI read it.", s.Title, s.Publisher, strings.TrimSuffix(err.Error(), ".")))
+				continue
 			}
 		}
-		for _, f := range r.Facts {
-			if f.Source == i+1 && !e.Supports(f.Quote) {
-				return nil, errors.New("supporting quotation missing from opened source")
-			}
-		}
-		out = append(out, e)
+		v.Sources[i].Opened = true
+		opened[i] = &e
+		evidence = append(evidence, e)
 	}
-	return out, nil
+	kept := []Fact{}
+	for _, f := range r.Facts {
+		v.Sources[f.Source-1].Facts++
+		e := opened[f.Source-1]
+		if e == nil {
+			kept = append(kept, f)
+			continue
+		}
+		v.Checked++
+		if e.Supports(f.Quote) {
+			v.Confirmed++
+			v.Sources[f.Source-1].Confirmed++
+			kept = append(kept, f)
+			continue
+		}
+		v.LeftOut = append(v.LeftOut, f.Text)
+		r.Uncertainties = append(r.Uncertainties, fmt.Sprintf("Left out, as its quotation was not found in %s: %s", r.Sources[f.Source-1].Publisher, f.Text))
+	}
+	missing := v.Checked - v.Confirmed
+	switch {
+	case v.Confirmed == 0 && v.Checked > 0:
+		return fail(errors.New("no supporting quotation was found in the opened sources"))
+	case v.Confirmed == 0:
+		return fail(errors.New("no source could be opened again to check the facts"))
+	case missing*2 > v.Checked:
+		return fail(fmt.Errorf("%d of %d quotations were not found in the opened sources", missing, v.Checked))
+	}
+	// the sources still cited, in their order, and the facts pointing at their new numbers
+	cited := map[int]bool{}
+	for _, f := range kept {
+		cited[f.Source] = true
+	}
+	order, renumber := []Source{}, map[int]int{}
+	for i, s := range r.Sources {
+		if cited[i+1] {
+			order = append(order, s)
+			renumber[i+1] = len(order)
+		}
+	}
+	for i := range kept {
+		kept[i].Source = renumber[kept[i].Source]
+	}
+	r.Sources, r.Facts = order, kept
+	v.Passed = true
+	return r, evidence, v, nil
 }
+
 func (f *Figures) validate() error {
 	if f == nil {
 		return nil

@@ -35,6 +35,11 @@ The service already opened the submitted page. request.json says where it is:
   claims. Never use metadata descriptions or snippets in place of the opened article text.
 - source.png (when supplied): a captured browser screenshot for visual reference; use source.txt
   for quotations. Browser loading does not bypass a login, paywall or access challenge.
+Large tool responses can be saved to the isolated session's tool-output directory. When a tool
+returns a saved-output path, read or grep that exact file in bounded chunks. The service grants
+access to this generated-output folder only; other external directories remain unavailable.
+Prefer readable text/Markdown to raw HTML unless page structure is needed, and use focused grep
+patterns on reports-index.jsonl to keep results small.
 Grep reports-index.jsonl (all existing reports by country/title/source) for the same event,
 including later court steps and other outlets. Do not invent access to sources.
 

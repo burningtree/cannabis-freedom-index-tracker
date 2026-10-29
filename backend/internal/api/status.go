@@ -7,7 +7,7 @@ import "net/http"
 func (s *Server) status(w http.ResponseWriter, r *http.Request) {
 	var running, queued int64
 	err := s.Store.DB.QueryRowContext(r.Context(), `SELECT
- coalesce(sum(status IN ('fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')),0),
+ coalesce(sum(status IN ('fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')),0),
  coalesce(sum(status IN ('queued','budget_wait')),0) FROM cases`).Scan(&running, &queued)
 	if err != nil {
 		problem(w, 503, "Status unavailable.")

@@ -54,7 +54,7 @@ func (s *Store) Recover(ctx context.Context) error {
 	// over research; never repeat the model or lose a commit that already happened.
 	if _, err = tx.ExecContext(ctx, `INSERT INTO jobs(id,kind,ref,payload,status,available_at)
  SELECT lower(hex(randomblob(16))),'research',c.id,'{}','queued',? FROM cases c
- WHERE c.status IN ('queued','fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')
+ WHERE c.status IN ('queued','fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
  AND NOT EXISTS(SELECT 1 FROM jobs p WHERE p.ref=c.id AND p.kind='publish')
  ON CONFLICT(kind,ref) DO UPDATE SET status='queued',available_at=excluded.available_at,lease_until=0,lease_token='',error_code='server_recovered'
  WHERE jobs.status='done'`, now); err != nil {
@@ -62,12 +62,12 @@ func (s *Store) Recover(ctx context.Context) error {
 	}
 	if _, err = tx.ExecContext(ctx, `INSERT INTO submission_history(submission_id,status,explanation,actor,created_at)
  SELECT s.id,'queued','Recovering automatically after the server stopped. Saved research and publication work will be resumed.','recovery',?
- FROM submissions s JOIN cases c ON c.id=s.case_id WHERE c.status IN ('fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')
+ FROM submissions s JOIN cases c ON c.id=s.case_id WHERE c.status IN ('fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
  AND EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='queued')`, now); err != nil {
 		return err
 	}
 	if _, err = tx.ExecContext(ctx, `UPDATE cases SET status='queued',explanation='Recovering automatically after the server stopped. Saved research and publication work will be resumed.',updated_at=?
- WHERE status IN ('fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')
+ WHERE status IN ('fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
  AND EXISTS(SELECT 1 FROM jobs j WHERE j.ref=cases.id AND j.status='queued')`, now); err != nil {
 		return err
 	}

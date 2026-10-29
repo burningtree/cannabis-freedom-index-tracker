@@ -68,7 +68,11 @@ artifact. The service independently checks source access, quotations, output sch
 The local macOS runner uses `sandbox-exec`, a separate HOME/XDG/TMP directory, and filesystem rules
 that deny host home directories, other temporary data and service data while allowing the job's
 input and private session storage. It never inherits production/Nostr/GitHub environment variables.
-Agent bash, edits, external directories and task delegation are denied. This local development
+Agent bash, edits, external directories and task delegation are denied, except for the exact
+isolated session's `data/opencode/tool-output/*` directory. OpenCode saves oversized tool results
+there; the researcher may read/search those generated files without an external-directory prompt.
+The same narrow exception uses `/tmp/data/opencode/tool-output/*` in the Docker runner. It does
+not include the rest of session storage, auth files, other jobs or host directories. This local development
 sandbox is a filesystem boundary, not a production network firewall. Use the Docker runner with
 enforced egress controls for unattended deployment. Local OpenCode mode on other platforms fails explicitly
 rather than silently running without its sandbox.

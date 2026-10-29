@@ -15,6 +15,7 @@ const META = {
   fetching: { stage: 1, tone: "running", label: "Checking the source" },
   classifying: { stage: 2, tone: "running", label: "Source checked" },
   researching: { stage: 2, tone: "running", label: "Researching" },
+  verifying: { stage: 3, tone: "running", label: "Checking the answer" },
   drafted: { stage: 3, tone: "running", label: "Drafted" },
   awaiting_review: { stage: 3, tone: "running", label: "Awaiting review" },
   publishing: { stage: 4, tone: "running", label: "Publishing" },

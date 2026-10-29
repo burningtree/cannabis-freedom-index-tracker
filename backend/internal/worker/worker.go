@@ -324,13 +324,21 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		return w.Store.Transition(ctx, j.Ref, "failed", "The AI result did not pass validation ("+err.Error()+") and cannot be published automatically.", "", "")
 	}
 
-	evidence, err := result.VerifyWith(ctx, initial, func(ctx context.Context, u string) (safeurl.Evidence, error) { return w.loadSource(ctx, j.Ref, u) })
+	// a blocked extra source or a missing quotation is noted and worked around; only a really bad
+	// answer (nothing confirmed, or most quotations missing) stops here
+	if err = w.Store.Transition(ctx, j.Ref, "verifying", "The AI has answered; its sources are being opened again to check every quotation.", "", ""); err != nil {
+		return err
+	}
+	confirmed, evidence, check, err := result.Confirm(ctx, initial, func(ctx context.Context, u string) (safeurl.Evidence, error) { return w.loadSource(ctx, j.Ref, u) })
 	if ctx.Err() != nil {
 		return ctx.Err()
 	}
+	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"validation": store.JSON(check)})
 	if err != nil {
-		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "Supporting source access or quotations could not be independently confirmed ("+err.Error()+").", "", "")
+		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "The facts could not be confirmed in the sources ("+err.Error()+").", "", "")
 	}
+	result = confirmed
+	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"ai_result": store.JSON(result)})
 	if err = research.SaveEvidence(dir, evidence); err != nil {
 		return err
 	}

@@ -138,6 +138,7 @@
 .sx-checks li[data-ok="true"]::before { content: "✓"; color: var(--sx-done); }
 .sx-checks li[data-ok="false"]::before { content: "✕"; color: var(--sx-failed); }
 .sx-checks li[data-ok="wait"]::before { content: "…"; color: var(--sx-running); }
+.sx-checks li[data-ok="warn"]::before { content: "!"; color: #d9a43c; }
 
 /* the AI's draft, drawn like a report inside the Outcome card */
 .sx-draft-label { margin: 0 0 8px; }
@@ -240,3 +241,13 @@
 .sx-working { margin-bottom:2rem; }
 .sx-working h2,.sx-history-title { font-size:1.25rem; margin:0 0 .8rem; }
 #register-working-count { color:#3278bd; font-family:var(--font-mono,monospace); }
+
+/* the check of the AI's answer, under the draft in the Outcome card */
+.sx-validation { margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.sx-validation h3 { margin: 0 0 6px; font: 600 12px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
+.sx-validation-summary { margin: 0 0 8px; font-size: 14px; }
+.sx-validation-summary[data-ok="false"] { color: var(--sx-failed); }
+.sx-validation .sx-checks a { text-decoration: underline; text-underline-offset: 3px; }
+.sx-left-out { margin-top: 8px; font-size: 13px; }
+.sx-left-out summary { cursor: pointer; color: var(--text-2); }
+.sx-left-out ul { margin: 6px 0 0; padding-left: 18px; color: var(--text-2); }

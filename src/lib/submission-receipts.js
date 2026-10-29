@@ -3,7 +3,7 @@ export const ID_PATTERN = /^[a-f0-9]{32}$/;
 export const TERMINAL = new Set(["committed", "published", "duplicate", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review", "failed", "source_unavailable"]);
 export const STATUS_LABELS = {
   queued: "Queued", received: "Queued", fetching: "Researching", classifying: "Researching",
-  researching: "Researching", drafted: "Drafted", awaiting_review: "Awaiting review",
+  researching: "Researching", verifying: "Checking the answer", drafted: "Drafted", awaiting_review: "Awaiting review",
   committed: "Committed",
   budget_wait: "Budget paused",
   publishing: "Publishing", merged: "Deploying", deploying: "Deploying", published: "Published", duplicate: "Already covered",

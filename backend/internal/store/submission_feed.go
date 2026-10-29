@@ -72,7 +72,7 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
       count(DISTINCT CASE WHEN j.status='queued' AND c.status<>'budget_wait' AND NOT EXISTS(SELECT 1 FROM jobs active WHERE active.ref=c.id AND active.status='running' AND active.lease_until>unixepoch()) THEN c.id END),
       count(DISTINCT CASE WHEN c.status='budget_wait' THEN c.id END)
       FROM cases c LEFT JOIN jobs j ON j.ref=c.id
-      WHERE c.status IN ('queued','budget_wait','fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')`).Scan(&out.Summary.Total, &out.Summary.Running, &out.Summary.Queued, &out.Summary.Paused); err != nil {
+      WHERE c.status IN ('queued','budget_wait','fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')`).Scan(&out.Summary.Total, &out.Summary.Running, &out.Summary.Queued, &out.Summary.Paused); err != nil {
 		return out, err
 	}
 	var revision int64
@@ -95,7 +95,7 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 	}
 	args = append(args, cursor)
 	projection := `SELECT s.rowid,s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.updated_at,
- coalesce((SELECT status FROM submission_history WHERE submission_id=s.id AND status IN ('queued','fetching','classifying','researching','drafted','publishing','committed','published') ORDER BY id DESC LIMIT 1),''),
+ coalesce((SELECT status FROM submission_history WHERE submission_id=s.id AND status IN ('queued','fetching','classifying','researching','verifying','drafted','publishing','committed','published') ORDER BY id DESC LIMIT 1),''),
  coalesce((SELECT sum(input_tokens) FROM research_runs WHERE case_id=c.id),0),
  coalesce((SELECT sum(output_tokens) FROM research_runs WHERE case_id=c.id),0),
  (SELECT count(*) FROM research_runs WHERE case_id=c.id),
@@ -123,7 +123,7 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 		out.NextCursor = strconv.FormatInt(out.Submissions[SubmissionPageSize-1].sequence, 10)
 	}
 	active, err := tx.QueryContext(ctx, projection+` WHERE
-      c.status IN ('queued','fetching','classifying','researching','drafted','awaiting_review','publishing','merged','deploying')
+      c.status IN ('queued','fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
       AND s.rowid=(SELECT max(latest.rowid) FROM submissions latest WHERE latest.case_id=c.id)
       AND EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='running' AND j.lease_until>unixepoch())
       ORDER BY c.updated_at DESC,s.rowid DESC LIMIT 50`)

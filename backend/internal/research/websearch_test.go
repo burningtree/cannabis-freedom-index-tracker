@@ -17,11 +17,11 @@ func TestEnableWebSearchChoosesAProvider(t *testing.T) {
 	if _, err = db.Exec("CREATE TABLE `kv` (`key` text PRIMARY KEY, `value` text NOT NULL, `time_created` integer NOT NULL, `time_updated` integer NOT NULL)"); err != nil {
 		t.Fatal(err)
 	}
-	enableWebSearch(path)
-	enableWebSearch(path) // a second time changes nothing
+	enableWebSearch(path, "random")
+	enableWebSearch(path, "exa") // a second time sets the new choice
 	var value string
-	if err = db.QueryRow("SELECT value FROM kv WHERE key='websearch:provider'").Scan(&value); err != nil || value != `"random"` {
+	if err = db.QueryRow("SELECT value FROM kv WHERE key='websearch:provider'").Scan(&value); err != nil || value != `"exa"` {
 		t.Fatalf("websearch provider = %q, %v", value, err)
 	}
-	enableWebSearch(filepath.Join(t.TempDir(), "missing.db")) // no database: nothing happens
+	enableWebSearch(filepath.Join(t.TempDir(), "missing.db"), "exa") // no database: nothing happens
 }

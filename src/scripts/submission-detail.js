@@ -68,9 +68,46 @@ function output(box, v) {
   const draft = el("article", undefined, "sx-draft");
   const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true });
   if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : ["published", "committed"].includes(v.status) ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
+  if (drew) box.append(validation(v));
   else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
   else if (!items.childElementCount) box.append(el("p", OUTCOME_HELP[v.status] ?? v.explanation, "sx-muted"));
   if (items.childElementCount) box.append(items);
+}
+
+// how the AI's answer was checked: every source opened again by the service and each fact's
+// quotation looked for in it; blocked sources are kept as the AI read them, missing quotations
+// left out, and only a really bad answer refused
+function validation(v) {
+  const c = v.validation, wrap = el("div", undefined, "sx-validation");
+  wrap.append(el("h3", "Check of the answer"));
+  if (!c) {
+    wrap.append(el("p", v.status === "verifying" ? "Opening the sources again to look for every quotation…" : isRunning(v.status) ? "The answer will be checked against its sources once the AI is done." : "This answer was not checked against its sources.", "sx-muted"));
+    return wrap;
+  }
+  const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+  const summary = c.passed
+    ? `${c.confirmed} of ${n(c.checked, "quotation", "quotations")} found in the sources${c.facts > c.checked ? `; ${n(c.facts - c.checked, "fact rests", "facts rest")} on a source that could not be opened again` : ""}.`
+    : `Not passed: ${c.reason}.`;
+  const head = el("p", summary, "sx-validation-summary"); head.dataset.ok = String(Boolean(c.passed));
+  wrap.append(head);
+  const list = el("ul", undefined, "sx-checks");
+  for (const s of c.sources || []) {
+    // ✓ a source that opened and confirmed something (any missing quotations are left out below),
+    // ! one that could not be opened again, ✕ one that opened but confirmed nothing
+    const li = el("li"); li.dataset.ok = !s.opened ? "warn" : String(s.confirmed > 0 || !s.facts);
+    const text = el("span"), why = (s.error || "").replace(/\.$/, "");
+    text.append(safeHTTP(s.url) ? link(`${s.publisher || s.title} ↗`, s.url) : el("span", s.publisher || s.title), document.createTextNode(s.opened
+      ? `: opened again, ${s.confirmed} of ${n(s.facts, "quotation", "quotations")} found`
+      : `: could not be opened again${why ? ` (${why})` : ""}; its ${n(s.facts, "fact is", "facts are")} kept as the AI read ${s.facts === 1 ? "it" : "them"}`));
+    li.append(text);
+    list.append(li);
+  }
+  wrap.append(list);
+  if (c.left_out?.length) {
+    const box = el("details", undefined, "sx-left-out"); box.append(el("summary", c.left_out.length === 1 ? "1 fact left out, its quotation not found" : `${c.left_out.length} facts left out, their quotations not found`));
+    const ul = el("ul"); for (const t of c.left_out) ul.append(el("li", t)); box.append(ul); wrap.append(box);
+  }
+  return wrap;
 }
 
 // what the service found on the submitted page before any AI research

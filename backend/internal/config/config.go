@@ -22,7 +22,8 @@ type Config struct {
 	DevControls                                                                 bool
 	RawAILogs                                                                   bool
 	ResearchTimeout                                                             time.Duration
-	ResearchMaxSteps                                                            int // model steps a research run may take before it must answer
+	ResearchMaxSteps                                                            int    // model steps a research run may take before it must answer
+	ResearchWebSearch                                                           string // the search service OpenCode 2 uses: exa, parallel, firecrawl, tavily, tinyfish or random
 	RunCents, DailyCents                                                        int
 	GitHubAppID, GitHubInstallationID, GitHubKeyFile, GitHubRepo, WebhookSecret string
 	Demo                                                                        bool
@@ -84,6 +85,12 @@ func Load() (Config, error) {
 	c.ResearchMaxSteps, err = strconv.Atoi(env("RESEARCH_MAX_STEPS", "24"))
 	if err != nil || c.ResearchMaxSteps < 4 || c.ResearchMaxSteps > 100 {
 		return c, errors.New("invalid research step limit")
+	}
+	// Exa and Parallel answer without an API key; Firecrawl's keyless allowance runs out and Tavily
+	// needs a key, so "random" (OpenCode's own choice among all four) left many searches failing
+	c.ResearchWebSearch = env("RESEARCH_WEBSEARCH", "exa")
+	if !strings.Contains("|exa|parallel|firecrawl|tavily|tinyfish|random|", "|"+c.ResearchWebSearch+"|") {
+		return c, errors.New("invalid web search provider (exa, parallel, firecrawl, tavily, tinyfish or random)")
 	}
 	c.RunCents, err = strconv.Atoi(env("RESEARCH_RUN_CENTS", "100"))
 	if err != nil || c.RunCents < 1 {
