@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { submissionsAPI as api } from "../lib/submissions-config.js";
 const { title, description = "An open record of cannabis eradication, seizures, raids, arrests, prosecutions and sentences around the world.", wide = false, app = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const fullTitle = title ? `${title} · Cannabis Enforcement Tracker` : "Cannabis Enforcement Tracker";
@@ -41,12 +42,14 @@ const here = Astro.url.pathname.replace(base, "/");
         <svg class="cfi-link-icon" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 26.4) scale(2.12)"><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-97) scale(0.43)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(97) scale(0.43)"/></g></svg>
         <span class="cfi-link-long">Cannabis Freedom Index</span><span class="cfi-link-short">CFI</span> ↗
       </a>
+      {/* the submissions service: a dot for whether it answers, and how many requests it is working on */}
+      {api && <a class="svc-status" id="svc-status" href={`${base}submissions/`} data-api={api} data-state="checking" title="Checking the submissions service…" aria-label="Submissions service: checking"><i class="svc-dot" aria-hidden="true"></i><span class="svc-count" hidden></span></a>}
       <nav class="nav">
         <a href={base} aria-current={here === "/" ? "page" : undefined}>Map</a>
         <a href={`${base}reports/`} aria-current={here.startsWith("/report") || /^\/\d{4}\//.test(here) ? "page" : undefined}>Reports</a>
         <a href={`${base}country/`} aria-current={here.startsWith("/country") ? "page" : undefined}>Countries</a>
         <a href={`${base}stats/`} aria-current={here.startsWith("/stats") ? "page" : undefined}>Statistics</a>
-        <a href={`${base}submit/`} aria-current={here.startsWith("/submi") ? "page" : undefined}>Submit</a>
+        <a href={`${base}submissions/`} aria-current={here.startsWith("/submi") ? "page" : undefined}>Submit</a>
         <a href={`${base}about/`} aria-current={here.startsWith("/about") ? "page" : undefined}>About</a>
       </nav>
       <a class="github-link" href="https://github.com/burningtree/cannabis-freedom-index-tracker" target="_blank" rel="noopener" aria-label="View source on GitHub" title="View source on GitHub">
@@ -57,6 +60,57 @@ const here = Astro.url.pathname.replace(base, "/");
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
     </header>
+    {api && <script>
+      // The header's service dot. It holds the same WebSocket as the submissions list
+      // (/v1/submissions/stream): while it is open the service is online, and each change it announces
+      // re-reads the counts from /v1/status. Without a socket it falls back to asking every 20 seconds.
+      const box = document.getElementById("svc-status");
+      if (box) {
+        const api = (box.dataset.api || "").replace(/\/$/, "");
+        const count = box.querySelector<HTMLElement>(".svc-count")!;
+        const show = (state: string, title: string, n = 0) => {
+          box.dataset.state = state; box.title = title; box.setAttribute("aria-label", `Submissions service: ${title}`);
+          count.hidden = n < 1; count.textContent = String(n);
+        };
+        const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+        let socket: WebSocket | null = null, live = false, failures = 0, retry = 0, poll = 0, pending = 0;
+        const counts = async () => {
+          try {
+            const r = await fetch(`${api}/v1/status`, { credentials: "omit", cache: "no-store" });
+            if (r.status === 404) { show("online", "Online (this backend is older and gives no counts; restart it)"); return; }
+            if (!r.ok) throw new Error(String(r.status));
+            const v = await r.json();
+            const waiting = v.queued ? `, ${v.queued} queued` : "";
+            if (!v.processing) show("paused", `Online, AI processing is off${v.reason ? `: ${v.reason}` : ""}${waiting}`, v.running);
+            else if (v.running) show("working", `Online, working on ${plural(v.running, "request")}${waiting}`, v.running);
+            else show("online", `Online, idle${waiting}`);
+          } catch { if (!live) show("offline", "Offline: the submissions service does not answer"); }
+        };
+        const soon = () => { clearTimeout(pending); pending = window.setTimeout(counts, 300); };
+        // every 20 seconds as long as the tab is visible: the counts, even if the socket says nothing
+        const tick = () => { clearTimeout(poll); if (document.hidden) return; counts(); poll = window.setTimeout(tick, 20000); };
+        const connect = () => {
+          if (socket || document.hidden || !window.WebSocket) return;
+          try {
+            const url = new URL(`${api}/v1/submissions/stream`, location.href); url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
+            const current = new WebSocket(url); socket = current;
+            current.onmessage = (e) => {
+              try { if (JSON.parse(e.data).type === "submissions_changed") { live = true; failures = 0; soon(); } } catch { /* unknown message */ }
+            };
+            current.onclose = () => {
+              if (socket !== current) return;
+              socket = null; live = false; counts();
+              if (!document.hidden) { clearTimeout(retry); retry = window.setTimeout(connect, Math.min(30000, 1000 * 2 ** Math.min(failures++, 5))); }
+            };
+          } catch { socket = null; }
+        };
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) { socket?.close(); socket = null; live = false; clearTimeout(poll); clearTimeout(retry); }
+          else { connect(); tick(); }
+        });
+        connect(); tick();
+      }
+    </script>}
     <main class:list={[app ? "app" : "page", { wide }]}>
       <slot />
     </main>

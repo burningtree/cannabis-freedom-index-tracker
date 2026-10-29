@@ -127,6 +127,9 @@ export function compact(r, site) {
     cover: r.cover ? { url: new URL(r.cover.image.src, site).href, alt: r.cover.alt, credit: r.cover.credit, licence: r.cover.licence, source: r.cover.url } : null,
     media: r.media ?? [],
     cfi_id: r.cfi_id ?? null,
+    created_by_model: r.created_by_model,
+    updated_by_models: r.updated_by_models ?? [],
+    open_questions: r.open_questions ?? [],
     sources: r.sources.map((s) => ({ title: s.title, url: s.url ?? null, publisher: s.publisher, date: s.date ? isoDate(s.date) : null, archived: s.archived ?? null })),
   };
 }

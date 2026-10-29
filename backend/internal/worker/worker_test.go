@@ -38,7 +38,7 @@ func TestDemoReceiptProgressPersistsWithoutResearch(t *testing.T) {
 	}
 	defer s.DB.Close()
 	v, err := s.Get(ctx, id)
-	if err != nil || v.Status != "needs_review" || len(v.History) != 5 {
+	if err != nil || v.Status != "insufficient_evidence" || len(v.History) != 5 {
 		t.Fatal(v, err)
 	}
 	if v.PRURL != "" || v.ReportSlug != "" {

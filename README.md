@@ -106,6 +106,7 @@ media:                           # optional; photos or video of the event that c
     url: https://…               # the page they are on
     publisher: La Nación (Paraguay)
     caption: Agents pull up plants in a cleared forest plot
+created_by_model: unknown         # REQUIRED: actual creator model; unknown only if attribution is unavailable
 status: verified                 # verified (checked against opened sources) | reported | disputed
 tags: [ndlea, farmers]           # optional, lower-case-with-hyphens
 sources:                         # at least one
@@ -303,13 +304,17 @@ Code: MIT. Report texts and data: CC BY 4.0. Pictures keep their own licences, s
 ## Public submissions and Nostr service
 
 The optional Go service in `backend/` adds anonymous source intake, durable receipts, Nostr mentions
-and replies, sandboxed OpenCode research, live model/session activity, and automatic GitHub publication after validation. Astro and the public
-report JSON API remain static. New pages: `/submit/`, `/submission/?id=…`, and `/submissions/` (a live public
-request table, intentionally absent from the menu).
+and replies, sandboxed OpenCode research, live model/session activity, and automatic local report commits after validation. Astro and the public
+report JSON API remain static. Pages: `/submission/?id=…` for request details, and `/submissions/` for the source form and
+live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` (provider/model and variant), shown on the report detail page.
+Later update models are kept in `updated_by_models`. Open questions are saved in report front matter
+and shown beneath its sources. Local failed submissions have a restart control; no GitHub App is needed.
 
 See [docs/NOSTR-SUBMISSIONS.md](docs/NOSTR-SUBMISSIONS.md) for setup, HTTP contracts, deployment,
 privacy, backups, research isolation and rollout requirements. Use `backend/config.example.env`
 for private service configuration and `.env.example` for public-only Astro build settings.
+For JavaScript-rendered sources and archived screenshots/SEO metadata, install Chromium once with
+`npm run browser-install` (`SOURCE_BROWSER=true` by default).
 Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials with `RESEARCH_MODEL=opencode-go/deepseek-v4.1-flash`. Do not prefix secrets with `PUBLIC_`. The form
 stays unavailable in production until `PUBLIC_SUBMISSIONS_API_URL` is set. For local work, run
 `npm run backend-dev` and `npm run dev` in separate terminals; the frontend connects to localhost automatically. Never include service secrets in an

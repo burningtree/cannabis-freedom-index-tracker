@@ -52,14 +52,14 @@ esac
 	}
 }
 
-func TestProbeAcknowledgement(t *testing.T) {
-	for _, value := range []string{"OK", "\nOK\n", "Connectivity confirmed.\n\nOK"} {
-		if !probeReplyOK([]byte(value)) {
+func TestProbeChecksConnectivityRatherThanExactFormatting(t *testing.T) {
+	for _, value := range []string{"OK", "\nOK\n", "OK\n\nMaximum steps for this agent have been reached. Summary: none.", "The requested response is OK. I will provide that.OK"} {
+		if !probeReplyUsable([]byte(value)) {
 			t.Fatal(value)
 		}
 	}
-	for _, value := range []string{"", "not OK", "OK but failed", "OK\nerror"} {
-		if probeReplyOK([]byte(value)) {
+	for _, value := range []string{"", " \n \t"} {
+		if probeReplyUsable([]byte(value)) {
 			t.Fatal(value)
 		}
 	}
@@ -89,6 +89,9 @@ func TestV2ConfigurationDeniesToolsExceptResearchReads(t *testing.T) {
 	}
 	agents := cfg["agents"].(map[string]any)
 	probe := agents["enforcement-probe"].(map[string]any)
+	if probe["steps"] != float64(2) {
+		t.Fatal("probe must not trigger the one-step summary", probe)
+	}
 	if len(probe["permissions"].([]any)) != 1 {
 		t.Fatal("probe allows tools")
 	}

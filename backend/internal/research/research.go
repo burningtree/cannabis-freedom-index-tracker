@@ -56,6 +56,8 @@ type Figures struct {
 	Deaths          *int     `json:"deaths,omitempty"`
 }
 type Result struct {
+	// Set by the service after execution, never accepted from model-generated JSON.
+	CreatedByModel string    `json:"-"`
 	Outcome        string    `json:"outcome"`
 	Country        string    `json:"country"`
 	Date           string    `json:"incident_date"`
@@ -105,8 +107,13 @@ func (r Result) Validate(countries map[string]bool) error {
 	if len(r.Explanation) < 10 || len(r.Explanation) > 1500 || plain.MatchString(r.Explanation) {
 		return errors.New("invalid explanation")
 	}
-	if len(r.Sources) > 8 || len(r.Facts) > 30 {
+	if len(r.Sources) > 8 || len(r.Facts) > 30 || len(r.Uncertainties) > 30 {
 		return errors.New("result exceeds bounds")
+	}
+	for _, question := range r.Uncertainties {
+		if strings.TrimSpace(question) == "" || len(question) > 4000 || strings.ContainsAny(question, "\x00") {
+			return errors.New("invalid open question")
+		}
 	}
 	for _, s := range r.Sources {
 		if _, err := safeurl.Normalize(s.URL); err != nil {
@@ -129,6 +136,9 @@ func (r Result) Validate(countries map[string]bool) error {
 	}
 	if r.Outcome != "new_event" && r.Outcome != "existing_case" {
 		return nil
+	}
+	if strings.TrimSpace(r.CreatedByModel) == "" {
+		return errors.New("creator model is required")
 	}
 	if r.Outcome == "existing_case" && (r.ExistingReport == "" || r.Slug != r.ExistingReport) {
 		return errors.New("existing-case update must preserve its slug")
@@ -184,6 +194,9 @@ func (r Result) Validate(countries map[string]bool) error {
 	return nil
 }
 func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl.Evidence, error) {
+	return r.VerifyWith(ctx, initial, safeurl.Fetch)
+}
+func (r Result) VerifyWith(ctx context.Context, initial safeurl.Evidence, fetch func(context.Context, string) (safeurl.Evidence, error)) ([]safeurl.Evidence, error) {
 	out := []safeurl.Evidence{}
 	for i, s := range r.Sources {
 		u, err := safeurl.Normalize(s.URL)
@@ -192,13 +205,13 @@ func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl
 		}
 		e := initial
 		if (u != initial.URL && u != initial.FinalURL) || initial.Content == "" {
-			e, err = safeurl.Fetch(ctx, u)
+			e, err = fetch(ctx, u)
 			if err != nil {
 				return nil, err
 			}
 		}
 		for _, f := range r.Facts {
-			if f.Source == i+1 && !safeurl.Contains(e.Content, f.Quote) {
+			if f.Source == i+1 && !e.Supports(f.Quote) {
 				return nil, errors.New("supporting quotation missing from opened source")
 			}
 		}
@@ -259,6 +272,9 @@ func (r Result) Markdown() string {
 		add("figures", f)
 	}
 	add("status", str("reported"))
+	if r.CreatedByModel != "" {
+		add("created_by_model", str(r.CreatedByModel))
+	}
 	if len(r.Tags) > 0 {
 		add("tags", flow(strs(r.Tags)...))
 	}
@@ -274,6 +290,9 @@ func (r Result) Markdown() string {
 		sources.Content = append(sources.Content, m)
 	}
 	add("sources", sources)
+	if len(r.Uncertainties) > 0 {
+		add("open_questions", &yaml.Node{Kind: yaml.SequenceNode, Content: strs(r.Uncertainties)})
+	}
 	var head bytes.Buffer
 	enc := yaml.NewEncoder(&head)
 	enc.SetIndent(2)
@@ -389,7 +408,7 @@ type Runner struct {
 	Store  *store.Store
 }
 
-// Snapshot uses only trusted committed repository files. Model code never runs on the host.
+// Snapshot clones history and overlays trusted current site inputs for local validation.
 func (r Runner) Snapshot(ctx context.Context, cid string) (string, error) {
 	root, err := filepath.Abs(r.Config.Workspaces)
 	if err != nil {
@@ -410,7 +429,10 @@ func (r Runner) Snapshot(ctx context.Context, cid string) (string, error) {
 	if err = cmd.Run(); err != nil {
 		return "", errors.New("isolated checkout failed")
 	}
-	// Private repository metadata never goes into the research container.
+	if err = snapshotSite(ctx, repo, dir); err != nil {
+		return "", err
+	}
+	// Only the explicit evidence input is exposed to OpenCode, never this checkout.
 	return dir, nil
 }
 
@@ -439,6 +461,9 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 		status := "completed"
 		if runErr != nil {
 			status = "failed"
+			if errors.Is(ctx.Err(), context.Canceled) {
+				status = "interrupted"
+			}
 			// say why, in words: the data is public, only credentials are redacted
 			why := runErr.Error()
 			if events != nil {
@@ -474,7 +499,7 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 	// The page goes in as files with short lines: the read tool cuts lines at 2,000 characters, so a
 	// page inside one JSON line reached the model cut off. source.txt is the readable text (what
 	// quotations are checked against, besides the markup), source.html the markup for details.
-	text := safeurl.Text(e.Content)
+	text := e.ReadableText()
 	request := map[string]any{"case_id": cid, "url": e.URL, "final_url": e.FinalURL, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == "", "example_reports": "examples/"}
 	files := map[string][]byte{"reports-index.jsonl": []byte(index.String())}
 	if e.Content != "" {
@@ -484,6 +509,18 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 		files["source.txt"] = []byte(safeurl.Wrap(text, 1000) + "\n")
 		files["source.html"] = []byte(safeurl.Wrap(strings.ReplaceAll(e.Content, "><", ">\n<"), 1000) + "\n")
 	}
+	if e.Metadata != nil {
+		request["source_metadata"] = "source-metadata.json"
+		metadata, _ := json.MarshalIndent(e.Metadata, "", "  ")
+		files["source-metadata.json"] = metadata
+	}
+	if e.Screenshot == "page.png" && e.ArtifactDir != "" {
+		if screenshot, err := os.ReadFile(filepath.Join(e.ArtifactDir, "page.png")); err == nil {
+			request["source_screenshot"] = "source.png"
+			files["source.png"] = screenshot
+		}
+	}
+	request["browser_rendered"] = e.Rendered
 	files["request.json"] = []byte(store.JSON(request))
 	examples, err := exampleReports(r.Config.RepoPath, 3)
 	if err != nil {
@@ -718,6 +755,9 @@ type Draft struct{ Path, PreviousPath, Content string }
 // PrepareDraft changes only a proposed report in the disposable checkout. Existing-case
 // updates retain source numbering, original prose, assets and the report's stable slug.
 func PrepareDraft(dir string, r Result) (Draft, error) {
+	if strings.TrimSpace(r.CreatedByModel) == "" {
+		return Draft{}, errors.New("creator model is required")
+	}
 	rel := filepath.ToSlash(filepath.Join("reports", r.Date[:4], r.Date[5:7], r.Slug+".md"))
 	d := Draft{Path: rel, Content: r.Markdown()}
 	var existing string
@@ -812,6 +852,54 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 		header["summary"] = r.Summary
 		header["type"] = r.Type
 		header["sources"] = oldSources
+		if creator, ok := header["created_by_model"].(string); !ok || strings.TrimSpace(creator) == "" {
+			header["created_by_model"] = "unknown"
+		}
+		// Retain original authorship when another model appends an update.
+		if r.CreatedByModel != "" {
+			models := []string{}
+			if old, ok := header["updated_by_models"].([]any); ok {
+				for _, item := range old {
+					if model, ok := item.(string); ok {
+						models = append(models, model)
+					}
+				}
+			}
+			seen := false
+			for _, model := range models {
+				if model == r.CreatedByModel {
+					seen = true
+					break
+				}
+			}
+			if !seen {
+				models = append(models, r.CreatedByModel)
+			}
+			header["updated_by_models"] = models
+		}
+		questions := []string{}
+		if old, ok := header["open_questions"].([]any); ok {
+			for _, q := range old {
+				if text, ok := q.(string); ok {
+					questions = append(questions, text)
+				}
+			}
+		}
+		for _, q := range r.Uncertainties {
+			found := false
+			for _, old := range questions {
+				if old == q {
+					found = true
+					break
+				}
+			}
+			if !found {
+				questions = append(questions, q)
+			}
+		}
+		if len(questions) > 0 {
+			header["open_questions"] = questions
+		}
 		if header["status"] != "disputed" {
 			header["status"] = "reported"
 		}

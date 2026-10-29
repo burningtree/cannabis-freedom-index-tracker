@@ -85,8 +85,8 @@ func configureOpenCode2(input string, steps int) error {
 		rules = append(rules, map[string]string{"action": action, "resource": "*", "effect": "allow"})
 	}
 	agents := map[string]any{"enforcement-probe": map[string]any{
-		"description": "Short connectivity check", "mode": "primary", "steps": 1,
-		"permissions": deny, "system": "Reply exactly OK to the connectivity test. Do not use tools."}}
+		"description": "Short connectivity check", "mode": "primary", "steps": 2,
+		"permissions": deny, "system": probeInstruction}}
 	path := filepath.Join(input, ".opencode", "agents", "enforcement-researcher.md")
 	if data, err := os.ReadFile(path); err == nil {
 		parts := strings.SplitN(string(data), "---", 3)

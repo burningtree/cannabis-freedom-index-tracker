@@ -11,6 +11,12 @@ Index (country ids are the CFI's).
   cases, statistics, executions, events before 2000): `docs/CFI.md`.
 - **How a report is written** (one event, sources, figures, pictures): `docs/WRITING.md`.
   Data format and JSON API: `README.md`.
+- Every report file **must** include `created_by_model`: the exact model identifier used by the
+  writing agent, including provider/variant when known. Agents writing Markdown set it themselves;
+  the submission service injects it from the OpenCode run configuration. Never omit it or copy a
+  sample/current model onto older work. Use `unknown` only when the actual creator model is not
+  available (notably historical imports), and make that limitation clear. Preserve the original
+  creator on updates; record the updating model in `updated_by_models`.
 - Every sentence cites a source that was opened (`[@n]`); every source must be about the same event.
 - Photos: copy one into `src/assets/reports/` only with an open licence or a no-copyright government
   work; link all others as `media`, and keep local evidence copies with `node scripts/archive-media.mjs`.
@@ -26,10 +32,11 @@ Index (country ids are the CFI's).
 Read `docs/NOSTR-SUBMISSIONS.md` before changing it. Run `cd backend && go test -race ./...`
 and `go vet ./...` for service changes, plus the site's checks for UI changes.
 The user has requested automatic processing and publication without human approval gates.
-The publisher opens normal PRs and merges the exact validated head only after the required
-report validation and other commit checks succeed; it never bypasses repository protection.
-`published` requires merge, successful Pages deployment and the confirmed live report URL.
-Unresolved source conflicts and invalid evidence finish as unable to verify rather than awaiting approval.
+The publisher commits only validated report files directly to the configured local repository;
+it never includes unrelated staged changes or calls GitHub to publish. `committed` is distinct from
+remote deployment. Preserve minor discrepancies and missing details in `open_questions` and show
+them on report pages; reject unsupported/untrustworthy events rather than every open question.
+Local failed submissions can be restarted through loopback-only development controls.
 OpenCode is the actual research harness: a sandboxed local CLI for macOS development, or a
 read-only container for deployment. Give it only research-provider credentials, never Nostr
 keys, GitHub credentials or the operational database. Keep automated report status `reported`.

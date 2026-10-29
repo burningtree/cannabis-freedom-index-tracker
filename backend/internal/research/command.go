@@ -25,7 +25,7 @@ func (r Runner) modelConfig() []byte {
 		}
 		cfg["provider"] = map[string]any{"opencode-go": map[string]any{"npm": "@ai-sdk/openai-compatible", "name": "OpenCode Go", "options": options, "models": map[string]any{parts[1]: map[string]string{"name": "DeepSeek V4.1 Flash"}}}}
 	}
-	cfg["agent"] = map[string]any{"enforcement-probe": map[string]any{"description": "Short model connectivity check", "mode": "primary", "steps": 1, "permission": map[string]string{"*": "deny"}, "prompt": "Reply exactly OK to the connectivity test. Do not use tools."}}
+	cfg["agent"] = map[string]any{"enforcement-probe": map[string]any{"description": "Short model connectivity check", "mode": "primary", "steps": 2, "permission": map[string]string{"*": "deny"}, "prompt": probeInstruction}}
 	b, _ := json.Marshal(cfg)
 	return b
 }

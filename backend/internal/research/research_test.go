@@ -12,16 +12,17 @@ import (
 )
 
 func valid() Result {
-	return Result{Outcome: "new_event", Country: "th", Date: "2026-01-02", Type: "raid", Slug: "example-raid", Title: "Police raid a cannabis farm", Summary: "Police raided a farm.", Explanation: "A sourced enforcement incident.", Place: "Chiang Mai", Coordinates: []float64{18.79, 98.98}, Precision: "locality", Sources: []Source{{URL: "https://news.example/a", Title: "News story", Publisher: "Publisher"}}, Facts: []Fact{{Text: "Police raided the farm.", Source: 1, Quote: "Police raided the farm in the province."}}}
+	return Result{CreatedByModel: "fixture/research-model", Outcome: "new_event", Country: "th", Date: "2026-01-02", Type: "raid", Slug: "example-raid", Title: "Police raid a cannabis farm", Summary: "Police raided a farm.", Explanation: "A sourced enforcement incident.", Place: "Chiang Mai", Coordinates: []float64{18.79, 98.98}, Precision: "locality", Sources: []Source{{URL: "https://news.example/a", Title: "News story", Publisher: "Publisher"}}, Facts: []Fact{{Text: "Police raided the farm.", Source: 1, Quote: "Police raided the farm in the province."}}}
 }
 func TestStrictAndValidation(t *testing.T) {
 	r := valid()
 	b, _ := json.Marshal(r)
 	parsed, err := Strict(b)
+	parsed.CreatedByModel = r.CreatedByModel // authoritative service attribution is applied after parsing
 	if err != nil || parsed.Validate(map[string]bool{"th": true}) != nil {
 		t.Fatal(err)
 	}
-	for _, mutate := range []func(*Result){func(r *Result) { r.Country = "invented" }, func(r *Result) { r.Date = "1999-01-01" }, func(r *Result) { r.Slug = "../../secret" }, func(r *Result) { r.Facts[0].Source = 2 }, func(r *Result) { r.Type = "execution" }, func(r *Result) { r.Facts[0].Text = "<script>steal()</script>" }} {
+	for _, mutate := range []func(*Result){func(r *Result) { r.CreatedByModel = "" }, func(r *Result) { r.Country = "invented" }, func(r *Result) { r.Date = "1999-01-01" }, func(r *Result) { r.Slug = "../../secret" }, func(r *Result) { r.Facts[0].Source = 2 }, func(r *Result) { r.Type = "execution" }, func(r *Result) { r.Facts[0].Text = "<script>steal()</script>" }} {
 		v := valid()
 		mutate(&v)
 		if v.Validate(map[string]bool{"th": true}) == nil {

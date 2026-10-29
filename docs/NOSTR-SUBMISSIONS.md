@@ -3,12 +3,12 @@
 The static Astro site stays on GitHub Pages. The Go service owns durable intake, SQLite/WAL,
 OpenCode jobs, public activity, Nostr delivery and automatic report publication.
 
-The user requested automatic processing without human approval gates. By default, `AUTO_PUBLISH=true`:
-valid reports are researched, rendered, tested, proposed as normal PRs and merged automatically
-when the exact validated commit passes the required report check and other commit checks.
-Repository protections are respected. A failure or unresolved source contradiction finishes with
-a reason, rather than waiting for a person to approve it. `AUTO_PUBLISH=false` retains an optional
-legacy draft-PR/review mode.
+The user requested automatic processing without human approval gates. Trustworthy, sourced
+in-scope reports are validated and committed directly to `REPO_PATH`. Open questions and minor
+source disagreements are preserved in the report's `open_questions` front matter and displayed
+on its page. Reject unsupported events, scams/misinformation and untrustworthy material; do not
+reject a supported incident merely because details are missing or differ between outlets.
+The service does not open PRs, call GitHub to publish, push commits or deploy the website.
 
 ## Local development
 
@@ -39,11 +39,20 @@ The local runner uses OpenCode’s saved credentials. OpenCode 2 uses its native
 contents never enter logs or `.env`. OpenCode 1 copies only the selected provider from its
 legacy auth file (`OPENCODE_AUTH_FILE` can override that file). Local mode does not require
 `RESEARCH_API_KEY`. Docker deployments can provide a dedicated provider key.
-On every backend start, the service checks the binary/version and runs a one-step, no-tool
+On every backend start, the service checks the binary/version and runs a short, no-tool
 `opencode run` prompt asking the selected model to reply `OK`. Research starts only after that
-test passes. The check is bounded to 60 seconds and appears live in the UI. A failed check leaves
+test passes. A successful non-empty assistant reply establishes connectivity; the requested
+wording is not an exact-output gate. An empty successful stop is retried once, with both
+attempts retained in the diagnostics. The probe has a two-step allowance to avoid OpenCode’s
+forced last-step summary on the first request. The check is bounded to 60 seconds and appears live in the UI. A failed check leaves
 intake/status endpoints running and jobs queued; authenticate the provider in OpenCode and restart.
-You can run the same check without starting workers using `cd backend && go run ./cmd/tracker -check-ai`.
+You can run the same check without starting workers using `cd backend && go run ./cmd/tracker -check-ai`
+(with the backend environment loaded). The startup log includes the exact user prompt, configured
+agent instruction, model/CLI arguments, parsed response, exit code, duration and stderr. Failures
+also include a bounded stdout preview. Full captured stdout/stderr are saved, with credential
+redaction, to `WORKSPACE_PATH/startup-check.json` (default `backend/data/jobs/startup-check.json`
+from the repository root), mode 0600. This file is replaced on each check. These operator
+diagnostics are excluded from public health/config JSON.
 Restart `backend-dev` after changing environment settings or saved auth. `/v1/config` and the public request
 register explicitly report the binary/model startup check and any unavailable research configuration.
 
@@ -61,7 +70,7 @@ that deny host home directories, other temporary data and service data while all
 input and private session storage. It never inherits production/Nostr/GitHub environment variables.
 Agent bash, edits, external directories and task delegation are denied. This local development
 sandbox is a filesystem boundary, not a production network firewall. Use the Docker runner with
-enforced egress controls for unattended deployment. Local mode on other platforms fails explicitly
+enforced egress controls for unattended deployment. Local OpenCode mode on other platforms fails explicitly
 rather than silently running without its sandbox.
 
 Go 1.27.3 is pinned in `backend/go.mod`. Backend checks/build:
@@ -75,10 +84,11 @@ go build -o tracker ./cmd/tracker
 
 ## Public pages
 
-- `/submit/`: accountless URL/public note intake, browser receipts, JSON export/import and removal.
+- `/submit/`: compatibility redirect to `/submissions/`.
 - `/submission/?id=…`: public status, history, model/session information and live AI activity.
-- `/submissions/`: all request origins and statuses in a 50-row table, filters, expandable details,
-  live OpenCode chat/activity, and worker configuration status. Deliberately absent from the menu.
+- `/submissions/`: URL submission form at the top, optional public notes, folded browser receipts
+  with JSON import/export, and all request origins and statuses in a 50-row table with filters,
+  live OpenCode chat/activity, and worker configuration status. The existing Submit menu link points to the form on this page.
 
 Both AI views offer **Show full log (JSON)** and **Download JSON**, containing every recorded
 public activity event in chronological order and all run metadata, including retries. The JSON
@@ -105,50 +115,80 @@ sanitized public explanation appears separately. Recent attempts remain visible 
 
 “Queued” means intake is committed, not that a model ran. Without working OpenCode authentication/model access, the worker keeps jobs durable and the
 UI shows the startup test failure. Research can finish before
-GitHub is configured: the validated publication job stays queued without consuming its retry
-budget, and the UI identifies the missing publication configuration.
+the publication job runs: a separate durable job commits it to the configured local repository.
+No GitHub App or API key is needed for this step.
+
+## Browser source capture
+
+Install the matching Chromium once with `npm run browser-install` (Playwright is a pinned runtime
+dependency). `SOURCE_BROWSER=true` is the default. Initial and corroborating sources load in fresh,
+anonymous Chromium contexts; no saved browser profile, cookies, service keys or account is loaded.
+JavaScript and public API requests are supported. Scripts/images/API traffic is fulfilled through
+a token-protected Go fetch bridge using the existing public-IP-pinned HTTP transport. Chromium has
+a dead proxy as a backstop; service workers, WebSockets, downloads and media streaming are blocked.
+Redirects re-enter the same destination checks. Captures have request, byte and time limits.
+
+The archive under `WORKSPACE_PATH/sources/<case>/<capture>/` contains `page.html` (rendered markup),
+`page.txt` (visible text), `page.png` and `metadata.json`, mode 0600 inside private directories.
+Screenshots are at most 1440×12000 pixels; a warning records clipping or screenshot failure.
+Metadata includes title/description, canonical URL, language, keywords, author/date/publisher
+hints, all bounded meta tags, Open Graph, Twitter cards and parsed JSON-LD. These are provenance
+hints, never a substitute for opened article text. OpenCode receives visible text, rendered markup,
+metadata and the optional screenshot; independent quotation checks use the rendered visible text.
+
+The local request detail page shows selected metadata expanded and an inline screenshot preview,
+which links to the full-size capture.
+Screenshots use a loopback-only development endpoint, not the public static report assets; no
+third-party page images are copied into published reports. A login, paywall or access challenge
+can still prevent readable evidence. If Chromium is missing, static HTTP retrieval remains
+available with an explicit browser warning; JS-only sources need the browser installed.
+
+The intake-only container does not contain this Node/browser runtime. Full research/publishing
+hosts need the repository dependencies and matching Chromium installed (plus Chromium's Linux
+system dependencies). Keep capture directories under the same private retention/disk quotas as
+research evidence. `SOURCE_BROWSER=false` explicitly opts out of browser capture.
 
 ## Processing and publication
 
 Progress is:
 
-`queued → fetching → classifying → researching → drafted → publishing → merged → deploying → published`
+`queued → fetching → classifying → researching → drafted → publishing → committed`
 
-Other outcomes: already covered (`duplicate`), outside scope (`not_relevant`), unable to verify
-(`insufficient_evidence`), routed to the CFI (`routed_to_cfi`), and exhausted technical retries
-(`failed`). Automatic mode converts legacy model `needs_review` results into unable to verify;
-it does not bypass evidence checks or present uncertain claims as verified.
+`committed` means that the cited report is in a local Git commit and available to the local Astro
+server. It does not claim that a remote website has deployed. Existing `published` receipts keep
+their previous meaning. The UI links to the report for either successful state.
 
-Exact normalized URLs share one case/job while each contributor keeps their own receipt.
-The researcher can propose an existing-case update, preserving its stable slug, original prose,
-source numbering and assets and moving the report to a later event date. Country changes,
-earlier coverage that would replace a later step, ambiguous overlap and conflicting sources stop
-automatic publication. Every factual claim must cite an opened source about the same event.
-Pre-2000 incidents, executions, policy changes, precedents and other CFI-history material are
-routed using `docs/CFI.md`. Automated Markdown remains `reported`, never automatically `verified`.
+Other outcomes: already covered (`duplicate`), outside scope (`not_relevant`), unsupported or
+untrustworthy (`insufficient_evidence`), routed to CFI (`routed_to_cfi`), inaccessible source
+(`source_unavailable`) and technical/schema/build errors (`failed`). Minor discrepancies such as
+vegetable type or a missing court outcome belong in `open_questions`, not a failed outcome.
+Every factual claim still needs a quotation independently confirmed in an opened source.
+Automated report status remains `reported`, never automatically `verified`.
+The service writes `created_by_model` from the actual configured run model, including provider
+and variant (for example `opencode-go/deepseek-v4.1-flash#max`). It is not a model-authored field.
+Existing-case updates retain the original creator and append distinct models to `updated_by_models`.
+Both appear on the report detail page and in the report JSON API. `created_by_model` is required on every report. Historical reports without a known creator use
+`unknown` and display "not recorded"; never infer their model from today's configuration.
 
-The isolated checkout runs `npm ci --ignore-scripts` and `npm run build`. The publisher accepts
-only the validated report path and any old dated path removal. It persists a deterministic
-`codex/submission-<case-id>` branch and commit SHA for idempotent retries. A separate durable
-publication job prevents GitHub outages from buying another research run.
+Exact normalized URLs share a case/job while each contributor keeps a receipt. Existing-case
+updates preserve the stable slug, earlier prose/citations and existing open questions, adding
+new questions without duplication. Unsupported event identity or ambiguous duplicate matches
+still need explicit handling rather than fabricated certainty.
 
-`.github/workflows/reports.yml` supplies the required **Validate report** check on report PRs.
-Install the GitHub App only on this repository with Contents/Pull requests write and Checks,
-Commit statuses and Deployments read permissions. Configure its App/installation IDs and private
-RSA key using `backend/config.example.env`. The automatic publisher confirms the unchanged head,
-normal PR state, the successful report check, all other reported checks and commit statuses, then
-calls the ordinary merge endpoint with the exact validated SHA. It never bypasses branch
-protection. Conflicts, failed checks and permission/rule failures produce explicit failures.
-Ensure repository policy permits the App to merge reports without a human approval requirement.
+The validation checkout overlays the current trusted site files, editorial rules and reports,
+including development edits, without copying `.env` or backend state. It runs
+`npm ci --ignore-scripts` and `npm run build`. The commit accepts only the validated report and
+its old dated path when moving an existing report. It refuses local edits on those paths and
+concurrent changes to an existing report. Git `commit --only` excludes unrelated staged files.
+A case trailer and a persisted SHA recover publication retries without a second commit.
 
-The report becomes `published` only after PR merge, a successful `github-pages` deployment **at
-the merge SHA**, and a reachable final report URL with the expected canonical link. Reconciliation
-runs every ten seconds between jobs. A skipped merge SHA followed only by a newer descendant
-currently remains `deploying`; the service conservatively does not infer deployment ancestry.
-One long research job can delay reconciliation by its configured timeout.
-
-GitHub configuration and the report-check workflow must be deployed before automatic publication
-can complete. Code does not provision GitHub App secrets or change repository protections.
+On localhost, **Restart submission** appears for `failed`, `insufficient_evidence`,
+`source_unavailable` and legacy `needs_review` receipts on their request detail page only.
+`backend-dev` sets `DEV_CONTROLS=true`; the backend must also bind to a loopback address and
+receive the request from loopback with a local origin and JSON content type. The server refuses
+active/successful requests and duplicate restarts. Restarting resets the research job's retry
+counter, removes a stale publication job and queues one new attempt for the shared case. Previous
+history, AI runs and messages remain available. Daily AI budget reservations are retained.
 
 ## API
 
@@ -162,6 +202,7 @@ can complete. Code does not provision GitHub App secrets or change repository pr
 | GET | `/v1/submissions?cursor=n&status=…&origin=…` | All origins, 50 per page, total, next cursor, revision and processing status |
 | WebSocket | `/v1/submissions/stream` | `{type:"submissions_changed",revision:"…"}` invalidations after public changes |
 | GET | `/v1/activity?cursor=n` | Up to 25 terminal human-submission outcomes |
+| POST | `/v1/submissions/{id}/restart` | Local development only; requeue a failed shared case, preserving history |
 | GET | `/v1/config` | Public Nostr and AI processing configuration, never credentials |
 | GET | `/healthz` | Database liveness |
 
@@ -173,8 +214,7 @@ Service-only endpoints:
 
 - `POST /v1/ingest/candidate`: Bearer `INGEST_TOKEN`; JSON `{url,origin,provenance,idempotency_key}`.
 - `GET /internal/metrics`: same token; bounded queue/running/dead counts.
-- `POST /v1/webhooks/github`: verifies HMAC-SHA256 over the raw bounded body. Webhooks are hints,
-  never proof of deployment; periodic authoritative reconciliation handles missed events.
+- The legacy GitHub webhook is not used by the local commit pipeline.
 
 ## Live updates
 
@@ -190,10 +230,42 @@ The status page also subscribes so model messages appear without waiting for its
 
 ## Jobs, budgets and operations
 
+The register's top counters cover the whole database, independent of filters/pagination:
+all submission receipts, actively leased processing cases, queued cases and budget-paused cases.
+Multiple receipts for one URL share one processing case. Counters update over the same WebSocket.
+A separate Working now table always shows active cases (one receipt per case, bounded to 50),
+independent of history filters or pages. Restarted older submissions appear there when claimed.
+
+The backend holds an exclusive OS lock beside its SQLite file. A second backend or repair command
+cannot change the same queue concurrently. On startup, it immediately fences/requeues interrupted
+jobs and Nostr deliveries, refunds the interrupted queue attempt, marks unfinished AI runs
+`interrupted`, and repairs intermediate cases missing a research job. Explicit terminal outcomes,
+dead jobs, scheduled budget waits, evidence, usage and reservations are retained. Graceful shutdown
+also releases the active processing lease without spending a retry.
+
+After a successful model response, a private SQLite checkpoint saves the result, original model
+and initial evidence. Recovery creates a fresh trusted checkout, rechecks sources and rebuilds
+without calling the model or reserving another AI run. If the server stopped before this checkpoint,
+research restarts within the existing daily budget; an interrupted model call may already have
+incurred provider cost. Manual Restart deliberately discards the checkpoint for a new attempt.
+A queued publication always resumes its validated draft. Git case trailers detect a commit made
+just before a crash, so recovery records its SHA/status without committing again.
+
 SQLite uses WAL, foreign keys, busy timeout, atomic lease claims and fencing tokens. Research
 heartbeats every 30 seconds on a two-minute lease. Technical failures back off and dead-letter
 after eight attempts; configuration waits and daily budget waits do not consume attempts.
 `RESEARCH_TIMEOUT_SECONDS` is 10–1800 (default 900). One research worker runs at a time.
+
+A reservation limit pauses the case as `budget_wait`, with `resume_at` showing the job's next
+scheduled attempt (00:01 UTC after the daily reset). Older receipts incorrectly left at
+`classifying` are repaired by migration 008. No new AI run is started or charged while paused;
+the previous run is identified as a previous attempt on the detail page. The conservative
+reservation total is distinct from the estimated provider cost displayed from actual tokens.
+The AI worker box shows today’s reserved amount against the configured daily limit, the per-run
+reservation, remaining attempts and the next reset time in the browser’s local timezone. It uses
+the same UTC-day reservation query as the budget guard and refreshes at least every 30 seconds.
+The register uses one-line rows with stage segments, cumulative input/output tokens and run
+counts across all attempts; its SQL projections remain bounded to the current 50-row page.
 
 `RESEARCH_RUN_CENTS` reserves a conservative amount for a run, and `RESEARCH_DAILY_CENTS` limits
 starts per UTC day. These are run reservations, not a guarantee of metered model billing. Failed

@@ -13,10 +13,15 @@ import (
 // SourceCheck is what the service found on the submitted page before any AI research: its title,
 // where it lives, how much readable text it has, and the word for cannabis it uses, if any.
 type SourceCheck struct {
-	Title   string `json:"title"`
-	Host    string `json:"host"`
-	Chars   int    `json:"chars"`
-	Mention string `json:"mention"`
+	CaptureID      string          `json:"capture_id,omitempty"`
+	Rendered       bool            `json:"rendered"`
+	Screenshot     bool            `json:"screenshot"`
+	BrowserWarning string          `json:"browser_warning,omitempty"`
+	Metadata       *SourceMetadata `json:"metadata,omitempty"`
+	Title          string          `json:"title"`
+	Host           string          `json:"host"`
+	Chars          int             `json:"chars"`
+	Mention        string          `json:"mention"`
 }
 
 var (
@@ -40,16 +45,24 @@ func Check(e Evidence) (SourceCheck, error) {
 	if u, err := url.Parse(e.FinalURL); err == nil && u.Host != "" {
 		host = strings.TrimPrefix(u.Hostname(), "www.")
 	}
-	c := SourceCheck{Host: host}
+	c := SourceCheck{CaptureID: e.CaptureID, Host: host, Rendered: e.Rendered, Screenshot: e.Screenshot == "page.png", BrowserWarning: e.BrowserWarning}
+	if e.Metadata != nil {
+		m := e.Metadata
+		c.Metadata = &SourceMetadata{Description: limitText(m.Description, 500), Canonical: limitText(m.Canonical, 4096), Language: limitText(m.Language, 40), Authors: m.Authors, PublishedAt: limitText(m.PublishedAt, 100), ModifiedAt: limitText(m.ModifiedAt, 100), SiteName: limitText(m.SiteName, 200)}
+		c.Title = limitText(m.Title, 150)
+	}
 	if m := titleTag.FindStringSubmatch(e.Content); m != nil {
 		c.Title = strings.TrimSpace(spaces.ReplaceAllString(html.UnescapeString(tags.ReplaceAllString(m[1], " ")), " "))
 		if utf8.RuneCountInString(c.Title) > 150 {
 			c.Title = string([]rune(c.Title)[:150]) + "…"
 		}
 	}
-	text := strings.Join(strings.Fields(Text(e.Content)), " ")
+	text := strings.Join(strings.Fields(e.ReadableText()), " ")
 	c.Chars = utf8.RuneCountInString(text)
 	if c.Chars < 200 {
+		if e.Rendered {
+			return c, errors.New("the browser-rendered page has almost no readable article text (it may require a login, show an access challenge, or contain only media)")
+		}
 		return c, errors.New("the page has almost no readable text (it may need JavaScript or a login)")
 	}
 	lower := strings.ToLower(c.Title + " " + text)

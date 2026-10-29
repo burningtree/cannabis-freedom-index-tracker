@@ -4,11 +4,12 @@
 import { STATUS_LABELS } from "./submission-receipts.js";
 
 // the pipeline, in order; a request moves left to right and ends in one outcome
-export const STAGES = ["Queued", "Source check", "Research", "Review", "Publish", "Outcome"];
+export const STAGES = ["Queued", "Source check", "Research", "Validate", "Commit", "Outcome"];
 
 // tone: running (still being worked on), done (published), covered (already in the tracker or
 // sent to the CFI), declined (not published, with a reason), attention (a person has to look), failed
 const META = {
+  budget_wait: { stage: 2, tone: "paused", label: "Budget paused" },
   queued: { stage: 0, tone: "running", label: "Queued" },
   received: { stage: 0, tone: "running", label: "Queued" },
   fetching: { stage: 1, tone: "running", label: "Checking the source" },
@@ -19,6 +20,7 @@ const META = {
   publishing: { stage: 4, tone: "running", label: "Publishing" },
   merged: { stage: 4, tone: "running", label: "Deploying" },
   deploying: { stage: 4, tone: "running", label: "Deploying" },
+  committed: { stage: 5, tone: "done", label: "Committed" },
   published: { stage: 5, tone: "done", label: "Published" },
   duplicate: { stage: 5, tone: "covered", label: "Already covered" },
   routed_to_cfi: { stage: 5, tone: "covered", label: "Routed to the CFI" },
@@ -33,6 +35,8 @@ export const isRunning = (status) => statusMeta(status).tone === "running";
 
 // what an outcome means for the person who sent the source, beside the worker's own explanation
 export const OUTCOME_HELP = {
+  budget_wait: "This request is waiting for the daily AI budget to reset. No new research run has started.",
+  committed: "The validated report was committed to the local repository. Pushing and deployment are separate.",
   published: "A cited report was written and published from this source.",
   duplicate: "The tracker already has a report on this event, so no new one was made.",
   routed_to_cfi: "This is about a change in the law, not an enforcement event, so it belongs in the Cannabis Freedom Index history.",
@@ -48,6 +52,8 @@ export const FILTERS = [
   ["", "All"],
   ["researching", "Researching"],
   ["queued", "Queued"],
+  ["budget_wait", "Budget paused"],
+  ["committed", "Committed"],
   ["published", "Published"],
   ["duplicate", "Already covered"],
   ["insufficient_evidence", "Unable to verify"],

@@ -109,8 +109,21 @@ copied** to this site.
 - `reported`: drafted from a source not yet checked in full (automated collection will use this).
 - `disputed`: sources contradict each other, or the official account is contested.
 
+## 9. Required model provenance
+
+Every report's front matter must contain `created_by_model`, naming the exact model that wrote
+it (including provider and variant when known, such as `opencode-go/deepseek-v4.1-flash#max`).
+Agents writing Markdown fill this in themselves; the submission service assigns it from the
+actual OpenCode run configuration. It is required by both the schema and the report tests.
+Never claim another model, copy an example's attribution, or infer an old model from today's
+configuration. For historical reports without recorded attribution, or when the runtime does
+not disclose its identity, write `created_by_model: unknown` and explain the limitation.
+Preserve the original creator when updating a report, and add the current model once to
+`updated_by_models` instead. The report page shows recorded attribution or "not recorded".
+
 ## Checklist
 
+- [ ] Required `created_by_model` recorded accurately; update provenance preserved.
 - [ ] One event; every source is about it.
 - [ ] Every source opened; its own publication date checked.
 - [ ] Every factual sentence cited; every source cited.

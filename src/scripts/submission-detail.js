@@ -2,6 +2,7 @@
 // the AI run with its live chat, the history grouped by attempt, and the details of the request.
 // Called by submissions.js on every refresh; the parts are redrawn in place except the AI panel,
 // which updates itself (src/lib/ai-activity.js) so its chat keeps its place.
+import { restartControl } from "../lib/submission-restart.js";
 import { renderAIActivity } from "../lib/ai-activity.js";
 import { renderDraft, readResult } from "./draft-report.js";
 import { safeHTTP } from "../lib/submission-receipts.js";
@@ -36,6 +37,7 @@ function hero(box, v, run) {
   const why = el("div", undefined, "sx-why-box");
   why.append(el("p", v.explanation, "sx-why-main"));
   if (!running && OUTCOME_HELP[v.status]) why.append(el("p", OUTCOME_HELP[v.status], "sx-why-help"));
+  if (v.status === "budget_wait" && v.resume_at) why.append(el("p", `Scheduled to resume ${fullTime(v.resume_at)}. The budget counts run reservations, not the lower estimated cost shown below.`, "sx-why-help"));
   box.append(why);
   if (v.note) box.append(el("blockquote", v.note, "sx-quote"));
 }
@@ -59,20 +61,21 @@ function output(box, v) {
   const base = root?.dataset.base ?? "/";
   box.replaceChildren(el("h2", "Outcome"));
   const items = el("div", undefined, "sx-out-items");
-  if (SLUG.test(v.report_slug || "") && ["published", "duplicate"].includes(v.status)) items.append(link(v.status === "published" ? "Read the published report →" : "Read the existing report →", `${base}report/${v.report_slug}/`, "sx-btn sx-btn-primary"));
+  if (SLUG.test(v.report_slug || "") && ["committed", "published", "duplicate"].includes(v.status)) items.append(link(v.status === "committed" ? "Read the committed report →" : v.status === "published" ? "Read the published report →" : "Read the existing report →", `${base}report/${v.report_slug}/`, "sx-btn sx-btn-primary"));
   if (readResult(v)) items.append(link("Preview as a report →", `${base}draft/?id=${v.id}`, `sx-btn${items.childElementCount ? "" : " sx-btn-primary"}`));
   if (PR.test(v.pr_url || "")) items.append(link("Proposal on GitHub ↗", v.pr_url, "sx-btn"));
   if (/^[a-f0-9]{64}$/.test(v.reply_event_id || "")) items.append(link("Reply on Nostr ↗", `https://njump.me/${v.reply_event_id}`, "sx-btn"));
   const draft = el("article", undefined, "sx-draft");
   const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true });
-  if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : v.status === "published" ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
+  if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : ["published", "committed"].includes(v.status) ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
   else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
   else if (!items.childElementCount) box.append(el("p", OUTCOME_HELP[v.status] ?? v.explanation, "sx-muted"));
   if (items.childElementCount) box.append(items);
 }
 
 // what the service found on the submitted page before any AI research
-function sourceCheck(box, v) {
+function sourceCheck(box, v, { api, local }) {
+  const previousScreenshot = box.querySelector(".sx-source-screenshot");
   const c = v.source_check;
   const failed = v.status === "source_unavailable";
   box.hidden = !c && !failed && !["fetching"].includes(v.status);
@@ -83,11 +86,39 @@ function sourceCheck(box, v) {
   if (v.status === "fetching" && !c) row(null, "Opening the submitted page…");
   else if (failed && !c) row(false, v.explanation.replace(/ Send a link.*$/, ""));
   if (c) {
-    row(true, `Loaded from ${c.host}${c.title ? `: “${c.title}”` : ""}`);
+    row(c.chars > 0, `Loaded from ${c.host}${c.title ? `: “${c.title}”` : ""}`);
     row(c.chars >= 200, `${Number(c.chars).toLocaleString()} characters of readable text`);
     if (c.chars >= 200) row(Boolean(c.mention), c.mention ? `Mentions cannabis (${c.mention})` : "Does not mention cannabis");
   }
   box.append(list);
+  if (c) {
+    box.append(el("p", c.rendered ? "Loaded with Playwright · JavaScript rendered" : "Loaded with HTTP", "sx-muted"));
+    if (c.browser_warning) box.append(el("p", c.browser_warning, "sx-muted"));
+    if (local && c.screenshot) {
+      const captureKey = c.capture_id || `${v.id}:${c.title}:${c.chars}`;
+      const figure = previousScreenshot?.dataset.capture === captureKey ? previousScreenshot : el("figure", undefined, "sx-source-screenshot");
+      if (!figure.childElementCount) {
+      figure.dataset.capture = captureKey;
+      const screenshot = link("", `${api}/v1/submissions/${v.id}/source/screenshot${c.capture_id ? `?capture=${encodeURIComponent(c.capture_id)}` : ""}`);
+      screenshot.target = "_blank"; screenshot.rel = "noopener noreferrer";
+      const image = el("img"); image.src = screenshot.href; image.alt = `Captured source page from ${c.host}`;
+      image.loading = "lazy"; image.decoding = "async";
+      screenshot.append(image); figure.append(screenshot, el("figcaption", "Captured source page · click to open the full-size screenshot"));
+      }
+      box.append(figure);
+    }
+    const m = c.metadata;
+    if (m && Object.values(m).some(value => Array.isArray(value) ? value.length : Boolean(value))) {
+      const details = el("section", undefined, "sx-source-metadata"); details.append(el("h3", "Page metadata"));
+      const dl = el("dl", undefined, "sx-facts");
+      for (const [label, value] of [["Description", m.description], ["Publisher", m.site_name], ["Canonical", m.canonical], ["Language", m.language], ["Author", m.authors?.join(", ")], ["Published", m.published_at], ["Updated", m.modified_at]]) {
+        if (!value) continue;
+        const dd = el("dd"); const url = label === "Canonical" && safeHTTP(value);
+        dd.append(url ? link(value, url) : document.createTextNode(value)); dl.append(el("dt", label), dd);
+      }
+      details.append(dl); box.append(details);
+    }
+  }
 }
 
 // the history, newest attempt first and open; earlier attempts folded, each with its result
@@ -132,14 +163,18 @@ function facts(box, v) {
 
 export function renderSubmissionDetail(v, ai, { api, id }) {
   const run = ai?.activity?.runs?.[0];
+  const attempt = attempts(v.history).at(-1);
+  const previousAttempt = Boolean(run && attempt && (run.created_at < attempt.start));
   document.title = `${statusMeta(v.status).label}: ${sourceParts(v.url).host} · Submissions`;
   document.getElementById("crumb-id").textContent = sourceParts(v.url).host;
   hero(document.getElementById("submission-detail"), v, run);
+  const restart = restartControl(v, { api, enabled: ai?.processing?.restart_available, onRestart: () => window.dispatchEvent(new Event("submission-restarted")) });
+  if (restart) document.getElementById("submission-detail").append(restart);
   stages(document.getElementById("submission-stages"), v);
   document.getElementById("submission-body").hidden = false;
   output(document.getElementById("submission-output"), v);
-  sourceCheck(document.getElementById("submission-source"), v);
+  sourceCheck(document.getElementById("submission-source"), v, { api, local: ai?.processing?.restart_available });
   history(document.getElementById("submission-history"), v);
   facts(document.getElementById("submission-facts"), v);
-  renderAIActivity(document.getElementById("submission-ai"), ai, { api, id, requestRunning: isRunning(v.status) });
+  renderAIActivity(document.getElementById("submission-ai"), ai, { api, id, requestRunning: isRunning(v.status), previousAttempt });
 }

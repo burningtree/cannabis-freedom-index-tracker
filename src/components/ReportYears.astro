@@ -1,0 +1,39 @@
+---
+// Reports by year, newest first, as on the Cannabis Freedom Index's History: the year set large
+// beside its reports, with its months under it as a sticky index that marks the month being read.
+// Used by the country pages, the year pages and (for the reports in the page before its script
+// takes over) the Reports page; src/scripts/report-years.js draws the same markup in the browser.
+import ReportItem from "./ReportItem.astro";
+import { isoDate } from "../lib/reports.js";
+import { MONTHS_FROM, monthLabel, plural } from "../scripts/report-years.js";
+
+// reports: newest first. showYear: false on a year's own page, where the year is the page's title.
+const { reports, showYear = true } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const years = Object.entries(Object.groupBy(reports, (r) => r.year)).sort((a, b) => b[0] - a[0]).map(([year, list]) => {
+  const months = Object.entries(Object.groupBy(list, (r) => isoDate(r.date).slice(0, 7))).sort((a, b) => b[0].localeCompare(a[0]));
+  return { year, list, months };
+});
+---
+{years.map(({ year, list, months }) => (
+  <section class="ry" id={`y${year}`} data-year={year}>
+    <div class="ry-side">
+      {showYear
+        ? <h2><a href={`${base}${year}/`} title={`All reports of ${year}`}>{year}</a><small>{plural(list.length, "report")}</small></h2>
+        : <p class="ry-label">{plural(list.length, "report")}</p>}
+      {list.length >= MONTHS_FROM && months.length > 1 && (
+        <ol class="ry-months" aria-label={`Months of ${year}`}>
+          {months.map(([m, items]) => <li><a href={`#m${m}`}>{monthLabel(m)}<small>{items.length}</small></a></li>)}
+        </ol>
+      )}
+    </div>
+    <ol class="ry-list">
+      {months.map(([m, items]) => <li class="ry-month" id={`m${m}`}><ul class="reports">{items.map((r) => <ReportItem r={r} search={false} />)}</ul></li>)}
+    </ol>
+  </section>
+))}
+
+<script>
+  import { watchMonths } from "../scripts/report-years.js";
+  watchMonths();
+</script>

@@ -76,6 +76,9 @@ const reports = defineCollection({
     status: z.enum(Object.keys(STATUS) as [string, ...string[]]),
     cfi_id: z.string().regex(/^[a-z0-9-]+$/).optional(), // the Cannabis Freedom Index history entry it was moved from
     tags: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
+    created_by_model: z.string().trim().min(1).max(300), // required; "unknown" only when attribution was not recorded
+    updated_by_models: z.array(z.string().trim().min(1).max(300)).optional(),
+    open_questions: z.array(z.string().trim().min(1).max(4000)).max(30).optional(),
     sources: z.array(source).min(1, { message: "a report needs at least one source" }),
   }).strict()
     .refine((r) => !r.coordinates || r.precision, { message: "coordinates need a precision" })

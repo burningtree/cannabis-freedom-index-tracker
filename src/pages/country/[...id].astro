@@ -3,8 +3,8 @@
 import Base from "../../layouts/Base.astro";
 import WorldMap from "../../components/WorldMap.astro";
 import CfiWidget from "../../components/CfiWidget.astro";
-import ReportItem from "../../components/ReportItem.astro";
-import { reportsOf, totals, countByType, isoDate } from "../../lib/reports.js";
+import ReportYears from "../../components/ReportYears.astro";
+import { reportsOf, totals, countByType } from "../../lib/reports.js";
 import { countries, countryName, countryOf, flagOf } from "../../lib/countries.js";
 import { TYPES, typeIcon } from "../../lib/types.js";
 
@@ -20,11 +20,8 @@ const byType = Object.entries(countByType(list)).filter(([, n]) => n);
 const states = countries.filter((s) => s.parent === id && reportsOf(s.id).length);
 const base = import.meta.env.BASE_URL;
 const fmt = (n) => n.toLocaleString("en-GB");
-// the newest in full, the rest as one line each, by year
-const FULL = 20;
-const older = Object.entries(Object.groupBy(list.slice(FULL), (r) => r.year)).sort((a, b) => b[0] - a[0]);
 ---
-<Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`}>
+<Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`} wide>
   <nav class="crumbs"><a href={`${base}country/`}>Countries</a>{c.parent && <> / <a href={`${base}country/${c.parent}/`}>{countryName(c.parent)}</a></>}</nav>
   <h1>{flagOf(id)} {name}</h1>
   <p class="lead">{list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.</p>
@@ -50,15 +47,7 @@ const older = Object.entries(Object.groupBy(list.slice(FULL), (r) => r.year)).so
     </>
   )}
 
-  <h2>Latest reports</h2>
-  <ul class="reports">{list.slice(0, FULL).map((r) => <ReportItem r={r} search={false} />)}</ul>
-  {older.map(([year, rows]) => (
-    <section>
-      <h2>{year} <span class="muted">· {rows.length}</span></h2>
-      <ul class="compact-list">
-        {rows.map((r) => <li><time datetime={isoDate(r.date)}>{isoDate(r.date)}</time><span><span class="type" style={`--c:${r.color}`}>{r.typeLabel}</span> <a href={`${base}${r.url}`}>{r.title}</a></span></li>)}
-      </ul>
-    </section>
-  ))}
+  <h2>Reports</h2>
+  <ReportYears reports={list} />
   <p class="note">This country's reports as data: <a href={`${base}api/country/${id}.json`}>{`/api/country/${id}.json`}</a></p>
 </Base>

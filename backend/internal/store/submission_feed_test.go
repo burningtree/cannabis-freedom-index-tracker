@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestSubmissionFeedPagesEveryOriginWithoutPrivateData(t *testing.T) {
@@ -104,5 +105,48 @@ func TestFeedRevisionCoversSharedCasesAndNostrLinks(t *testing.T) {
 	next, _ := s.FeedVersion(ctx)
 	if next == previous {
 		t.Fatal("Nostr update did not invalidate register")
+	}
+}
+
+func TestSubmissionFeedIncludesCumulativeUsageAndBudgetResume(t *testing.T) {
+	s := openTest(t)
+	ctx := context.Background()
+	id := accept(t, s, false)
+	other := accept(t, s, false)
+	v, _ := s.Get(ctx, id)
+	for i := 0; i < 2; i++ {
+		run, err := s.Reserve(ctx, v.CaseID, "private-workspace", 1, 1000)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err = s.DB.Exec("UPDATE research_runs SET input_tokens=?,output_tokens=? WHERE id=?", 100+i, 20+i, run); err != nil {
+			t.Fatal(err)
+		}
+	}
+	job, err := s.Claim(ctx, "jobs", time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = s.Transition(ctx, v.CaseID, "classifying", "The source is checked.", "", ""); err != nil {
+		t.Fatal(err)
+	}
+	if err = s.Finish(ctx, "jobs", job, ErrBudget); err != nil {
+		t.Fatal(err)
+	}
+	page, err := s.ListSubmissions(ctx, 1<<62, "budget_wait", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(page.Submissions) != 2 {
+		t.Fatal(page)
+	}
+	for _, entry := range page.Submissions {
+		if entry.InputTokens != 201 || entry.OutputTokens != 41 || entry.RunCount != 2 || entry.Status != "budget_wait" || entry.ResumeAt <= time.Now().Unix() || entry.LastStage != "classifying" {
+			t.Fatal(entry)
+		}
+	}
+	detail, err := s.Get(ctx, other)
+	if err != nil || detail.Status != "budget_wait" || detail.ResumeAt != page.Submissions[0].ResumeAt || !strings.Contains(detail.Explanation, "No new AI run") {
+		t.Fatal(detail, err)
 	}
 }

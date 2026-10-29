@@ -18,6 +18,8 @@ type Config struct {
 	ResearchImage, ResearchNetwork, ResearchModel, ResearchKey                  string
 	ResearchRunner, OpenCodeBinary, OpenCodeAuthFile                            string
 	AutoPublish                                                                 bool
+	SourceBrowser                                                               bool
+	DevControls                                                                 bool
 	RawAILogs                                                                   bool
 	ResearchTimeout                                                             time.Duration
 	ResearchMaxSteps                                                            int // model steps a research run may take before it must answer
@@ -34,6 +36,8 @@ func env(k, d string) string {
 }
 func Load() (Config, error) {
 	c := Config{Addr: env("HTTP_ADDR", "127.0.0.1:8080"), Database: env("DATABASE_PATH", "data/tracker.sqlite"), PublicURL: strings.TrimRight(env("PUBLIC_BASE_URL", "https://tracker.cannabisfreedom.fyi"), "/"), RepoPath: env("REPO_PATH", ".."), Workspaces: env("WORKSPACE_PATH", "data/jobs"), IngestToken: os.Getenv("INGEST_TOKEN"), Origins: strings.Split(env("CORS_ORIGINS", "https://tracker.cannabisfreedom.fyi"), ","), GatewaySecret: os.Getenv("NOSTR_GATEWAY_SECRET"), BotSecret: os.Getenv("NOSTR_BOT_SECRET"), ResearchImage: os.Getenv("RESEARCH_IMAGE"), ResearchNetwork: os.Getenv("RESEARCH_NETWORK"), ResearchModel: os.Getenv("RESEARCH_MODEL"), ResearchKey: os.Getenv("RESEARCH_API_KEY"), GitHubAppID: os.Getenv("GITHUB_APP_ID"), GitHubInstallationID: os.Getenv("GITHUB_INSTALLATION_ID"), GitHubKeyFile: os.Getenv("GITHUB_APP_PRIVATE_KEY_FILE"), GitHubRepo: env("GITHUB_REPO", "burningtree/cannabis-freedom-index-tracker"), WebhookSecret: os.Getenv("GITHUB_WEBHOOK_SECRET"), Demo: env("DEMO_WORKER", "false") == "true"}
+	c.SourceBrowser = env("SOURCE_BROWSER", "true") == "true"
+	c.DevControls = env("DEV_CONTROLS", "false") == "true"
 	c.RawAILogs = env("RAW_AI_LOGS", "false") == "true"
 	c.ResearchRunner = env("RESEARCH_RUNNER", "docker")
 	c.OpenCodeBinary = env("OPENCODE_BIN", "opencode")
@@ -128,15 +132,6 @@ func Load() (Config, error) {
 	}
 	if c.IngestToken != "" && len(c.IngestToken) < 32 {
 		return c, errors.New("ingest token must be at least 32 characters")
-	}
-	configured := 0
-	for _, v := range []string{c.GitHubAppID, c.GitHubInstallationID, c.GitHubKeyFile} {
-		if v != "" {
-			configured++
-		}
-	}
-	if configured != 0 && configured != 3 {
-		return c, errors.New("incomplete GitHub App configuration")
 	}
 	return c, nil
 }

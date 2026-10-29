@@ -3,7 +3,7 @@
 // ended and why, and links to the request's own page.
 import { renderProcessingStatus } from "../lib/ai-activity.js";
 import { ID_PATTERN } from "../lib/submission-receipts.js";
-import { statusMeta, isRunning, ORIGINS, relativeTime, fullTime, sourceParts } from "../lib/submission-status.js";
+import { statusMeta, isRunning, STAGES, ORIGINS, relativeTime, fullTime, sourceParts } from "../lib/submission-status.js";
 
 const root = document.querySelector("[data-submission-register]");
 if (root) initialize(root);
@@ -35,20 +35,24 @@ function initialize(root) {
     p.append(el("i", undefined, "sx-dot"), document.createTextNode(meta.label)); return p;
   }
   function row(v) {
-    const li = el("li", undefined, "sx-row"); li.dataset.tone = statusMeta(v.status).tone;
-    const a = el("a", undefined, "sx-row-link"); a.href = `${base}submission/?id=${v.id}`;
+    const meta = statusMeta(v.status);
+    const li = el("li", undefined, "sx-row"); li.dataset.tone = meta.tone;
+    const a = el("a", undefined, "sx-row-link"); a.href = `${base}submission/?id=${v.id}`; a.title = v.explanation;
     const { host, path } = sourceParts(v.url);
-    const main = el("div", undefined, "sx-row-main");
-    const src = el("div", undefined, "sx-src"); src.append(el("strong", host), el("span", path, "sx-path")); src.title = v.url;
-    main.append(src, el("p", v.explanation, "sx-why"));
-    if (v.note) main.append(el("p", `“${v.note}”`, "sx-note"));
-    const side = el("div", undefined, "sx-row-side");
-    const when = el("time", relativeTime(Math.max(v.created_at, v.updated_at || 0))); when.dateTime = new Date(Math.max(v.created_at, v.updated_at || 0) * 1000).toISOString(); when.title = `Received ${fullTime(v.created_at)}`;
-    side.append(el("span", ORIGINS[v.origin] || v.origin, "sx-origin"), when);
-    const out = el("div", undefined, "sx-row-out");
-    out.append(pill(v.status));
-    if (v.status === "published" || v.status === "duplicate") { if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v.report_slug || "")) out.append(el("span", "Report →", "sx-out-link")); }
-    a.append(out, main, side); li.append(a); return li;
+    const src = el("span", undefined, "sx-row-source"); src.append(el("strong", host), el("span", path, "sx-path")); src.title = `${v.url}\n${v.explanation}`;
+    const progress = el("span", undefined, "sx-row-progress");
+    const lastStage = meta.stage === 5 && !["committed", "published", "duplicate", "routed_to_cfi"].includes(v.status) && v.last_stage ? statusMeta(v.last_stage).stage : meta.stage;
+    progress.setAttribute("role", "progressbar"); progress.setAttribute("aria-label", "Processing stage");
+    progress.setAttribute("aria-valuemin", "0"); progress.setAttribute("aria-valuemax", "5"); progress.setAttribute("aria-valuenow", String(lastStage));
+    progress.setAttribute("aria-valuetext", meta.label); progress.title = `${STAGES[lastStage]} · ${meta.label}${v.resume_at ? ` · resumes ${fullTime(v.resume_at)}` : ""}`;
+    for (let i = 0; i < STAGES.length; i++) { const part = el("i"); part.dataset.state = i < lastStage ? "done" : i === lastStage ? "current" : "todo"; progress.append(part); }
+    const number = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString() : "—";
+    const input = el("span", number(v.input_tokens), "sx-row-number"); input.title = "Input tokens across all attempts";
+    const output = el("span", number(v.output_tokens), "sx-row-number"); output.title = "Output tokens across all attempts";
+    const runs = el("span", number(v.run_count), "sx-row-number"); runs.title = "AI runs across all attempts";
+    const when = el("time", relativeTime(Math.max(v.created_at, v.updated_at || 0))); when.dateTime = new Date(Math.max(v.created_at, v.updated_at || 0) * 1000).toISOString(); when.title = `Updated ${fullTime(Math.max(v.created_at, v.updated_at || 0))}`;
+    a.append(pill(v.status), src, progress, input, output, runs, el("span", ORIGINS[v.origin] || v.origin, "sx-origin"), when);
+    li.append(a); return li;
   }
   function render() {
     const list = $("rows"); list.replaceChildren(); list.setAttribute("aria-busy", "false");
@@ -68,10 +72,18 @@ function initialize(root) {
       const data = await get(`/v1/submissions?${params}`, active.signal);
       if (disposed || active.signal.aborted) return;
       renderProcessingStatus($("processing"), data.processing, { compact: true });
+      const working = (data.working || []).filter(v => ID_PATTERN.test(v.id));
+      $("working").replaceChildren(...working.map(row));
+      if (!working.length) $("working").append(el("li", "No submissions are running right now.", "sx-empty"));
+      $("working-count").textContent = Number.isFinite(data.summary?.running) ? `· ${data.summary.running.toLocaleString()}` : "";
       rows = data.submissions.filter((v) => ID_PATTERN.test(v.id));
       nextCursor = data.next_cursor; revision = data.revision; render();
+      for (const key of ["total", "running", "queued", "paused"]) {
+        $(key).textContent = Number.isFinite(data.summary?.[key]) ? data.summary[key].toLocaleString() : "—";
+      }
       const running = rows.filter((v) => isRunning(v.status)).length;
-      $("count").textContent = `${Number(data.total).toLocaleString()} total${running ? ` · ${running} in progress here` : ""}`;
+      const paused = rows.filter(v => v.status === "budget_wait").length;
+      $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}${paused ? ` · ${paused} budget paused` : ""}`;
       $("message").textContent = cursors.length > 1 ? "Showing older submissions. Choose Newest to see new arrivals." : "";
     } catch {
       if (!active.signal.aborted) { $("message").textContent = "Submissions could not be refreshed; the last loaded list is kept."; if (!rows.length) $("rows").replaceChildren(el("li", "Submissions could not be loaded.", "sx-empty")); }
@@ -89,8 +101,18 @@ function initialize(root) {
   $("next").addEventListener("click", () => { if (nextCursor) changePage(() => cursors.push(nextCursor)); });
   $("previous").addEventListener("click", () => changePage(() => { if (cursors.length > 1) cursors.pop(); }));
   $("newest").addEventListener("click", () => changePage(() => { cursors = [""]; }));
+  window.addEventListener("submission-created", () => {
+    status = "";
+    for (const chip of root.querySelectorAll("[data-filter]")) chip.setAttribute("aria-pressed", String(chip.dataset.filter === ""));
+    changePage(() => { cursors = [""]; $("origin").value = ""; });
+  });
   // "5 min ago" stays true without reloading
-  tick = setInterval(() => { if (!document.hidden && rows.length) for (const t of $("rows").querySelectorAll("time")) t.textContent = relativeTime(Date.parse(t.dateTime) / 1000); }, 30000);
+  tick = setInterval(() => {
+    if (document.hidden) return;
+    for (const t of root.querySelectorAll(".sx-list time")) t.textContent = relativeTime(Date.parse(t.dateTime) / 1000);
+    // Refresh the UTC daily budget even when no WebSocket events occur overnight.
+    refresh();
+  }, 30000);
 
   function disconnect() { clearTimeout(retryTimer); const old = socket; socket = null; old?.close(); }
   function connect() {

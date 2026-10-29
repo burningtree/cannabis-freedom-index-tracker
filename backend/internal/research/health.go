@@ -13,10 +13,11 @@ import (
 )
 
 type HealthSnapshot struct {
-	Status    string `json:"status"`
-	Message   string `json:"message"`
-	Version   string `json:"version,omitempty"`
-	CheckedAt int64  `json:"checked_at"`
+	Diagnostics *ProbeDiagnostics `json:"-"`
+	Status      string            `json:"status"`
+	Message     string            `json:"message"`
+	Version     string            `json:"version,omitempty"`
+	CheckedAt   int64             `json:"checked_at"`
 }
 type Health struct {
 	mu       sync.RWMutex
@@ -31,76 +32,134 @@ func (h *Health) Ready() bool              { return h != nil && h.Snapshot().Sta
 func (h *Health) Set(s HealthSnapshot)     { h.mu.Lock(); h.snapshot = s; h.mu.Unlock() }
 
 // Probe invokes the same actual OpenCode harness/model/auth path used by research,
-// with a neutral workspace and a one-step no-tool agent instead of a real report.
+// with a neutral workspace and a short no-tool agent instead of a real report.
 func (r Runner) Probe(ctx context.Context) (string, error) {
+	diagnostics, err := r.ProbeDetails(ctx)
+	return diagnostics.Version, err
+}
+
+var errEmptyProbeReply = errors.New("OpenCode completed the model call without an assistant reply")
+
+func (r Runner) ProbeDetails(ctx context.Context) (ProbeDiagnostics, error) {
+	first, err := r.probeAttempt(ctx)
+	first.Attempts = []ProbeAttempt{first.attempt()}
+	result := first
+	if errors.Is(err, errEmptyProbeReply) && ctx.Err() == nil {
+		result, err = r.probeAttempt(ctx)
+		result.Attempts = []ProbeAttempt{first.attempt(), result.attempt()}
+		result.DurationMS += first.DurationMS
+		if result.File == "" {
+			result.File = first.File
+		}
+	}
+	if result.File != "" {
+		_ = result.save(filepath.Dir(result.File))
+	}
+	return result, err
+}
+func (r Runner) probeAttempt(ctx context.Context) (diagnostics ProbeDiagnostics, probeErr error) {
+	diagnostics = ProbeDiagnostics{Model: r.Config.ResearchModel, Prompt: probePrompt, AgentInstruction: probeInstruction}
+	started := time.Now()
+	var diagnosticRoot string
+	defer func() {
+		diagnostics.DurationMS = time.Since(started).Milliseconds()
+		diagnostics.Response = r.redactProbeText(diagnostics.Response)
+		diagnostics.Stdout = r.redactProbeText(diagnostics.Stdout)
+		diagnostics.Stderr = r.redactProbeText(diagnostics.Stderr)
+		if probeErr != nil {
+			diagnostics.Error = r.redactProbeText(probeErr.Error())
+		}
+		if diagnosticRoot != "" {
+			if err := diagnostics.save(diagnosticRoot); err != nil {
+				diagnostics.Error += " (startup diagnostics file could not be written)"
+			}
+		}
+	}()
+
 	if r.Config.ResearchRunner == "local" {
 		name := r.Config.OpenCodeBinary
 		if name == "" {
 			name = "opencode"
 		}
 		if _, err := exec.LookPath(name); err != nil {
-			return "", errors.New("OpenCode binary is not accessible; install it or set OPENCODE_BIN")
+			return diagnostics, errors.New("OpenCode binary is not accessible; install it or set OPENCODE_BIN")
 		}
 	}
 	root, err := filepath.Abs(r.Config.Workspaces)
 	if err != nil {
-		return "", err
+		return diagnostics, err
 	}
 	if err = os.MkdirAll(root, 0700); err != nil {
-		return "", err
+		return diagnostics, err
 	}
+	diagnosticRoot = root
 	dir, err := os.MkdirTemp(root, ".startup-check-")
 	if err != nil {
-		return "", err
+		return diagnostics, err
 	}
 	defer os.RemoveAll(dir)
 	input := filepath.Join(dir, "input")
 	if err = os.Mkdir(input, 0755); err != nil {
-		return "", err
+		return diagnostics, err
 	}
 	if err = os.WriteFile(filepath.Join(input, "opencode.json"), r.modelConfig(), 0644); err != nil {
-		return "", err
+		return diagnostics, err
 	}
-	args := []string{"run", "--pure", "--agent", "enforcement-probe", "--model", r.Config.ResearchModel, "--format", "json", "Reply exactly OK."}
+	args := []string{"run", "--pure", "--agent", "enforcement-probe", "--model", r.Config.ResearchModel, "--format", "json", probePrompt}
 	command, cleanup, err := r.commandArgs(ctx, input, "startup-check", args)
 	if err != nil {
-		return "", err
+		return diagnostics, err
 	}
 	defer cleanup()
+	diagnostics.Arguments = append([]string(nil), args...)
+	if r.Config.ResearchRunner == "local" && strings.Contains(strings.Join(command.Args, " "), "--standalone") {
+		diagnostics.Arguments = v2Args(args)
+	}
 	version := "container"
+	diagnostics.Version = version
 	if r.Config.ResearchRunner == "local" {
 		probe := exec.CommandContext(ctx, command.Path, append(append([]string(nil), command.Args[1:4]...), "--version")...)
 		probe.Env = command.Env
 		probe.Dir = command.Dir
 		b, err := probe.Output()
 		if err != nil {
-			return "", errors.New("OpenCode binary could not run inside its filesystem sandbox")
+			return diagnostics, errors.New("OpenCode binary could not run inside its filesystem sandbox")
 		}
 		version = strings.TrimSpace(string(b))
+		diagnostics.Version = version
 
 	}
 	out := &capped{Max: 1024 * 1024}
+	stderr := &capped{Max: 256 * 1024}
 	command.Stdout = out
-	command.Stderr = &capped{Max: 256 * 1024}
-	if err = command.Run(); err != nil {
-		return version, probeFailure(out.Bytes())
+	command.Stderr = stderr
+	runErr := command.Run()
+	diagnostics.Stdout = out.String()
+	diagnostics.Stderr = stderr.String()
+	if command.ProcessState != nil {
+		code := command.ProcessState.ExitCode()
+		diagnostics.ExitCode = &code
+	}
+	if runErr != nil {
+		return diagnostics, probeFailure(out.Bytes())
 	}
 	text, err := FinalText(out.Bytes())
 	if err != nil {
-		return version, probeFailure(out.Bytes())
+		if err.Error() == "missing final result" {
+			return diagnostics, errEmptyProbeReply
+		}
+		return diagnostics, probeFailure(out.Bytes())
 	}
-	if !probeReplyOK(text) {
-		return version, errors.New("OpenCode test prompt did not return the expected OK response")
+	diagnostics.Response = string(text)
+	if !probeReplyUsable(text) {
+		return diagnostics, errEmptyProbeReply
 	}
-	return version, nil
+	return diagnostics, nil
 }
 
-// Some provider adapters include a preamble in their text event. Require the
-// final response line to be the exact connectivity acknowledgement.
-func probeReplyOK(text []byte) bool {
-	lines := strings.Split(strings.TrimSpace(string(text)), "\n")
-	return len(lines) > 0 && strings.TrimSpace(lines[len(lines)-1]) == "OK"
-}
+// Readiness checks a completed model call, not exact wording. Provider/harness
+// preambles and summaries must not turn a working model into a startup failure.
+func probeReplyUsable(text []byte) bool { return strings.TrimSpace(string(text)) != "" }
 func probeFailure(data []byte) error {
 	// Never expose provider response bodies or credentials from the execution stream.
 	for _, line := range strings.Split(string(data), "\n") {
@@ -124,8 +183,8 @@ func probeFailure(data []byte) error {
 func (r Runner) Check(ctx context.Context, h *Health) {
 	check, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	version, err := r.Probe(check)
-	state := HealthSnapshot{Status: "ready", Message: "OpenCode binary and model test passed. Queued requests are processed automatically.", Version: version, CheckedAt: time.Now().Unix()}
+	diagnostics, err := r.ProbeDetails(check)
+	state := HealthSnapshot{Status: "ready", Message: "OpenCode binary and model test passed. Queued requests are processed automatically.", Version: diagnostics.Version, Diagnostics: &diagnostics, CheckedAt: time.Now().Unix()}
 	if err != nil {
 		state.Status = "failed"
 		state.Message = err.Error()

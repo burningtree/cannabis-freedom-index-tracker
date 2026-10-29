@@ -6,6 +6,7 @@
 // narrow the map's markers ("reports:filter") and pointing at a report rings its marker
 // ("reports:hover") where a map is on the page.
 import ReportItem from "./ReportItem.astro";
+import ReportYears from "./ReportYears.astro";
 import { reports, reportsOf, years } from "../lib/reports.js";
 import { countries } from "../lib/countries.js";
 import { TYPES } from "../lib/types.js";
@@ -43,9 +44,14 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   </form>
   <div class="months" id="months" aria-label="Reports per month; choose a month to filter" hidden></div>
   <p class="count" id="count" aria-live="polite">{fmt(reports.length)} reports · newest first</p>
-  <ul class="reports" id="list" data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
-    {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} zoom={compact} />)}
-  </ul>
+  {/* the map's side pane: one plain list; the Reports page: by year, with a sticky month index */}
+  {compact
+    ? <ul class="reports" id="list" data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
+        {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} zoom />)}
+      </ul>
+    : <div class="ry-all" id="list" data-years data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
+        <ReportYears reports={reports.slice(0, PAGE)} />
+      </div>}
   <p class="empty" id="empty" hidden>No report matches these filters.</p>
   <p class="more-row">
     <button type="button" class="more" id="more" hidden={reports.length <= PAGE}>Show more</button>
@@ -57,9 +63,11 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   // Filters: free text, type, country, year and month. They narrow the list and the map's dots and
   // are kept in the address (?type=raid&country=ng&year=2026), so a filtered view can be shared.
   import { loadIndex, inCountry, type Row } from "../scripts/report-index";
+  import { yearsHTML } from "../scripts/report-years.js";
 
   const $ = <T extends HTMLElement = HTMLInputElement>(id: string) => document.getElementById(id) as T;
-  const list = $<HTMLUListElement>("list");
+  const list = $<HTMLElement>("list");
+  const byYear = list.dataset.years != null; // the Reports page: grouped by year and month
   const base = list.dataset.base!, PAGE = Number(list.dataset.page), types = JSON.parse(list.dataset.types!);
   const fields = ["q", "type", "country", "year", "month"];
   const params = new URLSearchParams(location.search);
@@ -112,7 +120,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   }
 
   function render() {
-    list.innerHTML = shown.slice(0, limit).map(item).join("");
+    list.innerHTML = byYear ? yearsHTML(shown.slice(0, limit), shown, item, base) : shown.slice(0, limit).map(item).join("");
+    document.dispatchEvent(new CustomEvent("reports:drawn"));
     $("more").hidden = shown.length <= limit;
     $("empty").hidden = shown.length > 0;
     const active = fields.some((f) => $(f).value) || range !== "all";
@@ -163,6 +172,18 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>(".zoom-to");
     if (b) document.dispatchEvent(new CustomEvent("reports:zoom", { detail: b.dataset.zoom }));
   });
+  // a month in a year's index that is not drawn yet: draw down to it, then go there
+  list.addEventListener("click", (e) => {
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>(".ry-months a");
+    if (!a || document.getElementById(a.hash.slice(1))) return;
+    const month = a.hash.slice(2), at = shown.findIndex((r) => r.d.startsWith(month));
+    if (at < 0) return;
+    e.preventDefault();
+    limit = Math.max(limit, at + PAGE);
+    render();
+    document.getElementById(a.hash.slice(1))?.scrollIntoView({ behavior: "instant" });
+    history.replaceState(null, "", a.hash);
+  });
   // pointing at a report in the list rings its marker on the map
   const hover = (id: string | null) => document.dispatchEvent(new CustomEvent("reports:hover", { detail: id }));
   list.addEventListener("mouseover", (e) => hover((e.target as HTMLElement).closest<HTMLElement>(".report-item")?.dataset.id ?? null));
@@ -189,6 +210,6 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     });
     showRange();
     if (fields.some((f) => $(f).value) || range !== "all") apply();
-    else { shown = rows; months(); }
+    else { shown = rows; if (byYear) render(); months(); } // by year: the counts and months of all reports
   });
 </script>

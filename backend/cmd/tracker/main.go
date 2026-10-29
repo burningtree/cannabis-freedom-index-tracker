@@ -10,7 +10,6 @@ import (
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/config"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/harvest"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/nostr"
-	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/publisher"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/research"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/worker"
@@ -55,15 +54,24 @@ func run() error {
 		return err
 	}
 	if *checkAI {
-		check, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 		defer cancel()
-		version, err := (research.Runner{Config: c}).Probe(check)
-		if err != nil {
-			return err
+		health := research.NewHealth()
+		(research.Runner{Config: c}).Check(ctx, health)
+		snapshot := health.Snapshot()
+		logStartupCheck(snapshot)
+		if snapshot.Status != "ready" {
+			return errors.New(snapshot.Message)
 		}
-		slog.Info("OpenCode startup check passed", "version", version, "model", c.ResearchModel)
 		return nil
 	}
+
+	// Repair commands also take this lock: they must not mutate leases under a live worker.
+	workerLock, err := store.LockWorker(c.Database)
+	if err != nil {
+		return err
+	}
+	defer workerLock.Close()
 	s, err := store.Open(c.Database)
 	if err != nil {
 		return err
@@ -112,29 +120,13 @@ func run() error {
 		return s.Backup(ctx, *backup)
 	}
 	if *retry != "" {
-		v, err := s.Get(ctx, *retry)
-		if err != nil {
-			return err
-		}
-		tx, err := s.DB.BeginTx(ctx, nil)
-		if err != nil {
-			return err
-		}
-		defer tx.Rollback()
-		if _, err = tx.Exec("UPDATE jobs SET status='queued',attempts=0,available_at=?,lease_until=0 WHERE ref=? AND status='dead'", time.Now().Unix(), v.CaseID); err != nil {
-			return err
-		}
-		if _, err = tx.Exec("UPDATE outbox SET status='queued',attempts=0,available_at=?,lease_until=0 WHERE (ref=? OR ref LIKE ?) AND status='dead'", time.Now().Unix(), v.ID, v.ID+":%"); err != nil {
-			return err
-		}
-		if err = tx.Commit(); err != nil {
-			return err
-		}
-		if v.Status == "failed" {
-			return s.Transition(ctx, v.CaseID, "queued", "An operator requested another processing attempt.", "", "")
-		}
-		return nil
+		return s.Restart(ctx, *retry)
 	}
+
+	if err := s.Recover(ctx); err != nil {
+		return fmt.Errorf("recover interrupted processing: %w", err)
+	}
+	slog.Info("durable queue recovery complete")
 	health := research.NewHealth()
 	w := worker.Worker{Store: s, Config: c, Health: health}
 	checkDone := make(chan struct{})
@@ -143,7 +135,7 @@ func run() error {
 			defer close(checkDone)
 			(research.Runner{Config: c, Store: s}).Check(ctx, health)
 			snapshot := health.Snapshot()
-			slog.Info("OpenCode startup check", "status", snapshot.Status, "message", snapshot.Message, "version", snapshot.Version)
+			logStartupCheck(snapshot)
 		}()
 	} else {
 		health.Set(research.HealthSnapshot{Status: "unconfigured", Message: "OpenCode research is not configured."})
@@ -155,9 +147,6 @@ func run() error {
 			return err
 		}
 		slog.Info("Nostr enabled", "npub", w.Nostr.Npub())
-	}
-	if c.GitHubAppID != "" {
-		w.Publisher = &publisher.Client{Config: c, Store: s}
 	}
 	collectorDone := make(chan struct{})
 	if len(c.RSSFeeds)+len(c.GDELTQueries) > 0 {
@@ -188,4 +177,26 @@ func run() error {
 		return nil
 	}
 	return err
+}
+
+// Startup prompts/output are operator diagnostics, never public API fields.
+func logStartupCheck(snapshot research.HealthSnapshot) {
+	fields := []any{"status", snapshot.Status, "message", snapshot.Message, "version", snapshot.Version}
+	if d := snapshot.Diagnostics; d != nil {
+		fields = append(fields, "model", d.Model, "prompt", d.Prompt, "agent_instruction", d.AgentInstruction, "arguments", d.Arguments, "response", logExcerpt(d.Response, 4000), "exit_code", d.ExitCode, "duration_ms", d.DurationMS, "attempts", len(d.Attempts), "diagnostics_file", d.File)
+		if d.Stderr != "" {
+			fields = append(fields, "stderr", logExcerpt(d.Stderr, 4000))
+		}
+		if snapshot.Status == "failed" {
+			fields = append(fields, "stdout", logExcerpt(d.Stdout, 16000))
+		}
+	}
+	slog.Info("OpenCode startup check", fields...)
+}
+func logExcerpt(value string, limit int) string {
+	text := []rune(value)
+	if len(text) > limit {
+		return string(text[:limit]) + "… [truncated; full output in diagnostics file]"
+	}
+	return value
 }

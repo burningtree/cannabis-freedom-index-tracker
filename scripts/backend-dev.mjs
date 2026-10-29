@@ -11,6 +11,7 @@ env.CORS_ORIGINS ||= "http://localhost:4321,http://127.0.0.1:4321";
 env.RESEARCH_RUNNER ||= "local";
 env.RESEARCH_MODEL ||= "opencode-go/deepseek-v4.1-flash";
 env.AUTO_PUBLISH ||= "true";
+env.DEV_CONTROLS ||= "true";
 env.RAW_AI_LOGS ||= "true";
 const child = spawn("go", ["run", "./cmd/tracker"], { cwd: fileURLToPath(new URL("../backend/", import.meta.url)), env, stdio: "inherit" });
 child.on("error", () => { console.error("Could not start the Go backend. Check that Go is installed."); process.exitCode = 1; });

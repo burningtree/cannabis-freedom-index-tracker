@@ -97,6 +97,7 @@ type History struct {
 	CreatedAt   int64  `json:"created_at"`
 }
 type Submission struct {
+	ResumeAt     int64     `json:"resume_at,omitempty"`
 	ID           string    `json:"id"`
 	Origin       string    `json:"origin"`
 	URL          string    `json:"url"`
@@ -215,7 +216,7 @@ func Enqueue(tx *sql.Tx, table, kind, ref, payload string, now int64) error {
 func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
 	v := Submission{History: []History{}}
 	var sourceCheck, result string
-	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.source_check,c.ai_result,c.draft_path,c.draft_markdown FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &sourceCheck, &result, &v.DraftPath, &v.DraftMarkdown)
+	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.source_check,c.ai_result,c.draft_path,c.draft_markdown,coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0) FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &sourceCheck, &result, &v.DraftPath, &v.DraftMarkdown, &v.ResumeAt)
 	if sourceCheck != "" && json.Valid([]byte(sourceCheck)) {
 		v.SourceCheck = json.RawMessage(sourceCheck)
 	}
@@ -240,10 +241,10 @@ func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
 	return v, rows.Err()
 }
 
-var states = map[string]bool{"queued": true, "fetching": true, "classifying": true, "researching": true, "drafted": true, "awaiting_review": true, "publishing": true, "merged": true, "deploying": true, "published": true, "duplicate": true, "not_relevant": true, "insufficient_evidence": true, "routed_to_cfi": true, "needs_review": true, "failed": true, "source_unavailable": true}
+var states = map[string]bool{"budget_wait": true, "committed": true, "queued": true, "fetching": true, "classifying": true, "researching": true, "drafted": true, "awaiting_review": true, "publishing": true, "merged": true, "deploying": true, "published": true, "duplicate": true, "not_relevant": true, "insufficient_evidence": true, "routed_to_cfi": true, "needs_review": true, "failed": true, "source_unavailable": true}
 
 func Terminal(status string) bool {
-	return status == "published" || status == "duplicate" || status == "not_relevant" || status == "insufficient_evidence" || status == "routed_to_cfi" || status == "needs_review" || status == "failed" || status == "source_unavailable"
+	return status == "committed" || status == "published" || status == "duplicate" || status == "not_relevant" || status == "insufficient_evidence" || status == "routed_to_cfi" || status == "needs_review" || status == "failed" || status == "source_unavailable"
 }
 
 // SetCaseOutput records a public output of a case: "source_check", "ai_result", or the draft
@@ -265,7 +266,7 @@ func (s *Store) SetCaseOutput(ctx context.Context, cid string, values map[string
 	return nil
 }
 
-// Transition and outgoing intent commit together. Published is only used by the reconciler.
+// Transition and outgoing intent commit together. A local commit is distinct from live deployment.
 func (s *Store) Transition(ctx context.Context, cid, status, explanation, slug, pr string) error {
 	if !states[status] || len(explanation) > 2000 || explanation == "" {
 		return errors.New("invalid transition")
@@ -283,6 +284,15 @@ func (s *Store) Transition(ctx context.Context, cid, status, explanation, slug, 
 	if prev == status {
 		return nil
 	}
+	if status == "committed" {
+		var recorded int
+		if err = tx.QueryRowContext(ctx, "SELECT count(*) FROM local_publications WHERE case_id=?", cid).Scan(&recorded); err != nil {
+			return err
+		}
+		if recorded != 1 || slug == "" {
+			return errors.New("local commit prerequisites missing")
+		}
+	}
 	if status == "published" {
 		var report, proposal string
 		if err = tx.QueryRowContext(ctx, "SELECT report_slug,pr_url FROM cases WHERE id=?", cid).Scan(&report, &proposal); err != nil {
@@ -292,7 +302,7 @@ func (s *Store) Transition(ctx context.Context, cid, status, explanation, slug, 
 			return errors.New("publication prerequisites missing")
 		}
 	}
-	if prev == "published" {
+	if prev == "published" || prev == "committed" {
 		return errors.New("published case is immutable")
 	}
 	_, err = tx.ExecContext(ctx, "UPDATE cases SET status=?,explanation=?,report_slug=CASE WHEN ?='' THEN report_slug ELSE ? END,pr_url=CASE WHEN ?='' THEN pr_url ELSE ? END,updated_at=? WHERE id=?", status, explanation, slug, slug, pr, pr, now, cid)
@@ -358,13 +368,18 @@ func (s *Store) Finish(ctx context.Context, table string, j Job, workErr error) 
 			status = "dead"
 		}
 	}
+	resumeAt := int64(0)
 	delay := time.Duration(1<<min(j.Attempts, 10)) * time.Second
 	refunded := 0
 	if errors.Is(workErr, ErrBudget) {
 		status = "queued"
 		code = "daily_budget_wait"
-		delay = time.Until(time.Now().UTC().Truncate(24 * time.Hour).Add(24*time.Hour + time.Minute))
+		resumeAt = time.Now().UTC().Truncate(24 * time.Hour).Add(24*time.Hour + time.Minute).Unix()
+		delay = time.Until(time.Unix(resumeAt, 0))
 		refunded = 1
+	}
+	if errors.Is(workErr, ErrInterrupted) {
+		status, code, delay, refunded = "queued", "server_interrupted", 0, 1
 	}
 	if errors.Is(workErr, ErrConfiguration) {
 		status = "queued"
@@ -379,6 +394,9 @@ func (s *Store) Finish(ctx context.Context, table string, j Job, workErr error) 
 	n, _ := res.RowsAffected()
 	if n != 1 {
 		return errors.New("lease lost")
+	}
+	if table == "jobs" && errors.Is(workErr, ErrBudget) {
+		return s.Transition(ctx, j.Ref, "budget_wait", "The daily AI research reservation limit has been reached. No new AI run has started. Scheduled to resume at "+time.Unix(resumeAt, 0).UTC().Format(time.RFC3339)+".", "", "")
 	}
 	return nil
 }

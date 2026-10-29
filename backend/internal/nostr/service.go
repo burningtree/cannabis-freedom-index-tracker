@@ -244,7 +244,7 @@ func (s *Service) build(ctx context.Context, j store.Job) (n.Event, error) {
 			return e, errors.New("invalid parent")
 		}
 		e.Tags = ReplyTags(parent)
-		labels := map[string]string{"published": "Published", "duplicate": "Already covered", "not_relevant": "Outside scope", "routed_to_cfi": "Routed to CFI", "insufficient_evidence": "Could not verify", "needs_review": "Needs review", "failed": "Processing failed", "source_unavailable": "Source unavailable"}
+		labels := map[string]string{"committed": "Committed to the report repository", "published": "Published", "duplicate": "Already covered", "not_relevant": "Outside scope", "routed_to_cfi": "Routed to CFI", "insufficient_evidence": "Could not verify", "needs_review": "Needs review", "failed": "Processing failed", "source_unavailable": "Source unavailable"}
 		e.Content = labels[v.Status] + ": " + v.Explanation + "\n" + s.Config.PublicURL + "/submission/?id=" + v.ID
 		if v.ReportSlug != "" && (v.Status == "published" || v.Status == "duplicate") {
 			e.Content += "\n" + s.Config.PublicURL + "/report/" + v.ReportSlug + "/"

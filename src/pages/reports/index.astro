@@ -9,7 +9,7 @@ const usedTypes = Object.entries(TYPES).filter(([t]) => reports.some((r) => r.ty
 const fmt = (n) => n.toLocaleString("en-GB");
 const base = import.meta.env.BASE_URL;
 ---
-<Base title="Reports" description="Every report of cannabis eradication, seizures, raids, arrests, prosecutions and sentences, searchable and filterable.">
+<Base title="Reports" description="Every report of cannabis eradication, seizures, raids, arrests, prosecutions and sentences, searchable and filterable." wide>
   <h1>Reports</h1>
   <p class="lead">
     {fmt(reports.length)} reports from {countriesWithReports().length} countries and states, newest first. Search them, filter by

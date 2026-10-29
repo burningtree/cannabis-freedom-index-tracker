@@ -12,13 +12,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "countries:sync": "node scripts/sync-countries.mjs",
-    "codes": "node scripts/codes.mjs"
+    "codes": "node scripts/codes.mjs",
+    "browser-install": "playwright install chromium --no-shell"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",
     "astro": "^7.4.4",
     "d3-geo": "^3.1.1",
     "maplibre-gl": "^6.16.0",
+    "playwright": "1.64.1",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2"
   },

@@ -65,8 +65,8 @@ const ROLES = { user: "Request", assistant: "OpenCode", tool: "Tool", system: "W
 const timeOf = (event) => { const date = new Date(event.created_at * 1000), time = node("time", date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })); time.dateTime = date.toISOString(); return time; };
 function eventNode(event) {
   // a finished model step is a thin divider between the messages of one step and the next
-  if (event.kind === "step") { const line = node("div", undefined, "ai-step"); line.dataset.id = event.id; line.append(node("span", event.text), timeOf(event)); return line; }
-  const bubble = node("article", undefined, "ai-message"); bubble.dataset.role = event.role; bubble.dataset.kind = event.kind || ""; bubble.dataset.id = event.id;
+  if (event.kind === "step") { const line = node("div", undefined, "ai-step"); line.dataset.id = event.id; line.dataset.run = event.run_id || ""; line.append(node("span", event.text), timeOf(event)); return line; }
+  const bubble = node("article", undefined, "ai-message"); bubble.dataset.role = event.role; bubble.dataset.kind = event.kind || ""; bubble.dataset.id = event.id; bubble.dataset.run = event.run_id || "";
   const label = event.kind === "reasoning" ? "Thinking" : event.kind === "answer" ? "Final answer" : ROLES[event.role] || "Worker";
   const header = node("div", undefined, "ai-message-meta"); header.append(node("strong", label), timeOf(event));
   bubble.append(header);
@@ -89,7 +89,8 @@ function buildPanel(container, api, id) {
   heading.append(title, model);
   const processing = node("div", undefined, "ai-processing-status");
   const details = node("dl", undefined, "ai-stats");
-  const runs = node("div", undefined, "ai-runs");
+  // with more than one run (retries), a tab for each, newest first; the stats and the chat show the chosen one
+  const runs = node("div", undefined, "ai-run-tabs"); runs.setAttribute("role", "tablist"); runs.setAttribute("aria-label", "AI runs");
   const wrap = node("div", undefined, "ai-chat-wrap");
   const log = node("div", undefined, "ai-chat"); log.dataset.aiChat = ""; log.setAttribute("role", "log"); log.setAttribute("aria-label", "Public OpenCode activity"); log.setAttribute("aria-live", "polite");
   const empty = node("p", "", "ai-muted ai-empty");
@@ -109,42 +110,61 @@ function buildPanel(container, api, id) {
   log.addEventListener("scroll", () => { ui.top = log.scrollTop; ui.atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 40; if (ui.atBottom) more.hidden = true; }, { passive: true });
   more.addEventListener("click", () => { log.scrollTo({ top: log.scrollHeight, behavior: "smooth" }); more.hidden = true; });
   const chatHead = node("div", undefined, "ai-chat-head"); chatHead.append(node("h3", "Live activity"), node("span", "Everything OpenCode does as it works: its reasoning, the sources it opens and searches, and its answer. Credentials are hidden.", "ai-muted"));
-  container.append(heading, processing, details, runs, chatHead, wrap);
+  container.append(heading, processing, runs, details, chatHead, wrap);
   if (api && id) { ui.json = createJSONLog(api, id); container.append(ui.json); }
   container._ai = ui;
   return ui;
 }
 
-const RUN_LABELS = { running: "Running", queued: "Waiting", completed: "Finished", failed: "Failed", cancelled: "Cancelled" };
+const RUN_LABELS = { running: "Running", interrupted: "Interrupted · recovering", preparing: "Preparing", starting: "Starting", queued: "Waiting", completed: "Finished", failed: "Failed", cancelled: "Cancelled" };
 const OUTCOME_LABELS = { new_event: "new report", duplicate: "already covered", routed_to_cfi: "routed to the CFI", not_relevant: "outside scope", insufficient_evidence: "unable to verify", needs_review: "needs review" };
 const runTone = (run) => (run.status === "running" || run.status === "queued" ? "running" : run.status === "failed" ? "failed" : run.outcome === "new_event" ? "done" : "covered");
 const runText = (run) => `${RUN_LABELS[run.status] || run.status}${run.outcome ? ` · ${OUTCOME_LABELS[run.outcome] || run.outcome.replace(/_/g, " ")}` : ""}`;
 const span = (s) => { s = Math.max(0, Math.round(s)); return s < 60 ? `${s} s` : s < 3600 ? `${Math.floor(s / 60)} min ${s % 60 ? `${s % 60} s` : ""}`.trim() : `${Math.floor(s / 3600)} h ${Math.round((s % 3600) / 60)} min`; };
 
-export function renderAIActivity(container, payload, { api, id, requestRunning = false, previousAttempt = false } = {}) {
+export function renderAIActivity(container, payload, options = {}) {
+  const { api, id, requestRunning = false, previousAttempt = false } = options;
   let ui = container._ai;
   if (!ui || ui.id !== id || !container.contains(ui.log)) { clearInterval(ui?.timer); ui = buildPanel(container, api, id); ui.id = id; }
+  ui.last = [payload, options]; // for redrawing when the reader picks another run
   const { log } = ui;
   const processing = payload?.processing;
   // the worker's state shows here only when something holds it up
   ui.processing.hidden = Boolean(processing?.enabled);
   if (!processing?.enabled) renderProcessingStatus(ui.processing, processing);
   const activity = payload?.activity;
-  const run = activity?.runs?.[0];
+  const all = activity?.runs || [];
+  // the run on show: the one the reader picked, else the newest (and so the next one when it starts)
+  if (ui.pick && !all.some((r) => r.id === ui.pick)) ui.pick = null;
+  const latest = all[0], run = all.find((r) => r.id === ui.pick) ?? latest;
   ui.model.textContent = modelLabel(run?.model || processing?.model);
-  ui.runPill.replaceChildren(); ui.runPill.hidden = !run;
-  if (run) {
+  ui.runPill.replaceChildren(); ui.runPill.hidden = !latest;
+  if (latest) {
     // a failed run of a request that is still going will be retried
-    const retrying = !previousAttempt && run.status === "failed" && requestRunning;
-    ui.runPill.dataset.tone = previousAttempt ? "paused" : retrying ? "running" : runTone(run);
-    ui.runPill.append(node("i"), document.createTextNode(previousAttempt ? "Previous attempt · no new AI run yet" : retrying ? "Failed · retrying" : runText(run)));
+    const retrying = !previousAttempt && latest.status === "failed" && requestRunning;
+    ui.runPill.dataset.tone = previousAttempt ? "paused" : retrying ? "running" : runTone(latest);
+    ui.runPill.append(node("i"), document.createTextNode(previousAttempt ? "Previous attempt · no new AI run yet" : retrying ? "Failed · retrying" : runText(latest)));
+  }
+  ui.runList.replaceChildren(); ui.runList.hidden = all.length < 2;
+  if (all.length > 1) {
+    all.forEach((r, i) => {
+      const tab = node("button", undefined, "ai-run-tab"); tab.type = "button"; tab.dataset.tone = runTone(r);
+      tab.setAttribute("role", "tab"); tab.setAttribute("aria-selected", String(r.id === run.id));
+      tab.append(node("i"), node("strong", `Run ${all.length - i}`), node("span", runText(r)));
+      if (r.started_at) tab.title = `Started ${new Date(r.started_at * 1000).toLocaleString()}${r.finished_at ? `, took ${span(r.finished_at - r.started_at)}` : ""}`;
+      tab.addEventListener("click", () => {
+        ui.pick = i === 0 ? null : r.id; ui.atBottom = true;
+        renderAIActivity(container, ...ui.last);
+      });
+      ui.runList.append(tab);
+    });
   }
   ui.details.replaceChildren(); ui.details.hidden = !run;
   if (run) {
     const steps = (activity.events || []).filter((e) => e.kind === "step" && e.run_id === run.id && !e.text.startsWith("OpenCode started")).length;
     const end = run.finished_at || (run.status === "running" ? Date.now() / 1000 : run.started_at);
     // this run, and under it the sum over every run of this request (retries included)
-    const all = activity.runs, many = all.length > 1;
+    const many = all.length > 1;
     const sum = (key) => all.reduce((s, r) => s + Number(r[key] || 0), 0);
     const time = (r) => (r.started_at ? (r.finished_at || (r.status === "running" ? Date.now() / 1000 : r.started_at)) - r.started_at : 0);
     const money = formatUSD;
@@ -167,19 +187,6 @@ export function renderAIActivity(container, payload, { api, id, requestRunning =
       ui.details.append(item);
     }
   }
-  // earlier runs of this request (retries), newest first
-  const earlier = (activity?.runs || []).slice(1);
-  ui.runList.replaceChildren(); ui.runList.hidden = !earlier.length;
-  if (earlier.length) {
-    const box = node("details"); box.append(node("summary", `${earlier.length} earlier ${earlier.length === 1 ? "run" : "runs"}`));
-    const ol = node("ol");
-    for (const r of earlier) {
-      const li = node("li"); li.dataset.tone = runTone(r);
-      li.append(node("i"), node("span", runText(r)), node("span", r.started_at && r.finished_at ? span(r.finished_at - r.started_at) : "", "ai-muted"), node("span", `${Number(r.input_tokens + r.output_tokens).toLocaleString()} tokens`, "ai-muted"));
-      ol.append(li);
-    }
-    box.append(ol); ui.runList.append(box);
-  }
   // only the messages not shown yet; the box was maybe taken out of the page, so its position comes
   // from what was recorded, not from the box itself
   const follow = ui.atBottom;
@@ -189,9 +196,12 @@ export function renderAIActivity(container, payload, { api, id, requestRunning =
     if (event.kind === "step" && event.text.startsWith("OpenCode started")) continue; // stored by earlier versions, says nothing
     ui.seen.add(event.id); log.insertBefore(eventNode(event), ui.working); added++;
   }
-  ui.empty.hidden = ui.seen.size > 0;
+  // with several runs, only the chosen run's messages (and those that belong to none)
+  let visible = 0;
+  for (const el of log.querySelectorAll("[data-run]")) { el.hidden = all.length > 1 && el.dataset.run !== "" && el.dataset.run !== run?.id; if (!el.hidden) visible++; }
+  ui.empty.hidden = visible > 0;
   // what the run is doing now, from its latest message
-  const busy = !previousAttempt && Boolean(run) && ["running", "starting", "queued"].includes(run.status);
+  const busy = !previousAttempt && Boolean(run) && run === latest && ["running", "starting", "queued"].includes(run.status);
   ui.working.hidden = !busy;
   if (busy) {
     const mine = (activity.events || []).filter((e) => e.run_id === run.id);

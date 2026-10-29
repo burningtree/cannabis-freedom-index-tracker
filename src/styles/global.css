@@ -80,6 +80,19 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .cfi-link:hover { color: var(--text); background: var(--surface); text-decoration: none; }
 .cfi-link-icon { width: 15px; height: 15px; fill: currentColor; flex: none; }
 .cfi-link-short { display: none; }
+/* the submissions service beside the brand: a dot (silver online, green and pulsing while it works, amber when
+   AI processing is off, red when it does not answer) and the number of requests being worked on */
+.svc-status { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 6px; margin-left: -4px; border-radius: var(--r); font: 500 12px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
+.svc-status:hover { background: var(--surface); text-decoration: none; color: var(--text); }
+.svc-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+.svc-status[data-state="online"] .svc-dot { background: #a8a69e; }
+.svc-status[data-state="working"] .svc-dot { background: #3fb36b; }
+.svc-status[data-state="paused"] .svc-dot { background: #d9a43c; }
+.svc-status[data-state="offline"] .svc-dot { background: #d6545a; }
+.svc-status[data-state="checking"] .svc-dot { opacity: .4; }
+.svc-status[data-state="working"] .svc-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: svc-pulse 1.6s ease-out infinite; }
+@keyframes svc-pulse { from { transform: scale(1); opacity: .7; } to { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .svc-status[data-state="working"] .svc-dot::after { animation: none; } }
 @media (max-width: 1180px) { .cfi-link-long { display: none; } .cfi-link-short { display: inline; } }
 .theme-toggle { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: none; color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; }
 .theme-toggle:hover { color: var(--text); background: var(--surface); }
@@ -339,10 +352,22 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 
 /* how precise a report's location is: a label on its map and a line under it */
 .pin-map { position: relative; }
-.loc-chip { position: absolute; z-index: 3; left: 10px; top: 46px; padding: 3px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
+/* a report's map: the place with its flag above it; on it, how precise the place is (top left) and
+   the way to the world map (top, beside the zoom buttons) */
+.map-place { margin: 0 0 8px; font-size: 15px; line-height: 1.35; color: var(--text); }
+.map-big { position: absolute; z-index: 3; right: 50px; top: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
+.map-big svg { width: 12px; height: 12px; }
+.map-big:hover { color: var(--text); text-decoration: none; background: var(--surface-2); }
+.loc-chip { position: absolute; z-index: 3; left: 10px; top: 10px; padding: 3px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
 .loc-chip.country, .loc-chip.region { color: var(--text); border-color: var(--muted); }
 .loc-accuracy { font-size: 13.5px; color: var(--text-2); margin-top: 8px; }
 .loc-accuracy b { color: var(--text); font-weight: 600; }
+/* under a report's map: the Landrace.wiki areas and regions it lies in, and the place on other maps */
+.loc-landrace { font-size: 13.5px; color: var(--text-2); margin-top: 8px; }
+.loc-landrace b { color: var(--text); font-weight: 600; }
+.loc-landrace a { color: var(--text); text-decoration: underline; text-decoration-color: color-mix(in srgb, #3f9a5f 70%, transparent); text-underline-offset: 3px; }
+.loc-links { font: 12px var(--mono); color: var(--muted); margin-top: 6px; }
+.loc-links a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
 .loc-coords { display: block; margin-top: 2px; font: 12px var(--mono); color: var(--muted); }
 
 /* The report page: one column, the map and the law under the text; on a wide screen they move into
@@ -365,4 +390,30 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 @media (max-width: 640px) {
   .nav { gap: 12px; font-size: 14px; }
   .github-link { display: none; }
+}
+
+/* Reports by year (ReportYears.astro, report-years.js), as on the CFI's History: the year set large
+   beside its reports, its months under it as a sticky index marking the month being read */
+.ry { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 0 clamp(24px, 4vw, 56px); border-top: 1px solid var(--text); padding-bottom: clamp(28px, 4vw, 56px); scroll-margin-top: 64px; }
+.ry-side { position: sticky; top: 64px; align-self: start; max-height: calc(100vh - 80px); overflow: auto; scrollbar-width: none; }
+.ry h2 { margin: 0; padding-top: 10px; font-size: clamp(56px, 8vw, 112px); line-height: .9; letter-spacing: -.03em; }
+.ry h2 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.ry h2 small, .ry-label { display: block; margin: 10px 0 0; font: 400 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ry-label { padding-top: 14px; }
+.ry-months { list-style: none; max-width: 220px; margin: 22px 0 0; padding: 6px 0 0; border-top: 1px solid var(--border); }
+.ry-months a { display: flex; gap: 8px; padding: 4px 0; font: 400 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ry-months a:hover { color: var(--text); text-decoration: none; }
+.ry-months a[aria-current] { color: var(--text); }
+.ry-months a[aria-current]::before { content: "→"; margin-right: -4px; }
+.ry-months small { font: inherit; opacity: .7; margin-left: auto; }
+.ry-list { list-style: none; margin: 0; padding: 0; }
+.ry-month { scroll-margin-top: 64px; }
+.ry .reports { border-top: 0; }
+.ry-month + .ry-month .reports { border-top: 1px solid var(--border); }
+.ry-month:last-child .report-item:last-child { border-bottom: 0; }
+@media (max-width: 760px) {
+  .ry { grid-template-columns: 1fr; }
+  .ry-side { position: static; max-height: none; }
+  .ry h2 { font-size: 56px; padding-bottom: 8px; }
+  .ry-months { display: none; }
 }

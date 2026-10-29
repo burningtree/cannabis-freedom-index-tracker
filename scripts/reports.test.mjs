@@ -21,6 +21,7 @@ test("there are reports", () => assert.ok(reports.length > 0));
 for (const { file, data, body } of reports) {
   test(file, () => {
     const slug = path.basename(file, ".md");
+    assert.ok(typeof data.created_by_model === "string" && data.created_by_model.trim().length > 0 && data.created_by_model.length <= 300, "created_by_model is required: record the actual model, or unknown for unrecorded historical attribution");
     assert.match(slug, /^[a-z0-9]+(-[a-z0-9]+)*$/, "the file name is the slug: lower case, digits and hyphens");
     const [, year, month] = file.split(path.sep);
     assert.equal(`${year}-${month}`, String(data.date).slice(0, 7), "the file sits in reports/<year>/<month>/ of its date");

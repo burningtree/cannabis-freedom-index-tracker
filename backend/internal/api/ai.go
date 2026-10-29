@@ -1,16 +1,21 @@
 package api
 
 import (
+	"context"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/research"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
 	"net/http"
 	"os/exec"
 	"runtime"
 	"strconv"
+	"time"
 )
 
 type ProcessingInfo struct {
+	Budget                *BudgetInfo              `json:"budget"`
 	Startup               *research.HealthSnapshot `json:"startup,omitempty"`
+	RestartAvailable      bool                     `json:"restart_available"`
+	PublicationMode       string                   `json:"publication_mode"`
 	RawLogsAvailable      bool                     `json:"raw_logs_available"`
 	Mode                  string                   `json:"mode"`
 	Model                 string                   `json:"model"`
@@ -21,12 +26,9 @@ type ProcessingInfo struct {
 	PublicationConfigured bool                     `json:"publication_configured"`
 }
 
-func (s *Server) processingInfo() ProcessingInfo {
+func (s *Server) processingInfo(ctx context.Context) ProcessingInfo {
 	c := s.Config
-	p := ProcessingInfo{RawLogsAvailable: c.RawAILogs, Mode: "automatic", Model: c.ResearchModel, Runner: "OpenCode (" + c.ResearchRunner + ")", Enabled: c.ResearchEnabled(), AutomaticPublication: c.AutoPublish, PublicationConfigured: c.GitHubAppID != ""}
-	if !c.AutoPublish {
-		p.Mode = "review"
-	}
+	p := ProcessingInfo{Budget: s.budgetInfo(ctx, time.Now()), RestartAvailable: s.localControls(), PublicationMode: "local_commit", RawLogsAvailable: c.RawAILogs, Mode: "automatic", Model: c.ResearchModel, Runner: "OpenCode (" + c.ResearchRunner + ")", Enabled: c.ResearchEnabled(), AutomaticPublication: true, PublicationConfigured: c.RepoPath != ""}
 	if c.Demo {
 		p.Mode = "demo"
 		p.Enabled = true
@@ -93,7 +95,7 @@ func (s *Server) ai(w http.ResponseWriter, r *http.Request) {
 	write(w, 200, struct {
 		Processing ProcessingInfo `json:"processing"`
 		Activity   any            `json:"activity"`
-	}{s.processingInfo(), activity})
+	}{s.processingInfo(r.Context()), activity})
 }
 
 func (s *Server) aiLog(w http.ResponseWriter, r *http.Request) {
@@ -118,5 +120,5 @@ func (s *Server) aiLog(w http.ResponseWriter, r *http.Request) {
 		Scope         string           `json:"scope"`
 		Processing    ProcessingInfo   `json:"processing"`
 		Activity      store.AIActivity `json:"activity"`
-	}{1, id, "All recorded public AI activity; raw tool output and private reasoning are excluded.", s.processingInfo(), activity})
+	}{1, id, "All recorded public AI activity; raw tool output and private reasoning are excluded.", s.processingInfo(r.Context()), activity})
 }

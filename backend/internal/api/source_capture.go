@@ -1,0 +1,95 @@
+package api
+
+import (
+	"bytes"
+	"net"
+	"net/http"
+	"net/url"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
+)
+
+func (s *Server) sourceScreenshot(w http.ResponseWriter, r *http.Request) {
+	host, _, err := net.SplitHostPort(r.RemoteAddr)
+	if !s.localControls() || err != nil || !loopbackHost(host) || r.Header.Get("Sec-Fetch-Site") == "cross-site" {
+		problem(w, 403, "Source screenshots are available only on the local development backend.")
+		return
+	}
+	if origin := r.Header.Get("Origin"); origin != "" {
+		u, e := url.Parse(origin)
+		if e != nil || !loopbackHost(u.Hostname()) {
+			problem(w, 403, "A localhost origin is required.")
+			return
+		}
+	}
+	id := r.PathValue("id")
+	if !idPattern.MatchString(id) {
+		problem(w, 404, "Receipt not found.")
+		return
+	}
+	var dir string
+	query := `SELECT p.artifact_dir FROM source_captures p JOIN submissions s ON s.case_id=p.case_id JOIN cases c ON c.id=p.case_id WHERE s.id=? AND p.url=c.canonical_url`
+	args := []any{id}
+	if capture := r.URL.Query().Get("capture"); capture != "" {
+		if !idPattern.MatchString(capture) {
+			problem(w, 404, "Capture not found.")
+			return
+		}
+		query += " AND p.id=?"
+		args = append(args, capture)
+	}
+	err = s.Store.DB.QueryRowContext(r.Context(), query+" ORDER BY p.created_at DESC,p.rowid DESC LIMIT 1", args...).Scan(&dir)
+	if err != nil {
+		if store.IsMissingAI(err) {
+			problem(w, 404, "No captured screenshot is available.")
+		} else {
+			problem(w, 503, "Screenshot unavailable.")
+		}
+		return
+	}
+	base, err := filepath.Abs(s.Config.Workspaces)
+	if err != nil {
+		problem(w, 503, "Screenshot unavailable.")
+		return
+	}
+	dir, err = filepath.Abs(dir)
+	if err != nil {
+		problem(w, 503, "Screenshot unavailable.")
+		return
+	}
+	relative, err := filepath.Rel(base, dir)
+	if err != nil || relative == "." || relative == ".." || strings.HasPrefix(relative, ".."+string(os.PathSeparator)) {
+		problem(w, 503, "Invalid capture storage.")
+		return
+	}
+	root, err := os.OpenRoot(base)
+	if err != nil {
+		problem(w, 404, "Screenshot unavailable.")
+		return
+	}
+	defer root.Close()
+	file, err := root.Open(filepath.Join(relative, "page.png"))
+	if err != nil {
+		problem(w, 404, "Screenshot unavailable.")
+		return
+	}
+	defer file.Close()
+	info, err := file.Stat()
+	if err != nil || !info.Mode().IsRegular() || info.Size() > 16*1024*1024 {
+		problem(w, 503, "Invalid screenshot.")
+		return
+	}
+	header := make([]byte, 8)
+	if _, err = file.Read(header); err != nil || !bytes.Equal(header, []byte{137, 80, 78, 71, 13, 10, 26, 10}) {
+		problem(w, 503, "Invalid screenshot.")
+		return
+	}
+	file.Seek(0, 0)
+	w.Header().Set("Content-Type", "image/png")
+	w.Header().Set("Content-Disposition", `inline; filename="source-page.png"`)
+	w.Header().Set("Cache-Control", "no-store")
+	http.ServeContent(w, r, "source-page.png", info.ModTime(), file)
+}

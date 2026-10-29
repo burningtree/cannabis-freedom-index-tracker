@@ -173,3 +173,70 @@
 .draft-file { margin-top: 28px; font-size: 13px; }
 .draft-file summary { cursor: pointer; color: var(--text-2); }
 .draft-file pre { max-height: 420px; overflow: auto; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font: 11.5px/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.sx-restart { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 16px 20px; font-size: 13px; }
+
+/* Compact one-line register; keep columns aligned and scroll on small screens. */
+[data-tone="paused"] { --tone: var(--sx-attention, #b78318); }
+.sx-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.sx-table .sx-list { border: 0; border-radius: 0; min-width: 1040px; }
+.sx-grid-head, .sx-table .sx-row-link { display: grid; grid-template-columns: 160px minmax(180px, 1fr) 108px 86px 86px 40px 70px 80px; gap: 12px; align-items: center; min-width: 1040px; padding: 11px 14px; box-sizing: border-box; }
+.sx-grid-head { border-bottom: 1px solid var(--border); background: var(--surface-2); font: 10px var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.sx-grid-head > :nth-child(n+4):nth-child(-n+6) { text-align: right; }
+.sx-table .sx-row-link { min-height: 52px; font-size: 12px; }
+.sx-table .sx-pill { justify-self: start; max-width: 160px; font-size: 11px; padding: 3px 8px; }
+.sx-row-source { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; white-space: nowrap; }
+.sx-row-source strong { flex: 0 0 auto; max-width: 60%; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
+.sx-row-source .sx-path { font-size: 11px; }
+.sx-row-progress { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; height: 5px; }
+.sx-row-progress i { display: block; background: var(--border); border-radius: 2px; }
+.sx-row-progress i[data-state="done"] { background: var(--tone); opacity: .55; }
+.sx-row-progress i[data-state="current"] { background: var(--tone); }
+.sx-row-number { text-align: right; font: 11px var(--mono); font-variant-numeric: tabular-nums; }
+.sx-table .sx-origin { font-size: 9px; }
+.sx-table time { white-space: nowrap; text-align: right; font-size: 11px; color: var(--muted); }
+.sx-table-note { margin: 9px 0; font-size: 11px; color: var(--muted); }
+
+/* Intake stays close to the register, with optional fields folded away. */
+.sx-compose { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 16px 18px; margin-bottom: 16px; }
+.sx-compose h2 { margin: 0 0 12px; font: 600 15px/1.4 Inter, system-ui, sans-serif; letter-spacing: normal; text-transform: none; }
+.sx-compose label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.sx-compose-line { display: flex; align-items: stretch; gap: 10px; }
+.sx-compose input, .sx-compose textarea { width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: 13px; }
+.sx-compose textarea { resize: vertical; margin-top: 4px; }
+.sx-compose-line button { flex: none; padding-inline: 18px; }
+.sx-compose-note { margin-top: 10px; font-size: 12px; color: var(--text-2); }
+.sx-compose-note summary, .sx-saved-receipts > summary, .sx-nostr-help > summary { cursor: pointer; }
+.sx-compose-note label { margin-top: 12px; }
+.sx-compose-note span { color: var(--muted); }
+.sx-compose-note p, .sx-compose-hint { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
+.sx-compose #submit-message:empty { display: none; }
+.sx-compose #submit-message a { color: var(--cite); text-decoration: underline; }
+.sx-compose input:focus-visible, .sx-compose textarea:focus-visible { outline: 2px solid var(--cite); outline-offset: 2px; }
+.sx .sx-saved-receipts, .sx .sx-nostr-help { max-width: none; padding: 14px 18px; margin-top: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); font-size: 13px; }
+.sx-saved-receipts h2 { font-size: 19px; margin-top: 20px; }
+@media (max-width: 540px) { .sx-compose-line { flex-direction: column; } .sx-compose-line button { min-height: 40px; } }
+
+.sx-source-metadata { margin-top: 14px; font-size: 13px; }
+.sx-source-metadata h3 { margin: 0 0 10px; font: 600 13px/1.5 Inter, system-ui, sans-serif; }
+.sx-source-metadata .sx-facts { margin-top: 12px; }
+
+.sx-source-screenshot { margin: 16px 0; }
+.sx-source-screenshot > a { display: block; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--bg); }
+.sx-source-screenshot img { display: block; width: 100%; max-height: 420px; object-fit: cover; object-position: top; }
+/* in the side column, under the history: a shorter picture of the page */
+.sx-detail-side .sx-source-screenshot img { max-height: 240px; }
+.sx-source-screenshot figcaption { margin-top: 7px; font-size: 11px; color: var(--muted); }
+
+/* Global totals remain independent of table filters and pagination. */
+.sx-overview { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin:0 0 1.5rem; }
+.sx-overview > div { display:flex; flex-direction:column; gap:.2rem; padding:1rem 1.25rem; border:1px solid var(--border,#dcd8cb); border-radius:12px; }
+.sx-overview strong { font:600 2rem/1.2 var(--font-mono,monospace); }
+.sx-overview small { opacity:.65; font-size:.8rem; }
+.sx-overview .sx-overview-running { border-color:#3278bd; background:rgba(50,120,189,.07); }
+.sx-overview-running strong { color:#3278bd; }
+@media(max-width:650px) { .sx-overview { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; } }
+
+.sx-working { margin-bottom:2rem; }
+.sx-working h2,.sx-history-title { font-size:1.25rem; margin:0 0 .8rem; }
+#register-working-count { color:#3278bd; font-family:var(--font-mono,monospace); }

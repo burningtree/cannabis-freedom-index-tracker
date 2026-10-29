@@ -107,9 +107,10 @@ function source(s) {
 }
 const hasDetails = (s) => s.url || (s.type && s.type !== "web" && (s.publisher || s.container || s.isbn || s.year));
 
-// a summary of at most 400 characters: whole sentences from the description
+// a summary of at most 400 characters: whole sentences from the description, without its
+// citation markers ([@1], [@1,2], [@key]), which only the report's text can resolve
 function summaryOf(text) {
-  const clean = String(text).replace(/\s+/g, " ").trim();
+  const clean = String(text).replace(/\s*\[@[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
   if (clean.length <= 400) return clean;
   let out = "";
   // sentences end at . ! or ? followed by a space and a capital, so "211.5 tonnes" is not cut
@@ -160,6 +161,7 @@ for (const i of items) {
     code, date, country: placeOf(i), type,
     title: i.title, summary: summaryOf(i.description),
     status: i.checked ? "verified" : "reported",
+    created_by_model: i.created_by_model || "unknown", // preserve provenance; never guess a historical author model
     cfi_id: i.id,
     ...(i.tags?.length && { tags: i.tags.filter((t) => /^[a-z0-9-]+$/.test(t)) }),
     sources,

@@ -33,6 +33,7 @@ figures:
   arrested: ${Math.floor(rnd() * 20)}
   hectares: ${(rnd() * 50).toFixed(1)}
 status: reported
+created_by_model: unknown
 sources:
   - title: Test source ${i}
     url: https://example.org/${i}

@@ -1,0 +1,153 @@
+package worker
+
+import (
+	"bytes"
+	"context"
+	"errors"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"strings"
+	"syscall"
+	"time"
+)
+
+var reportPath = regexp.MustCompile(`^reports/[0-9]{4}/[0-9]{2}/[a-z0-9]+(?:-[a-z0-9]+)*\.md$`)
+
+// Commit only the validated report paths; --only excludes unrelated staged work.
+// The case trailer recovers a successful Git commit after a crash before the DB update.
+func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, error) {
+	if !reportPath.MatchString(d.Rel) || (d.PreviousRel != "" && !reportPath.MatchString(d.PreviousRel)) {
+		return "", errors.New("invalid report path")
+	}
+	gitWithContext := func(callCtx context.Context, args ...string) ([]byte, error) {
+		cmd := exec.CommandContext(callCtx, "git", args...)
+		cmd.Dir = repo
+		return cmd.Output()
+	}
+	git := func(args ...string) ([]byte, error) { return gitWithContext(ctx, args...) }
+	gitDir, err := git("rev-parse", "--absolute-git-dir")
+	if err != nil {
+		return "", errors.New("report repository is unavailable")
+	}
+	lock, err := os.OpenFile(filepath.Join(strings.TrimSpace(string(gitDir)), "submission-publish.lock"), os.O_CREATE|os.O_RDWR, 0600)
+	if err != nil {
+		return "", err
+	}
+	defer lock.Close()
+	if err = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
+		return "", errors.New("another report is being committed")
+	}
+	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
+	content, err := os.ReadFile(filepath.Join(d.Dir, d.Rel))
+	if err != nil {
+		return "", err
+	}
+	marker := "Submission-Case: " + cid
+	if previous, _ := git("log", "-1", "--format=%H", "--fixed-strings", "--grep="+marker, "--", d.Rel); len(bytes.TrimSpace(previous)) > 0 {
+		sha := strings.TrimSpace(string(previous))
+		committed, e := git("show", sha+":"+d.Rel)
+		current, e2 := git("show", "HEAD:"+d.Rel)
+		working, e3 := os.ReadFile(filepath.Join(repo, d.Rel))
+		if e == nil && e2 == nil && e3 == nil && bytes.Equal(committed, content) && bytes.Equal(current, content) && bytes.Equal(working, content) {
+			return sha, nil
+		}
+		return "", errors.New("the previously committed report has changed")
+	}
+	paths := []string{d.Rel}
+	if d.PreviousRel != "" && d.PreviousRel != d.Rel {
+		paths = append(paths, d.PreviousRel)
+	}
+	for _, path := range paths {
+		// Reject symlinked report directories/files even when their target is inside the repo.
+		for at := path; at != "."; at = filepath.Dir(at) {
+			info, e := os.Lstat(filepath.Join(repo, at))
+			if e == nil && info.Mode()&os.ModeSymlink != 0 {
+				return "", errors.New("report path is a symlink")
+			}
+		}
+		changes, e := git("status", "--porcelain", "--", path)
+		if e != nil {
+			return "", e
+		}
+		if len(changes) > 0 {
+			return "", fmt.Errorf("report path has local edits: %s", path)
+		}
+	}
+	// An existing-case update may not replace a version changed since research began.
+	basePath := d.PreviousRel
+	if basePath != "" {
+		baseCmd := exec.CommandContext(ctx, "git", "show", "HEAD:"+basePath)
+		baseCmd.Dir = d.Dir
+		base, e := baseCmd.Output()
+		current, e2 := git("show", "HEAD:"+basePath)
+		if e != nil || e2 != nil || !bytes.Equal(base, current) {
+			return "", errors.New("existing report changed since research; restart this submission")
+		}
+	} else if _, e := os.Stat(filepath.Join(repo, d.Rel)); !os.IsNotExist(e) {
+		return "", errors.New("new report would overwrite an existing file")
+	}
+	original := map[string][]byte{}
+	for _, path := range paths {
+		data, e := os.ReadFile(filepath.Join(repo, path))
+		if e == nil {
+			original[path] = data
+		} else if !os.IsNotExist(e) {
+			return "", e
+		}
+	}
+	rollback := func() {
+		rollbackCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		_, _ = gitWithContext(rollbackCtx, append([]string{"reset", "--quiet", "HEAD", "--"}, paths...)...)
+		for _, path := range paths {
+			if data, ok := original[path]; ok {
+				_ = os.WriteFile(filepath.Join(repo, path), data, 0644)
+			} else {
+				_ = os.Remove(filepath.Join(repo, path))
+			}
+		}
+	}
+	if err = os.MkdirAll(filepath.Dir(filepath.Join(repo, d.Rel)), 0755); err != nil {
+		return "", err
+	}
+	if err = os.WriteFile(filepath.Join(repo, d.Rel), content, 0644); err != nil {
+		return "", err
+	}
+	if len(paths) > 1 {
+		if err = os.Remove(filepath.Join(repo, d.PreviousRel)); err != nil {
+			rollback()
+			return "", err
+		}
+	}
+	if _, err = git(append([]string{"add", "--"}, paths...)...); err != nil {
+		rollback()
+		return "", err
+	}
+	args := []string{"-c", "user.name=Submission service", "-c", "user.email=submissions@localhost", "-c", "commit.gpgsign=false", "commit", "--only", "-m", "Add report: " + d.Title + "\n\n" + marker, "--"}
+	if _, err = git(append(args, paths...)...); err != nil {
+		// A cancellation can race with a successful commit. Inspect Git using a fresh
+		// context before restoring files, so an already committed report stays intact.
+		recoveryCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		previous, e := gitWithContext(recoveryCtx, "log", "-1", "--format=%H", "--fixed-strings", "--grep="+marker, "--", d.Rel)
+		if e == nil && len(bytes.TrimSpace(previous)) > 0 {
+			sha := strings.TrimSpace(string(previous))
+			committed, e := gitWithContext(recoveryCtx, "show", sha+":"+d.Rel)
+			cancel()
+			if e == nil && bytes.Equal(committed, content) {
+				return sha, nil
+			}
+		} else {
+			cancel()
+		}
+		rollback()
+		return "", errors.New("report commit failed")
+	}
+	sha, err := git("rev-parse", "HEAD")
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(sha)), nil
+}

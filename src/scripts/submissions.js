@@ -29,7 +29,7 @@ function initialize(root) {
       const heading = node("h3"); const source = safeHTTP(v.url); heading.append(source ? link(v.url, source) : node("span", v.url)); el.append(heading);
       el.append(node("p", v.explanation));
       if (v.note) el.append(node("p", `Public note: ${v.note}`, "hint"));
-      if (["published", "duplicate"].includes(v.status) && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v.report_slug || "")) el.append(link(v.status === "published" || v.status === "duplicate" ? "Read report →" : "Related report →", `${base}report/${v.report_slug}/`));
+      if (["committed", "published", "duplicate"].includes(v.status) && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v.report_slug || "")) el.append(link(v.status === "published" || v.status === "duplicate" ? "Read report →" : "Related report →", `${base}report/${v.report_slug}/`));
       if (v.pr_url && /^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/.test(v.pr_url)) { const p = node("p"); p.append(link("Review proposal on GitHub ↗", v.pr_url)); el.append(p); }
       for (const [key, label] of [["nostr_event_id", "Submission on Nostr ↗"], ["reply_event_id", "Resolution on Nostr ↗"]]) {
         if (/^[a-f0-9]{64}$/.test(v[key] || "")) { const p = node("p"); p.append(link(label, `https://njump.me/${v[key]}`)); el.append(p); }
@@ -71,6 +71,7 @@ function initialize(root) {
   function schedule() { clearTimeout(timer); if (pollActive && !document.hidden && polls < 60) timer = setTimeout(() => { polls++; refresh(); }, 30000); }
   document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (!document.hidden) { polls = 0; refresh(); } });
   window.addEventListener("pagehide", () => clearTimeout(timer));
+  window.addEventListener("submission-restarted", () => { polls = 0; pollActive = true; refresh(); });
   for (const id of ["refresh-status", "refresh-submissions"]) $(id)?.addEventListener("click", () => { polls = 0; refresh(); });
   if (root.hasAttribute("data-submissions")) {
     renderList(); if (storageError) message("receipts-message", storageError); else if (!receipts.length) message("receipts-message", "No receipts saved in this browser yet.");
@@ -84,7 +85,7 @@ function initialize(root) {
         if (receipts.length >= 500) { storageError = "Receipt storage is full. Keep this receipt link and export your saved receipts."; }
         else { receipts = mergeReceipts(receipts, [{ submission_id: v.id, created_at: Math.floor(Date.now() / 1000) }]); save(); }
         const receiptLink = link("Open your receipt →", `${base}submission/?id=${v.id}`); $("submit-message").replaceChildren(node("p", "Source accepted for processing. Keep this receipt link."), receiptLink);
-        if (storageError) $("submit-message").append(node("p", storageError)); $("submission-form").reset(); page = 0; pollActive = true; polls = 0; await refresh();
+        if (storageError) $("submit-message").append(node("p", storageError)); $("submission-form").reset(); window.dispatchEvent(new Event("submission-created")); page = 0; pollActive = true; polls = 0; await refresh();
       } catch (err) { message("submit-message", `The submission could not be confirmed. ${err.message}`); }
       finally { button.disabled = false; }
     });

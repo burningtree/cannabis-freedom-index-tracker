@@ -105,9 +105,16 @@ func Client() *http.Client {
 }
 
 type Evidence struct {
-	URL      string `json:"url"`
-	FinalURL string `json:"final_url"`
-	Content  string `json:"content"`
+	CaptureID      string    `json:"capture_id,omitempty"`
+	ArtifactDir    string    `json:"-"`
+	Text           string    `json:"text,omitempty"`
+	Rendered       bool      `json:"rendered,omitempty"`
+	Screenshot     string    `json:"screenshot,omitempty"`
+	Metadata       *Metadata `json:"metadata,omitempty"`
+	BrowserWarning string    `json:"browser_warning,omitempty"`
+	URL            string    `json:"url"`
+	FinalURL       string    `json:"final_url"`
+	Content        string    `json:"content"`
 }
 
 func Fetch(ctx context.Context, raw string) (Evidence, error) {
@@ -147,7 +154,7 @@ func Fetch(ctx context.Context, raw string) (Evidence, error) {
 	if len(b) > 2*1024*1024 {
 		return Evidence{}, errors.New("the page is larger than 2 MB")
 	}
-	return Evidence{normalized, res.Request.URL.String(), string(b)}, nil
+	return Evidence{URL: normalized, FinalURL: res.Request.URL.String(), Content: string(b)}, nil
 }
 
 // StableURLs is useful for deterministic provenance comparisons.

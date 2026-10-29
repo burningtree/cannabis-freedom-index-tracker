@@ -65,6 +65,12 @@ reported; if they truly contradict, `status: disputed`.
 - Pictures (docs/WRITING.md §7): `cover` only with an open licence or a no-copyright government work
   (save it to `src/assets/reports/`, look at it first: it must show this event); every other photo
   or video of the event as a `media` link.
+- **Required `created_by_model`:** your actual runtime model identifier, including provider and
+  variant when available. Set this in every new Markdown report. Never copy the example's model
+  or guess a historical creator. If the runtime does not disclose the identifier, use `unknown`
+  and say that attribution was unavailable. On updates, preserve the original `created_by_model`
+  and add your model once to `updated_by_models`. The submission service assigns these fields
+  itself when consuming an OpenCode JSON result; do not add them to that result contract.
 - `status: verified` when every fact was read in an opened source.
 
 ## 5. Archive, build, commit

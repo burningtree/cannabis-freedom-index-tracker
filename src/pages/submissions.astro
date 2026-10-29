@@ -7,22 +7,59 @@ import { submissionsAPI as api } from "../lib/submissions-config.js";
 import { FILTERS, ORIGINS } from "../lib/submission-status.js";
 import "../styles/submissions-ui.css";
 import "../styles/ai-activity.css";
+import "../styles/submissions.css";
 const base = import.meta.env.BASE_URL;
+const npub = import.meta.env.PUBLIC_NOSTR_BOT_NPUB || "";
+const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boolean);
 ---
 <Base title="Submissions" description="Every source sent to the tracker: what is being researched, what was published and why the rest was not." wide>
-  <div class="sx" data-submission-register data-api={api} data-base={base}>
+  <div class="sx" data-submission-register data-submissions data-api={api} data-base={base}>
     <header class="sx-head">
       <div>
         <h1>Submissions</h1>
-        <p class="sx-lead">Every source sent to the tracker, newest first: what the AI is researching now, what was published, and why the rest was not.</p>
+        <p class="sx-lead">Send a news URL and follow its processing. All submitted sources appear below, newest first.</p>
       </div>
       <div class="sx-head-side">
         <span class="sx-live" id="register-connection" data-state="offline" role="status"><i aria-hidden="true"></i><span>{api ? "Connecting…" : "Offline"}</span></span>
-        <a class="sx-btn sx-btn-primary" href={`${base}submit/`}>Submit a source</a>
       </div>
     </header>
 
+    <section class="sx-overview" aria-label="All submissions" aria-live="polite">
+      <div class="sx-overview-running"><strong id="register-running">—</strong><span>Running now</span><small>Active processing jobs</small></div>
+      <div><strong id="register-total">—</strong><span>Total submissions</span><small>All sources and pages</small></div>
+      <div><strong id="register-queued">—</strong><span>Queued</span><small>Cases waiting to run</small></div>
+      <div><strong id="register-paused">—</strong><span>Budget paused</span><small>Cases waiting for budget</small></div>
+    </section>
+
+    <section class="sx-compose" aria-labelledby="submit-source-title">
+      <h2 id="submit-source-title">Submit a source</h2>
+      <form id="submission-form">
+        <label for="source-url">News URL</label>
+        <div class="sx-compose-line">
+          <input id="source-url" name="url" type="url" placeholder="https://example.com/news-story" required maxlength="4096" autocomplete="url" aria-describedby="submission-hint" disabled={!api} />
+          <button type="submit" class="sx-btn sx-btn-primary" disabled={!api}>Submit source</button>
+        </div>
+        <details class="sx-compose-note"><summary>Add a public note <span>(optional)</span></summary>
+          <label for="public-note">Public note</label>
+          <textarea id="public-note" name="note" maxlength="500" rows="2" aria-describedby="note-hint" disabled={!api}></textarea>
+          <p id="note-hint">Up to 500 characters. This note is public.</p>
+        </details>
+        <p id="submission-hint" class="sx-compose-hint">No account needed. Use published reporting. URLs, notes and outcomes are public and may remain on Nostr permanently.</p>
+        <div id="submit-message" class="sx-message" role="status" aria-live="polite">{!api && "Submissions are not available yet. Please check back."}</div>
+      </form>
+    </section>
+
     <section class="sx-worker" id="register-processing" aria-label="AI worker">{api ? "Checking the AI worker…" : "The submissions service is not connected."}</section>
+
+    <section class="sx-working" aria-labelledby="working-title">
+      <h2 id="working-title">Working now <span id="register-working-count"></span></h2>
+      <div class="sx-table" tabindex="0" role="region" aria-label="Currently running submissions">
+        <div class="sx-grid-head" aria-hidden="true"><span>Status</span><span>Source</span><span>Progress</span><span>Tokens in</span><span>Tokens out</span><span>Runs</span><span>Origin</span><span>Updated</span></div>
+        <ol class="sx-list" id="register-working" aria-live="polite"><li class="sx-empty">Checking active work…</li></ol>
+      </div>
+      <p class="sx-table-note">Live processing across all sources. Restarted submissions appear here when work begins.</p>
+    </section>
+    <h2 class="sx-history-title">All submissions</h2>
 
     <div class="sx-toolbar">
       <div class="sx-filters" role="group" aria-label="Filter by status">
@@ -37,9 +74,13 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
 
+    <div class="sx-table" tabindex="0" role="region" aria-label="Submission table; scroll horizontally on smaller screens">
+    <div class="sx-grid-head" aria-hidden="true"><span>Status</span><span>Source</span><span>Progress</span><span>Tokens in</span><span>Tokens out</span><span>Runs</span><span>Origin</span><span>Updated</span></div>
     <ol class="sx-list" id="register-rows" aria-live="polite" aria-busy="true">
       <li class="sx-empty">{api ? "Loading submissions…" : "Submissions are not available yet."}</li>
     </ol>
+    </div>
+    <p class="sx-table-note">Token counts include all attempts. Open a row for details and restart controls.</p>
     <p id="register-message" class="sx-message" role="status"></p>
 
     <nav class="sx-pager" aria-label="Pages">
@@ -49,7 +90,25 @@ const base = import.meta.env.BASE_URL;
       <button id="register-next" type="button" class="sx-btn" disabled>Older →</button>
     </nav>
     <p class="sx-foot">Sources come from the website, Nostr and automatic discovery (RSS, GDELT). Addresses, public notes and outcomes are public; private research evidence is not shown.</p>
-    <noscript><p>JavaScript is needed to load submissions.</p></noscript>
+    <details class="submissions sx-saved-receipts"><summary>My saved receipts · import / export</summary>
+    <section aria-labelledby="my-submissions-title">
+      <h2 id="my-submissions-title">My submissions</h2>
+      <p class="hint">Receipts are saved in this browser. Export them to keep a copy or move to another browser. Removing a receipt here does not delete its public submission or Nostr events.</p>
+      <div class="actions">
+        <button id="export-receipts" type="button">Export receipts</button>
+        <label class="file-button" for="import-receipts" style="margin:0">Import receipts</label>
+        <input id="import-receipts" class="visually-hidden" type="file" accept="application/json,.json" />
+        <button id="refresh-submissions" type="button" disabled={!api}>Refresh</button>
+      </div>
+      <p id="receipts-message" class="notice" role="status" aria-live="polite"></p>
+      <div id="receipts-list"></div>
+      <div class="actions"><button id="receipts-prev" type="button" hidden>Previous</button><button id="receipts-next" type="button" hidden>Next</button></div>
+    </section>
+    </details>
+    {npub && <details class="submissions sx-nostr-help"><summary>Submit from Nostr</summary>
+    {npub && <section class="panel"><h2 style="margin-top:0">Submit from Nostr</h2><p>Mention <a href={`https://njump.me/${npub}`} class="ext">the tracker bot</a> with one news URL in a normal post. Include the bot as a tagged mention so it can receive your submission.</p><p class="hint" style="overflow-wrap:anywhere">{npub}</p><p>The bot replies in your thread when there is an outcome.</p>{relays.length > 0 && <><p class="hint">Publish to one of the bot’s read relays to help your mention reach it:</p><ul>{relays.map(relay => <li class="mono">{relay}</li>)}</ul></>}</section>}
+    </details>}
+    <noscript><p>JavaScript is needed to send sources and load submissions.</p></noscript>
   </div>
-  <script>import "../scripts/submissions-table.js";</script>
+  <script>import "../scripts/submissions-table.js"; import "../scripts/submissions.js";</script>
 </Base>

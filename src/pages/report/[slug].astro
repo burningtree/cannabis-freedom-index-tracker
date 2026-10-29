@@ -8,6 +8,7 @@ import ReportItem from "../../components/ReportItem.astro";
 import { reports, related, formatDate, isoDate } from "../../lib/reports.js";
 import { TYPES, STATUS, PRECISION_INFO } from "../../lib/types.js";
 import { flagOf } from "../../lib/countries.js";
+import { landraceAt } from "../../lib/landrace.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("reports");
@@ -21,6 +22,20 @@ const cited = order.map((i) => r.sources[i - 1]);
 const base = import.meta.env.BASE_URL;
 const more = related(r);
 const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" }).of(code);
+// the Landrace.wiki growing areas and regions the place lies in, when it is known closely enough
+// (a province or a country centre says nothing about where in it)
+const close = ["exact", "locality", "district"].includes(r.precision);
+const landrace = close ? landraceAt(r.coordinates) : { areas: [], regions: [] };
+const landraceLinks = [...landrace.areas.map((a) => ({ ...a, what: "growing area" })), ...landrace.regions.map((g) => ({ ...g, what: "growing region" }))];
+// the place on other maps, zoomed as far as it is known
+const [lat, lon] = r.coordinates ?? [];
+const osmZoom = { exact: 16, locality: 13, district: 10, region: 7, country: 5 }[r.precision] ?? 6;
+const mapLinks = r.coordinates ? [
+  ["OpenStreetMap", `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=${osmZoom}/${lat}/${lon}`],
+  ["Google Maps", `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`],
+] : [];
+// the place and its country, the country left out when the place already ends with it
+const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryName].filter(Boolean).join(" · ");
 ---
 <Base title={r.title} description={r.summary} wide>
   <nav class="crumbs"><a href={`${base}reports/`}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
@@ -37,7 +52,9 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
       </div>
       <h1>{r.title}</h1>
       <p class="lead">{r.summary}</p>
-      <p class="muted">{flagOf(r.country)} {[r.place, r.countryName].filter(Boolean).join(" · ")}</p>
+      <p class="muted">{flagOf(r.country)} {where}</p>
+      {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
+      {r.updated_by_models?.length > 0 && <p class="report-model"><span>Updated with</span> {r.updated_by_models.map(model => <code>{model}</code>)}</p>}
     </header>
 
     {r.cover && (
@@ -80,15 +97,24 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
         </li>
       ))}
     </ol>
+    {r.open_questions?.length > 0 && <section class="report-questions" aria-labelledby="open-questions">
+      <h2 id="open-questions">Open questions the AI reported</h2>
+      <ul>{r.open_questions.map(question => <li>{question}</li>)}</ul>
+    </section>}
   </article>
 
   <aside class="report-side">
     <section>
       <h2>Where</h2>
       {r.coordinates ? (
+        <p class="map-place">{flagOf(r.country)} {where}</p>
         <div class="pin-map">
           <WorldMap focus={r} label={`Map: ${r.place ?? r.countryName}`} />
           {r.precision && <span class:list={["loc-chip", r.precision]} title={PRECISION_INFO[r.precision].text}>{PRECISION_INFO[r.precision].label}</span>}
+          <a class="map-big" href={`${base}?range=all&focus=${r.id}`} title="Show this report on the world map, among all the others">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 8.5 7.5M6.5 3.5h-3v9h9v-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Big map
+          </a>
         </div>
       ) : <p class="muted">No location given.</p>}
       {r.precision && (
@@ -98,6 +124,16 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
           {r.place && r.precision !== "country" && <> Place: {r.place}.</>}
           <span class="loc-coords">{r.coordinates[0].toFixed(r.precision === "exact" ? 4 : 2)}, {r.coordinates[1].toFixed(r.precision === "exact" ? 4 : 2)}</span>
         </p>
+      )}
+      {landraceLinks.length > 0 && (
+        <p class="loc-landrace">
+          <b>Landrace cannabis.</b> {close && r.precision !== "district" ? "It happened in" : "The place lies in"}{" "}
+          {landraceLinks.map((l, i) => <>{i > 0 && (i === landraceLinks.length - 1 ? " and " : ", ")}the {l.what} <a href={l.url} class="ext" target="_blank" rel="noopener">{l.name}</a>{l.status && l.status !== "Active" && <span class="muted"> ({l.status.toLowerCase()})</span>}</>)}
+          {" "}on Landrace.wiki, where cannabis has been grown for generations.
+        </p>
+      )}
+      {mapLinks.length > 0 && (
+        <p class="loc-links">Open in {mapLinks.map(([name, href], i) => <>{i > 0 && " · "}<a href={href} class="ext" target="_blank" rel="noopener noreferrer">{name}</a></>)}</p>
       )}
     </section>
     <section>
@@ -115,3 +151,12 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
     </section>
   )}
 </Base>
+
+<style>
+.report-model { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 12px 0 0; font-size: 12px; color: var(--text-2); }
+.report-model code { font: 11px/1.6 var(--mono); overflow-wrap: anywhere; }
+.report-questions { margin-top: 24px; padding: 18px 20px; background: color-mix(in srgb, #d9a43c 12%, transparent); border-radius: 10px; }
+.report-questions h2 { margin: 0 0 10px; font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.5; text-transform: none; letter-spacing: normal; }
+.report-questions ul { margin: 0; padding-left: 22px; }
+.report-questions li { margin: 6px 0; }
+</style>

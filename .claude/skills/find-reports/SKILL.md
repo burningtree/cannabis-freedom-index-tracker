@@ -97,6 +97,12 @@ node scripts/archive-sources.mjs <slug> <slug> …
 adds the Wayback Machine's snapshot of each source and media page as `archived:`. Pages it has no
 copy of are listed; `--save` asks it to save them (only when the user has agreed to submit pages).
 
+Every new report must include `created_by_model` with your actual runtime model identifier
+(provider/model and variant when available). Do not omit the field or copy a sample model.
+Use `unknown` only if the runtime does not disclose its identity or a historical creator was
+not recorded, and state that limitation. Updates retain the original creator and record your
+model in `updated_by_models`. See `docs/WRITING.md` for the provenance rules.
+
 ## 6. Check and commit
 
 ```bash

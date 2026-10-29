@@ -1,21 +1,20 @@
 ---
-// A year: reports per month, with the first few of each month and a link to the month's page.
+// A year: reports per month as bars, then every report, with the months as a sticky index.
 import Base from "../../layouts/Base.astro";
-import { years, monthsOf, reportsOfMonth, reports, monthName, countByType, formatDate, isoDate } from "../../lib/reports.js";
+import ReportYears from "../../components/ReportYears.astro";
+import { years, reportsOfMonth, reports, monthName, countByType } from "../../lib/reports.js";
 import { TYPES } from "../../lib/types.js";
 
 export const getStaticPaths = () => years.map((y) => ({ params: { year: String(y) } }));
 const year = Number(Astro.params.year);
 const base = import.meta.env.BASE_URL;
 const all = reports.filter((r) => r.year === year);
-const months = monthsOf(year).map((m) => ({ month: m, list: reportsOfMonth(m) }));
 const bars = Array.from({ length: 12 }, (_, i) => { const m = `${year}-${String(i + 1).padStart(2, "0")}`; return { month: m, count: reportsOfMonth(m).length }; });
 const max = Math.max(1, ...bars.map((b) => b.count));
 const byType = Object.entries(countByType(all)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
 const i = years.indexOf(year);
-const SHOW = 5;
 ---
-<Base title={`${year}`} description={`${all.length} sourced reports of cannabis enforcement in ${year}, month by month.`}>
+<Base title={`${year}`} description={`${all.length} sourced reports of cannabis enforcement in ${year}, month by month.`} wide>
   <nav class="crumbs"><a href={`${base}reports/`}>Reports</a> / By date</nav>
   <h1>{year}</h1>
   <p class="lead">{all.length.toLocaleString("en-GB")} reports. {byType.map(([t, n]) => `${TYPES[t].plural} ${n}`).join(" · ")}</p>
@@ -33,18 +32,5 @@ const SHOW = 5;
     ))}
   </ol>
 
-  {months.map(({ month, list }) => (
-    <section>
-      <h2><a href={`${base}${month.replace("-", "/")}/`}>{monthName(month)}</a> <span class="muted">· {list.length}</span></h2>
-      <ol class="timeline">
-        {list.slice(0, SHOW).map((r) => (
-          <li style={`--c:${r.color}`}>
-            <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time> · <span class="muted">{r.countryName}</span><br />
-            <a href={`${base}${r.url}`}>{r.title}</a>
-          </li>
-        ))}
-      </ol>
-      {list.length > SHOW && <p><a href={`${base}${month.replace("-", "/")}/`}>All {list.length} reports of {monthName(month)} →</a></p>}
-    </section>
-  ))}
+  <ReportYears reports={all} showYear={false} />
 </Base>
