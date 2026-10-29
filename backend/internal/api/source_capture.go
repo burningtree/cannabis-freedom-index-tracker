@@ -78,7 +78,7 @@ func (s *Server) sourceScreenshot(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 	info, err := file.Stat()
-	if err != nil || !info.Mode().IsRegular() || info.Size() > 16*1024*1024 {
+	if err != nil || !info.Mode().IsRegular() || info.Size() > 64*1024*1024 { // a whole long page at full width
 		problem(w, 503, "Invalid screenshot.")
 		return
 	}

@@ -5,6 +5,7 @@
 import { restartControl } from "../lib/submission-restart.js";
 import { renderAIActivity } from "../lib/ai-activity.js";
 import { renderDraft, readResult } from "./draft-report.js";
+import { runCost, planCost, formatUSD } from "../lib/model-cost.js";
 import { safeHTTP } from "../lib/submission-receipts.js";
 import { STAGES, statusMeta, isRunning, OUTCOME_HELP, ORIGINS, attempts, relativeTime, fullTime, duration, sourceParts } from "../lib/submission-status.js";
 
@@ -13,6 +14,17 @@ const link = (text, href, className) => { const a = el("a", text, className); a.
 const time = (seconds, text) => { const t = el("time", text ?? relativeTime(seconds)); t.dateTime = new Date(seconds * 1000).toISOString(); t.title = fullTime(seconds); return t; };
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PR = /^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/;
+
+// a text with the report's commit hash in it ("…local repository (1c0f7f0754f9)…"), the hash a link
+// to the commit on GitHub
+function withCommit(tag, text, v, className) {
+  const p = el(tag, undefined, className), sha = v.commit_sha || "", url = v.commit_url || "";
+  const m = sha && url ? String(text || "").match(/\b[0-9a-f]{7,40}\b/) : null;
+  if (!m || !sha.startsWith(m[0])) { p.textContent = text ?? ""; return p; }
+  const a = link(m[0], url, "sx-commit-link"); a.title = "The report's commit on GitHub";
+  p.append(document.createTextNode(text.slice(0, m.index)), a, document.createTextNode(text.slice(m.index + m[0].length)));
+  return p;
+}
 
 function pill(status) {
   const meta = statusMeta(status), p = el("span", undefined, "sx-pill"); p.dataset.tone = meta.tone;
@@ -42,7 +54,7 @@ function hero(box, v, run) {
   box.append(h1);
   if (url) box.append(link(`${v.url} ↗`, url, "sx-hero-url"));
   const why = el("div", undefined, "sx-why-box");
-  why.append(el("p", v.explanation, "sx-why-main"));
+  why.append(withCommit("p", v.explanation, v, "sx-why-main"));
   if (!running && OUTCOME_HELP[v.status]) why.append(el("p", OUTCOME_HELP[v.status], "sx-why-help"));
   if (v.status === "budget_wait" && v.resume_at) why.append(el("p", `Scheduled to resume ${fullTime(v.resume_at)}. The budget counts run reservations, not the lower estimated cost shown below.`, "sx-why-help"));
   box.append(why);
@@ -188,7 +200,7 @@ function history(box, v) {
     for (const h of a.entries) {
       const li = el("li"); li.dataset.tone = statusMeta(h.status).tone;
       const head = el("div", undefined, "sx-step-head"); head.append(el("strong", statusMeta(h.status).label), time(h.created_at, new Date(h.created_at * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })));
-      li.append(head, el("p", h.explanation)); ol.append(li);
+      li.append(head, withCommit("p", h.explanation, v)); ol.append(li);
     }
     group.append(ol); box.append(group);
   });
@@ -209,6 +221,66 @@ function facts(box, v) {
   box.append(dl);
 }
 
+// The whole request in numbers, over every attempt and AI run: how long each stage took, what the
+// AI did and cost, what the source and the answer held
+function stats(box, v, ai) {
+  box.replaceChildren(el("h2", "Stats"));
+  const now = Date.now() / 1000, history = v.history || [], runs = ai?.activity?.runs || [], events = ai?.activity?.events || [];
+  const dl = el("dl", undefined, "sx-facts sx-stats");
+  const group = (name) => dl.append(el("dt", name, "sx-stats-group"));
+  const row = (k, val, title) => { if (val === undefined || val === null || val === "") return; const dd = el("dd", String(val)); if (title) dd.title = title; dl.append(el("dt", k), dd); };
+  const num = (n) => Number(n || 0).toLocaleString();
+  // time: in all, and per stage of the pipeline, from the history (each step lasts until the next)
+  group("Time");
+  const end = isRunning(v.status) ? now : (history.at(-1)?.created_at || v.updated_at || now);
+  row("In all", duration(end - v.created_at), isRunning(v.status) ? "Still running" : `From receipt to ${statusMeta(v.status).label.toLowerCase()}`);
+  const perStage = new Map();
+  history.forEach((h, i) => {
+    const until = history[i + 1]?.created_at ?? (isRunning(v.status) ? now : h.created_at);
+    const stage = STAGES[Math.min(statusMeta(h.status).stage, STAGES.length - 2)];
+    if (until > h.created_at) perStage.set(stage, (perStage.get(stage) || 0) + until - h.created_at);
+  });
+  for (const stage of STAGES.slice(0, -1)) if (perStage.get(stage)) row(stage, duration(perStage.get(stage)));
+  const tries = attempts(history).length;
+  if (tries > 1) row("Attempts", tries);
+  // the AI: runs, steps, what it searched and opened, tokens and cost
+  if (runs.length) {
+    group("AI research");
+    const runTime = runs.reduce((t, r) => t + (r.started_at ? (r.finished_at || (r.status === "running" ? now : r.started_at)) - r.started_at : 0), 0);
+    row("Runs", runs.length);
+    row("Run time", duration(runTime));
+    const steps = events.filter((e) => e.kind === "step" && !e.text.startsWith("OpenCode started")).length;
+    row("Steps", steps || "—");
+    const tool = (prefix) => events.filter((e) => e.kind === "tool" && e.text.startsWith(prefix));
+    const searches = tool("Searching"), pages = tool("Opening");
+    const failed = (list) => list.filter((e) => /failed|error|unavailable/i.test(e.text)).length;
+    if (searches.length) row("Web searches", `${num(searches.length)}${failed(searches) ? `, ${failed(searches)} failed` : ""}`);
+    if (pages.length) row("Pages opened", `${num(pages.length)}${failed(pages) ? `, ${failed(pages)} failed` : ""}`);
+    const sum = (k) => runs.reduce((t, r) => t + Number(r[k] || 0), 0);
+    const read = sum("input_tokens") + sum("cache_read_tokens"), written = sum("output_tokens") + sum("reasoning_tokens");
+    row("Tokens read", num(read), `${num(sum("input_tokens"))} new, ${num(sum("cache_read_tokens"))} from the cache`);
+    if (read) row("From cache", `${Math.round((sum("cache_read_tokens") / read) * 100)}%`, "Share of the input the model had seen in earlier steps, billed at a fraction of the price");
+    row("Tokens written", num(written), `${num(sum("output_tokens"))} answer and tool calls, ${num(sum("reasoning_tokens"))} reasoning`);
+    if (written) row("Reasoning", `${Math.round((sum("reasoning_tokens") / written) * 100)}% of written`);
+    const api = runs.reduce((t, r) => t + runCost(r), 0), plan = ai?.processing?.plan, share = planCost(api, plan);
+    if (share) row("Cost (plan)", formatUSD(share), `Share of a $${plan.price_usd} a month plan with $${plan.allowance_usd} of usage`);
+    row("Cost (API price)", formatUSD(api), "Tokens at OpenCode Go prices for the hour each run started; reasoning as output, cached input at the cached price");
+    if (steps && api) row("Per step", formatUSD((share || api) / steps));
+  }
+  // the source and the answer
+  const c = v.source_check, check = v.validation, r = readResult(v);
+  if (c || check || r) {
+    group("Source and answer");
+    if (c?.chars) row("Source text", `${num(c.chars)} characters`);
+    if (c?.cleanup?.blocker) row("Blocked in capture", `${num(c.cleanup.blocked_requests)} ad and tracker requests`);
+    if (r?.sources?.length) row("Sources cited", r.sources.length);
+    if (r?.facts?.length) row("Facts", r.facts.length);
+    if (check?.checked) row("Quotations found", `${check.confirmed} of ${check.checked}`);
+    if (r?.facts?.length) { const words = r.facts.reduce((t, f) => t + String(f.text || "").split(/\s+/).filter(Boolean).length, 0); row("Report text", `${num(words)} words`); }
+  }
+  box.append(dl);
+}
+
 export function renderSubmissionDetail(v, ai, { api, id }) {
   const run = ai?.activity?.runs?.[0];
   const attempt = attempts(v.history).at(-1);
@@ -224,7 +296,6 @@ export function renderSubmissionDetail(v, ai, { api, id }) {
   sourceCheck(document.getElementById("submission-source"), v, { api, local: ai?.processing?.restart_available });
   history(document.getElementById("submission-history"), v);
   facts(document.getElementById("submission-facts"), v);
+  stats(document.getElementById("submission-stats"), v, ai);
   renderAIActivity(document.getElementById("submission-ai"), ai, { api, id, requestRunning: isRunning(v.status), previousAttempt });
-  // once the research is over, its chat takes less room, so the outcome under it is in view
-  document.getElementById("submission-ai").toggleAttribute("data-done", !["queued", "received", "fetching", "classifying", "researching", "budget_wait"].includes(v.status));
 }

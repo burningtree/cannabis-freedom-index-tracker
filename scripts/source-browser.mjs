@@ -163,10 +163,23 @@ export async function captureSource({ url, dir, bridge, token }) {
     }
     const extracted = await page.evaluate(extractSourcePage);
     if (Buffer.byteLength(extracted.text) > 2 * 1024 * 1024 || Buffer.byteLength(extracted.content) > 2 * 1024 * 1024) throw new Error("The rendered source is larger than 2 MB.");
-    const height = Math.max(900, Math.min(extracted.height, 12000));
+    // The whole page, top to bottom, so nothing on it is lost (images of text, tables, comments):
+    // scroll through it first so lazy images load, then one full-page screenshot, capped only for
+    // pages that never end
+    const MAX_HEIGHT = 40000;
+    await page.evaluate(async (max) => {
+      const step = Math.max(600, innerHeight - 100);
+      for (let y = 0; y < Math.min(document.documentElement.scrollHeight, max); y += step) { scrollTo(0, y); await new Promise((ok) => setTimeout(ok, 120)); }
+      scrollTo(0, 0);
+    }, MAX_HEIGHT).catch(() => {});
+    await page.waitForLoadState("networkidle", { timeout: 3000 }).catch(() => {});
+    const fullHeight = await page.evaluate(() => document.documentElement.scrollHeight).catch(() => extracted.height);
+    const height = Math.max(900, Math.min(fullHeight, MAX_HEIGHT));
     let screenshot = "", screenshotError = "";
-    try { await page.screenshot({ path: path.join(dir, "page.png"), clip: { x: 0, y: 0, width: 1440, height }, animations: "disabled", timeout: 10000 }); await fs.chmod(path.join(dir, "page.png"), 0o600); screenshot = "page.png"; }
-    catch { screenshotError = "The page rendered, but its screenshot could not be captured."; }
+    try {
+      await page.screenshot({ path: path.join(dir, "page.png"), ...(fullHeight <= MAX_HEIGHT ? { fullPage: true } : { clip: { x: 0, y: 0, width: 1440, height } }), animations: "disabled", timeout: 30000 });
+      await fs.chmod(path.join(dir, "page.png"), 0o600); screenshot = "page.png";
+    } catch { screenshotError = "The page rendered, but its screenshot could not be captured."; }
     await Promise.all([
       fs.writeFile(path.join(dir, "page.html"), extracted.content, { mode: 0o600 }),
       fs.writeFile(path.join(dir, "page.txt"), extracted.text, { mode: 0o600 }),
@@ -175,7 +188,7 @@ export async function captureSource({ url, dir, bridge, token }) {
     const status = response?.status() || 0;
     const evidence = { url, final_url: page.url(), content: extracted.content, text: extracted.text, metadata: extracted.metadata, rendered: true, screenshot, browser_warning: screenshotError,
       cleanup: { blocker: Boolean(blocker), blocked_requests: blocked, consent: consent.done ? `refused (${consent.cmp || "dialog"})` : consent.detected ? `${blocker ? "hidden" : "found, not answered"} (${consent.cmp || "dialog"})` : "none found" } };
-    if (height < extracted.height) evidence.browser_warning = [screenshotError, "Screenshot height limited to 12,000 pixels."].filter(Boolean).join(" ");
+    if (height < fullHeight) evidence.browser_warning = [screenshotError, "Screenshot height limited to 40,000 pixels."].filter(Boolean).join(" ");
     const error = status >= 400 ? `The browser page answered HTTP ${status}.` : navigationError && !extracted.text ? "Browser navigation failed." : "";
     return { evidence, error, status };
   } finally { await browser.close(); }

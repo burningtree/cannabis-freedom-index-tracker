@@ -265,5 +265,10 @@
 .sx-left-out summary { cursor: pointer; color: var(--text-2); }
 .sx-left-out ul { margin: 6px 0 0; padding-left: 18px; color: var(--text-2); }
 
-/* the AI chat once the research is over: shorter, so the outcome under it shows (it still scrolls) */
-#submission-ai[data-done] .ai-chat { max-height: 280px; }
+/* the Stats card under the request: rows grouped under small headings */
+.sx-stats { grid-template-columns: 118px minmax(0, 1fr); }
+.sx-stats .sx-stats-group { grid-column: 1 / -1; margin: 10px 0 2px; padding-top: 8px; border-top: 1px solid var(--border); font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.sx-stats .sx-stats-group:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* a commit hash in an explanation, linked to GitHub */
+.sx a.sx-commit-link { font-family: var(--mono); text-decoration: underline; text-underline-offset: 3px; }

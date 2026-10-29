@@ -33,7 +33,7 @@
 .ai-chat-head h3 { margin: 0; font: 600 13px Inter, system-ui, sans-serif; }
 .ai-chat-head .ai-muted { font-size: 11.5px; }
 .ai-chat-wrap { position: relative; }
-.ai-chat { max-height: min(78vh, 960px); overflow-y: auto; overscroll-behavior: contain; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+.ai-chat { height: 420px; overflow-y: auto; overscroll-behavior: contain; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
 .ai-message { margin: 0 0 8px; padding: 8px 12px; border-radius: 8px; background: var(--surface); }
 .ai-message:last-child { margin-bottom: 0; }
 .ai-message[data-role="assistant"] { background: color-mix(in srgb, var(--ai-running) 9%, var(--surface)); }
