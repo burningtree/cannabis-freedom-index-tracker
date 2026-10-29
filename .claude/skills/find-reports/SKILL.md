@@ -110,8 +110,8 @@ Others may work in this repository at the same time: check `git status`, commit 
 changed report files and images, one commit per run:
 `Reports: <country> <type>, … (n new)`.
 
-After committing, run `node scripts/sync-tracker.mjs` in the CFI checkout so its country profiles show
-the new reports (commit `src/data/tracker.json` there).
+Do not run `sync-tracker.mjs` or commit `src/data/tracker.json` in the CFI checkout; that sync is
+handled separately.
 
 Finish with a short list: each new report's title, country, date and sources, and any candidate you
 dropped and why.

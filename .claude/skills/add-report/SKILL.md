@@ -84,8 +84,8 @@ npm run build
 Fix anything the build reports. Check `git status`, commit only this report and its image:
 `Report: <short title> (<country>)`.
 
-Then, in the CFI checkout, run `node scripts/sync-tracker.mjs` and commit its `src/data/tracker.json`
-so the country's Enforcement section shows the report.
+Do not run `sync-tracker.mjs` or commit `src/data/tracker.json` in the CFI checkout; that sync is
+handled separately.
 
 Reply with the report's title, date, country, figures, sources (and which have an archived copy),
 anything you could not confirm, and the page: `/report/<slug>/`.
