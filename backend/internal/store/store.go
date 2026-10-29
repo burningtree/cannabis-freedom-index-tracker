@@ -110,6 +110,11 @@ type Submission struct {
 	ReplyEventID string    `json:"reply_event_id,omitempty"`
 	CreatedAt    int64     `json:"created_at"`
 	History      []History `json:"history"`
+	// public outputs: what the source check found, the AI's latest answer, the draft report built from it
+	SourceCheck   json.RawMessage `json:"source_check,omitempty"`
+	Result        json.RawMessage `json:"result,omitempty"`
+	DraftPath     string          `json:"draft_path,omitempty"`
+	DraftMarkdown string          `json:"draft_markdown,omitempty"`
 }
 type Intake struct {
 	Origin, URL, CanonicalURL, Note, Author, EventID, EventRaw, Provenance, IdempotencyKey string
@@ -209,7 +214,14 @@ func Enqueue(tx *sql.Tx, table, kind, ref, payload string, now int64) error {
 }
 func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
 	v := Submission{History: []History{}}
-	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt)
+	var sourceCheck, result string
+	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.source_check,c.ai_result,c.draft_path,c.draft_markdown FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &sourceCheck, &result, &v.DraftPath, &v.DraftMarkdown)
+	if sourceCheck != "" && json.Valid([]byte(sourceCheck)) {
+		v.SourceCheck = json.RawMessage(sourceCheck)
+	}
+	if result != "" && json.Valid([]byte(result)) {
+		v.Result = json.RawMessage(result)
+	}
 	if err != nil {
 		return v, err
 	}
@@ -228,10 +240,29 @@ func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
 	return v, rows.Err()
 }
 
-var states = map[string]bool{"queued": true, "fetching": true, "classifying": true, "researching": true, "drafted": true, "awaiting_review": true, "publishing": true, "merged": true, "deploying": true, "published": true, "duplicate": true, "not_relevant": true, "insufficient_evidence": true, "routed_to_cfi": true, "needs_review": true, "failed": true}
+var states = map[string]bool{"queued": true, "fetching": true, "classifying": true, "researching": true, "drafted": true, "awaiting_review": true, "publishing": true, "merged": true, "deploying": true, "published": true, "duplicate": true, "not_relevant": true, "insufficient_evidence": true, "routed_to_cfi": true, "needs_review": true, "failed": true, "source_unavailable": true}
 
 func Terminal(status string) bool {
-	return status == "published" || status == "duplicate" || status == "not_relevant" || status == "insufficient_evidence" || status == "routed_to_cfi" || status == "needs_review" || status == "failed"
+	return status == "published" || status == "duplicate" || status == "not_relevant" || status == "insufficient_evidence" || status == "routed_to_cfi" || status == "needs_review" || status == "failed" || status == "source_unavailable"
+}
+
+// SetCaseOutput records a public output of a case: "source_check", "ai_result", or the draft
+// ("draft_path" with "draft_markdown").
+func (s *Store) SetCaseOutput(ctx context.Context, cid string, values map[string]string) error {
+	for column, value := range values {
+		switch column {
+		case "source_check", "ai_result", "draft_path", "draft_markdown":
+		default:
+			return errors.New("unknown case output")
+		}
+		if len(value) > 512*1024 {
+			return errors.New("case output too large")
+		}
+		if _, err := s.DB.ExecContext(ctx, "UPDATE cases SET "+column+"=? WHERE id=?", value, cid); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Transition and outgoing intent commit together. Published is only used by the reconciler.

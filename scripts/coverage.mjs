@@ -5,7 +5,7 @@
 //   node scripts/coverage.mjs --url <url>      whether a source URL is already cited, and where
 import fs from "node:fs";
 import path from "node:path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 
 const countries = JSON.parse(fs.readFileSync("src/data/countries.json", "utf8"));
 const byId = new Map(countries.map((c) => [c.id, c]));

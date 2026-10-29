@@ -11,7 +11,7 @@
 //   node scripts/import-cfi-history.mjs [path to the CFI checkout] [--dry]
 import fs from "node:fs";
 import path from "node:path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { codeOf } from "../src/lib/code.js";
 import { execSync } from "node:child_process";
 

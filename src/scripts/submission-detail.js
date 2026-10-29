@@ -3,6 +3,7 @@
 // Called by submissions.js on every refresh; the parts are redrawn in place except the AI panel,
 // which updates itself (src/lib/ai-activity.js) so its chat keeps its place.
 import { renderAIActivity } from "../lib/ai-activity.js";
+import { renderDraft, readResult } from "./draft-report.js";
 import { safeHTTP } from "../lib/submission-receipts.js";
 import { STAGES, statusMeta, isRunning, OUTCOME_HELP, ORIGINS, attempts, relativeTime, fullTime, duration, sourceParts } from "../lib/submission-status.js";
 
@@ -46,22 +47,47 @@ function stages(box, v) {
   STAGES.forEach((name, i) => {
     const li = el("li", undefined, "sx-stage");
     li.dataset.state = i < meta.stage ? "done" : i === meta.stage ? (meta.tone === "running" ? "current" : "end") : "todo";
-    li.append(el("i", undefined, "sx-stage-dot"), el("span", i === 4 && meta.stage === 4 ? meta.label : name));
+    li.append(el("i", undefined, "sx-stage-dot"), el("span", i === STAGES.length - 1 && meta.stage === i ? meta.label : name));
     box.append(li);
   });
 }
 
-// what came out of it: the report, the proposal, the Nostr thread, or why there is nothing
+// what came out of it: the draft drawn as a report (with a link to its preview), the published
+// report, the proposal, the Nostr thread, or why there is nothing
 function output(box, v) {
+  const root = document.querySelector("[data-submission-status]");
+  const base = root?.dataset.base ?? "/";
   box.replaceChildren(el("h2", "Outcome"));
   const items = el("div", undefined, "sx-out-items");
-  const base = document.querySelector("[data-base]")?.dataset.base ?? "/";
   if (SLUG.test(v.report_slug || "") && ["published", "duplicate"].includes(v.status)) items.append(link(v.status === "published" ? "Read the published report →" : "Read the existing report →", `${base}report/${v.report_slug}/`, "sx-btn sx-btn-primary"));
+  if (readResult(v)) items.append(link("Preview as a report →", `${base}draft/?id=${v.id}`, `sx-btn${items.childElementCount ? "" : " sx-btn-primary"}`));
   if (PR.test(v.pr_url || "")) items.append(link("Proposal on GitHub ↗", v.pr_url, "sx-btn"));
   if (/^[a-f0-9]{64}$/.test(v.reply_event_id || "")) items.append(link("Reply on Nostr ↗", `https://njump.me/${v.reply_event_id}`, "sx-btn"));
-  if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
+  const draft = el("article", undefined, "sx-draft");
+  const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true });
+  if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : v.status === "published" ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
+  else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
   else if (!items.childElementCount) box.append(el("p", OUTCOME_HELP[v.status] ?? v.explanation, "sx-muted"));
   if (items.childElementCount) box.append(items);
+}
+
+// what the service found on the submitted page before any AI research
+function sourceCheck(box, v) {
+  const c = v.source_check;
+  const failed = v.status === "source_unavailable";
+  box.hidden = !c && !failed && !["fetching"].includes(v.status);
+  if (box.hidden) return;
+  box.replaceChildren(el("h2", "Source check"));
+  const list = el("ul", undefined, "sx-checks");
+  const row = (ok, text) => { const li = el("li", text); li.dataset.ok = ok === null ? "wait" : String(ok); list.append(li); };
+  if (v.status === "fetching" && !c) row(null, "Opening the submitted page…");
+  else if (failed && !c) row(false, v.explanation.replace(/ Send a link.*$/, ""));
+  if (c) {
+    row(true, `Loaded from ${c.host}${c.title ? `: “${c.title}”` : ""}`);
+    row(c.chars >= 200, `${Number(c.chars).toLocaleString()} characters of readable text`);
+    if (c.chars >= 200) row(Boolean(c.mention), c.mention ? `Mentions cannabis (${c.mention})` : "Does not mention cannabis");
+  }
+  box.append(list);
 }
 
 // the history, newest attempt first and open; earlier attempts folded, each with its result
@@ -112,6 +138,7 @@ export function renderSubmissionDetail(v, ai, { api, id }) {
   stages(document.getElementById("submission-stages"), v);
   document.getElementById("submission-body").hidden = false;
   output(document.getElementById("submission-output"), v);
+  sourceCheck(document.getElementById("submission-source"), v);
   history(document.getElementById("submission-history"), v);
   facts(document.getElementById("submission-facts"), v);
   renderAIActivity(document.getElementById("submission-ai"), ai, { api, id, requestRunning: isRunning(v.status) });

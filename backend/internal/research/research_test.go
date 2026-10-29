@@ -12,7 +12,7 @@ import (
 )
 
 func valid() Result {
-	return Result{Outcome: "new_event", Country: "th", Date: "2026-01-02", Type: "raid", Slug: "example-raid", Title: "Police raid a cannabis farm", Summary: "Police raided a farm.", Explanation: "A sourced enforcement incident.", Sources: []Source{{"https://news.example/a", "News story", "Publisher"}}, Facts: []Fact{{"Police raided the farm.", 1, "Police raided the farm in the province."}}}
+	return Result{Outcome: "new_event", Country: "th", Date: "2026-01-02", Type: "raid", Slug: "example-raid", Title: "Police raid a cannabis farm", Summary: "Police raided a farm.", Explanation: "A sourced enforcement incident.", Place: "Chiang Mai", Coordinates: []float64{18.79, 98.98}, Precision: "locality", Sources: []Source{{URL: "https://news.example/a", Title: "News story", Publisher: "Publisher"}}, Facts: []Fact{{Text: "Police raided the farm.", Source: 1, Quote: "Police raided the farm in the province."}}}
 }
 func TestStrictAndValidation(t *testing.T) {
 	r := valid()

@@ -19,6 +19,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -27,29 +29,60 @@ type Source struct {
 	URL       string `json:"url"`
 	Title     string `json:"title"`
 	Publisher string `json:"publisher"`
+	Date      string `json:"date,omitempty"`     // when the source was published, YYYY-MM-DD
+	Language  string `json:"language,omitempty"` // two letters, if not English
 }
 type Fact struct {
-	Text   string `json:"text"`
-	Source int    `json:"source"`
-	Quote  string `json:"quote"`
+	Text      string `json:"text"`
+	Source    int    `json:"source"`
+	Quote     string `json:"quote"`
+	Paragraph int    `json:"paragraph,omitempty"` // facts with the same number make one paragraph
+}
+type Money struct {
+	Amount   float64 `json:"amount"`
+	Currency string  `json:"currency"`
+}
+
+// Figures are the report's numbers, each only where a source states it (src/content.config.ts).
+type Figures struct {
+	Arrested        *int     `json:"arrested,omitempty"`
+	Charged         *int     `json:"charged,omitempty"`
+	KgSeized        *float64 `json:"kg_seized,omitempty"`
+	PlantsDestroyed *int     `json:"plants_destroyed,omitempty"`
+	Hectares        *float64 `json:"hectares,omitempty"`
+	Prison          string   `json:"prison,omitempty"`
+	Fine            *Money   `json:"fine,omitempty"`
+	Value           *Money   `json:"value,omitempty"`
+	Deaths          *int     `json:"deaths,omitempty"`
 }
 type Result struct {
-	Outcome        string   `json:"outcome"`
-	Country        string   `json:"country"`
-	Date           string   `json:"incident_date"`
-	Type           string   `json:"type"`
-	Sources        []Source `json:"sources"`
-	Facts          []Fact   `json:"facts"`
-	Slug           string   `json:"proposed_slug"`
-	Title          string   `json:"title"`
-	Summary        string   `json:"summary"`
-	ExistingReport string   `json:"existing_report"`
-	Explanation    string   `json:"explanation"`
-	Uncertainties  []string `json:"uncertainties"`
+	Outcome        string    `json:"outcome"`
+	Country        string    `json:"country"`
+	Date           string    `json:"incident_date"`
+	Type           string    `json:"type"`
+	Also           []string  `json:"also,omitempty"`
+	Place          string    `json:"place,omitempty"`
+	Coordinates    []float64 `json:"coordinates,omitempty"` // [lat, lon]
+	Precision      string    `json:"precision,omitempty"`
+	Figures        *Figures  `json:"figures,omitempty"`
+	Tags           []string  `json:"tags,omitempty"`
+	Sources        []Source  `json:"sources"`
+	Facts          []Fact    `json:"facts"`
+	Slug           string    `json:"proposed_slug"`
+	Title          string    `json:"title"`
+	Summary        string    `json:"summary"`
+	ExistingReport string    `json:"existing_report"`
+	Explanation    string    `json:"explanation"`
+	Uncertainties  []string  `json:"uncertainties"`
 }
 
 var slug = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 var plain = regexp.MustCompile("[<>\\[\\]`*\\x00-\\x08]")
+var tag = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
+var currency = regexp.MustCompile(`^[A-Z]{3}$`)
+var language = regexp.MustCompile(`^[a-z]{2}$`)
+var types = "|eradication|seizure|raid|arrest|prosecution|sentence|death|"
+var precisions = "|exact|locality|district|region|country|"
 
 func Strict(data []byte) (Result, error) {
 	var r Result
@@ -82,6 +115,14 @@ func (r Result) Validate(countries map[string]bool) error {
 		if s.Title == "" || s.Publisher == "" || len(s.Title) > 500 || len(s.Publisher) > 200 {
 			return errors.New("invalid source metadata")
 		}
+		if s.Date != "" {
+			if _, err := time.Parse("2006-01-02", s.Date); err != nil {
+				return errors.New("invalid source date")
+			}
+		}
+		if s.Language != "" && !language.MatchString(s.Language) {
+			return errors.New("invalid source language")
+		}
 	}
 	if (r.Outcome == "not_relevant" || r.Outcome == "routed_to_cfi") && len(r.Sources) == 0 {
 		return errors.New("classification requires an opened source")
@@ -99,8 +140,30 @@ func (r Result) Validate(countries map[string]bool) error {
 	if !countries[r.Country] || !slug.MatchString(r.Slug) || len(r.Slug) > 100 {
 		return errors.New("invalid country or slug")
 	}
-	if !strings.Contains("|eradication|seizure|raid|arrest|prosecution|sentence|death|", "|"+r.Type+"|") {
+	if !strings.Contains(types, "|"+r.Type+"|") {
 		return errors.New("type must be routed or reviewed")
+	}
+	for _, t := range r.Also {
+		if t == r.Type || !strings.Contains(types, "|"+t+"|") {
+			return errors.New("invalid also type")
+		}
+	}
+	if len(r.Coordinates) != 2 || r.Coordinates[0] < -90 || r.Coordinates[0] > 90 || r.Coordinates[1] < -180 || r.Coordinates[1] > 180 || !strings.Contains(precisions, "|"+r.Precision+"|") || r.Precision == "" {
+		return errors.New("coordinates and precision are required")
+	}
+	if len(r.Place) > 200 || plain.MatchString(r.Place) {
+		return errors.New("invalid place")
+	}
+	if len(r.Tags) > 8 {
+		return errors.New("too many tags")
+	}
+	for _, t := range r.Tags {
+		if !tag.MatchString(t) || len(t) > 40 {
+			return errors.New("invalid tag")
+		}
+	}
+	if err := r.Figures.validate(); err != nil {
+		return err
 	}
 	if len(r.Title) == 0 || len(r.Title) > 120 || len(r.Summary) == 0 || len(r.Summary) > 400 || plain.MatchString(r.Title) || plain.MatchString(r.Summary) {
 		return errors.New("invalid title or summary")
@@ -110,7 +173,7 @@ func (r Result) Validate(countries map[string]bool) error {
 	}
 	used := map[int]bool{}
 	for _, f := range r.Facts {
-		if f.Source < 1 || f.Source > len(r.Sources) || len(f.Text) < 10 || len(f.Text) > 2000 || len(f.Quote) < 20 || len(f.Quote) > 4000 || plain.MatchString(f.Text) {
+		if f.Paragraph < 0 || f.Paragraph > 30 || f.Source < 1 || f.Source > len(r.Sources) || len(f.Text) < 10 || len(f.Text) > 2000 || len(f.Quote) < 20 || len(f.Quote) > 4000 || plain.MatchString(f.Text) {
 			return errors.New("invalid fact or source reference")
 		}
 		used[f.Source] = true
@@ -135,7 +198,7 @@ func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl
 			}
 		}
 		for _, f := range r.Facts {
-			if f.Source == i+1 && !strings.Contains(e.Content, f.Quote) {
+			if f.Source == i+1 && !safeurl.Contains(e.Content, f.Quote) {
 				return nil, errors.New("supporting quotation missing from opened source")
 			}
 		}
@@ -143,22 +206,182 @@ func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl
 	}
 	return out, nil
 }
+func (f *Figures) validate() error {
+	if f == nil {
+		return nil
+	}
+	for _, n := range []*int{f.Arrested, f.Charged, f.PlantsDestroyed, f.Deaths} {
+		if n != nil && *n < 0 {
+			return errors.New("invalid figure")
+		}
+	}
+	for _, n := range []*float64{f.KgSeized, f.Hectares} {
+		if n != nil && *n < 0 {
+			return errors.New("invalid figure")
+		}
+	}
+	for _, m := range []*Money{f.Fine, f.Value} {
+		if m != nil && (m.Amount <= 0 || !currency.MatchString(m.Currency)) {
+			return errors.New("invalid money figure")
+		}
+	}
+	if len(f.Prison) > 100 || plain.MatchString(f.Prison) {
+		return errors.New("invalid prison figure")
+	}
+	return nil
+}
+
+// The report file, laid out like the hand-written ones in reports/: YAML front matter in the
+// schema's order, then the text in paragraphs with a citation after each sentence.
 func (r Result) Markdown() string {
-	// JSON is valid YAML: quote every model-supplied value rather than interpolating YAML syntax.
+	doc := &yaml.Node{Kind: yaml.MappingNode}
+	add := func(k string, v *yaml.Node) { doc.Content = append(doc.Content, str(k), v) }
+	add("date", &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!timestamp", Value: r.Date})
+	add("country", str(r.Country))
+	if r.Place != "" {
+		add("place", str(r.Place))
+	}
+	if len(r.Coordinates) == 2 {
+		add("coordinates", flow(num(r.Coordinates[0]), num(r.Coordinates[1])))
+	}
+	if r.Precision != "" {
+		add("precision", str(r.Precision))
+	}
+	add("type", str(r.Type))
+	if len(r.Also) > 0 {
+		add("also", flow(strs(r.Also)...))
+	}
+	add("title", str(strings.TrimSpace(r.Title)))
+	summary := str(strings.Join(strings.Fields(r.Summary), " "))
+	summary.Style = yaml.FoldedStyle
+	add("summary", summary)
+	if f := r.Figures.node(); f != nil {
+		add("figures", f)
+	}
+	add("status", str("reported"))
+	if len(r.Tags) > 0 {
+		add("tags", flow(strs(r.Tags)...))
+	}
+	sources := &yaml.Node{Kind: yaml.SequenceNode}
+	for _, s := range r.Sources {
+		m := &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("title"), str(s.Title), str("url"), str(s.URL), str("publisher"), str(s.Publisher)}}
+		if s.Date != "" {
+			m.Content = append(m.Content, str("date"), &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!timestamp", Value: s.Date})
+		}
+		if s.Language != "" && s.Language != "en" {
+			m.Content = append(m.Content, str("language"), str(s.Language))
+		}
+		sources.Content = append(sources.Content, m)
+	}
+	add("sources", sources)
+	var head bytes.Buffer
+	enc := yaml.NewEncoder(&head)
+	enc.SetIndent(2)
+	_ = enc.Encode(doc)
 	var b strings.Builder
 	b.WriteString("---\n")
-	fields := []struct {
-		k string
-		v any
-	}{{"date", r.Date}, {"country", r.Country}, {"type", r.Type}, {"title", r.Title}, {"summary", r.Summary}, {"status", "reported"}, {"sources", r.Sources}}
-	for _, f := range fields {
-		fmt.Fprintf(&b, "%s: %s\n", f.k, store.JSON(f.v))
-	}
+	b.WriteString(head.String())
 	b.WriteString("---\n\n")
-	for _, f := range r.Facts {
-		fmt.Fprintf(&b, "%s [@%d]\n\n", f.Text, f.Source)
+	b.WriteString(Body(r.Facts, func(n int) int { return n }))
+	return b.String()
+}
+
+// Body is the report text: facts grouped into their paragraphs, each sentence followed by its
+// citation, wrapped at 80 columns. source maps a fact's source number to the file's.
+func Body(facts []Fact, source func(int) int) string {
+	var paragraphs [][]string
+	last := -1
+	for i, f := range facts {
+		// a fact without a paragraph number starts a new paragraph, as older answers had it
+		if i == 0 || f.Paragraph == 0 || f.Paragraph != last {
+			paragraphs = append(paragraphs, nil)
+		}
+		last = f.Paragraph
+		paragraphs[len(paragraphs)-1] = append(paragraphs[len(paragraphs)-1], fmt.Sprintf("%s [@%d]", strings.TrimSpace(f.Text), source(f.Source)))
+	}
+	var b strings.Builder
+	for _, p := range paragraphs {
+		b.WriteString(wrap(strings.Join(p, " "), 80))
+		b.WriteString("\n\n")
 	}
 	return b.String()
+}
+
+func wrap(text string, width int) string {
+	var lines []string
+	line := ""
+	for _, w := range strings.Fields(text) {
+		if line != "" && len([]rune(line))+1+len([]rune(w)) > width {
+			lines = append(lines, line)
+			line = w
+		} else if line == "" {
+			line = w
+		} else {
+			line += " " + w
+		}
+	}
+	return strings.Join(append(lines, line), "\n")
+}
+
+func str(v string) *yaml.Node { return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!str", Value: v} }
+func num(v float64) *yaml.Node {
+	value := strconv.FormatFloat(v, 'f', -1, 64)
+	if strings.Contains(value, ".") {
+		return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!float", Value: value}
+	}
+	return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!int", Value: value}
+}
+func integer(v int) *yaml.Node {
+	return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!int", Value: strconv.Itoa(v)}
+}
+func strs(v []string) []*yaml.Node {
+	out := []*yaml.Node{}
+	for _, s := range v {
+		out = append(out, str(s))
+	}
+	return out
+}
+func flow(items ...*yaml.Node) *yaml.Node {
+	return &yaml.Node{Kind: yaml.SequenceNode, Style: yaml.FlowStyle, Content: items}
+}
+func (f *Figures) node() *yaml.Node {
+	if f == nil {
+		return nil
+	}
+	m := &yaml.Node{Kind: yaml.MappingNode}
+	ints := []struct {
+		k string
+		v *int
+	}{{"arrested", f.Arrested}, {"charged", f.Charged}, {"plants_destroyed", f.PlantsDestroyed}, {"deaths", f.Deaths}}
+	floats := []struct {
+		k string
+		v *float64
+	}{{"kg_seized", f.KgSeized}, {"hectares", f.Hectares}}
+	for _, x := range ints {
+		if x.v != nil {
+			m.Content = append(m.Content, str(x.k), integer(*x.v))
+		}
+	}
+	for _, x := range floats {
+		if x.v != nil {
+			m.Content = append(m.Content, str(x.k), num(*x.v))
+		}
+	}
+	if f.Prison != "" {
+		m.Content = append(m.Content, str("prison"), str(f.Prison))
+	}
+	for _, x := range []struct {
+		k string
+		v *Money
+	}{{"fine", f.Fine}, {"value", f.Value}} {
+		if x.v != nil {
+			m.Content = append(m.Content, str(x.k), &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("amount"), num(x.v.Amount), str("currency"), str(x.v.Currency)}})
+		}
+	}
+	if len(m.Content) == 0 {
+		return nil
+	}
+	return m
 }
 
 type Runner struct {
@@ -248,7 +471,27 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 		index.Write(row)
 		index.WriteByte('\n')
 	}
-	files := map[string][]byte{"request.json": []byte(store.JSON(map[string]any{"case_id": cid, "source": e, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == ""})), "reports-index.jsonl": []byte(index.String())}
+	// The page goes in as files with short lines: the read tool cuts lines at 2,000 characters, so a
+	// page inside one JSON line reached the model cut off. source.txt is the readable text (what
+	// quotations are checked against, besides the markup), source.html the markup for details.
+	text := safeurl.Text(e.Content)
+	request := map[string]any{"case_id": cid, "url": e.URL, "final_url": e.FinalURL, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == "", "example_reports": "examples/"}
+	files := map[string][]byte{"reports-index.jsonl": []byte(index.String())}
+	if e.Content != "" {
+		request["source_text"] = "source.txt"
+		request["source_html"] = "source.html"
+		request["source_text_lines"] = strings.Count(safeurl.Wrap(text, 1000), "\n") + 1
+		files["source.txt"] = []byte(safeurl.Wrap(text, 1000) + "\n")
+		files["source.html"] = []byte(safeurl.Wrap(strings.ReplaceAll(e.Content, "><", ">\n<"), 1000) + "\n")
+	}
+	files["request.json"] = []byte(store.JSON(request))
+	examples, err := exampleReports(r.Config.RepoPath, 3)
+	if err != nil {
+		return Result{}, err
+	}
+	for name, b := range examples {
+		files["examples/"+name] = b
+	}
 	for _, path := range []string{"docs/CFI.md", "docs/WRITING.md", ".claude/skills/add-report/SKILL.md", ".claude/skills/find-reports/SKILL.md", ".opencode/agents/enforcement-researcher.md", "src/data/countries.json"} {
 		b, err := os.ReadFile(filepath.Join(r.Config.RepoPath, path))
 		if err != nil {
@@ -426,6 +669,38 @@ func lastJSONObject(text string) []byte {
 	}
 	return found
 }
+
+// exampleReports picks the newest finished reports (with a place, coordinates and figures) as
+// models of the file the researcher's answer becomes.
+func exampleReports(repo string, n int) (map[string][]byte, error) {
+	var paths []string
+	err := filepath.WalkDir(filepath.Join(repo, "reports"), func(path string, entry os.DirEntry, err error) error {
+		if err == nil && !entry.IsDir() && strings.HasSuffix(path, ".md") {
+			paths = append(paths, path)
+		}
+		return err
+	})
+	if err != nil {
+		return nil, err
+	}
+	sort.Sort(sort.Reverse(sort.StringSlice(paths)))
+	out := map[string][]byte{}
+	for _, path := range paths {
+		b, err := os.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
+		s := string(b)
+		if strings.Contains(s, "\nplace:") && strings.Contains(s, "\ncoordinates:") && strings.Contains(s, "\nfigures:") && strings.Contains(s, "\nstatus: verified") && !strings.Contains(s, "\ncover:") {
+			out[filepath.Base(path)] = b
+		}
+		if len(out) == n {
+			break
+		}
+	}
+	return out, nil
+}
+
 func SaveEvidence(dir string, values []safeurl.Evidence) error {
 	for i, e := range values {
 		b := []byte(store.JSON(e))
@@ -546,9 +821,7 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 		body.WriteString("\n---\n\n")
 		body.WriteString(strings.TrimSpace(parts[2]))
 		body.WriteString("\n\n## Update\n\n")
-		for _, f := range r.Facts {
-			fmt.Fprintf(&body, "%s [@%d]\n\n", f.Text, mapping[f.Source])
-		}
+		body.WriteString(Body(r.Facts, func(n int) int { return mapping[n] }))
 		d.Content = body.String()
 		previous, err := filepath.Rel(dir, existing)
 		if err != nil {

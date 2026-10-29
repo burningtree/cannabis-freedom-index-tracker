@@ -37,7 +37,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 </div>
 
 <script>
-  import maplibregl from "maplibre-gl";
+  import * as maplibregl from "maplibre-gl";
+  import "../scripts/maplibre-worker.js";
   import "maplibre-gl/dist/maplibre-gl.css";
   import { loadIndex, inCountry, type Row } from "../scripts/report-index";
 

@@ -6,10 +6,15 @@ import Base from "../layouts/Base.astro";
 import { submissionsAPI as api } from "../lib/submissions-config.js";
 import "../styles/submissions-ui.css";
 import "../styles/ai-activity.css";
+import { TYPES } from "../lib/types.js";
+import countryList from "../data/countries.json";
 const base = import.meta.env.BASE_URL;
+// for drawing the AI's draft like a report: type labels and colours, country names
+const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color }]));
+const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
 ---
 <Base title="Submission" description="Follow a submitted source from intake to research, review and publication." wide>
-  <div class="sx sx-detail" data-submission-status data-api={api} data-base={base}>
+  <div class="sx sx-detail" data-submission-status data-api={api} data-base={base} data-types={JSON.stringify(types)} data-countries={JSON.stringify(countries)}>
     <nav class="sx-crumbs"><a href={`${base}submissions/`}>Submissions</a> <span aria-hidden="true">/</span> <span id="crumb-id">Request</span></nav>
     <p id="status-message" class="sx-message" role="status" aria-live="polite">{api ? "Loading the submission…" : "Submission status is not available yet."}</p>
     <header id="submission-detail" class="sx-hero" hidden></header>
@@ -17,6 +22,7 @@ const base = import.meta.env.BASE_URL;
     <div class="sx-detail-grid" id="submission-body" hidden>
       <div class="sx-detail-main">
         <section id="submission-output" class="sx-card sx-output" aria-label="Outcome"></section>
+        <section id="submission-source" class="sx-card sx-source" aria-label="Source check" hidden></section>
         <section id="submission-ai" class="sx-card ai-panel" aria-label="AI research and live activity"></section>
       </div>
       <aside class="sx-detail-side">

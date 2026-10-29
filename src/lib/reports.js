@@ -5,26 +5,11 @@ import { TYPES } from "./types.js";
 import { countryName, countryOf } from "./countries.js";
 import { centreOf } from "./map.js";
 import { codeOf } from "./code.js";
+import { figureRows } from "./figures.js";
 
-const fmtNum = (n) => n.toLocaleString("en-GB", { maximumFractionDigits: 1 });
-const fmtMoney = (m) => `${m.currency} ${fmtNum(m.amount)}`;
 export const formatDate = (d) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 export const isoDate = (d) => d.toISOString().slice(0, 10);
-
-// the figures a report gives, in reading order, as { key, label, value }
-export function figureRows(f = {}) {
-  const rows = [];
-  if (f.arrested != null) rows.push({ key: "arrested", label: "Arrested", value: fmtNum(f.arrested) });
-  if (f.charged != null) rows.push({ key: "charged", label: "Charged", value: fmtNum(f.charged) });
-  if (f.plants_destroyed != null) rows.push({ key: "plants_destroyed", label: "Plants destroyed", value: fmtNum(f.plants_destroyed) });
-  if (f.hectares != null) rows.push({ key: "hectares", label: "Hectares", value: fmtNum(f.hectares) });
-  if (f.kg_seized != null) rows.push({ key: "kg_seized", label: "Cannabis", value: `${fmtNum(f.kg_seized)} kg` });
-  if (f.prison) rows.push({ key: "prison", label: "Prison", value: f.prison });
-  if (f.fine) rows.push({ key: "fine", label: "Fine", value: fmtMoney(f.fine) });
-  if (f.deaths != null) rows.push({ key: "deaths", label: "Deaths", value: fmtNum(f.deaths) });
-  if (f.value) rows.push({ key: "value", label: "Value (official estimate)", value: fmtMoney(f.value) });
-  return rows;
-}
+export { figureRows };
 
 const entries = await getCollection("reports");
 export const reports = entries.map(({ id, data, body }) => {

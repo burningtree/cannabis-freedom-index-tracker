@@ -8,7 +8,7 @@
 //   node scripts/archive-sources.mjs --dry        show what would change, write nothing
 import fs from "node:fs";
 import path from "node:path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 
 const args = process.argv.slice(2);
 const SAVE = args.includes("--save");

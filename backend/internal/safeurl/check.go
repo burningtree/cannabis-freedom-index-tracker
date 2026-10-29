@@ -1,0 +1,148 @@
+package safeurl
+
+import (
+	"errors"
+	"fmt"
+	"html"
+	"net/url"
+	"regexp"
+	"strings"
+	"unicode/utf8"
+)
+
+// SourceCheck is what the service found on the submitted page before any AI research: its title,
+// where it lives, how much readable text it has, and the word for cannabis it uses, if any.
+type SourceCheck struct {
+	Title   string `json:"title"`
+	Host    string `json:"host"`
+	Chars   int    `json:"chars"`
+	Mention string `json:"mention"`
+}
+
+var (
+	dropBlocks = regexp.MustCompile(`(?is)<(script|style|noscript|svg|template)\b.*?</(script|style|noscript|svg|template)\s*>`)
+	tags       = regexp.MustCompile(`(?s)<[^>]*>`)
+	spaces     = regexp.MustCompile(`\s+`)
+	titleTag   = regexp.MustCompile(`(?is)<title[^>]*>(.*?)</title>`)
+)
+
+// words for cannabis and its products in the languages the tracker sees most; the first match is
+// reported. Short Latin words are matched as whole words so "hash" does not match "hashtag".
+var cannabisWords = []string{
+	"cannabis", "marijuana", "marihuana", "maconha", "ganja", "hashish", "haschisch", "hachís", "hachich", "hash", "weed", "kush", "dagga", "bhang", "charas", "kif", "esrar", "kenevir", "konopí", "konopie", "wiet", "canapa", "cânhamo", "cáñamo", "chanvre", "résine", "THC",
+	"กัญชา", "cần sa", "大麻", "대마", "마리화나", "गांजा", "चरस", "भांग", "গাঁজা", "கஞ்சா", "конопл", "марихуан", "гашиш", "канабис", "коноп", "حشيش", "قنب", "ماريجوانا", "بنگ", "חשיש", "קנאביס", "esrarı", "ganjah", "mbanje", "bangi", "insangu", "matekoane",
+}
+
+// Check reads the fetched page as text and says what it is. It fails when there is too little
+// readable text to research (a page that needs JavaScript or a login).
+func Check(e Evidence) (SourceCheck, error) {
+	host := e.FinalURL
+	if u, err := url.Parse(e.FinalURL); err == nil && u.Host != "" {
+		host = strings.TrimPrefix(u.Hostname(), "www.")
+	}
+	c := SourceCheck{Host: host}
+	if m := titleTag.FindStringSubmatch(e.Content); m != nil {
+		c.Title = strings.TrimSpace(spaces.ReplaceAllString(html.UnescapeString(tags.ReplaceAllString(m[1], " ")), " "))
+		if utf8.RuneCountInString(c.Title) > 150 {
+			c.Title = string([]rune(c.Title)[:150]) + "…"
+		}
+	}
+	text := strings.Join(strings.Fields(Text(e.Content)), " ")
+	c.Chars = utf8.RuneCountInString(text)
+	if c.Chars < 200 {
+		return c, errors.New("the page has almost no readable text (it may need JavaScript or a login)")
+	}
+	lower := strings.ToLower(c.Title + " " + text)
+	for _, w := range cannabisWords {
+		lw := strings.ToLower(w)
+		if utf8.RuneCountInString(lw) <= 5 && isLatin(lw) {
+			if regexp.MustCompile(`(?i)\b` + regexp.QuoteMeta(lw) + `\b`).MatchString(lower) {
+				c.Mention = w
+				break
+			}
+		} else if strings.Contains(lower, lw) {
+			c.Mention = w
+			break
+		}
+	}
+	return c, nil
+}
+
+var (
+	blockTags  = regexp.MustCompile(`(?i)<(?:/?(?:p|div|h[1-6]|li|tr|article|section|blockquote|figcaption|header|footer|table|ul|ol)\b[^>]*|br\s*/?)>`)
+	lineSpaces = regexp.MustCompile(`[ \t\r\f\v\x{a0}]+`)
+	blankLines = regexp.MustCompile(`\n\s*\n+`)
+)
+
+// Text is a page's readable text: scripts, styles and markup removed, entities decoded, one
+// paragraph per line. The researcher reads it as a file, and quotations are checked against it.
+func Text(content string) string {
+	text := dropBlocks.ReplaceAllString(content, " ")
+	text = blockTags.ReplaceAllString(text, "\n")
+	text = html.UnescapeString(tags.ReplaceAllString(text, " "))
+	var lines []string
+	for _, line := range strings.Split(blankLines.ReplaceAllString(text, "\n"), "\n") {
+		if line = strings.TrimSpace(lineSpaces.ReplaceAllString(line, " ")); line != "" {
+			lines = append(lines, line)
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
+// Wrap breaks lines longer than max runes at a space (or anywhere, for scripts without spaces),
+// so a tool that cuts long lines still shows the whole text.
+func Wrap(text string, max int) string {
+	var out []string
+	for _, line := range strings.Split(text, "\n") {
+		r := []rune(line)
+		for len(r) > max {
+			cut := max
+			for i := max; i > max/2; i-- {
+				if r[i] == ' ' {
+					cut = i
+					break
+				}
+			}
+			out = append(out, strings.TrimSpace(string(r[:cut])))
+			r = []rune(strings.TrimSpace(string(r[cut:])))
+		}
+		out = append(out, string(r))
+	}
+	return strings.Join(out, "\n")
+}
+
+// Contains says whether a quotation appears on the page, in its markup or in its readable text,
+// ignoring differences in spacing and line breaks.
+func Contains(content, quote string) bool {
+	if strings.Contains(content, quote) {
+		return true
+	}
+	q := strings.Join(strings.Fields(html.UnescapeString(quote)), " ")
+	return q != "" && strings.Contains(strings.Join(strings.Fields(Text(content)), " "), q)
+}
+
+func isLatin(s string) bool {
+	for _, r := range s {
+		if r > 0x24F {
+			return false
+		}
+	}
+	return true
+}
+
+// Describe says in one line what the check found, for the request's history.
+func (c SourceCheck) Describe() string {
+	title := ""
+	if c.Title != "" {
+		title = fmt.Sprintf("“%s”, ", c.Title)
+	}
+	return fmt.Sprintf("The source loaded: %s%s, %s characters of text, mentioning cannabis (%s).", title, c.Host, thousands(c.Chars), c.Mention)
+}
+
+func thousands(n int) string {
+	s := fmt.Sprint(n)
+	for i := len(s) - 3; i > 0; i -= 3 {
+		s = s[:i] + "," + s[i:]
+	}
+	return s
+}

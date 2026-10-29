@@ -4,28 +4,29 @@
 import { STATUS_LABELS } from "./submission-receipts.js";
 
 // the pipeline, in order; a request moves left to right and ends in one outcome
-export const STAGES = ["Queued", "Research", "Review", "Publish", "Outcome"];
+export const STAGES = ["Queued", "Source check", "Research", "Review", "Publish", "Outcome"];
 
 // tone: running (still being worked on), done (published), covered (already in the tracker or
 // sent to the CFI), declined (not published, with a reason), attention (a person has to look), failed
 const META = {
   queued: { stage: 0, tone: "running", label: "Queued" },
   received: { stage: 0, tone: "running", label: "Queued" },
-  fetching: { stage: 1, tone: "running", label: "Opening the source" },
-  classifying: { stage: 1, tone: "running", label: "Checking scope" },
-  researching: { stage: 1, tone: "running", label: "Researching" },
-  drafted: { stage: 2, tone: "running", label: "Drafted" },
-  awaiting_review: { stage: 2, tone: "running", label: "Awaiting review" },
-  publishing: { stage: 3, tone: "running", label: "Publishing" },
-  merged: { stage: 3, tone: "running", label: "Deploying" },
-  deploying: { stage: 3, tone: "running", label: "Deploying" },
-  published: { stage: 4, tone: "done", label: "Published" },
-  duplicate: { stage: 4, tone: "covered", label: "Already covered" },
-  routed_to_cfi: { stage: 4, tone: "covered", label: "Routed to the CFI" },
-  not_relevant: { stage: 4, tone: "declined", label: "Outside scope" },
-  insufficient_evidence: { stage: 4, tone: "declined", label: "Unable to verify" },
-  needs_review: { stage: 4, tone: "attention", label: "Needs review" },
-  failed: { stage: 4, tone: "failed", label: "Failed" },
+  fetching: { stage: 1, tone: "running", label: "Checking the source" },
+  classifying: { stage: 2, tone: "running", label: "Source checked" },
+  researching: { stage: 2, tone: "running", label: "Researching" },
+  drafted: { stage: 3, tone: "running", label: "Drafted" },
+  awaiting_review: { stage: 3, tone: "running", label: "Awaiting review" },
+  publishing: { stage: 4, tone: "running", label: "Publishing" },
+  merged: { stage: 4, tone: "running", label: "Deploying" },
+  deploying: { stage: 4, tone: "running", label: "Deploying" },
+  published: { stage: 5, tone: "done", label: "Published" },
+  duplicate: { stage: 5, tone: "covered", label: "Already covered" },
+  routed_to_cfi: { stage: 5, tone: "covered", label: "Routed to the CFI" },
+  source_unavailable: { stage: 5, tone: "declined", label: "Source unavailable" },
+  not_relevant: { stage: 5, tone: "declined", label: "Outside scope" },
+  insufficient_evidence: { stage: 5, tone: "declined", label: "Unable to verify" },
+  needs_review: { stage: 5, tone: "attention", label: "Needs review" },
+  failed: { stage: 5, tone: "failed", label: "Failed" },
 };
 export const statusMeta = (status) => META[status] ?? { stage: 0, tone: "running", label: STATUS_LABELS[status] ?? status };
 export const isRunning = (status) => statusMeta(status).tone === "running";
@@ -35,6 +36,7 @@ export const OUTCOME_HELP = {
   published: "A cited report was written and published from this source.",
   duplicate: "The tracker already has a report on this event, so no new one was made.",
   routed_to_cfi: "This is about a change in the law, not an enforcement event, so it belongs in the Cannabis Freedom Index history.",
+  source_unavailable: "The submitted page could not be loaded or read, so it was not researched. A report rests on the source that was sent.",
   not_relevant: "The source is not about a cannabis raid, seizure, eradication, arrest, prosecution or sentence.",
   insufficient_evidence: "The facts could not be confirmed well enough from the sources to publish a report.",
   needs_review: "The automatic checks stopped short of publishing; an editor will look at it.",
@@ -49,6 +51,7 @@ export const FILTERS = [
   ["published", "Published"],
   ["duplicate", "Already covered"],
   ["insufficient_evidence", "Unable to verify"],
+  ["source_unavailable", "Source unavailable"],
   ["not_relevant", "Outside scope"],
   ["routed_to_cfi", "Routed to CFI"],
   ["needs_review", "Needs review"],

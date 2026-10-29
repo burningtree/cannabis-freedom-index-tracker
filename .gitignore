@@ -9,6 +9,7 @@ archive/
 /backend/data/
 /backend/tracker
 /data/
+.private
 .env
 .env.*
 !.env.example

@@ -3,7 +3,7 @@
 // Run from repository root: node scripts/harvest-gdelt.mjs --days 2
 import fs from 'node:fs';
 import path from 'node:path';
-import yaml from 'js-yaml';
+import * as yaml from "js-yaml";
 
 const args = process.argv.slice(2);
 const opt = (name, fallback) => { const p = args.indexOf(name); return p < 0 ? fallback : args[p+1]; };

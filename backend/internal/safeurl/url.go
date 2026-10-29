@@ -4,6 +4,7 @@ package safeurl
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -121,19 +122,30 @@ func Fetch(ctx context.Context, raw string) (Evidence, error) {
 	req.Header.Set("User-Agent", "CannabisEnforcementTracker/1.0 (source verification)")
 	res, err := Client().Do(req)
 	if err != nil {
-		return Evidence{}, err
+		if errors.Is(err, ErrUnsafeDestination) {
+			return Evidence{}, err
+		}
+		return Evidence{}, fmt.Errorf("the site could not be reached (%w)", err)
 	}
 	defer res.Body.Close()
+	// the reasons are written for the public request page: say what went wrong, plainly
 	if res.StatusCode != 200 {
-		return Evidence{}, errors.New("source unavailable")
+		return Evidence{}, fmt.Errorf("the site answered HTTP %d %s", res.StatusCode, http.StatusText(res.StatusCode))
 	}
 	ct := res.Header.Get("Content-Type")
 	if !strings.Contains(ct, "text/") && !strings.Contains(ct, "application/xhtml+xml") {
-		return Evidence{}, errors.New("unsupported source format")
+		kind := strings.TrimSpace(strings.SplitN(ct, ";", 2)[0])
+		if kind == "" {
+			kind = "no content type"
+		}
+		return Evidence{}, fmt.Errorf("it is not a web page (%s)", kind)
 	}
 	b, err := io.ReadAll(io.LimitReader(res.Body, 2*1024*1024+1))
-	if err != nil || len(b) > 2*1024*1024 {
-		return Evidence{}, errors.New("source too large")
+	if err != nil {
+		return Evidence{}, fmt.Errorf("the page could not be read completely (%w)", err)
+	}
+	if len(b) > 2*1024*1024 {
+		return Evidence{}, errors.New("the page is larger than 2 MB")
 	}
 	return Evidence{normalized, res.Request.URL.String(), string(b)}, nil
 }

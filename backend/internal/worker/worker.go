@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/config"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/nostr"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/publisher"
@@ -218,11 +219,22 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if errors.Is(err, safeurl.ErrUnsafeDestination) {
 		return w.Store.Transition(ctx, j.Ref, "insufficient_evidence", "The source destination is not permitted for public research.", "", "")
 	}
+	// The source check: the submitted page itself must load, be readable and be about cannabis before
+	// any AI research. A report rests on the source that was sent, not on whatever else can be found.
 	if err != nil {
-		initial = safeurl.Evidence{URL: u, FinalURL: u}
-	} // OpenCode can seek accessible coverage of the same event.
-
-	if err = w.Store.Transition(ctx, j.Ref, "classifying", "Checking scope, source support and existing reports.", "", ""); err != nil {
+		return w.Store.Transition(ctx, j.Ref, "source_unavailable", "The submitted page could not be loaded: "+err.Error()+". Send a link that opens without a login or paywall, or another report of the same event.", "", "")
+	}
+	check, err := safeurl.Check(initial)
+	if b, jerr := json.Marshal(check); jerr == nil {
+		_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"source_check": string(b)})
+	}
+	if err != nil {
+		return w.Store.Transition(ctx, j.Ref, "source_unavailable", "The submitted page loaded, but "+err.Error()+". Send a link to a page with the article text.", "", "")
+	}
+	if check.Mention == "" {
+		return w.Store.Transition(ctx, j.Ref, "not_relevant", fmt.Sprintf("The submitted page (%s, %d characters of text) does not mention cannabis.", check.Host, check.Chars), "", "")
+	}
+	if err = w.Store.Transition(ctx, j.Ref, "classifying", check.Describe(), "", ""); err != nil {
 		return err
 	}
 	run, err := w.Store.Reserve(ctx, j.Ref, "", w.Config.RunCents, w.Config.DailyCents)
@@ -257,6 +269,8 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if err != nil {
 		return err
 	}
+	// the answer is public: the request page shows it as a report, whatever happens to it next
+	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"ai_result": store.JSON(result), "draft_path": "", "draft_markdown": ""})
 	b, err := os.ReadFile(filepath.Join(w.Config.RepoPath, "src/data/countries.json"))
 	if err != nil {
 		return err
@@ -272,14 +286,14 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		ids[c.ID] = true
 	}
 	if err = result.Validate(ids); err != nil {
-		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "The AI result did not pass validation and cannot be published automatically.", "", "")
+		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "The AI result did not pass validation ("+err.Error()+") and cannot be published automatically.", "", "")
 	}
 	if len(result.Uncertainties) > 0 {
 		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "The AI could not resolve material uncertainty in the sources.", "", "")
 	}
 	evidence, err := result.Verify(ctx, initial)
 	if err != nil {
-		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "Supporting source access or quotations could not be independently confirmed.", "", "")
+		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "Supporting source access or quotations could not be independently confirmed ("+err.Error()+").", "", "")
 	}
 	if err = research.SaveEvidence(dir, evidence); err != nil {
 		return err
@@ -312,6 +326,7 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if err != nil {
 		return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "The draft requires editorial or schema corrections before a proposal can be opened.", "", "")
 	}
+	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"draft_path": draft.Path, "draft_markdown": draft.Content})
 	digest := sha256.Sum256([]byte(draft.Content))
 	payload := draftJob{Dir: dir, Rel: draft.Path, PreviousRel: draft.PreviousPath, Slug: result.Slug, Title: result.Title, Digest: hex.EncodeToString(digest[:])}
 	tx, err := w.Store.DB.BeginTx(ctx, nil)

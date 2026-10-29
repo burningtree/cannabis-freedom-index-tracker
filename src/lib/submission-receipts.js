@@ -1,12 +1,12 @@
 export const RECEIPT_KEY = "tracker.submissions.v1";
 export const ID_PATTERN = /^[a-f0-9]{32}$/;
-export const TERMINAL = new Set(["published", "duplicate", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review", "failed"]);
+export const TERMINAL = new Set(["published", "duplicate", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review", "failed", "source_unavailable"]);
 export const STATUS_LABELS = {
   queued: "Queued", received: "Queued", fetching: "Researching", classifying: "Researching",
   researching: "Researching", drafted: "Drafted", awaiting_review: "Awaiting review",
   publishing: "Publishing", merged: "Deploying", deploying: "Deploying", published: "Published", duplicate: "Already covered",
   not_relevant: "Outside scope", routed_to_cfi: "Routed to CFI", insufficient_evidence: "Unable to verify",
-  needs_review: "Needs review", failed: "Failed",
+  needs_review: "Needs review", failed: "Failed", source_unavailable: "Source unavailable",
 };
 export function parseReceipts(value) {
   if (!value || value.version !== 1 || !Array.isArray(value.receipts) || value.receipts.length > 500) throw new Error("Use a version 1 receipt export with at most 500 receipts.");

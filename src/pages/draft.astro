@@ -1,0 +1,60 @@
+---
+// A submission's draft report as it would read on the site, before it is published: drawn in the
+// browser from the submissions API (src/scripts/draft-report.js), with a banner saying it is a draft.
+import Base from "../layouts/Base.astro";
+import { submissionsAPI as api } from "../lib/submissions-config.js";
+import { TYPES } from "../lib/types.js";
+import { MAP_STYLES } from "../lib/map.js";
+import countryList from "../data/countries.json";
+import "../styles/submissions-ui.css";
+const base = import.meta.env.BASE_URL;
+const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color }]));
+const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
+---
+<Base title="Draft report" description="A draft report prepared from a submitted source, before review and publication." wide>
+  <div class="draft-page" data-draft data-api={api} data-base={base} data-types={JSON.stringify(types)} data-countries={JSON.stringify(countries)} data-styles={JSON.stringify(MAP_STYLES)}>
+    <aside class="draft-banner" id="draft-banner">
+      <strong>Draft, not published.</strong>
+      <span id="draft-state">Loading…</span>
+      <a id="draft-back" href={`${base}submissions/`}>Back to the request →</a>
+    </aside>
+    <article id="draft-article"><p class="muted">{api ? "Loading the draft…" : "Drafts are not available yet."}</p></article>
+    <details class="draft-file" id="draft-file" hidden><summary>The report file as it would be committed</summary><p class="muted" id="draft-path"></p><pre id="draft-markdown"></pre></details>
+  </div>
+  <script>
+    import * as maplibregl from "maplibre-gl";
+    import "../scripts/maplibre-worker.js";
+    import "maplibre-gl/dist/maplibre-gl.css";
+    import { renderDraft } from "../scripts/draft-report.js";
+    import { statusMeta } from "../lib/submission-status.js";
+    import { typeIcon } from "../lib/types.js";
+    // the map beside the text, as on a report page: the place, zoomed by how precise it is
+    const ZOOM: Record<string, number> = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
+    function drawMap(box: HTMLElement) {
+      const { lat, lon, precision, type } = JSON.parse(box.dataset.draftMap!);
+      const styles = JSON.parse(root.dataset.styles!);
+      const map = new maplibregl.Map({ container: box, style: styles[document.documentElement.dataset.theme === "light" ? "light" : "dark"], center: [lon, lat], zoom: ZOOM[precision] ?? 5, cooperativeGestures: true, attributionControl: { compact: true } });
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+      const pin = document.createElement("div");
+      try { pin.innerHTML = typeIcon(type, 30); } catch { pin.className = "draft-pin"; }
+      new maplibregl.Marker({ element: pin }).setLngLat([lon, lat]).addTo(map);
+    }
+    const root = document.querySelector<HTMLElement>("[data-draft]")!;
+    const api = (root.dataset.api || "").replace(/\/$/, ""), base = root.dataset.base || "/";
+    const id = new URLSearchParams(location.search).get("id") || "";
+    const article = document.getElementById("draft-article")!;
+    const say = (text: string) => { article.replaceChildren(Object.assign(document.createElement("p"), { className: "muted", textContent: text })); };
+    if (!api) say("Drafts are not available yet.");
+    else if (!/^[a-f0-9]{32}$/.test(id)) say("This link needs a valid request id.");
+    else fetch(`${api}/v1/submissions/${id}`, { credentials: "omit" }).then((r) => (r.ok ? r.json() : Promise.reject(r.status))).then((v) => {
+      (document.getElementById("draft-back") as HTMLAnchorElement).href = `${base}submission/?id=${id}`;
+      document.getElementById("draft-state")!.textContent = `Request status: ${statusMeta(v.status).label}.${v.status === "published" && v.report_slug ? "" : " It may still change or be rejected."}`;
+      if (v.status === "published" && /^[a-z0-9-]+$/.test(v.report_slug || "")) { const a = document.createElement("a"); a.href = `${base}report/${v.report_slug}/`; a.textContent = "Read the published report →"; document.getElementById("draft-banner")!.append(a); }
+      if (!renderDraft(article, v, { base, types: JSON.parse(root.dataset.types!), countries: JSON.parse(root.dataset.countries!) })) { say("There is no draft for this request yet."); return; }
+      const mapBox = article.querySelector<HTMLElement>("[data-draft-map]");
+      if (mapBox) drawMap(mapBox);
+      if (v.result?.title) document.title = `Draft: ${v.result.title} · Cannabis Enforcement Tracker`;
+      if (v.draft_markdown) { document.getElementById("draft-file")!.hidden = false; document.getElementById("draft-path")!.textContent = v.draft_path; document.getElementById("draft-markdown")!.textContent = v.draft_markdown; }
+    }).catch(() => say("The draft could not be loaded."));
+  </script>
+</Base>

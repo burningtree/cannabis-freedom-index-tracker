@@ -92,7 +92,7 @@
 .sx-why-main { margin: 0; font-size: 15px; font-weight: 500; }
 .sx-why-help { margin: 4px 0 0; font-size: 13.5px; color: var(--text-2); }
 .sx-quote { margin: 14px 0 0; padding-left: 12px; border-left: 2px solid var(--border); color: var(--text-2); font-style: italic; font-size: 14px; }
-.sx-stages { display: grid; grid-template-columns: repeat(5, 1fr); list-style: none; margin: 14px 0 18px; padding: 0; }
+.sx-stages { display: grid; grid-template-columns: repeat(6, 1fr); list-style: none; margin: 14px 0 18px; padding: 0; }
 .sx-stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; font: 12px Inter, system-ui, sans-serif; color: var(--muted); text-align: center; }
 .sx-stage::before { content: ""; position: absolute; top: 5px; left: -50%; right: 50%; height: 2px; background: var(--border); z-index: 0; }
 .sx-stage:first-child::before { display: none; }
@@ -130,3 +130,46 @@
 .sx-copy { padding: 0; border: 0; background: none; color: var(--text); font: 12px var(--mono); cursor: copy; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 @media (max-width: 980px) { .sx-detail-grid { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .sx-stage span { font-size: 10.5px; } .sx-hero { padding: 18px; } }
+
+/* the source check: one line per check */
+.sx-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; }
+.sx-checks li { display: flex; gap: 8px; align-items: baseline; overflow-wrap: anywhere; }
+.sx-checks li::before { flex: none; width: 16px; font-weight: 700; }
+.sx-checks li[data-ok="true"]::before { content: "✓"; color: var(--sx-done); }
+.sx-checks li[data-ok="false"]::before { content: "✕"; color: var(--sx-failed); }
+.sx-checks li[data-ok="wait"]::before { content: "…"; color: var(--sx-running); }
+
+/* the AI's draft, drawn like a report inside the Outcome card */
+.sx-draft-label { margin: 0 0 8px; }
+.sx-draft { padding: 16px 18px; margin-bottom: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.sx-draft .status.draft { color: #d9a43c; }
+.sx-draft .figures { margin: 12px 0; }
+.sx-draft .figures dd { font-size: 16px; }
+.sx-draft .report-head .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-bottom: 8px; font-size: 13px; color: var(--muted); }
+.sx-draft h3 { margin: 0 0 6px; font: 400 24px/1.2 var(--display); }
+.sx-draft .lead { font-size: 15px; margin-bottom: 6px; }
+.sx-draft .prose { font-size: 15px; line-height: 1.65; }
+.sx-draft h4 { margin: 14px 0 6px; font: 600 12px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
+.sx-draft .sources { font-size: 13px; }
+.draft-outcome { padding: 1px 8px; border: 1px solid var(--border); border-radius: 999px; font: 11px var(--mono); color: var(--text-2); }
+.draft-quotes { margin: 16px 0; font-size: 13.5px; }
+.draft-quotes summary { cursor: pointer; color: var(--text-2); }
+.draft-quotes li { margin: 10px 0; }
+.draft-quotes p { margin: 0 0 4px; }
+.draft-quotes blockquote { margin: 0 0 4px; padding-left: 10px; border-left: 2px solid var(--border); color: var(--text-2); font-style: italic; }
+.draft-uncertain { margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: color-mix(in srgb, #d9a43c 12%, transparent); font-size: 13.5px; }
+.draft-uncertain ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* the draft preview page: the report as it would read, under a banner */
+.draft-page { max-width: 860px; margin: 0 auto; }
+@media (min-width: 1200px) { .draft-page { max-width: none; } }
+.draft-page .status.draft { padding: 1px 7px; border: 1px dashed #d9a43c; border-radius: 999px; color: #d9a43c; }
+.draft-page .report-layout { margin: 0; }
+.draft-pin { width: 14px; height: 14px; border-radius: 50%; background: #e0565b; border: 2px solid #0c0c0b; }
+.draft-banner { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 26px; padding: 10px 14px; border: 1px dashed #d9a43c; border-radius: 8px; background: color-mix(in srgb, #d9a43c 10%, transparent); font-size: 13.5px; }
+.draft-banner a { margin-left: auto; text-decoration: underline; text-underline-offset: 3px; }
+.draft-banner a + a { margin-left: 0; }
+.draft-page .report-head .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+.draft-file { margin-top: 28px; font-size: 13px; }
+.draft-file summary { cursor: pointer; color: var(--text-2); }
+.draft-file pre { max-height: 420px; overflow: auto; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font: 11.5px/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -291,7 +291,7 @@ func (s *Server) activity(w http.ResponseWriter, r *http.Request) {
 		}
 		cursor = parsed
 	}
-	rows, err := s.Store.DB.QueryContext(r.Context(), `SELECT h.id,h.submission_id,h.status,h.explanation,h.created_at FROM submission_history h JOIN submissions s ON s.id=h.submission_id WHERE h.id<? AND s.origin IN ('web','nostr') AND h.status IN ('published','duplicate','not_relevant','insufficient_evidence','routed_to_cfi','needs_review','failed') ORDER BY h.id DESC LIMIT 26`, cursor)
+	rows, err := s.Store.DB.QueryContext(r.Context(), `SELECT h.id,h.submission_id,h.status,h.explanation,h.created_at FROM submission_history h JOIN submissions s ON s.id=h.submission_id WHERE h.id<? AND s.origin IN ('web','nostr') AND h.status IN ('published','duplicate','not_relevant','insufficient_evidence','routed_to_cfi','needs_review','failed','source_unavailable') ORDER BY h.id DESC LIMIT 26`, cursor)
 	if err != nil {
 		problem(w, 503, "Activity unavailable.")
 		return
