@@ -50,7 +50,7 @@ const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
       (document.getElementById("draft-back") as HTMLAnchorElement).href = `${base}submission/?id=${id}`;
       document.getElementById("draft-state")!.textContent = `Request status: ${statusMeta(v.status).label}.${v.status === "published" && v.report_slug ? "" : " It may still change or be rejected."}`;
       if (v.status === "published" && /^[a-z0-9-]+$/.test(v.report_slug || "")) { const a = document.createElement("a"); a.href = `${base}report/${v.report_slug}/`; a.textContent = "Read the published report →"; document.getElementById("draft-banner")!.append(a); }
-      if (!renderDraft(article, v, { base, types: JSON.parse(root.dataset.types!), countries: JSON.parse(root.dataset.countries!) })) { say("There is no draft for this request yet."); return; }
+      if (!renderDraft(article, v, { base, api, types: JSON.parse(root.dataset.types!), countries: JSON.parse(root.dataset.countries!) })) { say("There is no draft for this request yet."); return; }
       const mapBox = article.querySelector<HTMLElement>("[data-draft-map]");
       if (mapBox) drawMap(mapBox);
       if (v.result?.title) document.title = `Draft: ${v.result.title} · Cannabis Enforcement Tracker`;

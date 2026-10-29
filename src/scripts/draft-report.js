@@ -41,7 +41,29 @@ function typeChip(types, id) {
 // container: where to draw; v: the submission; types: { id: {label, color} }; countries: { id: name }
 // Returns false when there is no answer to draw. Not compact, the side column holds a
 // [data-draft-map] box that the preview page turns into a map.
-export function renderDraft(container, v, { base = "/", types = {}, countries = {}, compact = false } = {}) {
+// The source's photos the capture kept, as illustrations floating beside the draft's text: served
+// only by the local development backend (anywhere else the request fails and the figure is
+// removed), so a reviewer sees the report with its pictures; nothing here is published.
+function capturedPhotos(v, api) {
+  const c = v.source_check, images = Array.isArray(c?.images) ? c.images : [];
+  if (!api || !images.length) return [];
+  return images.map((img, i) => {
+    const n = Number((String(img.file || "").match(/images\/(\d)\.png$/) || [])[1] || i + 1);
+    return { href: `${api}/v1/submissions/${v.id}/source/image/${n}${c.capture_id ? `?capture=${encodeURIComponent(c.capture_id)}` : ""}`, caption: img.caption || "", credit: img.credit || "" };
+  });
+}
+function photoFigure(photo, publisher) {
+  const fig = el("figure", undefined, "draft-photo");
+  const a = el("a"); a.href = photo.href; a.target = "_blank"; a.rel = "noopener noreferrer";
+  const img = el("img"); img.src = photo.href; img.alt = photo.caption || "Photo on the source page"; img.loading = "lazy"; img.decoding = "async";
+  img.addEventListener("error", () => fig.remove());
+  a.append(img); fig.append(a);
+  const cap = el("figcaption", photo.caption || ""); cap.append(el("span", ` ${photo.credit ? `Photo: ${photo.credit}` : publisher ? `Photo: ${publisher}` : ""} · local preview only`, "muted"));
+  fig.append(cap);
+  return fig;
+}
+
+export function renderDraft(container, v, { base = "/", types = {}, countries = {}, compact = false, api = "" } = {}) {
   const r = readResult(v);
   container.replaceChildren();
   if (!r) return false;
@@ -72,7 +94,10 @@ export function renderDraft(container, v, { base = "/", types = {}, countries = 
   const facts = Array.isArray(r.facts) ? r.facts : [];
   if (facts.length) {
     const prose = el("div", undefined, "prose");
-    for (const group of paragraphs(facts)) {
+    // a photo before every other paragraph, floating beside the text, while there are photos
+    const photos = capturedPhotos(v, api), publisher = sources[0]?.publisher || "";
+    paragraphs(facts).forEach((group, k) => {
+      if (k % 2 === 0 && photos[k / 2]) prose.append(photoFigure(photos[k / 2], publisher));
       const p = el("p");
       group.forEach((f, i) => {
         p.append(document.createTextNode(`${i ? " " : ""}${f.text}`));
@@ -83,7 +108,9 @@ export function renderDraft(container, v, { base = "/", types = {}, countries = 
         }
       });
       prose.append(p);
-    }
+    });
+    // photos left over after the last paragraph follow it
+    for (const photo of photos.slice(Math.ceil(paragraphs(facts).length / 2))) prose.append(photoFigure(photo, publisher));
     article.append(prose);
   } else if (r.explanation) article.append(el("p", r.explanation, "draft-expl"));
 

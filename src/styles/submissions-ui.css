@@ -307,3 +307,13 @@
 .sx-photo-grid img { display: block; width: 100%; height: 110px; object-fit: cover; }
 .sx-photo-grid figcaption { margin-top: 4px; font-size: 11px; line-height: 1.35; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .sx-photo-note { margin: 8px 0 0; font-size: 11px; }
+
+/* the source's photos floating beside a draft's text (local preview only) */
+.draft-photo { float: right; clear: right; width: 42%; margin: 4px 0 14px 22px; }
+.sx-draft .draft-photo { width: 36%; }
+.draft-photo a { display: block; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--bg); }
+.draft-photo img { display: block; width: 100%; height: auto; }
+.draft-photo figcaption { margin-top: 5px; font-size: 12px; line-height: 1.4; color: var(--text-2); }
+.draft-photo figcaption .muted { font-size: 11px; }
+.prose:has(.draft-photo)::after { content: ""; display: block; clear: both; }
+@media (max-width: 640px) { .draft-photo, .sx-draft .draft-photo { float: none; width: 100%; margin: 6px 0 14px; } }

@@ -85,7 +85,7 @@ function output(box, v) {
   if (PR.test(v.pr_url || "")) items.append(link("Proposal on GitHub ↗", v.pr_url, "sx-btn"));
   if (/^[a-f0-9]{64}$/.test(v.reply_event_id || "")) items.append(link("Reply on Nostr ↗", `https://njump.me/${v.reply_event_id}`, "sx-btn"));
   const draft = el("article", undefined, "sx-draft");
-  const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true });
+  const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true, api: (root?.dataset.api || "").replace(/\/$/, "") });
   if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : ["published", "committed"].includes(v.status) ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
   if (drew) box.append(validation(v));
   else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));

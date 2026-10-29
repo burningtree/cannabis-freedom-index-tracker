@@ -105,6 +105,6 @@ func (s *Server) sourceFile(w http.ResponseWriter, r *http.Request, name string)
 	file.Seek(0, 0)
 	w.Header().Set("Content-Type", "image/png")
 	w.Header().Set("Content-Disposition", `inline; filename="source-`+strings.ReplaceAll(name, "/", "-")+`"`)
-	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("Cache-Control", "private, max-age=3600") // a capture never changes once taken
 	http.ServeContent(w, r, "source-"+strings.ReplaceAll(name, "/", "-"), info.ModTime(), file)
 }
