@@ -43,7 +43,7 @@ const here = Astro.url.pathname.replace(base, "/");
         <span class="cfi-link-long">Cannabis Freedom Index</span><span class="cfi-link-short">CFI</span> ↗
       </a>
       {/* the submissions service: a dot for whether it answers, and how many requests it is working on */}
-      {api && <a class="svc-status" id="svc-status" href={`${base}submissions/`} data-api={api} data-state="checking" title="Checking the submissions service…" aria-label="Submissions service: checking"><i class="svc-dot" aria-hidden="true"></i><span class="svc-count" hidden></span></a>}
+      {api && <a class="svc-status" id="svc-status" href={`${base}submissions/`} data-api={api} data-state="checking" title="Checking the submissions service…" aria-label="Submissions service: checking"><svg class="svc-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span class="svc-count" hidden></span><span class="svc-queue" hidden><svg class="svc-queue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7.5 3v3.5L12 12l-4.5 5.5V21M16.5 3v3.5L12 12l4.5 5.5V21"/></svg><span class="svc-queue-count"></span></span></a>}
       <nav class="nav">
         <a href={base} aria-current={here === "/" ? "page" : undefined}>Map</a>
         <a href={`${base}reports/`} aria-current={here.startsWith("/report") || /^\/\d{4}\//.test(here) ? "page" : undefined}>Reports</a>
@@ -68,9 +68,12 @@ const here = Astro.url.pathname.replace(base, "/");
       if (box) {
         const api = (box.dataset.api || "").replace(/\/$/, "");
         const count = box.querySelector<HTMLElement>(".svc-count")!;
-        const show = (state: string, title: string, n = 0) => {
+        const queue = box.querySelector<HTMLElement>(".svc-queue")!, queueCount = box.querySelector<HTMLElement>(".svc-queue-count")!;
+        // the cog turns while requests are worked on, with their number; the queue's length beside it
+        const show = (state: string, title: string, n = 0, queued = 0) => {
           box.dataset.state = state; box.title = title; box.setAttribute("aria-label", `Submissions service: ${title}`);
           count.hidden = n < 1; count.textContent = String(n);
+          queue.hidden = queued < 1; queueCount.textContent = String(queued);
         };
         const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
         let socket: WebSocket | null = null, live = false, failures = 0, retry = 0, poll = 0, pending = 0;
@@ -81,9 +84,9 @@ const here = Astro.url.pathname.replace(base, "/");
             if (!r.ok) throw new Error(String(r.status));
             const v = await r.json();
             const waiting = v.queued ? `, ${v.queued} queued` : "";
-            if (!v.processing) show("paused", `Online, AI processing is off${v.reason ? `: ${v.reason}` : ""}${waiting}`, v.running);
-            else if (v.running) show("working", `Online, working on ${plural(v.running, "request")}${waiting}`, v.running);
-            else show("online", `Online, idle${waiting}`);
+            if (!v.processing) show("paused", `Online, AI processing is off${v.reason ? `: ${v.reason}` : ""}${waiting}`, v.running, v.queued);
+            else if (v.running) show("working", `Online, working on ${plural(v.running, "request")}${waiting}`, v.running, v.queued);
+            else show("online", `Online, idle${waiting}`, 0, v.queued);
           } catch { if (!live) show("offline", "Offline: the submissions service does not answer"); }
         };
         const soon = () => { clearTimeout(pending); pending = window.setTimeout(counts, 300); };
