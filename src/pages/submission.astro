@@ -20,13 +20,14 @@ const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
     <header id="submission-detail" class="sx-hero" hidden></header>
     <ol id="submission-stages" class="sx-stages" aria-label="Progress" hidden></ol>
     <div class="sx-detail-grid" id="submission-body" hidden>
+      {/* in the order things happen: the source is checked, the AI researches it, the outcome */}
       <div class="sx-detail-main">
-        <section id="submission-output" class="sx-card sx-output" aria-label="Outcome"></section>
+        <section id="submission-source" class="sx-card sx-source" aria-label="Source check" hidden></section>
         <section id="submission-ai" class="sx-card ai-panel" aria-label="AI research and live activity"></section>
+        <section id="submission-output" class="sx-card sx-output" aria-label="Outcome"></section>
       </div>
       <aside class="sx-detail-side">
         <section id="submission-history" class="sx-card" aria-label="History"></section>
-        <section id="submission-source" class="sx-card sx-source" aria-label="Source check" hidden></section>
         <section id="submission-facts" class="sx-card" aria-label="Details"></section>
       </aside>
     </div>

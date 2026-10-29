@@ -47,8 +47,8 @@ function initialize(root) {
     progress.setAttribute("aria-valuetext", meta.label); progress.title = `${STAGES[lastStage]} · ${meta.label}${v.resume_at ? ` · resumes ${fullTime(v.resume_at)}` : ""}`;
     for (let i = 0; i < STAGES.length; i++) { const part = el("i"); part.dataset.state = i < lastStage ? "done" : i === lastStage ? "current" : "todo"; progress.append(part); }
     const number = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString() : "—";
-    const input = el("span", number(v.input_tokens), "sx-row-number"); input.title = "Input tokens across all attempts";
-    const output = el("span", number(v.output_tokens), "sx-row-number"); output.title = "Output tokens across all attempts";
+    const input = el("span", number(v.input_tokens), "sx-row-number"); input.title = "Tokens read across all attempts (new input and cached)";
+    const output = el("span", number(v.output_tokens), "sx-row-number"); output.title = "Tokens written across all attempts (answer and reasoning)";
     const runs = el("span", number(v.run_count), "sx-row-number"); runs.title = "AI runs across all attempts";
     const when = el("time", relativeTime(Math.max(v.created_at, v.updated_at || 0))); when.dateTime = new Date(Math.max(v.created_at, v.updated_at || 0) * 1000).toISOString(); when.title = `Updated ${fullTime(Math.max(v.created_at, v.updated_at || 0))}`;
     a.append(pill(v.status), src, progress, input, output, runs, el("span", ORIGINS[v.origin] || v.origin, "sx-origin"), when);

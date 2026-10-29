@@ -112,9 +112,18 @@ type Evidence struct {
 	Screenshot     string    `json:"screenshot,omitempty"`
 	Metadata       *Metadata `json:"metadata,omitempty"`
 	BrowserWarning string    `json:"browser_warning,omitempty"`
+	Cleanup        *Cleanup  `json:"cleanup,omitempty"`
 	URL            string    `json:"url"`
 	FinalURL       string    `json:"final_url"`
 	Content        string    `json:"content"`
+}
+
+// Cleanup is what the browser kept out of a capture: requests the ad and tracker filter lists
+// blocked, and what became of a cookie consent dialog (scripts/source-browser.mjs).
+type Cleanup struct {
+	Blocker         bool   `json:"blocker"`
+	BlockedRequests int    `json:"blocked_requests"`
+	Consent         string `json:"consent,omitempty"`
 }
 
 func Fetch(ctx context.Context, raw string) (Evidence, error) {

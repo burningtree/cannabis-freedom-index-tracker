@@ -96,8 +96,8 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 	args = append(args, cursor)
 	projection := `SELECT s.rowid,s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.updated_at,
  coalesce((SELECT status FROM submission_history WHERE submission_id=s.id AND status IN ('queued','fetching','classifying','researching','verifying','drafted','publishing','committed','published') ORDER BY id DESC LIMIT 1),''),
- coalesce((SELECT sum(input_tokens) FROM research_runs WHERE case_id=c.id),0),
- coalesce((SELECT sum(output_tokens) FROM research_runs WHERE case_id=c.id),0),
+ coalesce((SELECT sum(input_tokens+cache_read_tokens) FROM research_runs WHERE case_id=c.id),0),
+ coalesce((SELECT sum(output_tokens+reasoning_tokens) FROM research_runs WHERE case_id=c.id),0),
  (SELECT count(*) FROM research_runs WHERE case_id=c.id),
  coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0)
  FROM submissions s JOIN cases c ON c.id=s.case_id`

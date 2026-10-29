@@ -1,4 +1,4 @@
-import { runCost, costEstimated, formatUSD } from "./model-cost.js";
+import { runCost, planCost, costEstimated, formatUSD } from "./model-cost.js";
 
 export const MODEL_LABELS = { "opencode-go/deepseek-v4.1-flash": "DeepSeek V4.1 Flash · OpenCode Go" };
 // "opencode-go/deepseek-v4.1-flash#max" is the model at a reasoning variant; show both, without the #
@@ -165,25 +165,37 @@ export function renderAIActivity(container, payload, options = {}) {
     const end = run.finished_at || (run.status === "running" ? Date.now() / 1000 : run.started_at);
     // this run, and under it the sum over every run of this request (retries included)
     const many = all.length > 1;
-    const sum = (key) => all.reduce((s, r) => s + Number(r[key] || 0), 0);
     const time = (r) => (r.started_at ? (r.finished_at || (r.status === "running" ? Date.now() / 1000 : r.started_at)) - r.started_at : 0);
     const money = formatUSD;
     // OpenCode reports no cost for these runs, so it is worked out from the tokens at the price for
-    // the hour the run started (src/lib/model-cost.js)
+    // the hour the run started (src/lib/model-cost.js); on a subscription the main figure is the
+    // run's share of it, with the API price under it
+    const plan = processing?.plan;
     const cost = runCost(run), totalCost = all.reduce((s, r) => s + runCost(r), 0);
+    const shown = (c) => (plan ? planCost(c, plan) : c);
+    const n = (r, ...keys) => keys.reduce((s, k) => s + Number(r[k] || 0), 0);
+    const total = (...keys) => all.reduce((s, r) => s + n(r, ...keys), 0);
+    const num = (v) => Number(v).toLocaleString();
+    // read: new input and what came from the cache; written: the answer and the model's reasoning
     const stats = [
-      ["Time", run.started_at ? span(end - run.started_at) : "—", many && span(all.reduce((s, r) => s + time(r), 0))],
-      ["Steps", steps ? String(steps) : "—", many && String((activity.events || []).filter((e) => e.kind === "step" && !e.text.startsWith("OpenCode started")).length)],
-      ["Tokens read", Number(run.input_tokens).toLocaleString(), many && sum("input_tokens").toLocaleString()],
-      ["Tokens written", Number(run.output_tokens).toLocaleString(), many && sum("output_tokens").toLocaleString()],
-      ["Cost", money(cost), many && totalCost > 0 && money(totalCost)],
-      ["Session", run.session_id || "starting…", many && `${all.length} runs`],
+      { label: "Time", value: run.started_at ? span(end - run.started_at) : "—", total: many && span(all.reduce((s, r) => s + time(r), 0)) },
+      { label: "Steps", value: steps ? String(steps) : "—", total: many && String((activity.events || []).filter((e) => e.kind === "step" && !e.text.startsWith("OpenCode started")).length) },
+      { label: "Tokens read", value: num(n(run, "input_tokens", "cache_read_tokens")), note: run.cache_read_tokens ? `${num(run.cache_read_tokens)} from cache` : "", total: many && num(total("input_tokens", "cache_read_tokens")),
+        title: `${num(run.input_tokens)} new input, ${num(run.cache_read_tokens || 0)} read from the cache (billed at a fraction of the price)` },
+      { label: "Tokens written", value: num(n(run, "output_tokens", "reasoning_tokens")), note: run.reasoning_tokens ? `${num(run.reasoning_tokens)} reasoning` : "", total: many && num(total("output_tokens", "reasoning_tokens")),
+        title: `${num(run.output_tokens)} answer and tool calls, ${num(run.reasoning_tokens || 0)} reasoning (billed as output)` },
+      { label: plan ? "Cost (plan)" : "Cost", value: money(shown(cost)), note: plan && cost > 0 ? `API price ${money(cost)}` : "", total: many && totalCost > 0 && money(shown(totalCost)),
+        title: costEstimated(run)
+          ? `Worked out from the tokens used at OpenCode Go prices for the hour the run started (reasoning as output, cached input at the cached price): ${money(cost)} at API prices.${plan ? ` On a $${plan.price_usd} a month plan with $${plan.allowance_usd} of usage, that is ${money(shown(cost))}.` : ""}`
+          : money(cost) },
+      { label: "Session", value: run.session_id || "starting…", total: many && `${all.length} runs` },
     ];
-    for (const [label, value, total] of stats) {
+    for (const { label, value, total: sum, note, title } of stats) {
       const item = node("div"), dd = node("dd", value);
-      dd.title = label === "Cost" && costEstimated(run) ? `${value} estimated from the tokens used, at OpenCode Go prices for the hour the run started` : value;
+      dd.title = title || value;
       item.append(node("dt", label), dd);
-      if (total) item.append(node("span", label === "Session" ? total : `${total} in all runs`, "ai-total"));
+      if (note) item.append(node("span", note, "ai-total"));
+      if (sum) item.append(node("span", label === "Session" ? sum : `${sum} in all runs`, "ai-total"));
       ui.details.append(item);
     }
   }

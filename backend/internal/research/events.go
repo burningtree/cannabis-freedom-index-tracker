@@ -32,8 +32,13 @@ type executionEvent struct {
 		} `json:"state"`
 		Cost   float64 `json:"cost"`
 		Tokens struct {
-			Input  int64 `json:"input"`
-			Output int64 `json:"output"`
+			Input     int64 `json:"input"`
+			Output    int64 `json:"output"`
+			Reasoning int64 `json:"reasoning"` // billed as output
+			Cache     struct {
+				Read  int64 `json:"read"`
+				Write int64 `json:"write"`
+			} `json:"cache"`
 		} `json:"tokens"`
 	} `json:"part"`
 }
@@ -144,11 +149,15 @@ func (w *eventWriter) handle(line []byte) error {
 	stepDone := ""
 	if e.Type == "step_finish" {
 		if e.Part.Tokens.Input >= 0 && e.Part.Tokens.Output >= 0 && e.Part.Tokens.Input < 20000000 && e.Part.Tokens.Output < 20000000 && !math.IsNaN(e.Part.Cost) && e.Part.Cost >= 0 && e.Part.Cost < 1000 {
-			if _, err := w.store.DB.ExecContext(w.ctx, "UPDATE research_runs SET input_tokens=input_tokens+?,output_tokens=output_tokens+?,cost_usd=cost_usd+? WHERE id=?", e.Part.Tokens.Input, e.Part.Tokens.Output, e.Part.Cost, w.run); err != nil {
+			t := e.Part.Tokens
+			if _, err := w.store.DB.ExecContext(w.ctx, "UPDATE research_runs SET input_tokens=input_tokens+?,output_tokens=output_tokens+?,reasoning_tokens=reasoning_tokens+?,cache_read_tokens=cache_read_tokens+?,cache_write_tokens=cache_write_tokens+?,cost_usd=cost_usd+?,tokens_backfilled=1 WHERE id=?", t.Input, t.Output, max(0, t.Reasoning), max(0, t.Cache.Read), max(0, t.Cache.Write), e.Part.Cost, w.run); err != nil {
 				return err
 			}
 			w.steps++
-			stepDone = fmt.Sprintf("Step %d done · %s tokens read, %s written", w.steps, thousands(e.Part.Tokens.Input), thousands(e.Part.Tokens.Output))
+			stepDone = fmt.Sprintf("Step %d done · %s tokens read, %s written", w.steps, thousands(e.Part.Tokens.Input+e.Part.Tokens.Cache.Read), thousands(e.Part.Tokens.Output+e.Part.Tokens.Reasoning))
+			if e.Part.Tokens.Reasoning > 0 {
+				stepDone += fmt.Sprintf(" (%s of them reasoning)", thousands(e.Part.Tokens.Reasoning))
+			}
 		}
 	}
 	if w.events >= 500 { // a long run keeps its last steps out of the chat rather than flooding it

@@ -75,6 +75,12 @@ func FetchRendered(parent context.Context, raw, dir, script string) (Evidence, e
 	}
 	command := exec.CommandContext(ctx, "node", script, normalized, dir)
 	command.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + home, "TMPDIR=" + home, "PLAYWRIGHT_BROWSERS_PATH=" + cache, "SOURCE_FETCH_BRIDGE=" + bridge, "SOURCE_FETCH_TOKEN=" + token}
+	// the ad and cookie-notice blocker's switch and engine cache (scripts/source-browser.mjs)
+	for _, key := range []string{"SOURCE_ADBLOCK", "SOURCE_BLOCKER_CACHE", "SOURCE_BLOCKER_DEBUG"} {
+		if value := os.Getenv(key); value != "" {
+			command.Env = append(command.Env, key+"="+value)
+		}
+	}
 	out := &captureBuffer{max: 10 * 1024 * 1024}
 	stderr := &captureBuffer{max: 64 * 1024}
 	command.Stdout = out

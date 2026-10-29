@@ -10,6 +10,9 @@ env.PUBLIC_BASE_URL ||= "http://localhost:4321";
 env.CORS_ORIGINS ||= "http://localhost:4321,http://127.0.0.1:4321";
 env.RESEARCH_RUNNER ||= "local";
 env.RESEARCH_MODEL ||= "opencode-go/deepseek-v4.1-flash";
+// OpenCode Go: $10 a month for the model usage it includes (request page: each run's share)
+env.RESEARCH_PLAN_USD ||= "10";
+env.RESEARCH_PLAN_ALLOWANCE_USD ||= "180";
 env.AUTO_PUBLISH ||= "true";
 env.DEV_CONTROLS ||= "true";
 env.RAW_AI_LOGS ||= "true";

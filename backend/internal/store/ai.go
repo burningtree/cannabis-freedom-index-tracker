@@ -18,18 +18,22 @@ type AIEvent struct {
 	CreatedAt int64  `json:"created_at"`
 }
 type AIRun struct {
-	ID           string  `json:"id"`
-	Model        string  `json:"model"`
-	Runner       string  `json:"runner"`
-	SessionID    string  `json:"session_id,omitempty"`
-	Status       string  `json:"status"`
-	Outcome      string  `json:"outcome,omitempty"`
-	CreatedAt    int64   `json:"created_at"`
-	StartedAt    int64   `json:"started_at"`
-	FinishedAt   int64   `json:"finished_at"`
-	InputTokens  int64   `json:"input_tokens"`
-	OutputTokens int64   `json:"output_tokens"`
-	CostUSD      float64 `json:"cost_usd"`
+	ID           string `json:"id"`
+	Model        string `json:"model"`
+	Runner       string `json:"runner"`
+	SessionID    string `json:"session_id,omitempty"`
+	Status       string `json:"status"`
+	Outcome      string `json:"outcome,omitempty"`
+	CreatedAt    int64  `json:"created_at"`
+	StartedAt    int64  `json:"started_at"`
+	FinishedAt   int64  `json:"finished_at"`
+	InputTokens  int64  `json:"input_tokens"`
+	OutputTokens int64  `json:"output_tokens"`
+	// reasoning is billed as output; cached input has its own price
+	ReasoningTokens  int64   `json:"reasoning_tokens"`
+	CacheReadTokens  int64   `json:"cache_read_tokens"`
+	CacheWriteTokens int64   `json:"cache_write_tokens"`
+	CostUSD          float64 `json:"cost_usd"`
 }
 type AIActivity struct {
 	Runs       []AIRun   `json:"runs"`
@@ -77,13 +81,13 @@ func (s *Store) aiActivity(ctx context.Context, submissionID string, after int64
 	if full {
 		runLimit, eventLimit = -1, -1
 	}
-	rows, err := s.DB.QueryContext(ctx, "SELECT id,model,runner,session_id,status,outcome,created_at,coalesce(started_at,0),coalesce(finished_at,0),input_tokens,output_tokens,cost_usd FROM research_runs WHERE case_id=? ORDER BY rowid DESC LIMIT ?", cid, runLimit)
+	rows, err := s.DB.QueryContext(ctx, "SELECT id,model,runner,session_id,status,outcome,created_at,coalesce(started_at,0),coalesce(finished_at,0),input_tokens,output_tokens,reasoning_tokens,cache_read_tokens,cache_write_tokens,cost_usd FROM research_runs WHERE case_id=? ORDER BY rowid DESC LIMIT ?", cid, runLimit)
 	if err != nil {
 		return out, err
 	}
 	for rows.Next() {
 		var r AIRun
-		if err = rows.Scan(&r.ID, &r.Model, &r.Runner, &r.SessionID, &r.Status, &r.Outcome, &r.CreatedAt, &r.StartedAt, &r.FinishedAt, &r.InputTokens, &r.OutputTokens, &r.CostUSD); err != nil {
+		if err = rows.Scan(&r.ID, &r.Model, &r.Runner, &r.SessionID, &r.Status, &r.Outcome, &r.CreatedAt, &r.StartedAt, &r.FinishedAt, &r.InputTokens, &r.OutputTokens, &r.ReasoningTokens, &r.CacheReadTokens, &r.CacheWriteTokens, &r.CostUSD); err != nil {
 			rows.Close()
 			return out, err
 		}

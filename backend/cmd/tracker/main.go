@@ -127,6 +127,10 @@ func run() error {
 		return fmt.Errorf("recover interrupted processing: %w", err)
 	}
 	slog.Info("durable queue recovery complete")
+	// runs recorded before reasoning tokens were counted: count them again from their logs
+	if err := research.BackfillTokens(ctx, s); err != nil {
+		slog.Warn("token backfill failed", "error", err)
+	}
 	health := research.NewHealth()
 	w := worker.Worker{Store: s, Config: c, Health: health}
 	checkDone := make(chan struct{})

@@ -18,12 +18,14 @@ type Config struct {
 	ResearchImage, ResearchNetwork, ResearchModel, ResearchKey                  string
 	ResearchRunner, OpenCodeBinary, OpenCodeAuthFile                            string
 	AutoPublish                                                                 bool
+	AutoPush                                                                    bool // push the report repository after each report commit
 	SourceBrowser                                                               bool
 	DevControls                                                                 bool
 	RawAILogs                                                                   bool
 	ResearchTimeout                                                             time.Duration
-	ResearchMaxSteps                                                            int    // model steps a research run may take before it must answer
-	ResearchWebSearch                                                           string // the search service OpenCode 2 uses: exa, parallel, firecrawl, tavily, tinyfish or random
+	ResearchMaxSteps                                                            int     // model steps a research run may take before it must answer
+	ResearchWebSearch                                                           string  // the search service OpenCode 2 uses: exa, parallel, firecrawl, tavily, tinyfish or random
+	PlanUSD, PlanAllowanceUSD                                                   float64 // a subscription: its monthly price and the model usage it includes, at API prices
 	RunCents, DailyCents                                                        int
 	GitHubAppID, GitHubInstallationID, GitHubKeyFile, GitHubRepo, WebhookSecret string
 	Demo                                                                        bool
@@ -47,6 +49,10 @@ func Load() (Config, error) {
 	c.AutoPublish, boolErr = strconv.ParseBool(env("AUTO_PUBLISH", "true"))
 	if boolErr != nil {
 		return c, errors.New("invalid AUTO_PUBLISH")
+	}
+	c.AutoPush, boolErr = strconv.ParseBool(env("AUTO_PUSH", "true"))
+	if boolErr != nil {
+		return c, errors.New("invalid AUTO_PUSH")
 	}
 	if c.ResearchRunner != "docker" && c.ResearchRunner != "local" {
 		return c, errors.New("RESEARCH_RUNNER must be docker or local")
@@ -88,6 +94,15 @@ func Load() (Config, error) {
 	}
 	// Exa and Parallel answer without an API key; Firecrawl's keyless allowance runs out and Tavily
 	// needs a key, so "random" (OpenCode's own choice among all four) left many searches failing
+	// a subscription such as OpenCode Go: what it costs a month and how much model usage, at API
+	// prices, it includes; the request page shows a run's share of the subscription beside its API
+	// price. 0 for either: no subscription, API prices only
+	if c.PlanUSD, err = strconv.ParseFloat(env("RESEARCH_PLAN_USD", "0"), 64); err != nil || c.PlanUSD < 0 {
+		return c, errors.New("invalid RESEARCH_PLAN_USD")
+	}
+	if c.PlanAllowanceUSD, err = strconv.ParseFloat(env("RESEARCH_PLAN_ALLOWANCE_USD", "0"), 64); err != nil || c.PlanAllowanceUSD < 0 {
+		return c, errors.New("invalid RESEARCH_PLAN_ALLOWANCE_USD")
+	}
 	c.ResearchWebSearch = env("RESEARCH_WEBSEARCH", "exa")
 	if !strings.Contains("|exa|parallel|firecrawl|tavily|tinyfish|random|", "|"+c.ResearchWebSearch+"|") {
 		return c, errors.New("invalid web search provider (exa, parallel, firecrawl, tavily, tinyfish or random)")

@@ -8,7 +8,7 @@
 .sx [data-tone="declined"] { --tone: var(--sx-declined); }
 .sx [data-tone="attention"] { --tone: var(--sx-attention); }
 .sx [data-tone="failed"] { --tone: var(--sx-failed); }
-.sx a:not(.sx-btn) { color: inherit; }
+.sx a:not(.sx-btn):not(.sx-chip) { color: inherit; }
 .sx-muted { color: var(--text-2); font-size: 13.5px; }
 .sx [hidden] { display: none !important; }
 
@@ -84,6 +84,13 @@
 .sx-hero { padding: 22px 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); border-top: 3px solid var(--tone); }
 .sx-hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
 .sx-hero-top .sx-pill { font-size: 13px; padding: 4px 12px 4px 10px; }
+/* the report, its preview and its commit, compact, at the top right of the header box */
+.sx-hero-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.sx-chip { display: inline-flex; align-items: center; padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; font-size: 12.5px; color: var(--text-2); background: var(--bg); white-space: nowrap; }
+.sx-chip:hover { color: var(--text); background: var(--surface); text-decoration: none; }
+.sx-chip-primary { background: var(--text); border-color: var(--text); color: var(--bg); }
+.sx-chip-primary:hover { background: var(--text); color: var(--bg); opacity: .88; }
+.sx-chip-mono { font: 12px var(--mono); }
 .sx-hero-title { margin: 0; font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; overflow-wrap: anywhere; }
 .sx-hero-title .sx-host { display: block; }
 .sx-hero-title .sx-path { display: block; margin-top: 4px; font: 400 14px var(--mono); white-space: normal; overflow: visible; color: var(--muted); }
@@ -225,9 +232,15 @@
 .sx-source-screenshot { margin: 16px 0; }
 .sx-source-screenshot > a { display: block; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--bg); }
 .sx-source-screenshot img { display: block; width: 100%; max-height: 420px; object-fit: cover; object-position: top; }
-/* in the side column, under the history: a shorter picture of the page */
-.sx-detail-side .sx-source-screenshot img { max-height: 240px; }
 .sx-source-screenshot figcaption { margin-top: 7px; font-size: 11px; color: var(--muted); }
+/* the page's screenshot beside the checks and metadata, on the right of the card; under them on a
+   narrow screen */
+@media (min-width: 700px) {
+  .sx-source { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 40%); column-gap: 22px; align-items: start; }
+  .sx-source > * { grid-column: 1; }
+  .sx-source > .sx-source-screenshot { grid-column: 2; grid-row: 1 / span 20; margin: 0; }
+  .sx-source > .sx-source-screenshot img { max-height: 360px; }
+}
 
 /* Global totals remain independent of table filters and pagination. */
 .sx-overview { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin:0 0 1.5rem; }
@@ -251,3 +264,6 @@
 .sx-left-out { margin-top: 8px; font-size: 13px; }
 .sx-left-out summary { cursor: pointer; color: var(--text-2); }
 .sx-left-out ul { margin: 6px 0 0; padding-left: 18px; color: var(--text-2); }
+
+/* the AI chat once the research is over: shorter, so the outcome under it shows (it still scrolls) */
+#submission-ai[data-done] .ai-chat { max-height: 280px; }

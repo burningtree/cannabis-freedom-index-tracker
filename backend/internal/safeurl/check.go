@@ -17,6 +17,7 @@ type SourceCheck struct {
 	Rendered       bool            `json:"rendered"`
 	Screenshot     bool            `json:"screenshot"`
 	BrowserWarning string          `json:"browser_warning,omitempty"`
+	Cleanup        *Cleanup        `json:"cleanup,omitempty"`
 	Metadata       *SourceMetadata `json:"metadata,omitempty"`
 	Title          string          `json:"title"`
 	Host           string          `json:"host"`
@@ -45,7 +46,7 @@ func Check(e Evidence) (SourceCheck, error) {
 	if u, err := url.Parse(e.FinalURL); err == nil && u.Host != "" {
 		host = strings.TrimPrefix(u.Hostname(), "www.")
 	}
-	c := SourceCheck{CaptureID: e.CaptureID, Host: host, Rendered: e.Rendered, Screenshot: e.Screenshot == "page.png", BrowserWarning: e.BrowserWarning}
+	c := SourceCheck{CaptureID: e.CaptureID, Host: host, Rendered: e.Rendered, Screenshot: e.Screenshot == "page.png", BrowserWarning: e.BrowserWarning, Cleanup: e.Cleanup}
 	if e.Metadata != nil {
 		m := e.Metadata
 		c.Metadata = &SourceMetadata{Description: limitText(m.Description, 500), Canonical: limitText(m.Canonical, 4096), Language: limitText(m.Language, 40), Authors: m.Authors, PublishedAt: limitText(m.PublishedAt, 100), ModifiedAt: limitText(m.ModifiedAt, 100), SiteName: limitText(m.SiteName, 200)}

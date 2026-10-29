@@ -28,6 +28,13 @@ function hero(box, v, run) {
   top.append(pill(v.status));
   if (running && tries > 1) top.append(el("span", `attempt ${tries}`, "sx-tag"));
   if (running && run?.started_at && !run.finished_at) top.append(el("span", `running for ${duration(Date.now() / 1000 - run.started_at)}`, "sx-tag"));
+  // what came out of it, at hand on the right: the report, its preview, its commit on GitHub
+  const base = document.querySelector("[data-submission-status]")?.dataset.base ?? "/";
+  const actions = el("div", undefined, "sx-hero-actions");
+  if (SLUG.test(v.report_slug || "") && ["committed", "published", "duplicate"].includes(v.status)) actions.append(link(v.status === "duplicate" ? "Existing report →" : "Report →", `${base}report/${v.report_slug}/`, "sx-chip sx-chip-primary"));
+  if (readResult(v)) actions.append(link("Preview", `${base}draft/?id=${v.id}`, "sx-chip"));
+  if (/^https:\/\/github\.com\/[^/]+\/[^/]+\/commit\/[0-9a-f]{40}$/.test(v.commit_url || "")) { const c = link(`Commit ${v.commit_sha.slice(0, 7)} ↗`, v.commit_url, "sx-chip sx-chip-mono"); c.title = "The report's commit on GitHub"; actions.append(c); }
+  if (actions.childElementCount) top.append(actions);
   box.append(top);
   const { host, path } = sourceParts(v.url), url = safeHTTP(v.url);
   const h1 = el("h1", undefined, "sx-hero-title");
@@ -129,7 +136,11 @@ function sourceCheck(box, v, { api, local }) {
   }
   box.append(list);
   if (c) {
-    box.append(el("p", c.rendered ? "Loaded with Playwright · JavaScript rendered" : "Loaded with HTTP", "sx-muted"));
+    // what the browser kept out of the capture: ads and trackers, a cookie dialog
+    const k = c.cleanup, kept = [];
+    if (k?.blocker) kept.push(`${Number(k.blocked_requests || 0).toLocaleString()} ad and tracker ${k.blocked_requests === 1 ? "request" : "requests"} blocked`);
+    if (k?.consent && k.consent !== "none found") kept.push(`cookie dialog ${k.consent}`);
+    box.append(el("p", [c.rendered ? "Loaded with Playwright · JavaScript rendered" : "Loaded with HTTP", ...kept].join(" · "), "sx-muted"));
     if (c.browser_warning) box.append(el("p", c.browser_warning, "sx-muted"));
     if (local && c.screenshot) {
       const captureKey = c.capture_id || `${v.id}:${c.title}:${c.chars}`;
@@ -214,4 +225,6 @@ export function renderSubmissionDetail(v, ai, { api, id }) {
   history(document.getElementById("submission-history"), v);
   facts(document.getElementById("submission-facts"), v);
   renderAIActivity(document.getElementById("submission-ai"), ai, { api, id, requestRunning: isRunning(v.status), previousAttempt });
+  // once the research is over, its chat takes less room, so the outcome under it is in view
+  document.getElementById("submission-ai").toggleAttribute("data-done", !["queued", "received", "fetching", "classifying", "researching", "budget_wait"].includes(v.status));
 }

@@ -84,6 +84,9 @@ function initialize(root) {
         // Show the durable receipt even when local storage is full or the browser has 500 receipts.
         if (receipts.length >= 500) { storageError = "Receipt storage is full. Keep this receipt link and export your saved receipts."; }
         else { receipts = mergeReceipts(receipts, [{ submission_id: v.id, created_at: Math.floor(Date.now() / 1000) }]); save(); }
+        // straight to the request's own page, where it can be followed as it is worked on; its
+        // address is the receipt link
+        if (!storageError) { location.assign(`${base}submission/?id=${v.id}`); return; }
         const receiptLink = link("Open your receipt →", `${base}submission/?id=${v.id}`); $("submit-message").replaceChildren(node("p", "Source accepted for processing. Keep this receipt link."), receiptLink);
         if (storageError) $("submit-message").append(node("p", storageError)); $("submission-form").reset(); window.dispatchEvent(new Event("submission-created")); page = 0; pollActive = true; polls = 0; await refresh();
       } catch (err) { message("submit-message", `The submission could not be confirmed. ${err.message}`); }

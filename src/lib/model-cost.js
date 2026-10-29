@@ -1,9 +1,10 @@
 // What a run cost, worked out from the tokens it used and the model's published price. OpenCode
 // reports no cost for these models, so the request page does the sum itself. Prices are US dollars
-// per million tokens, from https://opencode.ai/docs/console/go: DeepSeek V4.1 Flash costs half as
-// much outside its peak hours (01:00-04:00 and 06:00-10:00 UTC, Monday to Friday).
+// per million tokens, from https://opencode.ai/v2/docs/console/go: DeepSeek V4.1 Flash costs half as
+// much outside its peak hours (01:00-04:00 and 06:00-10:00 UTC, Monday to Friday). Reasoning tokens
+// are billed as output; cached input (what the model has seen in earlier steps) at the cached price.
 export const MODEL_PRICES = {
-  "opencode-go/deepseek-v4.1-flash": { input: 0.15, output: 0.6, peakInput: 0.3, peakOutput: 1.2 },
+  "opencode-go/deepseek-v4.1-flash": { input: 0.15, output: 0.6, cached: 0.003, peakInput: 0.3, peakOutput: 1.2, peakCached: 0.006 },
 };
 
 // a model id can carry a reasoning variant ("opencode-go/deepseek-v4.1-flash#max"), which does not
@@ -27,7 +28,17 @@ export function runCost(run) {
   const peak = isPeak(run.started_at || run.created_at);
   const input = peak ? price.peakInput : price.input;
   const output = peak ? price.peakOutput : price.output;
-  return (Number(run?.input_tokens || 0) * input + Number(run?.output_tokens || 0) * output) / 1e6;
+  const cached = peak ? price.peakCached : price.cached;
+  const n = (k) => Number(run?.[k] || 0);
+  // a cache write is billed as input where the model lists no price of its own for it
+  return ((n("input_tokens") + n("cache_write_tokens")) * input + (n("output_tokens") + n("reasoning_tokens")) * output + n("cache_read_tokens") * cached) / 1e6;
+}
+
+// What a run really cost on a subscription (OpenCode Go: a monthly price for model usage worth
+// more at API prices): its share of the plan, the API price times price/allowance. 0 without a plan.
+export function planCost(apiCost, plan) {
+  const price = Number(plan?.price_usd || 0), allowance = Number(plan?.allowance_usd || 0);
+  return price > 0 && allowance > 0 ? (apiCost * price) / allowance : 0;
 }
 
 // true when the cost shown is worked out from tokens rather than reported by OpenCode

@@ -435,7 +435,19 @@ func (w *Worker) publish(ctx context.Context, j store.Job) error {
 	if err != nil {
 		return err
 	}
-	return w.Store.Transition(ctx, j.Ref, "committed", "The report was committed to the local repository ("+sha[:12]+"). It is available in local development; pushing and deployment are separate.", d.Slug, "")
+	explanation := "The report was committed to the local repository (" + sha[:12] + ")."
+	if w.Config.AutoPush {
+		// the commit goes to GitHub straight away, so its link works; a failed push leaves the
+		// commit in place and says so
+		if err := pushRepo(ctx, w.Config.RepoPath); err != nil {
+			explanation += " Pushing it to GitHub failed (" + err.Error() + "); it is in the local repository only until the next push."
+		} else {
+			explanation += " It was pushed to GitHub."
+		}
+	} else {
+		explanation += " It is available in local development; pushing is separate."
+	}
+	return w.Store.Transition(ctx, j.Ref, "committed", explanation, d.Slug, "")
 }
 
 func (w *Worker) uncertainOutcome() string { return "insufficient_evidence" }

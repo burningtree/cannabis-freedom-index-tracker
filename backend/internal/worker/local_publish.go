@@ -16,6 +16,29 @@ import (
 
 var reportPath = regexp.MustCompile(`^reports/[0-9]{4}/[0-9]{2}/[a-z0-9]+(?:-[a-z0-9]+)*\.md$`)
 
+// pushRepo pushes the report repository's current branch to its upstream (origin), using the
+// machine's own Git credentials. Bounded in time; the last line of Git's message says why it failed.
+func pushRepo(ctx context.Context, repo string) error {
+	pushCtx, cancel := context.WithTimeout(ctx, 90*time.Second)
+	defer cancel()
+	cmd := exec.CommandContext(pushCtx, "git", "push", "--quiet", "origin", "HEAD")
+	cmd.Dir = repo
+	cmd.Env = append(os.Environ(), "GIT_TERMINAL_PROMPT=0")
+	out, err := cmd.CombinedOutput()
+	if err == nil {
+		return nil
+	}
+	lines := strings.Split(strings.TrimSpace(string(out)), "\n")
+	why := strings.TrimSpace(lines[len(lines)-1])
+	if why == "" {
+		why = err.Error()
+	}
+	if len(why) > 200 {
+		why = why[:200]
+	}
+	return errors.New(why)
+}
+
 // Commit only the validated report paths; --only excludes unrelated staged work.
 // The case trailer recovers a successful Git commit after a crash before the DB update.
 func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, error) {

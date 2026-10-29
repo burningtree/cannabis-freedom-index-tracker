@@ -24,11 +24,22 @@ type ProcessingInfo struct {
 	Reason                string                   `json:"reason"`
 	AutomaticPublication  bool                     `json:"automatic_publication"`
 	PublicationConfigured bool                     `json:"publication_configured"`
+	Plan                  *Plan                    `json:"plan,omitempty"`
+}
+
+// Plan is a subscription the runs are paid from: its monthly price and the usage it includes at
+// API prices, so a run's real cost is its API price times PriceUSD/AllowanceUSD.
+type Plan struct {
+	PriceUSD     float64 `json:"price_usd"`
+	AllowanceUSD float64 `json:"allowance_usd"`
 }
 
 func (s *Server) processingInfo(ctx context.Context) ProcessingInfo {
 	c := s.Config
 	p := ProcessingInfo{Budget: s.budgetInfo(ctx, time.Now()), RestartAvailable: s.localControls(), PublicationMode: "local_commit", RawLogsAvailable: c.RawAILogs, Mode: "automatic", Model: c.ResearchModel, Runner: "OpenCode (" + c.ResearchRunner + ")", Enabled: c.ResearchEnabled(), AutomaticPublication: true, PublicationConfigured: c.RepoPath != ""}
+	if c.PlanUSD > 0 && c.PlanAllowanceUSD > 0 {
+		p.Plan = &Plan{PriceUSD: c.PlanUSD, AllowanceUSD: c.PlanAllowanceUSD}
+	}
 	if c.Demo {
 		p.Mode = "demo"
 		p.Enabled = true
