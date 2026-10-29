@@ -114,7 +114,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .pin-map .map { height: 300px; }
 .maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--border); border-radius: var(--r) !important; box-shadow: none !important; }
 .maplibregl-ctrl-group button + button { border-top-color: var(--border) !important; }
-:root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+:root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1) hue-rotate(180deg); } /* light icons, colours kept (the active globe, the compass needle) */
 .maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--bg) 80%, transparent) !important; color: var(--muted); font-size: 11px; }
 .maplibregl-ctrl-attrib, .maplibregl-ctrl-attrib-inner { color: var(--muted) !important; }
 .maplibregl-ctrl-attrib a { color: var(--text-2) !important; }

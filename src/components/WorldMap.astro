@@ -62,14 +62,17 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
       attributionControl: { compact: true, customAttribution: '<a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a> (CC BY-SA)' },
     });
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+    // zoom, the compass (it turns as the map is rotated with the right button; a click turns it back
+    // to north and flat) and the switch between the flat map and the globe
+    map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), "top-right");
+    map.addControl(new maplibregl.GlobeControl(), "top-right");
 
     let index: Awaited<ReturnType<typeof loadIndex>>;
     let rows: Row[] = [];        // this map's reports
     let shown: Row[] = [];       // those the filters let through
     let hovered = "";
     const KEY = "map-layers";    // which Landrace layers are on, remembered in this browser
-    let chosen: Record<string, boolean> = { cluster: false, area: true, region: false, accession: false };
+    let chosen: Record<string, boolean> = { cluster: false, globe: false, area: true, region: false, accession: false };
     // the Landrace files each layer needs, and the map layers it draws
     const FILES: Record<string, string> = { points: "landrace.geojson", areas: "landrace-areas.geojson", regions: "landrace-regions.geojson" };
     const NEEDS: Record<string, string[]> = { area: ["points", "areas"], region: ["regions"], accession: ["points"] };
@@ -141,6 +144,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     // everything drawn on the basemap; runs again after the basemap changes with the theme, which
     // drops all added sources and layers
     async function build() {
+      if (chosen.globe) map.setProjection({ type: "globe" }); // a new basemap starts flat
       await icons();
       addReports();
       addLandrace();
@@ -203,6 +207,11 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
       }
 
+      // remember the reader's choice of flat map or globe
+      box.querySelector(".maplibregl-ctrl-globe, .maplibregl-ctrl-globe-enabled")?.addEventListener("click", () => setTimeout(() => {
+        chosen.globe = map.getProjection()?.type === "globe";
+        try { localStorage.setItem(KEY, JSON.stringify(chosen)); } catch {}
+      }));
       const group = box.querySelector<HTMLInputElement>('[data-option="cluster"]')!;
       group.checked = chosen.cluster;
       group.addEventListener("change", () => {
