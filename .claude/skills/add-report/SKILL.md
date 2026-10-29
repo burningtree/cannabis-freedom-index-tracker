@@ -72,6 +72,9 @@ reported; if they truly contradict, `status: disputed`.
   and add your model once to `updated_by_models`. The submission service assigns these fields
   itself when consuming an OpenCode JSON result; do not add them to that result contract.
 - `status: verified` when every fact was read in an opened source.
+- `open_questions` (docs/WRITING.md §9): what the sources leave open, one plain sentence each, such
+  as figures that were not given, an unclear date, no arrests or court outcome reported, sources that
+  disagree, a separate event in the same article left out, or only one source found.
 
 ## 5. Archive, build, commit
 

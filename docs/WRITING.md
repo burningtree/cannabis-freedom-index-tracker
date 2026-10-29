@@ -109,7 +109,33 @@ copied** to this site.
 - `reported`: drafted from a source not yet checked in full (automated collection will use this).
 - `disputed`: sources contradict each other, or the official account is contested.
 
-## 9. Required model provenance
+## 9. Open questions
+
+What the sources leave open goes in `open_questions` in the front matter, not into the text: the
+report says what is known, the questions say what is not. The report page lists them under the text
+as "Open questions". One plain sentence each, standing on its own, no citations:
+
+- **Missing figures:** no count of plants, no weight, area, value or number of people
+  ("No figure for the plants destroyed or the area cleared was published").
+- **Dates:** only the publication date is known, or the operation may have begun earlier
+  ("The article gives no separate date for the raid; 12 March is its publication date").
+- **What happened next:** no arrests reported, charges or a court outcome not yet known
+  ("No one was named or charged in these reports").
+- **Disagreements:** sources give different numbers or accounts; say which one the report uses.
+- **Left out:** a separate event in the same article that belongs to another report.
+- **Sources:** only one source could be found, a source is a reprint of another, a page could not be
+  opened again or is in a language you could only partly read.
+
+```yaml
+open_questions:
+  - No figure for the number of plants destroyed or the area cleared was published.
+  - The same roundup reports a separate Kurukshetra police drive, a different event left out here.
+```
+
+Leave the field out when nothing is open. A question is never a place for a guess: if a source
+answers it, the answer goes in the text with its citation.
+
+## 10. Required model provenance
 
 Every report's front matter must contain `created_by_model`, naming the exact model that wrote
 it (including provider and variant when known, such as `opencode-go/deepseek-v4.1-flash#max`).
@@ -129,6 +155,7 @@ Preserve the original creator when updating a report, and add the current model 
 - [ ] Every factual sentence cited; every source cited.
 - [ ] Figures only as stated, units converted, whose estimate said.
 - [ ] Coordinates with precision.
+- [ ] What the sources leave open listed in `open_questions` (§9).
 - [ ] A cover only with an open licence; other photos as `media` links.
 - [ ] Pictures archived (`node scripts/archive-media.mjs <slug>`); `archived` source copies where they exist.
 - [ ] `npm test` and `npm run build` pass.

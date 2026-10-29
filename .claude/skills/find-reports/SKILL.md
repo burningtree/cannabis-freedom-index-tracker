@@ -80,6 +80,10 @@ For each candidate:
 - Coordinates for the most precise named place, with `precision`.
 - Text, figures, citations and status per docs/WRITING.md; `status: verified` only when every fact was
   read in an opened source.
+- `open_questions` (docs/WRITING.md §9): what the sources leave open (figures not given, an unclear
+  date, no arrests or outcome reported, sources that disagree, a separate event left out, a single
+  source), one plain sentence each. The automated research records these too; reports written by
+  hand should not have fewer.
 
 ## 5. Archive
 
