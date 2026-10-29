@@ -27,6 +27,12 @@ sources:
     publisher: ABC
     date: 2026-10-27
     language: es
+  - title: La UDYCO interviene 10,8 toneladas de hachís a la 'banda de Moreno'
+    url: https://www.elespanol.com/reportajes/20261007/udyco-interviene-toneladas-hachis-banda-moreno-copaban-mercado-espana-resto-europa/1003744412511_0.html
+    publisher: El Español
+    date: 2026-10-07
+    language: es
+    locator: Second-wave arrests and network structure; total given as 10,881 kilos
 ---
 
 Spain's National Police confirmed on 27 October 2026 the detention in Tangier, Morocco, of Juan
@@ -46,3 +52,14 @@ Police dismantled seven drug storage sites, including flats in Madrid and an ind
 Silla, Valencia, and seized 10.8 tonnes of hashish along with 20 kilos of marijuana buds. [@1,2]
 The leader allegedly ran the network's logistics, negotiating with suppliers in Morocco and
 arranging sea and road shipments, vehicles and storage properties. [@1]
+
+The detentions came in two waves between September 2025 and October 2026: 22 in the first
+wave, including Moreno and businessman Juan Andrés, alias Flako, followed by at least 13
+more arrests of alleged leadership members in the week the secrecy order was lifted —
+partial counts reported mid-operation, before the final tally of 86 detentions in Spain. [@3]
+Three Moroccan nationals allegedly rented the stash flats guarding the drugs, and the network
+ran supplies from the Andalusian coast to Madrid and Valencia using fishing boats,
+narcolanchas, trucks and stash properties across Huelva, Cádiz, Almería, Alicante and
+Madrid, laundering proceeds through the company Artecar Solución Grafica. [@3] El Español
+put the total haul at 10,881 kilos of hashish plus 12.30 kilos of marijuana, slightly above
+the 10.8 tonnes in the police account. [@3]
