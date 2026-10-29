@@ -1,7 +1,12 @@
 import { runCost, costEstimated, formatUSD } from "./model-cost.js";
 
 export const MODEL_LABELS = { "opencode-go/deepseek-v4.1-flash": "DeepSeek V4.1 Flash · OpenCode Go" };
-export function modelLabel(model) { return MODEL_LABELS[model] || model || "Not configured"; }
+// "opencode-go/deepseek-v4.1-flash#max" is the model at a reasoning variant; show both, without the #
+export function modelLabel(model) {
+  const [base, variant] = String(model || "").split("#");
+  const label = MODEL_LABELS[base] || base;
+  return label ? `${label}${variant ? ` · ${variant}` : ""}` : "Not configured";
+}
 const node = (tag, text, className) => { const el = document.createElement(tag); if (text !== undefined) el.textContent = text; if (className) el.className = className; return el; };
 
 export function renderProcessingStatus(container, processing, { compact = false } = {}) {
@@ -14,16 +19,40 @@ export function renderProcessingStatus(container, processing, { compact = false 
     line.append(node("i", undefined, "ai-worker-dot"), node("strong", processing.enabled ? (processing.mode === "automatic" ? "AI worker running" : processing.mode === "demo" ? "Demonstration mode" : "Review mode") : "AI worker paused"), node("span", modelLabel(processing.model), "ai-model"));
     if (processing.startup?.version) line.append(node("span", `OpenCode ${processing.startup.version}`, "ai-muted"));
     container.append(line);
+    renderBudget(container, processing.budget);
     const notes = [];
     if (!processing.enabled && processing.reason) notes.push(processing.reason);
-    if (processing.automatic_publication && !processing.publication_configured) notes.push("Research runs; publishing waits for the GitHub App to be configured.");
+    if (processing.automatic_publication && !processing.publication_configured) notes.push("Research runs; committing waits for a configured local repository.");
     for (const n of notes) container.append(node("p", n, "ai-worker-note"));
     return;
   }
   container.append(node("strong", processing.mode === "automatic" ? "Automatic processing" : processing.mode === "demo" ? "Demonstration mode" : "Review mode"));
   container.append(node("span", modelLabel(processing.model), "ai-model"), node("p", processing.reason));
+  renderBudget(container, processing.budget);
   if (processing.startup) { const check = processing.startup; container.append(node("p", `Startup test: ${check.status}${check.version ? ` · OpenCode ${check.version}` : ""}`, "ai-muted")); }
-  if (processing.automatic_publication && !processing.publication_configured) container.append(node("p", "Research can run independently. Publication is waiting for GitHub App configuration.", "ai-muted"));
+  if (processing.automatic_publication && !processing.publication_configured) container.append(node("p", "Research can run independently. Committing is waiting for a configured local repository.", "ai-muted"));
+}
+
+function renderBudget(container, budget) {
+  if (!budget) { container.append(node("p", "Budget information unavailable. Restart backend-dev if it has not been updated.", "ai-worker-note")); return; }
+  const money = cents => `$${(Number(cents) / 100).toFixed(2)}`;
+  const used = Number(budget.reserved_cents), limit = Number(budget.daily_limit_cents);
+  const block = node("div", undefined, "ai-budget");
+  block.dataset.exhausted = String(Number(budget.runs_remaining) === 0);
+  const total = node("span", undefined, "ai-budget-total");
+  total.append(document.createTextNode("Reserved today "), node("strong", `${money(used)} / ${money(limit)}`));
+  total.title = "Daily research reservations used by the budget guard; these are not billed provider costs.";
+  block.append(total);
+  if (limit > 0) {
+    const meter = node("meter"); meter.min = 0; meter.max = limit; meter.value = Math.min(used, limit);
+    meter.setAttribute("aria-label", `Daily budget reserved: ${money(used)} of ${money(limit)}`);
+    block.append(meter);
+  }
+  block.append(node("span", `${money(budget.per_run_cents)} per attempt`), node("span", `${Number(budget.runs_remaining).toLocaleString()} attempts left`));
+  const reset = new Date(Number(budget.resets_at) * 1000);
+  const time = node("time", `Resets ${reset.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`);
+  time.dateTime = reset.toISOString(); time.title = `Daily reset at 00:00 UTC · ${reset.toLocaleString()}`;
+  block.append(time); container.append(block);
 }
 
 // The AI panel is built once per container and then updated in place: the status and run details
@@ -92,7 +121,7 @@ const runTone = (run) => (run.status === "running" || run.status === "queued" ? 
 const runText = (run) => `${RUN_LABELS[run.status] || run.status}${run.outcome ? ` · ${OUTCOME_LABELS[run.outcome] || run.outcome.replace(/_/g, " ")}` : ""}`;
 const span = (s) => { s = Math.max(0, Math.round(s)); return s < 60 ? `${s} s` : s < 3600 ? `${Math.floor(s / 60)} min ${s % 60 ? `${s % 60} s` : ""}`.trim() : `${Math.floor(s / 3600)} h ${Math.round((s % 3600) / 60)} min`; };
 
-export function renderAIActivity(container, payload, { api, id, requestRunning = false } = {}) {
+export function renderAIActivity(container, payload, { api, id, requestRunning = false, previousAttempt = false } = {}) {
   let ui = container._ai;
   if (!ui || ui.id !== id || !container.contains(ui.log)) { clearInterval(ui?.timer); ui = buildPanel(container, api, id); ui.id = id; }
   const { log } = ui;
@@ -106,9 +135,9 @@ export function renderAIActivity(container, payload, { api, id, requestRunning =
   ui.runPill.replaceChildren(); ui.runPill.hidden = !run;
   if (run) {
     // a failed run of a request that is still going will be retried
-    const retrying = run.status === "failed" && requestRunning;
-    ui.runPill.dataset.tone = retrying ? "running" : runTone(run);
-    ui.runPill.append(node("i"), document.createTextNode(retrying ? "Failed · retrying" : runText(run)));
+    const retrying = !previousAttempt && run.status === "failed" && requestRunning;
+    ui.runPill.dataset.tone = previousAttempt ? "paused" : retrying ? "running" : runTone(run);
+    ui.runPill.append(node("i"), document.createTextNode(previousAttempt ? "Previous attempt · no new AI run yet" : retrying ? "Failed · retrying" : runText(run)));
   }
   ui.details.replaceChildren(); ui.details.hidden = !run;
   if (run) {
@@ -162,7 +191,7 @@ export function renderAIActivity(container, payload, { api, id, requestRunning =
   }
   ui.empty.hidden = ui.seen.size > 0;
   // what the run is doing now, from its latest message
-  const busy = Boolean(run) && ["running", "starting", "queued"].includes(run.status);
+  const busy = !previousAttempt && Boolean(run) && ["running", "starting", "queued"].includes(run.status);
   ui.working.hidden = !busy;
   if (busy) {
     const mine = (activity.events || []).filter((e) => e.run_id === run.id);

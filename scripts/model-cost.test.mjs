@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { runCost, isPeak, costEstimated, formatUSD } from "../src/lib/model-cost.js";
+import { runCost, isPeak, costEstimated, formatUSD, baseModel } from "../src/lib/model-cost.js";
 
 const model = "opencode-go/deepseek-v4.1-flash";
 // 26 October 2026 is a Monday; 12:00 UTC is off-peak
@@ -36,6 +36,13 @@ test("an unknown model or no tokens has no cost", () => {
   assert.equal(runCost({ model: "other/model", input_tokens: 1_000_000, output_tokens: 1_000_000 }), 0);
   assert.equal(runCost({ model }), 0);
   assert.equal(costEstimated({ model: "other/model" }), false);
+});
+
+test("a reasoning variant has the same price as its model", () => {
+  const variant = `${model}#max`;
+  assert.equal(baseModel(variant), model);
+  assert.equal(runCost({ model: variant, input_tokens: 1_000_000, output_tokens: 1_000_000, started_at: offPeak }), 0.75);
+  assert.equal(costEstimated({ model: variant }), true);
 });
 
 test("the example run is a fraction of a cent off-peak", () => {

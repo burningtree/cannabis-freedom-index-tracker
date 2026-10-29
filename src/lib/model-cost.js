@@ -6,6 +6,10 @@ export const MODEL_PRICES = {
   "opencode-go/deepseek-v4.1-flash": { input: 0.15, output: 0.6, peakInput: 0.3, peakOutput: 1.2 },
 };
 
+// a model id can carry a reasoning variant ("opencode-go/deepseek-v4.1-flash#max"), which does not
+// change the model or its price
+export const baseModel = (model) => String(model || "").split("#")[0];
+
 export function isPeak(seconds) {
   const date = new Date((Number(seconds) || 0) * 1000);
   if (Number.isNaN(date.getTime())) return false;
@@ -18,7 +22,7 @@ export function isPeak(seconds) {
 export function runCost(run) {
   const reported = Number(run?.cost_usd || 0);
   if (reported > 0) return reported;
-  const price = MODEL_PRICES[run?.model];
+  const price = MODEL_PRICES[baseModel(run?.model)];
   if (!price) return 0;
   const peak = isPeak(run.started_at || run.created_at);
   const input = peak ? price.peakInput : price.input;
@@ -28,7 +32,7 @@ export function runCost(run) {
 
 // true when the cost shown is worked out from tokens rather than reported by OpenCode
 export function costEstimated(run) {
-  return !(Number(run?.cost_usd || 0) > 0) && Boolean(MODEL_PRICES[run?.model]);
+  return !(Number(run?.cost_usd || 0) > 0) && Boolean(MODEL_PRICES[baseModel(run?.model)]);
 }
 
 // A run costs a fraction of a cent, so keep four decimals ($0.0001) rather than rounding to cents;
