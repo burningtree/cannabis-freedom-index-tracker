@@ -84,6 +84,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .theme-toggle { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: none; color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; }
 .theme-toggle:hover { color: var(--text); background: var(--surface); }
 .theme-toggle svg { width: 16px; height: 16px; }
+.github-link { display: grid; place-items: center; flex: none; width: 32px; height: 32px; color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r); }
+.github-link:hover { color: var(--text); background: var(--surface); }
+.github-link svg { width: 19px; height: 19px; }
 :root[data-theme="light"] .theme-toggle .moon, :root:not([data-theme="light"]) .theme-toggle .sun { display: none; }
 .type.landrace { color: var(--landrace, #7fcf98); }
 .map-tip span { display: block; }
@@ -315,6 +318,16 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .range-switch button:last-child { border-right: 0; }
 .range-switch button:hover { color: var(--text); background: var(--surface-2); }
 .range-switch button[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); }
+.map-search { position: absolute; z-index: 4; bottom: 52px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; width: max-content; max-width: calc(100% - 32px); padding: 12px 14px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r); box-shadow: var(--shadow); }
+.map-search[hidden] { display: none; }
+.map-search > svg { width: 18px; height: 18px; flex: none; }
+.map-search-copy { display: grid; gap: 4px; min-width: 0; }
+.map-search-copy strong { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.map-search-copy span { color: var(--text-2); font-size: 12px; overflow-wrap: anywhere; max-height: 4.5em; overflow: auto; }
+.map-search button { flex: none; padding: 7px 10px; background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: var(--r); font: 500 12px Inter, system-ui, sans-serif; cursor: pointer; }
+.map-search button:hover { background: var(--surface-2); color: var(--text); }
+.map-search button:focus-visible, .github-link:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.map-search button:focus-visible { outline-color: var(--text); }
 @media (max-width: 860px) { .range-switch { top: 46px; left: 10px; transform: none; } .range-switch button { padding: 6px 9px; font-size: 12px; } }
 
 /* the zoom-to-map button beside a report's title in the map's side pane: shown on hover */
@@ -326,7 +339,7 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 
 /* how precise a report's location is: a label on its map and a line under it */
 .pin-map { position: relative; }
-.loc-chip { position: absolute; z-index: 3; left: 10px; bottom: 10px; padding: 3px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
+.loc-chip { position: absolute; z-index: 3; left: 10px; top: 46px; padding: 3px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
 .loc-chip.country, .loc-chip.region { color: var(--text); border-color: var(--muted); }
 .loc-accuracy { font-size: 13.5px; color: var(--text-2); margin-top: 8px; }
 .loc-accuracy b { color: var(--text); font-weight: 600; }
