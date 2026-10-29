@@ -1,0 +1,51 @@
+---
+date: 2026-10-26
+country: in
+place: Rajiv Chowk, Gurugram
+coordinates: [28.447, 77.033]
+precision: locality
+type: seizure
+also: [arrest]
+title: 673 kg of ganja found in plastic-granule truck in Gurugram
+summary: >-
+  Gurugram Crime Branch stopped a Rajasthan-registered truck near Rajiv Chowk on
+  the night of 25-26 October 2026 and found 673 kg of ganja under bags of
+  plastic granules. The truck owner-driver and cleaner, both from Rajasthan,
+  were remanded to ten days' police custody.
+figures:
+  arrested: 2
+  kg_seized: 673
+  value: { amount: 12500000, currency: INR }
+status: verified
+tags: [truck, odisha-route]
+sources:
+  - title: >-
+      Haryana: 673 Kg Cannabis Worth Rs 1.25 Crore Seized In Gurugram, Two Arrested
+    url: https://www.etvbharat.com/en/state/haryana-673-kg-cannabis-worth-rs-1-dot-25-crore-seized-in-gurugram-two-arrested-enn26102706232
+    publisher: ETV Bharat
+    date: 2026-10-27
+media:
+  - kind: photo
+    url: https://www.etvbharat.com/en/state/haryana-673-kg-cannabis-worth-rs-1-dot-25-crore-seized-in-gurugram-two-arrested-enn26102706232
+    publisher: ETV Bharat
+    caption: The two accused with Gurugram Crime Branch officers after the seizure
+---
+
+A Crime Branch Sector 65 team led by Sub-Inspector Arun, patrolling near Rajiv
+Chowk on the intervening night of 25 and 26 October, stopped a
+Rajasthan-registered truck on a tip-off and found 23 sacks of cannabis weighing
+673 kg hidden beneath 767 bags of plastic granules. [@1] Police valued the drug
+at about Rs 1.25 crore, and also seized the granule bags, 15 containers and the
+truck. [@1]
+
+The consignment was travelling from Odisha to Bhiwadi in Rajasthan, according
+to police. [@1] The arrested men are Sabir, 34, the truck's owner-driver from
+Udaipur village in Khairthal district, and Sanawar, 19, his cleaner from
+Mirzapur village in the same district; Sabir had hired the cleaner for Rs
+20,000 a month, and the pair were promised Rs 2 lakh for the run. [@1] Police
+say it was their third such trip, after two earlier consignments moved the same
+way. [@1]
+
+A case was registered at Sadar police station under Section 20(b)(ii)(C) of the
+NDPS Act, and a court remanded both men to ten days of police custody while
+officers trace the wider supply network. [@1]
