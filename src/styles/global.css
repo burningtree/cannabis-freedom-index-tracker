@@ -344,3 +344,19 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .loc-accuracy { font-size: 13.5px; color: var(--text-2); margin-top: 8px; }
 .loc-accuracy b { color: var(--text); font-weight: 600; }
 .loc-coords { display: block; margin-top: 2px; font: 12px var(--mono); color: var(--muted); }
+
+/* The report page: one column, the map and the law under the text; on a wide screen they move into
+   a column beside it, so the empty margins are used. */
+.report-layout { max-width: 860px; margin: 0 auto; }
+.report-layout + section, .page.wide > .crumbs { max-width: 860px; margin-left: auto; margin-right: auto; }
+.report-side { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+.report-side h2 { margin-top: 0; }
+@media (max-width: 700px) { .report-side { grid-template-columns: 1fr; } }
+@media (min-width: 1200px) {
+  .report-layout { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 56px; align-items: start; }
+  .report-layout + section, .page.wide > .crumbs { max-width: none; }
+  .report-side { grid-template-columns: 1fr; gap: 28px; margin-top: 8px; }
+  .report-side .pin-map .map { height: 280px; }
+}
+/* pinned while the text scrolls, only where the window is tall enough to show the whole column */
+@media (min-width: 1200px) and (min-height: 1000px) { .report-side { position: sticky; top: 76px; } }
