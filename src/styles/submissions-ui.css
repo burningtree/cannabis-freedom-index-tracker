@@ -140,8 +140,8 @@
 
 /* the source check: one line per check */
 .sx-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; }
-.sx-checks li { display: flex; gap: 8px; align-items: baseline; overflow-wrap: anywhere; }
-.sx-checks li::before { flex: none; width: 16px; font-weight: 700; }
+.sx-checks li { position: relative; padding-inline-start: 24px; overflow-wrap: anywhere; }
+.sx-checks li::before { position: absolute; inset-inline-start: 0; top: 0; width: 16px; font-weight: 700; }
 .sx-checks li[data-ok="true"]::before { content: "✓"; color: var(--sx-done); }
 .sx-checks li[data-ok="false"]::before { content: "✕"; color: var(--sx-failed); }
 .sx-checks li[data-ok="wait"]::before { content: "…"; color: var(--sx-running); }

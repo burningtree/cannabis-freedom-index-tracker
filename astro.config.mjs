@@ -1,8 +1,12 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import { markdownGlossary } from "./src/lib/glossary.js";
 import { unified } from "@astrojs/markdown-remark";
 
 // Fully static output: one HTML file per report and per country, plus the JSON files under /api/.
+// Changing definitions must invalidate Astro's cached Markdown, even when report files are unchanged.
+const glossaryRevision = createHash("sha256").update(readFileSync(new URL("./src/data/glossary.json", import.meta.url))).digest("hex");
 const base = (process.env.BASE_PATH || "").replace(/\/+$/, "") + "/";
 
 // Links in a report's text: one that leaves the site opens in a new tab and is marked `ext`;
@@ -90,6 +94,6 @@ export default defineConfig({
     },
   },
   markdown: {
-    processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks, markdownGlossary] }),
+    processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks, [markdownGlossary, { revision: glossaryRevision }]] }),
   },
 });

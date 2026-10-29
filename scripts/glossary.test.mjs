@@ -34,3 +34,17 @@ test("CFI atlas terms such as bhang have explanations, aliases and article links
   assert.equal(link.properties.href,bhang.entry.url);
   assert.ok(link.properties.dataText);
 });
+
+test("reviewed enforcement vocabulary covers real report wording", () => {
+  const examples = [
+    ["Both were remanded for five days after a controlled delivery.", ["remand", "controlled delivery"]],
+    ["Two consecutive months followed the concurrent prison terms.", ["consecutive sentence", "concurrent sentence"]],
+    ["Police put the street value at ₹13 crore, or 1,300 lakh.", ["street value", "crore", "lakh"]],
+    ["The defendant was convicted after pleading not guilty; others pleaded guilty.", ["defendant", "conviction", "guilty plea"]],
+    ["The consignment weighed 434 kg (wet weight).", ["consignment", "wet weight"]],
+    ["A hydroponic grow house covered two hectares.", ["hydroponics", "grow house", "hectare"]],
+    ["Officers found cannabis resin.", ["Hashish"]],
+  ];
+  for (const [text, expected] of examples) assert.deepEqual(glossaryParts(text).filter(p=>p.entry).map(p=>p.entry.id), expected, text);
+  assert.equal(glossaryParts("They paid excess baggage charges.").some(p=>p.entry?.id === "criminal charge"), false);
+});

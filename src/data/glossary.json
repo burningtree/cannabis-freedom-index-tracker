@@ -497,9 +497,358 @@
       "kind": "glossary",
       "also": [
         "eradication campaign",
-        "eradication campaigns"
+        "eradication campaigns",
+        "eradicate",
+        "eradicated"
       ],
       "text": "Destroying cannabis crops, by hand, by burning or by spraying from the air, usually by police or soldiers."
+    },
+    {
+      "id": "arrest",
+      "kind": "glossary",
+      "also": [
+        "arrested",
+        "arrests"
+      ],
+      "text": "Taking a person into official custody over a suspected offence. An arrest does not itself mean that the person has been charged or found guilty."
+    },
+    {
+      "id": "criminal charge",
+      "kind": "glossary",
+      "also": [
+        "criminal charges",
+        "charged with",
+        "charge sheet",
+        "charge sheets"
+      ],
+      "text": "A formal accusation that someone committed an offence. A charge still has to be proved; it is not a conviction."
+    },
+    {
+      "id": "custody",
+      "kind": "glossary",
+      "also": [
+        "police custody",
+        "judicial custody"
+      ],
+      "text": "Being held under the control of the authorities, for example in a police station or prison. Custody can come before trial as well as after conviction."
+    },
+    {
+      "id": "suspect",
+      "kind": "glossary",
+      "also": [
+        "suspects"
+      ],
+      "text": "A person the authorities believe may have been involved in an offence. This describes a stage of an investigation, not a finding of guilt."
+    },
+    {
+      "id": "defendant",
+      "kind": "glossary",
+      "also": [
+        "defendants",
+        "co-defendant",
+        "co-defendants"
+      ],
+      "text": "The person or other party a legal case is brought against. In a criminal report, calling someone a defendant does not itself mean the court has found them guilty."
+    },
+    {
+      "id": "prosecution",
+      "kind": "glossary",
+      "also": [
+        "prosecutions",
+        "prosecute",
+        "prosecuted",
+        "prosecuting"
+      ],
+      "text": "Bringing and pursuing a criminal case against someone. The word can also mean the side presenting the case against the accused."
+    },
+    {
+      "id": "prosecutor",
+      "kind": "glossary",
+      "also": [
+        "prosecutors",
+        "public prosecutor",
+        "public prosecutors"
+      ],
+      "text": "The lawyer or official who presents the criminal case against the accused on behalf of the prosecuting authority."
+    },
+    {
+      "id": "indictment",
+      "kind": "glossary",
+      "also": [
+        "indictments",
+        "indicted"
+      ],
+      "text": "A formal written accusation used in some criminal proceedings. Who issues it and how it is approved vary between legal systems; it does not establish guilt."
+    },
+    {
+      "id": "guilty plea",
+      "kind": "glossary",
+      "also": [
+        "guilty pleas",
+        "pleaded guilty",
+        "pled guilty",
+        "pleads guilty"
+      ],
+      "text": "A person's formal admission in court that they committed the offence charged. It is different from being found guilty after a contested trial."
+    },
+    {
+      "id": "conviction",
+      "kind": "glossary",
+      "also": [
+        "convictions",
+        "convicted"
+      ],
+      "text": "A court's formal finding that a person is guilty of an offence, following a guilty plea or a trial. It is a later stage than arrest or charge."
+    },
+    {
+      "id": "acquittal",
+      "kind": "glossary",
+      "also": [
+        "acquittals",
+        "acquitted",
+        "acquit"
+      ],
+      "text": "A court's finding that the accused is not guilty of the charge. It is different from releasing someone while the case continues."
+    },
+    {
+      "id": "appeal",
+      "kind": "glossary",
+      "also": [
+        "appeals",
+        "appealed"
+      ],
+      "text": "Asking a higher court to review a decision, such as a conviction or sentence. The higher court may uphold or change that decision."
+    },
+    {
+      "id": "remand",
+      "kind": "glossary",
+      "also": [
+        "remanded",
+        "remanded in custody",
+        "pre-trial detention",
+        "pretrial detention"
+      ],
+      "text": "In custody reports, holding an accused person while they await trial or sentencing. In other court contexts, remand can instead mean sending a case back to a lower court."
+    },
+    {
+      "id": "bail",
+      "kind": "glossary",
+      "also": [
+        "released on bail",
+        "granted bail",
+        "bail conditions"
+      ],
+      "text": "Release from custody while a case continues, usually with conditions such as returning to court. Some systems require money or a guarantee, but bail does not always involve a payment."
+    },
+    {
+      "id": "concurrent sentence",
+      "kind": "glossary",
+      "also": [
+        "concurrent sentences",
+        "concurrent prison terms",
+        "concurrent terms",
+        "concurrently",
+        "concurrent"
+      ],
+      "text": "Sentences served at the same time rather than added together. Two fully concurrent terms of five years and three years take five years to serve, before any release rules apply."
+    },
+    {
+      "id": "consecutive sentence",
+      "kind": "glossary",
+      "also": [
+        "consecutive sentences",
+        "consecutive prison terms",
+        "consecutive terms",
+        "consecutively",
+        "consecutive"
+      ],
+      "text": "Sentences served one after another. Terms of five years and three years served consecutively add up to eight years, before any release rules apply."
+    },
+    {
+      "id": "parole",
+      "kind": "glossary",
+      "also": [],
+      "text": "Conditional release from prison before the full sentence has been served. The person remains subject to conditions and may be returned to prison if they break them."
+    },
+    {
+      "id": "life imprisonment",
+      "kind": "glossary",
+      "also": [
+        "life sentence",
+        "life sentences",
+        "life term",
+        "life terms"
+      ],
+      "text": "A prison sentence expressed as life rather than a fixed number of years. Whether release is possible depends on the law and the particular sentence."
+    },
+    {
+      "id": "search warrant",
+      "kind": "glossary",
+      "also": [
+        "search warrants"
+      ],
+      "text": "An order authorising officials to search a specified place for evidence. It is an investigative power, not a finding that an offence has been proved."
+    },
+    {
+      "id": "extradition",
+      "kind": "glossary",
+      "also": [
+        "extradited",
+        "extradite"
+      ],
+      "text": "A legal process in which one country surrenders a person to another for prosecution or to serve a criminal sentence. It is different from deporting someone under immigration law."
+    },
+    {
+      "id": "seizure",
+      "kind": "glossary",
+      "also": [
+        "seizures",
+        "seized"
+      ],
+      "text": "Authorities taking control of drugs, money or other property under legal powers. A seizure does not by itself establish guilt or permanently transfer ownership to the state."
+    },
+    {
+      "id": "forfeiture",
+      "kind": "glossary",
+      "also": [
+        "forfeited",
+        "asset forfeiture"
+      ],
+      "text": "Loss of property to the state through a legal process, for example because it was linked to an offence. It is different from a temporary seizure during an investigation."
+    },
+    {
+      "id": "confiscation",
+      "kind": "glossary",
+      "also": [
+        "confiscated",
+        "confiscate"
+      ],
+      "text": "Authorities taking property away under legal powers. Reports may use the word for either a seizure or permanent forfeiture, so the exact legal order matters."
+    },
+    {
+      "id": "controlled delivery",
+      "kind": "glossary",
+      "also": [
+        "controlled deliveries"
+      ],
+      "text": "An investigation in which authorities allow a suspect shipment to continue under supervision so they can identify the people involved. It does not mean that the shipment has become legal."
+    },
+    {
+      "id": "interdiction",
+      "kind": "glossary",
+      "also": [],
+      "text": "Intercepting drugs or other prohibited goods before they reach their destination, for example at a border or along a transport route."
+    },
+    {
+      "id": "consignment",
+      "kind": "glossary",
+      "also": [
+        "consignments"
+      ],
+      "text": "A batch of goods sent together as one shipment. In these reports it usually means a load of cannabis being transported."
+    },
+    {
+      "id": "street value",
+      "kind": "glossary",
+      "also": [
+        "estimated street value"
+      ],
+      "text": "An estimate of what drugs might sell for in the retail market. It is not a record of money actually paid, and figures based on different prices or assumptions are not directly comparable."
+    },
+    {
+      "id": "narcotic",
+      "kind": "glossary",
+      "also": [
+        "narcotics",
+        "narcotic drugs"
+      ],
+      "text": "In drug laws and agency names, a label for controlled drugs that can include cannabis. The label is not a precise description of a substance's effects."
+    },
+    {
+      "id": "psychotropic",
+      "kind": "glossary",
+      "also": [
+        "psychotropic substance",
+        "psychotropic substances"
+      ],
+      "text": "Affecting mental processes such as perception, thinking or mood. In a law or treaty, psychotropic substances refers to the substances covered by that particular legal list."
+    },
+    {
+      "id": "precursor",
+      "kind": "glossary",
+      "also": [
+        "precursors",
+        "precursor chemical",
+        "precursor chemicals"
+      ],
+      "text": "A chemical used in making a drug. Many precursor chemicals also have ordinary legal uses, so controls often concern preventing their diversion into illegal production."
+    },
+    {
+      "id": "grow house",
+      "kind": "glossary",
+      "also": [
+        "grow houses",
+        "grow-house",
+        "grow-houses"
+      ],
+      "text": "A house or other building used to grow cannabis indoors, often with artificial lighting and climate-control equipment. The name does not establish whether it is licensed or illegal."
+    },
+    {
+      "id": "hydroponics",
+      "kind": "glossary",
+      "also": [
+        "hydroponic",
+        "hydroponically"
+      ],
+      "text": "Growing plants without soil, with nutrients supplied in water. The word describes a growing method, not a cannabis variety or a guaranteed level of THC."
+    },
+    {
+      "id": "hectare",
+      "kind": "glossary",
+      "also": [
+        "hectares"
+      ],
+      "text": "An area of 10,000 square metres, or about 2.47 acres. Crop area alone does not tell us how much dried cannabis it would produce."
+    },
+    {
+      "id": "tonne",
+      "kind": "glossary",
+      "also": [
+        "tonnes",
+        "metric tonne",
+        "metric tonnes"
+      ],
+      "text": "A metric unit of 1,000 kilograms, about 2,205 pounds. It is different from the US short ton, which is about 907 kilograms."
+    },
+    {
+      "id": "lakh",
+      "kind": "glossary",
+      "also": [
+        "lakhs"
+      ],
+      "text": "One hundred thousand in the South Asian numbering system. A lakh is a number, not a currency; one lakh rupees means 100,000 rupees."
+    },
+    {
+      "id": "crore",
+      "kind": "glossary",
+      "also": [
+        "crores"
+      ],
+      "text": "Ten million in the South Asian numbering system, equal to one hundred lakh. The currency still matters; a crore of Indian rupees is not a crore of Sri Lankan rupees."
+    },
+    {
+      "id": "rai",
+      "kind": "glossary",
+      "also": [],
+      "text": "A Thai unit of land area equal to 1,600 square metres, or 0.16 hectares. It measures land, not the amount of cannabis harvested."
+    },
+    {
+      "id": "wet weight",
+      "kind": "glossary",
+      "also": [
+        "fresh weight"
+      ],
+      "text": "The weight of plant material before drying, including its moisture. It is not directly comparable with the weight of dried cannabis."
     },
     {
       "id": "420",
@@ -731,6 +1080,7 @@
         "hashish",
         "hachís",
         "jachís",
+        "cannabis resin",
         "حشيش"
       ],
       "text": "Arabic for dried grass. The word for cannabis resin from Morocco to Afghanistan.",
