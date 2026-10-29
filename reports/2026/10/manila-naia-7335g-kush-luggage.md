@@ -17,6 +17,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [kush, airport, bangkok-route]
+open_questions:
+  - No arrests were reported; the two Bangkok passengers linked to the bags have not been identified.
 sources:
   - title: PDEA seizes P7.3-M kush hidden in food packaging in abandoned NAIA luggage
     url: https://x-files-news.com/2026/10/28/pdea-seizes-p7-3-m-kush-hidden-in-food-packaging-in-abandoned-naia-luggage/
