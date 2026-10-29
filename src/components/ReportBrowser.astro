@@ -64,6 +64,15 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   const fields = ["q", "type", "country", "year", "month"];
   const params = new URLSearchParams(location.search);
   for (const f of fields) if (params.get(f)) $(f).value = params.get(f)!;
+  // The time range switch on the map (index.astro): the last 7 or 30 days, the last year, or all.
+  // The map opens on the last 30 days; another choice is kept in the address (?range=7d|1y|all).
+  // A page without the switch (Reports) shows everything.
+  const RANGES: Record<string, number> = { "7d": 7, "30d": 30, "1y": 365, all: 0 };
+  const DEFAULT_RANGE = "30d";
+  const hasSwitch = document.querySelector("[data-range]") != null;
+  let range = !hasSwitch ? "all" : params.get("range") && params.get("range")! in RANGES ? params.get("range")! : DEFAULT_RANGE;
+  const since = () => (RANGES[range] ? new Date(Date.now() - RANGES[range] * 864e5).toISOString().slice(0, 10) : "");
+  const showRange = () => document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.range === range)));
 
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
   const fmtDate = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -86,7 +95,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const type = $("type").value, country = $("country").value, year = $("year").value, month = $("month").value;
     return (!type || r.t === type || r.a.includes(type))
       && (!country || inCountry(r, country))
-      && (skipDate || ((!year || r.d.startsWith(year)) && (!month || r.d.slice(5, 7) === month)))
+      && (skipDate || ((!year || r.d.startsWith(year)) && (!month || r.d.slice(5, 7) === month) && (!since() || r.d >= since())))
       && q.every((w) => haystack.get(r)!.includes(w));
   }
 
@@ -94,8 +103,13 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     list.innerHTML = shown.slice(0, limit).map(item).join("");
     $("more").hidden = shown.length <= limit;
     $("empty").hidden = shown.length > 0;
-    const active = fields.some((f) => $(f).value);
-    $("count").textContent = active ? `${shown.length.toLocaleString("en-GB")} of ${rows.length.toLocaleString("en-GB")} reports` : `${rows.length.toLocaleString("en-GB")} reports · newest first`;
+    const active = fields.some((f) => $(f).value) || range !== "all";
+    const n = shown.length.toLocaleString("en-GB"), all = rows.length.toLocaleString("en-GB");
+    const when = ({ "7d": "in the last 7 days", "30d": "in the last 30 days", "1y": "in the last year" } as Record<string, string>)[range];
+    const other = fields.some((f) => $(f).value);
+    $("count").textContent = !active ? `${all} reports · newest first`
+      : when && !other ? `${n} ${shown.length === 1 ? "report" : "reports"} ${when} · ${all} in all`
+      : `${n} of ${all} reports${when ? ` ${when}` : ""}`;
   }
 
   // reports per month for the current filters (all dates), the last 36 months; a bar is a link
@@ -126,6 +140,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     document.dispatchEvent(new CustomEvent("reports:filter", { detail: (window as any).__reportsShown }));
     const p = new URLSearchParams();
     for (const f of fields) if ($(f).value) p.set(f, $(f).value);
+    if (hasSwitch && range !== DEFAULT_RANGE) p.set("range", range);
     history.replaceState(null, "", (p.size ? `?${p}` : location.pathname) + location.hash); // the hash is the map's view
   }
 
@@ -147,7 +162,9 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       $("year").value = same ? "" : y; $("month").value = same ? "" : m;
       apply();
     });
-    if (fields.some((f) => $(f).value)) apply();
+    document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.addEventListener("click", () => { range = b.dataset.range!; showRange(); apply(); }));
+    showRange();
+    if (fields.some((f) => $(f).value) || range !== "all") apply();
     else { shown = rows; months(); }
   });
 </script>

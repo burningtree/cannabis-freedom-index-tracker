@@ -308,3 +308,11 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 }
 .report-head .code { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--border); border-radius: var(--r); padding: 1px 6px; }
 .report-head .code:hover { color: var(--text); text-decoration: none; }
+
+/* the time range switch over the map (home) */
+.range-switch { position: absolute; z-index: 3; top: 10px; left: 50%; transform: translateX(-50%); display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+.range-switch button { padding: 6px 12px; border: 0; border-right: 1px solid var(--border); background: none; color: var(--text-2); font: 500 12.5px Inter, system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+.range-switch button:last-child { border-right: 0; }
+.range-switch button:hover { color: var(--text); background: var(--surface-2); }
+.range-switch button[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); }
+@media (max-width: 860px) { .range-switch { top: 46px; left: 10px; transform: none; } .range-switch button { padding: 6px 9px; font-size: 12px; } }
