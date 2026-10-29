@@ -104,7 +104,10 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
   "photo" or "video", url the cited page it is on, the publisher, and a caption saying what the
   pictures show, with the credit when there is one ("Police photos of the 52 plants and the grow
   room in the attic. Photo: Police of the Czech Republic"). Leave out a stock photo, a logo, a
-  portrait of an official or a picture of something else.
+  portrait of an official or a picture of something else. Never open an image address (.jpg, .png,
+  .webp, .gif, .avif) with webfetch: the tool reads text only and refuses every image, and you
+  cannot see pictures. Judge a photo by its caption, its credit and the article text around it;
+  on another cited page, by the captions and alt text in the page you opened.
 - sources: the title and publisher as published, the source's publication date, and its language
   (two letters) if not English.
 
