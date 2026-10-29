@@ -131,14 +131,23 @@ The rules live in two places, both run by `npm run build`:
 Citations are turned into numbered links by a Markdown plugin in `astro.config.mjs` (the same one as
 the CFI's); it also stops the build on a citation to a missing source.
 
-### Country ids
+### Country ids and the CFI widget
 
-`src/data/countries.json` is a copy of the CFI's places (id, name, region, ISO number, legal status).
-Refresh it from a CFI checkout with:
+`src/data/countries.json` is a copy of the CFI's places: ids, names, regions, legal status, and what
+the **Cannabis Freedom Index widget** on each country page shows (score, tier, rank, the six segment
+scores, summary, review date, score history). Names and segment scores come from a CFI checkout; the
+score and tier as the CFI publishes them (including national estimates and states) and the history
+come from the live site. Refresh it with:
 
 ```bash
 npm run countries:sync -- ../cannabis-freedom-index
 ```
+
+(`--local` reads the checkout's built `dist/` instead of the live site.) In the browser the widget
+then refreshes itself from the CFI's own `https://cannabisfreedom.fyi/api/<id>.json` (current score,
+summary, score line since 1900, the latest law changes that moved the score, cannabis use). States
+have no such file and keep the built-in copy. Report pages show a compact version under "The law
+there".
 
 ## Build
 

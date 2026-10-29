@@ -3,10 +3,11 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import WorldMap from "../../components/WorldMap.astro";
+import CfiWidget from "../../components/CfiWidget.astro";
 import ReportItem from "../../components/ReportItem.astro";
 import { reports, related, formatDate, isoDate } from "../../lib/reports.js";
 import { TYPES, STATUS, PRECISION } from "../../lib/types.js";
-import { flagOf, cfiUrl } from "../../lib/countries.js";
+import { flagOf } from "../../lib/countries.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("reports");
@@ -83,7 +84,7 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
     </section>
     <section>
       <h2>The law there</h2>
-      <p>How {r.countryName} treats cannabis today, its penalties and its history: <a href={cfiUrl(r.country)} class="ext" target="_blank" rel="noopener">{r.countryName} on the Cannabis Freedom Index</a>.</p>
+      <CfiWidget id={r.country} compact />
       <p><a href={`${base}country/${r.country}/`}>All reports from {r.countryName} →</a></p>
     </section>
   </div>

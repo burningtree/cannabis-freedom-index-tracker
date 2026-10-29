@@ -1,0 +1,32 @@
+[
+ {
+  "id": "possession",
+  "name": "Possession",
+  "weight": 25
+ },
+ {
+  "id": "cultivation",
+  "name": "Personal cultivation",
+  "weight": 25
+ },
+ {
+  "id": "enforcement",
+  "name": "Punishment & enforcement",
+  "weight": 20
+ },
+ {
+  "id": "sharing",
+  "name": "Sharing & gifting",
+  "weight": 10
+ },
+ {
+  "id": "consumption",
+  "name": "Consumption",
+  "weight": 10
+ },
+ {
+  "id": "access",
+  "name": "Legal access",
+  "weight": 10
+ }
+]

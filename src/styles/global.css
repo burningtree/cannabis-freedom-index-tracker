@@ -248,3 +248,43 @@ sup.cite a { color: var(--cite); text-decoration: none; }
   .home-map { height: 58vh; }
   .home-pane { border-left: 0; overflow: visible; }
 }
+
+/* ── Cannabis Freedom Index widget ──────────────────── */
+.cfi { border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); padding: 16px 18px; margin: 20px 0; }
+.cfi-head { display: flex; justify-content: space-between; gap: 12px; font: 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; }
+.cfi-brand { color: var(--text-2); }
+.cfi-top { display: flex; align-items: center; gap: 16px; }
+.cfi-score { display: flex; align-items: baseline; }
+.cfi-num { font: 400 52px/1 var(--display); color: var(--tier); }
+.cfi-of { font: 14px var(--mono); color: var(--muted); margin-left: 2px; }
+.cfi-tier { display: flex; flex-direction: column; gap: 2px; }
+.cfi-tier-name { font-weight: 600; }
+.cfi-rank { font-size: 13px; color: var(--text-2); }
+.cfi-scale { position: relative; height: 6px; margin: 12px 0 14px; border-radius: 3px; background: linear-gradient(90deg, #a3121f 0 5%, #dc4a2a 5% 15%, #f08c3a 15% 25%, #f0cf4a 25% 40%, #9ccc55 40% 60%, #2e9e4f 60%); opacity: .9; }
+.cfi-scale i { position: absolute; top: -4px; width: 3px; height: 14px; margin-left: -1.5px; background: var(--text); border-radius: 1px; }
+.cfi-status { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 0 0 10px; }
+.cfi-status div { display: flex; gap: 8px; align-items: baseline; }
+.cfi-status dt { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.cfi-status dd { margin: 0; font-weight: 500; }
+.cfi-summary { color: var(--text-2); font-size: 14.5px; margin: 0 0 12px; }
+.cfi-segs { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 5px; font-size: 13px; }
+.cfi-segs li { display: grid; grid-template-columns: 170px 1fr 22px; gap: 10px; align-items: center; }
+.cfi-segs b { font: 500 12px var(--mono); text-align: right; }
+.cfi-seg { height: 7px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+.cfi-seg i { display: block; height: 100%; }
+.cfi-trend { margin: 0 0 12px; }
+.cfi-trend svg { width: 100%; height: 60px; display: block; background: var(--surface-2); border-radius: var(--r); }
+.cfi-trend path { fill: none; stroke: var(--tier); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.cfi-trend figcaption { display: flex; justify-content: space-between; font: 11px var(--mono); color: var(--muted); margin-top: 4px; }
+.cfi-live h3 { font-size: 15px; margin: 4px 0 6px; }
+.cfi-changes { list-style: none; padding: 0; margin: 0 0 10px; font-size: 13.5px; }
+.cfi-changes li { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; padding: 6px 0; border-top: 1px solid var(--border); }
+.cfi-changes time { grid-column: 1 / -1; font: 11.5px var(--mono); color: var(--muted); }
+.cfi-move { font: 500 12px var(--mono); color: var(--text-2); white-space: nowrap; }
+.cfi-move.up::before { content: "▲ "; color: #2e9e4f; }
+.cfi-move.down::before { content: "▼ "; color: #dc4a2a; }
+.cfi-use { font-size: 13.5px; color: var(--text-2); }
+.cfi-use b { color: var(--text); }
+.cfi-more { display: inline-block; margin-top: 4px; font-size: 14px; color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--muted); }
+.cfi.compact .cfi-num { font-size: 40px; }
+@media (max-width: 560px) { .cfi-segs li { grid-template-columns: 120px 1fr 22px; } }

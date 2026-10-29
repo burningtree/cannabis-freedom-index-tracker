@@ -2,9 +2,10 @@
 // One page per country (or state) that has reports: its reports, totals and map.
 import Base from "../../layouts/Base.astro";
 import WorldMap from "../../components/WorldMap.astro";
+import CfiWidget from "../../components/CfiWidget.astro";
 import ReportItem from "../../components/ReportItem.astro";
 import { reportsOf, totals, countByType, isoDate } from "../../lib/reports.js";
-import { countries, countryName, countryOf, flagOf, cfiUrl } from "../../lib/countries.js";
+import { countries, countryName, countryOf, flagOf } from "../../lib/countries.js";
 import { TYPES, typeIcon } from "../../lib/types.js";
 
 export function getStaticPaths() {
@@ -22,16 +23,12 @@ const fmt = (n) => n.toLocaleString("en-GB");
 // the newest in full, the rest as one line each, by year
 const FULL = 20;
 const older = Object.entries(Object.groupBy(list.slice(FULL), (r) => r.year)).sort((a, b) => b[0] - a[0]);
-const REC = { legal: "legal", partial: "partly legal", decriminalised: "decriminalised", illegal: "illegal", death: "illegal, with the death penalty for trafficking" };
 ---
 <Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`}>
   <nav class="crumbs"><a href={`${base}country/`}>Countries</a>{c.parent && <> / <a href={`${base}country/${c.parent}/`}>{countryName(c.parent)}</a></>}</nav>
   <h1>{flagOf(id)} {name}</h1>
-  <p class="lead">
-    {list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.
-    Recreational cannabis is {REC[c.recreational] ?? c.recreational} here, according to the{" "}
-    <a href={cfiUrl(id)} class="ext" target="_blank" rel="noopener">Cannabis Freedom Index</a>.
-  </p>
+  <p class="lead">{list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.</p>
+  <CfiWidget id={id} />
 
   <div class="tiles">
     <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>

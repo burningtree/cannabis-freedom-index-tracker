@@ -1,0 +1,103 @@
+---
+// The Cannabis Freedom Index on a country page: what the law allows there, as the CFI scores it.
+// Built from the copy in src/data/countries.json (so it works without scripts, and for states), then
+// refreshed in the browser from the CFI's /api/<id>.json: the current score and summary, the score
+// year by year, the latest law changes and how many people use cannabis.
+//   compact: score, tier, legal status and summary only (the report page)
+import { cfiOf, cfiApi, tierOf, SEGMENTS, REC, MED, CFI } from "../lib/cfi.js";
+const { id, compact = false } = Astro.props;
+const c = cfiOf(id);
+const tier = c && tierOf(c.score);
+const profile = `${CFI}/country/${id}/`;
+const fmtDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+// the score since 1900 as a step line, 300 × 60
+const W = 300, H = 60;
+const trendPath = (pts) => {
+  if (!pts?.length) return null;
+  const now = new Date().getUTCFullYear(), x = (y) => ((y - 1900) / (now - 1900)) * W, y = (v) => H - (v / 100) * H;
+  let d = `M0 ${y(pts[0][1]).toFixed(1)}`;
+  for (const [yr, v] of pts) d += `H${x(yr).toFixed(1)}V${y(v).toFixed(1)}`;
+  return `${d}H${W}`;
+};
+const trend = c && trendPath(c.trend);
+---
+{c && (
+  <aside class:list={["cfi", { compact }]} data-cfi={cfiApi(id) ?? undefined} data-history={`${CFI}/history/`} style={`--tier:${tier.color}`}>
+    <header class="cfi-head">
+      <a href={CFI} target="_blank" rel="noopener" class="cfi-brand">Cannabis Freedom Index</a>
+      <span class="cfi-updated">{c.updated && <>Reviewed <time data-cfi-reviewed>{fmtDate(c.updated)}</time></>}</span>
+    </header>
+    <div class="cfi-top">
+      <div class="cfi-score">
+        <span class="cfi-num" data-cfi-score>{c.score}</span><span class="cfi-of">/100</span>
+      </div>
+      <div class="cfi-tier">
+        <span class="cfi-tier-name">{c.tier ?? tier.name}</span>
+        <span class="cfi-rank">{c.rank ? `#${c.rank} of ${c.ranked} countries` : c.parent ? `State of ${c.parent.name}` : ""}{c.note && ` · ${c.note}`}</span>
+      </div>
+    </div>
+    <div class="cfi-scale" aria-hidden="true"><i style={`left:${c.score}%`}></i></div>
+    <dl class="cfi-status">
+      <div><dt>Recreational</dt><dd>{REC[c.recreational] ?? c.recreational}</dd></div>
+      <div><dt>Medical</dt><dd>{MED[c.medical] ?? c.medical}</dd></div>
+    </dl>
+    <p class="cfi-summary" data-cfi-summary>{c.summary}</p>
+    {!compact && c.segments && (
+      <ul class="cfi-segs" aria-label="Scores by area of law, out of 10">
+        {SEGMENTS.map((s, i) => c.segments[i] != null && (
+          <li><span>{s.name}</span><span class="cfi-seg"><i style={`width:${c.segments[i] * 10}%;background:${tierOf(c.segments[i] * 10).color}`}></i></span><b>{c.segments[i]}</b></li>
+        ))}
+      </ul>
+    )}
+    {!compact && (
+      <figure class="cfi-trend" data-cfi-trend hidden={!trend}>
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="The score since 1900"><path d={trend ?? ""} /></svg>
+        <figcaption><span>1900</span><span>Score since 1900</span><span>{new Date().getUTCFullYear()}</span></figcaption>
+      </figure>
+    )}
+    {!compact && <div class="cfi-live" data-cfi-live hidden></div>}
+    <a class="cfi-more" href={profile} target="_blank" rel="noopener">{c.name} on the Cannabis Freedom Index →</a>
+  </aside>
+)}
+
+<script>
+  // Refresh from the CFI's live JSON: score, summary and review date, the score line, the latest law
+  // changes that moved the score, and cannabis use. If the request fails the built-in copy stays.
+  const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+  const fmtDate = (d: string) => new Date(`${d.length === 4 ? `${d}-01-01` : d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  for (const box of document.querySelectorAll<HTMLElement>("[data-cfi]")) {
+    fetch(box.dataset.cfi!).then((r) => (r.ok ? r.json() : Promise.reject(r.status))).then((d) => {
+      const scores: [number, number][] = d.scores ?? [];
+      const now = scores.at(-1)?.[1];
+      const set = (sel: string, v: string | null | undefined) => { const el = box.querySelector(sel); if (el && v) el.textContent = v; };
+      if (now != null) set("[data-cfi-score]", String(Math.round(now)));
+      set("[data-cfi-summary]", d.note);
+      if (d.reviewed) set("[data-cfi-reviewed]", fmtDate(d.reviewed));
+      // the score line, from 1900
+      const fig = box.querySelector<HTMLElement>("[data-cfi-trend]");
+      if (fig && scores.length) {
+        const year = new Date().getUTCFullYear(), W = 300, H = 60;
+        const pts = scores.map(([y, v]) => [Math.max(y, 1900), v]);
+        const x = (y: number) => ((y - 1900) / (year - 1900)) * W, y = (v: number) => H - (v / 100) * H;
+        let path = `M0 ${y(pts[0][1]).toFixed(1)}`;
+        for (const [yr, v] of pts) path += `H${x(yr).toFixed(1)}V${y(v).toFixed(1)}`;
+        fig.querySelector("path")!.setAttribute("d", `${path}H${W}`);
+        fig.hidden = false;
+      }
+      // the latest changes in the law that moved the score, and cannabis use
+      const live = box.querySelector<HTMLElement>("[data-cfi-live]");
+      if (!live) return;
+      const changes: [string, string, number, number, string][] = (d.changes ?? []).slice(-3).reverse();
+      const use = d.datasets?.cannabis_use;
+      let html = "";
+      if (changes.length) {
+        html += `<h3>Latest changes in the law</h3><ul class="cfi-changes">${changes.map(([date, title, before, after, id]) => {
+          const dir = after > before ? "up" : after < before ? "down" : "";
+          return `<li><time>${esc(fmtDate(date))}</time><a href="${esc(box.dataset.history! + id)}/" target="_blank" rel="noopener">${esc(title)}</a><span class="cfi-move ${dir}">${Math.round(before)} → ${Math.round(after)}</span></li>`;
+        }).join("")}</ul>`;
+      }
+      if (use?.[0]) html += `<p class="cfi-use"><b>${esc(use[0])}</b> ${esc(use[1] ?? "")} use cannabis${use[2] ? ` (${use[2]})` : ""}.</p>`;
+      if (html) { live.innerHTML = html; live.hidden = false; }
+    }).catch(() => {});
+  }
+</script>
