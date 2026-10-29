@@ -16,7 +16,7 @@ const i = years.indexOf(year);
 const SHOW = 5;
 ---
 <Base title={`${year}`} description={`${all.length} sourced reports of cannabis enforcement in ${year}, month by month.`}>
-  <nav class="crumbs"><a href={base}>Reports</a> / By date</nav>
+  <nav class="crumbs"><a href={`${base}reports/`}>Reports</a> / By date</nav>
   <h1>{year}</h1>
   <p class="lead">{all.length.toLocaleString("en-GB")} reports. {byType.map(([t, n]) => `${TYPES[t].plural} ${n}`).join(" · ")}</p>
   <nav class="pager">

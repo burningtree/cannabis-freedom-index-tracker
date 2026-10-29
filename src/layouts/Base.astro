@@ -36,7 +36,8 @@ const here = Astro.url.pathname.replace(base, "/");
     <header class="topbar">
       <a class="brand" href={base}><span class="brand-mark" aria-hidden="true">✕</span>Cannabis Enforcement Tracker</a>
       <nav class="nav">
-        <a href={base} aria-current={here === "/" ? "page" : undefined}>Reports</a>
+        <a href={base} aria-current={here === "/" ? "page" : undefined}>Map</a>
+        <a href={`${base}reports/`} aria-current={here.startsWith("/report") || /^\/\d{4}\//.test(here) ? "page" : undefined}>Reports</a>
         <a href={`${base}country/`} aria-current={here.startsWith("/country") ? "page" : undefined}>Countries</a>
         <a href={`${base}stats/`} aria-current={here.startsWith("/stats") ? "page" : undefined}>Statistics</a>
         <a href={`${base}about/`} aria-current={here.startsWith("/about") ? "page" : undefined}>About</a>

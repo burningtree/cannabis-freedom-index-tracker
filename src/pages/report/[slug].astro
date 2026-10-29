@@ -22,7 +22,7 @@ const more = related(r);
 const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" }).of(code);
 ---
 <Base title={r.title} description={r.summary}>
-  <nav class="crumbs"><a href={base}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
+  <nav class="crumbs"><a href={`${base}reports/`}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
   <article>
     <header class="report-head">
       <div class="meta">

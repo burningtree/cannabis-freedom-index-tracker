@@ -114,6 +114,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .map-layers a { color: var(--text-2); text-decoration: underline; }
 .swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; }
 .swatch.area { background: rgba(63,154,95,.35); border: 1px solid #5fbf7f; }
+.swatch.region { border-radius: 2px; border: 1.5px dashed #5fbf7f; }
 .swatch.accession { border: 1.5px solid #7fcf98; width: 9px; height: 9px; }
 .type.landrace { color: #7fcf98; }
 .type.landrace::before { display: none; }

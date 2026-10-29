@@ -7,9 +7,9 @@
 //   country: show only this country's reports (its states included) and zoom to them
 //   otherwise all reports and the whole world; the home page's filters narrow it through the
 //   "reports:filter" event, and pointing at a report in its list rings it ("reports:hover").
-// Two optional layers show Landrace.wiki's growing areas and accessions (CC BY-SA 4.0, a snapshot
-// in public/layers/landrace.geojson, loaded only when switched on): where cannabis has been grown
-// for generations, next to where it is destroyed.
+// Optional layers show Landrace.wiki's growing areas (their outlines), growing regions and accessions
+// (CC BY-SA 4.0, snapshots in public/layers/, each loaded only when its layer is switched on): where
+// cannabis has been grown for generations, next to where it is destroyed.
 import { MAP_STYLES } from "../lib/map.js";
 import { TYPES, typeIcon } from "../lib/types.js";
 const { focus = null, country = null, label = "Map of reports" } = Astro.props;
@@ -23,6 +23,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   <details class="map-layers">
     <summary>Layers</summary>
     <label><input type="checkbox" data-layer="area" /> <span class="swatch area"></span> Landrace growing areas</label>
+    <label><input type="checkbox" data-layer="region" /> <span class="swatch region"></span> Landrace growing regions</label>
     <label><input type="checkbox" data-layer="accession" /> <span class="swatch accession"></span> Landrace accessions</label>
     <p>From <a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a>, CC BY-SA 4.0. Places offset by about 500 m.</p>
   </details>
@@ -60,9 +61,17 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     let rows: Row[] = [];        // this map's reports
     let shown: Row[] = [];       // those the filters let through
     let hovered = "";
-    let landraceData: unknown = null;
     const KEY = "map-layers";    // which Landrace layers are on, remembered in this browser
-    let chosen: Record<string, boolean> = { area: true, accession: false };
+    let chosen: Record<string, boolean> = { area: true, region: false, accession: false };
+    // the Landrace files each layer needs, and the map layers it draws
+    const FILES: Record<string, string> = { points: "landrace.geojson", areas: "landrace-areas.geojson", regions: "landrace-regions.geojson" };
+    const NEEDS: Record<string, string[]> = { area: ["points", "areas"], region: ["regions"], accession: ["points"] };
+    const LAYERS: Record<string, string[]> = {
+      area: ["landrace-area-fill", "landrace-area-line", "landrace-area-dot", "landrace-area-label"],
+      region: ["landrace-region-fill", "landrace-region-line"],
+      accession: ["landrace-accession"],
+    };
+    const loaded: Record<string, unknown> = {};
     try { chosen = { ...chosen, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") }; } catch {}
 
     const geojson = (list: Row[]) => ({
@@ -83,29 +92,35 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       map.addImage(`t-${k}`, img, { pixelRatio: 2 });
     }));
 
-    // the Landrace layers, under the reports; drawn when first switched on
+    // the Landrace layers, under the reports, for whatever data has been loaded
     function addLandrace() {
-      if (!landraceData || map.getSource("landrace")) return;
       const c = INK[theme()];
-      map.addSource("landrace", { type: "geojson", data: landraceData as any });
-      map.addLayer({
-        id: "landrace-area", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "area"],
-        layout: { visibility: chosen.area ? "visible" : "none" },
-        paint: {
-          "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5, 6, 14, 10, 34],
-          "circle-color": c.greenFill, "circle-opacity": 0.22, "circle-stroke-color": c.green, "circle-stroke-width": 1, "circle-stroke-opacity": 0.8,
+      for (const [key, data] of Object.entries(loaded)) if (!map.getSource(`lr-${key}`)) map.addSource(`lr-${key}`, { type: "geojson", data: data as any });
+      const vis = (kind: string) => ({ visibility: chosen[kind] ? "visible" : "none" } as const);
+      const defs: any[] = [
+        { id: "landrace-region-fill", kind: "region", type: "fill", source: "lr-regions", paint: { "fill-color": c.greenFill, "fill-opacity": 0.05 } },
+        { id: "landrace-region-line", kind: "region", type: "line", source: "lr-regions", paint: { "line-color": c.green, "line-width": 1, "line-opacity": 0.75, "line-dasharray": [3, 2] } },
+        { id: "landrace-area-fill", kind: "area", type: "fill", source: "lr-areas", paint: { "fill-color": c.greenFill, "fill-opacity": 0.2 } },
+        { id: "landrace-area-line", kind: "area", type: "line", source: "lr-areas", paint: { "line-color": c.green, "line-width": ["interpolate", ["linear"], ["zoom"], 2, 0.6, 8, 1.4], "line-opacity": 0.9 } },
+        // a growing area without an outline is a circle
+        {
+          id: "landrace-area-dot", kind: "area", type: "circle", source: "lr-points", filter: ["all", ["==", ["get", "kind"], "area"], ["!", ["get", "outlined"]]],
+          paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5, 6, 14, 10, 34], "circle-color": c.greenFill, "circle-opacity": 0.22, "circle-stroke-color": c.green, "circle-stroke-width": 1, "circle-stroke-opacity": 0.8 },
         },
-      }, "clusters");
-      map.addLayer({
-        id: "landrace-area-label", type: "symbol", source: "landrace", filter: ["==", ["get", "kind"], "area"], minzoom: 4.5,
-        layout: { visibility: chosen.area ? "visible" : "none", "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11, "text-offset": [0, 1.6], "text-optional": true },
-        paint: { "text-color": c.greenText, "text-halo-color": c.bg, "text-halo-width": 1.2 },
-      }, "clusters");
-      map.addLayer({
-        id: "landrace-accession", type: "circle", source: "landrace", filter: ["==", ["get", "kind"], "accession"],
-        layout: { visibility: chosen.accession ? "visible" : "none" },
-        paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 8, 4.5], "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": c.greenText, "circle-stroke-width": 1.2 },
-      }, "clusters");
+        {
+          id: "landrace-area-label", kind: "area", type: "symbol", source: "lr-points", filter: ["==", ["get", "kind"], "area"], minzoom: 4.5,
+          layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11, "text-optional": true },
+          paint: { "text-color": c.greenText, "text-halo-color": c.bg, "text-halo-width": 1.2 },
+        },
+        {
+          id: "landrace-accession", kind: "accession", type: "circle", source: "lr-points", filter: ["==", ["get", "kind"], "accession"],
+          paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 8, 4.5], "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": c.greenText, "circle-stroke-width": 1.2 },
+        },
+      ];
+      for (const { kind, ...def } of defs) {
+        if (map.getLayer(def.id) || !map.getSource(def.source)) continue;
+        map.addLayer({ ...def, layout: { ...(def.layout ?? {}), ...vis(kind) } }, "clusters");
+      }
     }
 
     // everything drawn on the basemap; runs again after the basemap changes with the theme, which
@@ -141,10 +156,11 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     }
 
     const showLandrace = async (kind: string, on: boolean) => {
-      if (on && !landraceData) { landraceData = await fetch(`${base}layers/landrace.geojson`).then((r) => r.json()); addLandrace(); }
-      for (const id of kind === "area" ? ["landrace-area", "landrace-area-label"] : ["landrace-accession"]) {
-        if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
+      if (on) {
+        await Promise.all(NEEDS[kind].filter((k) => !loaded[k]).map(async (k) => { loaded[k] = await fetch(`${base}layers/${FILES[k]}`).then((r) => r.json()); }));
+        if (map.getLayer("clusters")) addLandrace();
       }
+      for (const id of LAYERS[kind]) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", chosen[kind] ? "visible" : "none");
     };
 
     Promise.all([loadIndex(base), new Promise((ok) => map.once("load", ok))]).then(async ([idx]) => {
@@ -188,16 +204,27 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(f.properties!.cluster_id);
         map.easeTo({ center: (f.geometry as any).coordinates, zoom });
       });
-      for (const id of ["landrace-area", "landrace-accession"]) {
-        map.on("mouseenter", id, (e) => {
+      const overReport = (e: maplibregl.MapMouseEvent) => map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length > 0;
+      const landraceBox = (p: any) => {
+        const what = p.kind === "area" ? "Landrace growing area" : p.kind === "region" ? "Landrace growing region" : `Landrace accession${p.year ? `, collected ${p.year}` : ""}`;
+        const where = p.kind === "accession" ? [p.area, p.country] : p.kind === "area" && p.region ? [p.region, p.country] : [p.country];
+        return `<span class="type landrace">${what}</span><strong>${esc(p.name)}</strong><span class="muted">${esc(where.filter(Boolean).join(" · "))}${where.some(Boolean) ? "<br>" : ""}Landrace.wiki</span>`;
+      };
+      const LANDRACE_HITS = ["landrace-accession", "landrace-area-dot", "landrace-area-fill", "landrace-region-fill"];
+      for (const id of LANDRACE_HITS) {
+        map.on("mousemove", id, (e) => {
+          if (overReport(e)) return;
           map.getCanvas().style.cursor = "pointer";
-          const p = e.features![0].properties as any;
-          const what = p.kind === "area" ? "Landrace growing area" : `Landrace accession${p.year ? `, collected ${p.year}` : ""}`;
-          popup.setLngLat((e.features![0].geometry as any).coordinates)
-            .setHTML(`<span class="type landrace">${what}</span><strong>${esc(p.name)}</strong><span class="muted">${esc([p.area ?? p.region, p.country].filter(Boolean).join(" · "))}<br>Landrace.wiki</span>`).addTo(map);
+          // the smallest thing under the pointer: an accession, then an area, then a region
+          const f = map.queryRenderedFeatures(e.point, { layers: LANDRACE_HITS.filter((l) => map.getLayer(l)) })[0] ?? e.features![0];
+          popup.setLngLat(f.geometry.type === "Point" ? (f.geometry as any).coordinates : e.lngLat).setHTML(landraceBox(f.properties)).addTo(map);
         });
         map.on("mouseleave", id, () => { map.getCanvas().style.cursor = ""; popup.remove(); });
-        map.on("click", id, (e) => { if (!map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length) window.open((e.features![0].properties as any).url, "_blank", "noopener"); });
+        map.on("click", id, (e) => {
+          if (overReport(e)) return;
+          const top = map.queryRenderedFeatures(e.point, { layers: LANDRACE_HITS.filter((l) => map.getLayer(l)) })[0];
+          if (top) window.open((top.properties as any).url, "_blank", "noopener");
+        });
       }
 
       // the home page's filters and list
