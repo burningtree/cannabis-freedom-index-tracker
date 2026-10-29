@@ -1,0 +1,21 @@
+---
+code: MCYP65
+date: "2026-05-28"
+country: ls
+type: seizure
+title: South African pilots intercepted with 500 kg of cannabis
+summary: >-
+  A Federal Airlines aircraft landed unlawfully at Moshoeshoe I airport with 500 kg of cannabis from
+  Thailand, allegedly destined for South Africa. The pilots were fined M200,000 for unlawful landing
+  and sent back; police denied that it was a cannabis seizure. The cannabis and destination claims
+  were allegations, not court findings.
+status: verified
+cfi_id: lesotho-pilot-cannabis-2026
+sources:
+  - title: SA pilots intercepted with cannabis (1 June 2026)
+    publisher: Sunday Express
+    url: https://sundayexpress.co.ls/?p=36072
+    locator: 500 kg; M200,000 fine; unlawful landing.
+---
+
+A Federal Airlines aircraft landed unlawfully at Moshoeshoe I airport with 500 kg of cannabis from Thailand, allegedly destined for South Africa. The pilots were fined M200,000 for unlawful landing and sent back; police denied that it was a cannabis seizure. The cannabis and destination claims were allegations, not court findings. [@1]

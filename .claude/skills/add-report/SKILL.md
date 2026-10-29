@@ -9,6 +9,13 @@ The user gives one or more URLs about an event. Turn them into one finished, sou
 by `docs/WRITING.md`. Several URLs about the **same** event make one report; URLs about different
 events make one report each.
 
+## 0. Does it belong here?
+
+A single enforcement event since 2000 that changes no law belongs here. A change in the law, a
+precedent-setting ruling, a famous or landmark case, national statistics, an execution or an event
+before 2000 goes to the Cannabis Freedom Index history instead (`docs/CFI.md`); say so and add it
+there with its `expand-country` instructions if asked.
+
 ## 1. Duplicate?
 
 ```bash
@@ -76,6 +83,9 @@ npm run build
 
 Fix anything the build reports. Check `git status`, commit only this report and its image:
 `Report: <short title> (<country>)`.
+
+Then, in the CFI checkout, run `node scripts/sync-tracker.mjs` and commit its `src/data/tracker.json`
+so the country's Enforcement section shows the report.
 
 Reply with the report's title, date, country, figures, sources (and which have an archived copy),
 anything you could not confirm, and the page: `/report/<slug>/`.

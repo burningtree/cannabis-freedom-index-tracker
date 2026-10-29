@@ -46,6 +46,13 @@ Good starting points (open them, they are sources only when they report the even
 Prefer events from the **last 12 months**; older ones only when notable (an execution, a landmark
 sentence, a record campaign).
 
+## 2b. Here or in the CFI?
+
+Only single enforcement events since 2000 that change no law are reports (`docs/CFI.md`). A change in
+the law, a precedent, a famous or landmark case, national statistics or an execution found on the way
+goes to the Cannabis Freedom Index history (`../cannabis-freedom-index`, `changes.yaml`, added without
+asking as its `docs/EXPAND-COUNTRY.md` says).
+
 ## 3. Check before writing
 
 For each candidate:
@@ -102,6 +109,9 @@ report pages in `dist/report/<slug>/index.html` if anything looks off.
 Others may work in this repository at the same time: check `git status`, commit only your own new or
 changed report files and images, one commit per run:
 `Reports: <country> <type>, … (n new)`.
+
+After committing, run `node scripts/sync-tracker.mjs` in the CFI checkout so its country profiles show
+the new reports (commit `src/data/tracker.json` there).
 
 Finish with a short list: each new report's title, country, date and sources, and any candidate you
 dropped and why.

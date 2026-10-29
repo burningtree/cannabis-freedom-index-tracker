@@ -31,7 +31,8 @@ for (const { file, data, body } of reports) {
     const cited = new Set([...body.matchAll(/\[@([^\]]+)\]/g)].flatMap((m) => m[1].split(",").map((x) => Number(x.trim()))));
     for (const n of cited) assert.ok(n >= 1 && n <= data.sources.length, `[@${n}] names no source`);
     for (let i = 1; i <= data.sources.length; i++) assert.ok(cited.has(i), `source ${i} is never cited ([@${i}])`);
-    assert.ok(body.trim().length > 200, "the text is too short");
+    // a report moved from the CFI history may keep that entry's short description
+    assert.ok(body.trim().length > (data.cfi_id ? 60 : 200), "the text is too short");
   });
 }
 
