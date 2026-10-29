@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { markdownGlossary } from "./src/lib/glossary.js";
 import { unified } from "@astrojs/markdown-remark";
 
 // Fully static output: one HTML file per report and per country, plus the JSON files under /api/.
@@ -89,6 +90,6 @@ export default defineConfig({
     },
   },
   markdown: {
-    processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks] }),
+    processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks, markdownGlossary] }),
   },
 });

@@ -1,0 +1,1019 @@
+{
+  "version": 1,
+  "source": "https://cannabisfreedom.fyi/api/glossary.json",
+  "entries": [
+    {
+      "id": "prensado",
+      "kind": "glossary",
+      "also": [],
+      "text": "Spanish for \"pressed\". Herbal cannabis compressed into hard blocks for transport, typical of the cannabis grown in Paraguay and sold across South America."
+    },
+    {
+      "id": "chira",
+      "kind": "glossary",
+      "also": [],
+      "text": "A North African name for hashish, used in Morocco and in the colonial drug laws of France and Belgium."
+    },
+    {
+      "id": "decriminalised",
+      "kind": "glossary",
+      "also": [
+        "decriminalized",
+        "decriminalisation",
+        "decriminalization",
+        "decriminalise",
+        "decriminalize"
+      ],
+      "text": "Still against the law, but no longer a crime. Having a small amount brings at most a fine or a warning, and no criminal record."
+    },
+    {
+      "id": "depenalised",
+      "kind": "glossary",
+      "also": [
+        "depenalized",
+        "depenalisation",
+        "depenalization"
+      ],
+      "text": "Still a crime on paper, but in practice no punishment is imposed for small amounts."
+    },
+    {
+      "id": "toleration policy",
+      "kind": "glossary",
+      "also": [
+        "tolerated",
+        "gedoogbeleid"
+      ],
+      "text": "Illegal, but the authorities have decided not to prosecute, as with the Dutch coffeeshops."
+    },
+    {
+      "id": "administrative offence",
+      "kind": "glossary",
+      "also": [
+        "administrative offense",
+        "administrative offences",
+        "Ordnungswidrigkeit",
+        "přestupek"
+      ],
+      "text": "A breach handled by an authority instead of a criminal court, usually with a fine and no criminal record."
+    },
+    {
+      "id": "misdemeanour",
+      "kind": "glossary",
+      "also": [
+        "misdemeanor",
+        "misdemeanours",
+        "misdemeanors"
+      ],
+      "text": "A minor crime, below a felony. It can bring a short jail term and leaves a criminal record."
+    },
+    {
+      "id": "felony",
+      "kind": "glossary",
+      "also": [
+        "felonies"
+      ],
+      "text": "A serious crime, usually one that can bring more than a year in prison."
+    },
+    {
+      "id": "trafficking",
+      "kind": "glossary",
+      "also": [
+        "drug trafficking"
+      ],
+      "text": "In drug law, supplying drugs to anyone else, sold or given away, not only smuggling them across borders."
+    },
+    {
+      "id": "presumption of trafficking",
+      "kind": "glossary",
+      "also": [
+        "presumed trafficking",
+        "presumed to be trafficking"
+      ],
+      "text": "A rule that treats anyone holding more than a set amount as a dealer, unless they prove otherwise."
+    },
+    {
+      "id": "mandatory minimum",
+      "kind": "glossary",
+      "also": [
+        "mandatory minimums",
+        "minimum sentence",
+        "minimum sentences"
+      ],
+      "text": "A prison term the judge must impose at least, whatever the circumstances of the case."
+    },
+    {
+      "id": "caning",
+      "kind": "glossary",
+      "also": [
+        "strokes of the cane"
+      ],
+      "text": "Corporal punishment with a rattan cane, still imposed for drug crimes in Singapore and Malaysia."
+    },
+    {
+      "id": "fixed penalty notice",
+      "kind": "glossary",
+      "also": [
+        "fixed penalty",
+        "fixed-penalty notice"
+      ],
+      "text": "An on-the-spot fine, like a parking ticket, paid without going to court."
+    },
+    {
+      "id": "diversion",
+      "kind": "glossary",
+      "also": [
+        "diverted",
+        "diversion programme",
+        "diversion program"
+      ],
+      "text": "Sending someone to treatment, education or a warning instead of to court."
+    },
+    {
+      "id": "expungement",
+      "kind": "glossary",
+      "also": [
+        "expunged",
+        "expunge",
+        "record clearing",
+        "records cleared"
+      ],
+      "text": "Removing an old conviction from a person's criminal record."
+    },
+    {
+      "id": "Single Convention",
+      "kind": "glossary",
+      "also": [
+        "Single Convention on Narcotic Drugs"
+      ],
+      "text": "The United Nations treaty of 1961 that obliges countries to control cannabis and to limit it to medical and scientific use."
+    },
+    {
+      "id": "Schedule I",
+      "kind": "glossary",
+      "also": [
+        "Schedule IV",
+        "Schedule 1"
+      ],
+      "text": "The strictest classes in a drug law's lists. Schedule I in the United States is for drugs said to have no accepted medical use; Schedule IV of the 1961 UN treaty was for drugs considered especially dangerous."
+    },
+    {
+      "id": "THC",
+      "kind": "glossary",
+      "also": [
+        "tetrahydrocannabinol",
+        "delta-9-THC",
+        "Δ9-THC"
+      ],
+      "text": "Tetrahydrocannabinol, the main substance in cannabis that makes people high."
+    },
+    {
+      "id": "HHC",
+      "kind": "glossary",
+      "also": [
+        "hexahydrocannabinol"
+      ],
+      "text": "Hexahydrocannabinol, a semi-synthetic cannabinoid usually made from CBD and sold as a legal high, until many countries banned it."
+    },
+    {
+      "id": "cannabinoid",
+      "kind": "glossary",
+      "also": [
+        "cannabinoids"
+      ],
+      "text": "A substance that acts on the body's cannabinoid receptors, such as THC or CBD."
+    },
+    {
+      "id": "endocannabinoid",
+      "kind": "glossary",
+      "also": [
+        "endocannabinoids",
+        "endocannabinoid system"
+      ],
+      "text": "A cannabinoid the body makes itself, such as anandamide."
+    },
+    {
+      "id": "per se limit",
+      "kind": "glossary",
+      "also": [
+        "per-se limit",
+        "fixed THC limit",
+        "fixed limit"
+      ],
+      "text": "A driving rule under which a set level of THC in the blood is an offence by itself, whether or not the driver is impaired."
+    },
+    {
+      "id": "ng/ml",
+      "kind": "glossary",
+      "also": [
+        "ng/mL",
+        "nanograms per millilitre"
+      ],
+      "text": "Nanograms per millilitre, the unit for THC in blood or serum. A nanogram is a billionth of a gram."
+    },
+    {
+      "id": "edibles",
+      "kind": "glossary",
+      "also": [
+        "edible"
+      ],
+      "text": "Food or sweets made with cannabis, such as cookies, chocolate or gummies."
+    },
+    {
+      "id": "concentrates",
+      "kind": "glossary",
+      "also": [
+        "concentrate",
+        "cannabis concentrates"
+      ],
+      "text": "Strong extracts of cannabis, such as oil, wax or shatter, with far more THC than the flower."
+    },
+    {
+      "id": "cultivation association",
+      "kind": "glossary",
+      "also": [
+        "cultivation associations",
+        "growing association",
+        "growing associations",
+        "Anbauvereinigung"
+      ],
+      "text": "A non-profit club whose members grow cannabis together and share the harvest only among themselves."
+    },
+    {
+      "id": "regulated market",
+      "kind": "glossary",
+      "also": [
+        "regulated cannabis market",
+        "legal market"
+      ],
+      "text": "A legal market in which the state licenses growers and sellers and sets rules on products, prices or buyers."
+    },
+    {
+      "id": "home growing",
+      "kind": "glossary",
+      "also": [
+        "home grow",
+        "home cultivation"
+      ],
+      "text": "Growing a few cannabis plants at home for one's own use, legal in some countries within a set number of plants."
+    },
+    {
+      "id": "telemedicine",
+      "kind": "glossary",
+      "also": [
+        "telemedicine platforms",
+        "online clinics"
+      ],
+      "text": "Doctors' consultations held online, through which some countries' patients get cannabis prescriptions without a visit."
+    },
+    {
+      "id": "Convention on Psychotropic Substances",
+      "kind": "glossary",
+      "also": [
+        "1971 Convention",
+        "Psychotropic Substances Convention"
+      ],
+      "text": "The United Nations treaty of 1971 that controls psychotropic substances, among them THC itself; the cannabis plant is controlled by the treaty of 1961."
+    },
+    {
+      "id": "1988 Convention",
+      "kind": "glossary",
+      "also": [
+        "Convention against Illicit Traffic"
+      ],
+      "text": "The United Nations treaty of 1988 against drug trafficking. It also asks countries to make possession for personal use a criminal offence, within the limits of their constitutions."
+    },
+    {
+      "id": "UNODC",
+      "kind": "glossary",
+      "also": [
+        "UN Office on Drugs and Crime",
+        "United Nations Office on Drugs and Crime"
+      ],
+      "text": "The United Nations Office on Drugs and Crime, which collects countries' drug figures and publishes the yearly World Drug Report."
+    },
+    {
+      "id": "International Narcotics Control Board",
+      "kind": "glossary",
+      "also": [
+        "INCB"
+      ],
+      "text": "The UN body that watches whether countries keep the drug treaties, and criticises those that legalise cannabis."
+    },
+    {
+      "id": "Commission on Narcotic Drugs",
+      "kind": "glossary",
+      "also": [
+        "CND"
+      ],
+      "text": "The UN commission where governments vote on which substances the drug treaties control. In 2020 it took cannabis out of the treaty's strictest list."
+    },
+    {
+      "id": "EUDA",
+      "kind": "glossary",
+      "also": [
+        "EMCDDA",
+        "European Union Drugs Agency"
+      ],
+      "text": "The European Union Drugs Agency in Lisbon, called the EMCDDA until 2024, which gathers drug figures from the EU countries."
+    },
+    {
+      "id": "rescheduling",
+      "kind": "glossary",
+      "also": [
+        "rescheduled",
+        "reschedule"
+      ],
+      "text": "Moving a drug to another list of a drug law or treaty, which changes how strictly it is controlled."
+    },
+    {
+      "id": "personal use",
+      "kind": "glossary",
+      "also": [
+        "for personal use",
+        "own use"
+      ],
+      "text": "Holding or using drugs for oneself rather than to supply anyone else. Many laws punish it far more lightly than dealing."
+    },
+    {
+      "id": "aggravated",
+      "kind": "glossary",
+      "also": [
+        "aggravating circumstances",
+        "aggravated offence",
+        "aggravated offense"
+      ],
+      "text": "An offence treated as more serious because of its circumstances, such as selling to children, near a school or as part of a gang, which raises the punishment."
+    },
+    {
+      "id": "suspended sentence",
+      "kind": "glossary",
+      "also": [
+        "suspended sentences",
+        "suspended prison sentence"
+      ],
+      "text": "A prison term the court imposes but does not enforce, unless the person offends again within a set period."
+    },
+    {
+      "id": "probation",
+      "kind": "glossary",
+      "also": [],
+      "text": "A sentence served in the community under supervision instead of in prison, with conditions such as regular drug tests."
+    },
+    {
+      "id": "day fine",
+      "kind": "glossary",
+      "also": [
+        "day fines",
+        "day-fine"
+      ],
+      "text": "A fine counted in days, each day worth a share of the person's income, so the same offence costs the rich more. Used in Germany and the Nordic countries."
+    },
+    {
+      "id": "amnesty",
+      "kind": "glossary",
+      "also": [
+        "amnesties"
+      ],
+      "text": "A decision that frees people from punishment for past offences or clears their convictions, usually after a law has changed."
+    },
+    {
+      "id": "zero tolerance",
+      "kind": "glossary",
+      "also": [],
+      "text": "A driving rule under which any trace of THC in the body is an offence, however long ago the cannabis was used."
+    },
+    {
+      "id": "paraphernalia",
+      "kind": "glossary",
+      "also": [
+        "drug paraphernalia"
+      ],
+      "text": "Equipment for using drugs, such as pipes, bongs, papers and grinders. Some laws make selling or holding it an offence."
+    },
+    {
+      "id": "compulsory treatment",
+      "kind": "glossary",
+      "also": [
+        "compulsory rehabilitation",
+        "drug rehabilitation centre",
+        "rehabilitation centre"
+      ],
+      "text": "Drug treatment ordered by a court or the authorities, sometimes in a closed rehabilitation centre, that the person cannot refuse."
+    },
+    {
+      "id": "dissuasion commission",
+      "kind": "glossary",
+      "also": [
+        "dissuasion commissions"
+      ],
+      "text": "In Portugal, a panel of health and social workers to which the police send people caught with drugs for their own use, instead of to a court."
+    },
+    {
+      "id": "narcological register",
+      "kind": "glossary",
+      "also": [
+        "drug users' register"
+      ],
+      "text": "In Russia and other former Soviet states, an official list of people known to use drugs, which can cost them a driving licence and some jobs."
+    },
+    {
+      "id": "harm reduction",
+      "kind": "glossary",
+      "also": [],
+      "text": "Measures that reduce the damage drug use does, such as drug checking or advice on safer use, without first requiring people to stop."
+    },
+    {
+      "id": "Sativex",
+      "kind": "glossary",
+      "also": [
+        "nabiximols"
+      ],
+      "text": "A mouth spray made from cannabis extracts, with THC and CBD in roughly equal parts, approved in many countries for muscle stiffness in multiple sclerosis. Its generic name is nabiximols."
+    },
+    {
+      "id": "dronabinol",
+      "kind": "glossary",
+      "also": [],
+      "text": "THC made as a medicine, mainly against nausea and loss of appetite."
+    },
+    {
+      "id": "nabilone",
+      "kind": "glossary",
+      "also": [],
+      "text": "A man-made substance similar to THC, prescribed against nausea during chemotherapy."
+    },
+    {
+      "id": "magistral preparation",
+      "kind": "glossary",
+      "also": [
+        "magistral preparations",
+        "magistral"
+      ],
+      "text": "A medicine made up by a pharmacist for one patient from a doctor's prescription, such as a cannabis oil dosed for that person."
+    },
+    {
+      "id": "THCA",
+      "kind": "glossary",
+      "also": [
+        "THC-A",
+        "tetrahydrocannabinolic acid"
+      ],
+      "text": "The acid form of THC found in the raw plant. It does not make people high until it is heated, which some sellers use to sell strong flower as \"hemp\"."
+    },
+    {
+      "id": "synthetic cannabinoids",
+      "kind": "glossary",
+      "also": [
+        "synthetic cannabinoid"
+      ],
+      "text": "Laboratory chemicals that act like THC, often far stronger and more dangerous, sold under names such as Spice or K2."
+    },
+    {
+      "id": "hash oil",
+      "kind": "glossary",
+      "also": [
+        "honey oil"
+      ],
+      "text": "A strong liquid extract of cannabis, with much more THC than the flower or hashish."
+    },
+    {
+      "id": "potency",
+      "kind": "glossary",
+      "also": [],
+      "text": "How strong a cannabis product is, usually given as its share of THC."
+    },
+    {
+      "id": "excise",
+      "kind": "glossary",
+      "also": [
+        "excise tax",
+        "excise duty",
+        "excise duties"
+      ],
+      "text": "A tax on a particular product, such as alcohol, tobacco or legal cannabis, charged on top of ordinary sales tax."
+    },
+    {
+      "id": "eradication",
+      "kind": "glossary",
+      "also": [
+        "eradication campaign",
+        "eradication campaigns"
+      ],
+      "text": "Destroying cannabis crops, by hand, by burning or by spraying from the air, usually by police or soldiers."
+    },
+    {
+      "id": "420",
+      "kind": "language",
+      "also": [
+        "4:20",
+        "4/20",
+        "four-twenty",
+        "420"
+      ],
+      "text": "A meeting time of five Californian schoolboys in 1971 that became the worldwide code for cannabis and the date of its yearly demonstrations.",
+      "url": "https://cannabisfreedom.fyi/culture/language/420/"
+    },
+    {
+      "id": "Anasha",
+      "kind": "language",
+      "also": [
+        "dichka",
+        "nasha",
+        "анаша",
+        "nasha",
+        "нашъа"
+      ],
+      "text": "The Russian slang word for cannabis and hashish, borrowed from Uzbek and Tajik. It names the drug of the Soviet south, and of the wild hemp of the Chuy valley.",
+      "url": "https://cannabisfreedom.fyi/culture/language/anasha/"
+    },
+    {
+      "id": "Assassin",
+      "kind": "language",
+      "also": [
+        "hashishiyya",
+        "hashishi",
+        "hashashin",
+        "Ashishin",
+        "assassino",
+        "Hachichin",
+        "حشيشية",
+        "حشيشي",
+        "assessin"
+      ],
+      "text": "A medieval Arabic insult for the Nizari Ismailis of Syria, ḥashīshiyya, that became the European word for a hired killer. Medieval legends of drugged killers, repeated by Marco Polo and given scholarly authority in 1809, later helped make cannabis itself an “assassin of youth”.",
+      "url": "https://cannabisfreedom.fyi/culture/language/assassin/"
+    },
+    {
+      "id": "Bangi",
+      "kind": "language",
+      "also": [
+        "bhang",
+        "banghi",
+        "bangi"
+      ],
+      "text": "The Swahili word for cannabis, linked to bhang and Indian Ocean exchange. Its immediate source and route inland are less certain than a simple borrowing from Hindi suggests.",
+      "url": "https://cannabisfreedom.fyi/culture/language/bangi/"
+    },
+    {
+      "id": "Bhang",
+      "kind": "language",
+      "also": [
+        "bhāṅg",
+        "bangue",
+        "bang",
+        "भांग",
+        "بنگ"
+      ],
+      "text": "The leaves of the plant, ground to a paste and eaten or drunk. In India it is the one form of cannabis that the national law leaves alone.",
+      "url": "https://cannabisfreedom.fyi/culture/language/bhang/"
+    },
+    {
+      "id": "Canyac",
+      "kind": "language",
+      "also": [
+        "Kan Jac",
+        "Canyac"
+      ],
+      "text": "The name Panama's 1935 Judicial Register gives for cannabis, \"commonly known locally as Canyac or Kan Jac\".",
+      "url": "https://cannabisfreedom.fyi/culture/language/canyac/"
+    },
+    {
+      "id": "CBD",
+      "kind": "language",
+      "also": [
+        "cannabidiol",
+        "CBD oil",
+        "CBD flower",
+        "Epidiolex",
+        "Epidyolex",
+        "novel food",
+        "hemp extract",
+        "CBD",
+        "cannabidiol"
+      ],
+      "text": "Cannabidiol, the cannabis compound that does not get people high. Studied since 1940, it became a word on shop shelves only after 2018, and the law still cannot agree whether it is a medicine, a food, a drug or none of these.",
+      "url": "https://cannabisfreedom.fyi/culture/language/cbd/"
+    },
+    {
+      "id": "Chamba",
+      "kind": "language",
+      "also": [
+        "Malawi Gold"
+      ],
+      "text": "Malawi's word for cannabis, one of the country's three famous C's along with its fish and its tea.",
+      "url": "https://cannabisfreedom.fyi/culture/language/chamba/"
+    },
+    {
+      "id": "Charas",
+      "kind": "language",
+      "also": [
+        "charras",
+        "चरस",
+        "چرس"
+      ],
+      "text": "Resin rubbed by hand from the living plant, the hashish of the Himalaya. Indian law names it in its definition of cannabis.",
+      "url": "https://cannabisfreedom.fyi/culture/language/charas/"
+    },
+    {
+      "id": "Dagga",
+      "kind": "language",
+      "also": [
+        "daccha",
+        "dacha",
+        "daggha",
+        "insangu",
+        "dagga",
+        "insangu"
+      ],
+      "text": "The southern African word, from Khoekhoe. First written down by the Dutch at the Cape in 1658, later a word of contempt, now reclaimed.",
+      "url": "https://cannabisfreedom.fyi/culture/language/dagga/"
+    },
+    {
+      "id": "Delta-8",
+      "kind": "language",
+      "also": [
+        "delta-8-THC",
+        "Δ8-THC",
+        "D8",
+        "delta-6-THC",
+        "delta-10",
+        "hemp-derived THC",
+        "intoxicating hemp",
+        "Δ8-THC",
+        "delta-8"
+      ],
+      "text": "Short for delta-8-THC, a close chemical cousin of the THC in cannabis, made in bulk from legal hemp after 2018 and sold in American petrol stations as a legal high. The word names a loophole as much as a molecule, and the loophole closes in November 2026.",
+      "url": "https://cannabisfreedom.fyi/culture/language/delta-8/"
+    },
+    {
+      "id": "Diamba",
+      "kind": "language",
+      "also": [
+        "liamba",
+        "riamba",
+        "yamba"
+      ],
+      "text": "A Central African word for cannabis that turns up on three coasts of the Atlantic, wherever enslaved and freed Central Africans were taken.",
+      "url": "https://cannabisfreedom.fyi/culture/language/diamba/"
+    },
+    {
+      "id": "Dispensary",
+      "kind": "language",
+      "also": [
+        "dispo",
+        "cannabis dispensary",
+        "buyers' club",
+        "cannabis store",
+        "cannabis retail outlet",
+        "medical marijuana dispensary",
+        "dispensary",
+        "dispensario",
+        "dispensaire"
+      ],
+      "text": "An old word for a place that hands out medicine, which in the United States became the name of the cannabis shop. The medical word was chosen because, for twenty years, medicine was the only legal ground cannabis could be sold on.",
+      "url": "https://cannabisfreedom.fyi/culture/language/dispensary/"
+    },
+    {
+      "id": "Esrar",
+      "kind": "language",
+      "also": [
+        "esrarkeş",
+        "esrar tekkesi",
+        "esrarhane",
+        "beng",
+        "haşiş",
+        "asrār",
+        "sır",
+        "gubar",
+        "esrar",
+        "اسرار"
+      ],
+      "text": "The everyday Turkish word for cannabis means \"secrets\". A medieval dervish poet was already using it for the drug, and it named the hashish dens that Ottoman and Republican police spent a century trying to close.",
+      "url": "https://cannabisfreedom.fyi/culture/language/esrar/"
+    },
+    {
+      "id": "Ganja",
+      "kind": "language",
+      "also": [
+        "gāñjā",
+        "ganjah",
+        "गांजा",
+        "กัญชา",
+        "កញ្ឆា",
+        "ກັນຊາ",
+        "cần sa"
+      ],
+      "text": "The Hindi word for the flowering tops. Indian labourers carried it to the Caribbean, and it also became the usual word across South-East Asia.",
+      "url": "https://cannabisfreedom.fyi/culture/language/ganja/"
+    },
+    {
+      "id": "Gol (گل)",
+      "kind": "language",
+      "also": [
+        "flower",
+        "sabzak",
+        "alaf",
+        "geras",
+        "jay",
+        "گل"
+      ],
+      "text": "Persian for flower, and a name for herbal cannabis whose rise in urban Iran carried ideas about class, modernity and belonging.",
+      "url": "https://cannabisfreedom.fyi/culture/language/gol/"
+    },
+    {
+      "id": "Hashish",
+      "kind": "language",
+      "also": [
+        "hash",
+        "haschisch",
+        "hachisch",
+        "hasch",
+        "hashish",
+        "hachís",
+        "jachís",
+        "حشيش"
+      ],
+      "text": "Arabic for dried grass. The word for cannabis resin from Morocco to Afghanistan.",
+      "url": "https://cannabisfreedom.fyi/culture/language/hashish/"
+    },
+    {
+      "id": "Indian hemp",
+      "kind": "language",
+      "also": [
+        "Cannabis indica",
+        "hemp drugs"
+      ],
+      "text": "The name under which the British Empire, and then the world, first brought cannabis under control. It survives in the statute books of dozens of countries that have nothing to do with India.",
+      "url": "https://cannabisfreedom.fyi/culture/language/indian-hemp/"
+    },
+    {
+      "id": "Indica and sativa",
+      "kind": "language",
+      "also": [
+        "hybrid",
+        "landrace",
+        "Cannabis indica",
+        "Cannabis sativa"
+      ],
+      "text": "Two Latin names from eighteenth-century botany that became the vocabulary of the modern cannabis shop. Botanists now doubt they name different things at all.",
+      "url": "https://cannabisfreedom.fyi/culture/language/indica-and-sativa/"
+    },
+    {
+      "id": "Injaga",
+      "kind": "language",
+      "also": [
+        "injaga"
+      ],
+      "text": "A Rwandan name for cannabis documented in 1959–60 interviews. The record also shows how a word for a plant could carry social prejudice about its users.",
+      "url": "https://cannabisfreedom.fyi/culture/language/injaga/"
+    },
+    {
+      "id": "Kif",
+      "kind": "language",
+      "also": [
+        "kief",
+        "keef",
+        "kef",
+        "كيف"
+      ],
+      "text": "From the Arabic for pleasure. In Morocco it means chopped cannabis mixed with tobacco, smoked in a long thin pipe.",
+      "url": "https://cannabisfreedom.fyi/culture/language/kif/"
+    },
+    {
+      "id": "Kush",
+      "kind": "language",
+      "also": [
+        "Hindu Kush",
+        "OG Kush",
+        "Purple Kush"
+      ],
+      "text": "Named after the Hindu Kush, the mountains whose hashish plants were carried to California in the 1970s. It became the most famous strain name in the world, and, in Sierra Leone, the name of something else entirely.",
+      "url": "https://cannabisfreedom.fyi/culture/language/kush/"
+    },
+    {
+      "id": "Landrace",
+      "kind": "language",
+      "also": [
+        "landraces",
+        "farmers' variety",
+        "beldiya",
+        "beldia",
+        "khardala",
+        "accession",
+        "landrace",
+        "Landrasse"
+      ],
+      "text": "A farmers' variety, kept by saving seed in the place where it grows rather than bred to a standard. The word came from German agronomy and, in cannabis, names the old local populations of the hashish and ganja regions, many of them lost to hybrids and eradication. Morocco now licenses its own, beldiya.",
+      "url": "https://cannabisfreedom.fyi/culture/language/landrace/"
+    },
+    {
+      "id": "Ma",
+      "kind": "language",
+      "also": [
+        "dàmá",
+        "taima",
+        "hemp",
+        "麻",
+        "大麻",
+        "大麻"
+      ],
+      "text": "The Chinese character for hemp, among the oldest recorded names for the plant. It also carries the sense of numbness.",
+      "url": "https://cannabisfreedom.fyi/culture/language/ma/"
+    },
+    {
+      "id": "Maconha",
+      "kind": "language",
+      "also": [
+        "diamba",
+        "liamba",
+        "pango",
+        "maconha"
+      ],
+      "text": "Brazil's word for cannabis, from Kimbundu, a language of Angola. It crossed the Atlantic with enslaved people, like the plant itself.",
+      "url": "https://cannabisfreedom.fyi/culture/language/maconha/"
+    },
+    {
+      "id": "Matekoane",
+      "kind": "language",
+      "also": [
+        "khomo ea fatše",
+        "likata",
+        "kakana",
+        "matekoane"
+      ],
+      "text": "The Sesotho word for cannabis connects generations of Basotho smallholder cultivation with South Africa’s market and Lesotho’s newer licensed medical industry.",
+      "url": "https://cannabisfreedom.fyi/culture/language/matekoane/"
+    },
+    {
+      "id": "Mbanje",
+      "kind": "language",
+      "also": [
+        "suruma",
+        "dagga",
+        "mbanje",
+        "suruma"
+      ],
+      "text": "Zimbabwe's word for a crop that has grown there for centuries. Near the Mozambican border, and across it, the name is suruma.",
+      "url": "https://cannabisfreedom.fyi/culture/language/mbanje/"
+    },
+    {
+      "id": "Mota",
+      "kind": "language",
+      "also": [
+        "moto",
+        "motorolo",
+        "pacheco",
+        "churro",
+        "toque",
+        "grifo",
+        "tabique",
+        "bareta",
+        "maría",
+        "juana",
+        "mota"
+      ],
+      "text": "Mexican and Central American Spanish for marijuana since at least the end of the nineteenth century. In older Spanish it is a speck or a tuft of fluff; how it came to mean the plant is unknown.",
+      "url": "https://cannabisfreedom.fyi/culture/language/mota/"
+    },
+    {
+      "id": "Ols",
+      "kind": "language",
+      "also": [
+        "olusu",
+        "олс",
+        "олс",
+        "ᠣᠯᠤᠰᠤ"
+      ],
+      "text": "The Mongolian word for hemp also means rope or cordage. Its compounds connect the plant with oil, textiles and livestock tethers; a proverb finds strength in a rope’s twist and in people helping one another.",
+      "url": "https://cannabisfreedom.fyi/culture/language/ols/"
+    },
+    {
+      "id": "Pakalōlō",
+      "kind": "language",
+      "also": [
+        "pakalolo",
+        "paka lōlō",
+        "paka lōlō",
+        "pakalolo"
+      ],
+      "text": "A Hawaiian name for cannabis, literally “numbing tobacco.” It also appears as pakalolo in Hawaiʻi's local English and Pidgin.",
+      "url": "https://cannabisfreedom.fyi/culture/language/pakalolo/"
+    },
+    {
+      "id": "Qanneb",
+      "kind": "language",
+      "also": [
+        "qanba",
+        "qannebusa",
+        "qanneb Indjan",
+        "kannabis",
+        "Indian hemp",
+        "qanneb"
+      ],
+      "text": "The Maltese word for hemp, familiar through ropes, textiles and birdseed. Drug legislation used qanneb indjan, “Indian hemp”; Article 25 of the 2021 reform literally replaced those words with “Cannabis”.",
+      "url": "https://cannabisfreedom.fyi/culture/language/qanneb/"
+    },
+    {
+      "id": "Reefer",
+      "kind": "language",
+      "also": [
+        "muggles",
+        "tea",
+        "viper",
+        "mezz",
+        "Reefer Madness"
+      ],
+      "text": "American slang of the jazz age for a cannabis cigarette, and the word that gave its name to the most famous anti-drug film ever made.",
+      "url": "https://cannabisfreedom.fyi/culture/language/reefer/"
+    },
+    {
+      "id": "Rongony",
+      "kind": "language",
+      "also": [
+        "chanvre indien dit rongony",
+        "angafo",
+        "jiajia",
+        "jamala",
+        "maosy",
+        "katrinia",
+        "rongony"
+      ],
+      "text": "The Malagasy name for cannabis, the fibre plant and the drug alike: a textile word that became a colonial offence and is still the everyday name on Madagascar.",
+      "url": "https://cannabisfreedom.fyi/culture/language/rongony/"
+    },
+    {
+      "id": "Sinsemilla",
+      "kind": "language",
+      "also": [
+        "sensimilla",
+        "sinse",
+        "sensi",
+        "sin semilla"
+      ],
+      "text": "Spanish for \"without seed\". The word for unpollinated female plants came north from Mexico in the 1970s and changed what people expected cannabis to be.",
+      "url": "https://cannabisfreedom.fyi/culture/language/sinsemilla/"
+    },
+    {
+      "id": "Spliff",
+      "kind": "language",
+      "also": [
+        "grabba"
+      ],
+      "text": "A Jamaican word of unknown origin for a cannabis cigarette. In Europe it came to mean one rolled with tobacco.",
+      "url": "https://cannabisfreedom.fyi/culture/language/spliff/"
+    },
+    {
+      "id": "Tinny",
+      "kind": "language",
+      "also": [
+        "tinnie",
+        "tinny house",
+        "tinnie house",
+        "foilie"
+      ],
+      "text": "New Zealand slang for a small deal of cannabis wrapped in tinfoil, and for the \"tinny house\", an ordinary-looking home where it is sold to anyone with cash.",
+      "url": "https://cannabisfreedom.fyi/culture/language/tinny/"
+    },
+    {
+      "id": "Wiet",
+      "kind": "language",
+      "also": [
+        "weed",
+        "nederwiet",
+        "binnenwiet",
+        "buitenwiet",
+        "mediwiet",
+        "wietpas",
+        "wiet"
+      ],
+      "text": "The Dutch word borrowed from English weed. It usually means herbal cannabis, while hasj means resin; the Opium Act uses the plant names hennep and cannabis.",
+      "url": "https://cannabisfreedom.fyi/culture/language/wiet/"
+    },
+    {
+      "id": "Zamal",
+      "kind": "language",
+      "also": [
+        "jamala",
+        "amale",
+        "candia",
+        "ciga",
+        "chimique",
+        "zamal",
+        "jamala"
+      ],
+      "text": "The Creole word for cannabis on Réunion. It seems to come from Madagascar, though modern Malagasy does not use it; on the island it names a plant, a temper and a book of poems.",
+      "url": "https://cannabisfreedom.fyi/culture/language/zamal/"
+    },
+    {
+      "id": "Zatla",
+      "kind": "language",
+      "also": [
+        "takrouri",
+        "زطلة",
+        "تكروري"
+      ],
+      "text": "Tunisia's everyday word for cannabis. An older name, takrouri, is the one in the decrees of the French protectorate.",
+      "url": "https://cannabisfreedom.fyi/culture/language/zatla/"
+    }
+  ]
+}

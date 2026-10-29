@@ -323,3 +323,10 @@ Astro build. Backend checks: `cd backend && go test -race ./... && go vet ./...`
 The submission source vocabulary is synced from CFI's public `/api/glossary.json` with
 `node scripts/sync-glossary.mjs [../cannabis-freedom-index|https://cannabisfreedom.fyi/]`.
 The generated snapshot is embedded in the backend; rebuild/restart after syncing.
+
+CFI glossary and language-atlas explanations also appear throughout tracker prose with dashed underlines and
+hover/focus/tap tooltips. `node scripts/sync-glossary.mjs` updates both the backend recognition
+vocabulary and `src/data/glossary.json`. Markdown gets term markup during builds; the shared
+layout also marks summaries and live previews. Links, headings, form controls, citations, code,
+maps and raw AI transcripts are left untouched. Atlas terms such as bhang also link to their
+CFI article. Each glossary term is marked once per page.

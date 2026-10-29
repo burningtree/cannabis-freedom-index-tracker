@@ -421,3 +421,15 @@ sup.cite a { color: var(--cite); text-decoration: none; }
   .ry h2 { font-size: 56px; padding-bottom: 8px; }
   .ry-months { display: none; }
 }
+
+/* CFI's term layer: glossary definitions available on hover, focus and tap. */
+.term-g { color: inherit; text-decoration: underline dashed; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; cursor: help; }
+.term-g:hover, .term-g:focus-visible { text-decoration-color: currentColor; }
+.term-g:focus-visible { outline: 2px solid var(--muted); outline-offset: 3px; }
+.glossary-tooltip { position: fixed; z-index: 100; width: min(340px, calc(100vw - 20px)); max-height: calc(100vh - 20px); overflow-y: auto; box-sizing: border-box; padding: 14px 16px 12px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-top: 2px solid var(--text); box-shadow: 0 12px 32px rgb(0 0 0 / .28); font-size: 13.5px; line-height: 1.45; }
+.glossary-tooltip[hidden] { display: none; }
+.glossary-tooltip .glossary-eyebrow { margin: 0; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.glossary-tooltip .glossary-title { display: block; margin-top: 6px; font: 400 22px/1.1 var(--display); }
+.glossary-tooltip .glossary-definition { margin: 8px 0 0; color: var(--text-2); }
+.prose a.term { text-decoration: underline dashed; text-decoration-color: var(--muted); text-decoration-thickness: 1px; }
+.prose a.term:hover, .prose a.term:focus-visible { text-decoration-color: currentColor; }
