@@ -86,10 +86,40 @@ function rings(polygon) {
 }
 
 const first = (v) => v?.[0];
+const texts = (v) => (v ?? []).map((x) => (typeof x === "object" ? x.fulltext ?? x.value : x)).filter((x) => x != null && x !== "");
+const qty = (v) => { const q = first(v); return q && typeof q.value === "number" ? q.value : null; };
+// the infobox facts of a growing area or region, as flat properties (null when not given)
+const info = (r) => {
+  const p = r?.printouts ?? {};
+  return {
+    status: first(texts(p["Has growing status"])) ?? null,
+    description: first(texts(p["Has description"])) ?? null,
+    countries: texts(p["Has country"]).join(", ") || null,
+    provinces: texts(p["Has province"]).join(", ") || null,
+    climate: first(texts(p["Has climate"])) ?? null,
+    elev_min: qty(p["Has minimum elevation"]), elev_max: qty(p["Has maximum elevation"]),
+    mountains: texts(p["Has primary mountains"]).join(", ") || null,
+    rivers: texts(p["Has primary rivers"]).join(", ") || null,
+    extent_km2: qty(p["Has area extent"]),
+  };
+};
 const name = (v) => first(v)?.fulltext ?? null;
 const point = (r) => { const c = first(r.printouts["Has coordinates"]); return c ? [+c.lon.toFixed(3), +c.lat.toFixed(3)] : null; };
 
-const areas = await ask("[[Category:Growing Areas]][[Has coordinates::+]]", ["Has coordinates", "Has country", "Has growing region"]);
+// what the tooltips say about a growing area or region, from its infobox
+const INFO = ["Has growing status", "Has description", "Has country", "Has province", "Has climate", "Has minimum elevation", "Has maximum elevation", "Has primary mountains", "Has primary rivers", "Has area extent", "Has terrain"];
+const areas = await ask("[[Category:Growing Areas]][[Has coordinates::+]]", ["Has coordinates", "Has growing region", ...INFO]);
+const regions = await ask("[[Category:Growing Regions]]", INFO);
+// the seed lots: each lot's step of the grow-out priority method, by the accession it belongs to; an
+// accession with several lots shows its most urgent one, as on Landrace.wiki's own map
+const STEPS = ["Urgent", "At risk", "Data deficient", "Secure", "Held in a genebank"];
+const lots = await ask("[[Is lot of::+]]", ["Is lot of", "Has seed lot step"]);
+const lotOf = {};
+for (const r of Object.values(lots)) {
+  const acc = name(r.printouts["Is lot of"]), step = first(texts(r.printouts["Has seed lot step"]));
+  if (!acc || !STEPS.includes(step)) { if (acc && !(acc in lotOf)) lotOf[acc] = "Data deficient"; continue; }
+  if (!(acc in lotOf) || STEPS.indexOf(step) < STEPS.indexOf(lotOf[acc])) lotOf[acc] = step;
+}
 const accessions = await ask("[[Category:Accessions]][[Has coordinates::+]]", ["Has coordinates", "Has country", "Has growing area", "Has descriptive name", "Has collection date", "Has coordinate uncertainty"]);
 
 const features = [
@@ -106,6 +136,7 @@ const features = [
         kind: "accession", name: first(r.printouts["Has descriptive name"]) ?? title, id: title, url: r.fullurl,
         country: name(r.printouts["Has country"]), area: name(r.printouts["Has growing area"]),
         year: date ? Number(date.split("/")[1]) || null : null,
+        lot: lotOf[title] ?? null, // the most urgent seed lot step, or null: no seed lot recorded
         uncertainty_m: unc ? Math.round(unc.unit === "km" ? unc.value * 1000 : unc.value) : null,
       },
     };
@@ -139,6 +170,22 @@ for (const [tier, bands] of Object.entries(BANDS)) {
     }
   }
 }
+// how many accessions come from each growing area, and from each region through its areas
+const regionOfArea = Object.fromEntries(Object.entries(areas).map(([k, r]) => [k, name(r.printouts["Has growing region"])]));
+const accAreas = {}, accRegions = {};
+for (const f of features) {
+  if (f.properties.kind !== "accession" || !f.properties.area) continue;
+  accAreas[f.properties.area] = (accAreas[f.properties.area] ?? 0) + 1;
+  const region = regionOfArea[f.properties.area];
+  if (region) accRegions[region] = (accRegions[region] ?? 0) + 1;
+}
+for (const s of shapes) {
+  const key = decodeURIComponent(s.properties.url.split("/wiki/")[1]).replace(/_/g, " ");
+  const isArea = s.properties.kind === "area";
+  Object.assign(s.properties, info(isArea ? areas[key] : regions[key]), { accessions: (isArea ? accAreas : accRegions)[key] ?? 0 });
+}
+for (const f of features) if (f.properties.kind === "area") Object.assign(f.properties, info(areas[f.properties.name]), { accessions: accAreas[f.properties.name] ?? 0 });
+
 // a growing area with an outline is drawn as its outline, not as a circle
 const outlined = new Set(shapes.filter((s) => s.properties.kind === "area").map((s) => s.properties.name));
 for (const f of features) if (f.properties.kind === "area") f.properties.outlined = outlined.has(f.properties.name);

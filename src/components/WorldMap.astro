@@ -16,6 +16,8 @@ import { TYPES, typeIcon } from "../lib/types.js";
 const { focus = null, country = null, hash = false, label = "Map of reports" } = Astro.props;
 const ZOOM = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
 const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordinates[0]], zoom: ZOOM[focus.precision] ?? 5 } : null;
+// accessions by seed lot status, with Landrace.wiki's own colours (MediaWiki:Common.js); no seed lot is a hollow dot
+const LOTS = [["Urgent", "#c92a2a"], ["At risk", "#e67700"], ["Secure", "#0ca678"], ["Held in a genebank", "#4c6ef5"], ["No data yet", "#6c757d"], ["No seed lot recorded", null]];
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color, icon: typeIcon(k, 64) }]));
 ---
 <div class="map" data-map data-styles={JSON.stringify(MAP_STYLES)} data-base={import.meta.env.BASE_URL}
@@ -26,6 +28,9 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     <label><input type="checkbox" data-layer="area" /> <span class="swatch area"></span> Landrace growing areas</label>
     <label><input type="checkbox" data-layer="region" /> <span class="swatch region"></span> Landrace growing regions</label>
     <label><input type="checkbox" data-layer="accession" /> <span class="swatch accession"></span> Landrace accessions</label>
+    <ul class="lot-key" aria-label="Accessions by seed lot status">
+      {LOTS.map(([label, color]) => <li><span class="lot-dot" style={color ? `background:${color}` : undefined}></span>{label}</li>)}
+    </ul>
     <p>From <a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a>, CC BY-SA 4.0. Places offset by about 500 m.</p>
   </details>
 </div>
@@ -114,14 +119,22 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
           paint: { "text-color": c.greenText, "text-halo-color": c.bg, "text-halo-width": 1.2 },
         },
         {
+          // filled in its seed lot's colour (Landrace.wiki's), hollow when no seed lot is recorded
           id: "landrace-accession", kind: "accession", type: "circle", source: "lr-points", filter: ["==", ["get", "kind"], "accession"],
-          paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 8, 4.5], "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": c.greenText, "circle-stroke-width": 1.2 },
+          paint: {
+            "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2.6, 8, 5.5],
+            "circle-color": ["match", ["coalesce", ["get", "lot"], ""], "Urgent", "#c92a2a", "At risk", "#e67700", "Secure", "#0ca678", "Held in a genebank", "#4c6ef5", "Data deficient", "#6c757d", c.bg],
+            "circle-stroke-color": c.ink, "circle-stroke-width": ["case", ["!=", ["coalesce", ["get", "lot"], ""], ""], 0.8, 1.4], "circle-stroke-opacity": 0.85,
+          },
         },
       ];
-      for (const { kind, ...def } of defs) {
-        if (map.getLayer(def.id) || !map.getSource(def.source)) continue;
-        map.addLayer({ ...def, layout: { ...(def.layout ?? {}), ...vis(kind) } }, "clusters");
-      }
+      // always in this order, bottom to top, whichever file arrived first: each goes under the next
+      // one already on the map, or under the reports
+      defs.forEach(({ kind, ...def }, i) => {
+        if (map.getLayer(def.id) || !map.getSource(def.source)) return;
+        const above = defs.slice(i + 1).find((d) => map.getLayer(d.id))?.id ?? "clusters";
+        map.addLayer({ ...def, layout: { ...(def.layout ?? {}), ...vis(kind) } }, above);
+      });
     }
 
     // everything drawn on the basemap; runs again after the basemap changes with the theme, which
@@ -188,7 +201,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       }
 
       // hover boxes and clicks; bound to layer names, so they keep working after a rebuild
-      const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, maxWidth: "280px", className: "map-tip" });
+      const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, maxWidth: "300px", className: "map-tip" });
       map.on("mouseenter", "reports", (e) => {
         map.getCanvas().style.cursor = "pointer";
         const f = e.features![0], p = f.properties as any;
@@ -206,24 +219,47 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         map.easeTo({ center: (f.geometry as any).coordinates, zoom });
       });
       const overReport = (e: maplibregl.MapMouseEvent) => map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length > 0;
+      // what a Landrace hover box says: for an area or region its status, place, description and facts
+      // from its Landrace.wiki infobox; for an accession its place, year and seed lot status
+      const LOT_COLOR: Record<string, string> = { Urgent: "#c92a2a", "At risk": "#e67700", Secure: "#0ca678", "Held in a genebank": "#4c6ef5", "Data deficient": "#6c757d" };
+      const LOT_LABEL: Record<string, string> = { "Data deficient": "No data yet, or too little to rate", "Held in a genebank": "Held in a genebank, not distributed" };
+      const num = (n: number) => n.toLocaleString("en-GB");
+      const clip = (s: string, n = 220) => (s.length > n ? `${s.slice(0, s.lastIndexOf(" ", n))}…` : s);
       const landraceBox = (p: any) => {
-        const what = p.kind === "area" ? "Landrace growing area" : p.kind === "region" ? "Landrace growing region" : `Landrace accession${p.year ? `, collected ${p.year}` : ""}`;
-        const where = p.kind === "accession" ? [p.area, p.country] : p.kind === "area" && p.region ? [p.region, p.country] : [p.country];
-        return `<span class="type landrace">${what}</span><strong>${esc(p.name)}</strong><span class="muted">${esc(where.filter(Boolean).join(" · "))}${where.some(Boolean) ? "<br>" : ""}Landrace.wiki</span>`;
+        if (p.kind === "accession") {
+          const lot = p.lot ? `<span class="tip-lot"><i style="background:${LOT_COLOR[p.lot] ?? "#6c757d"}"></i>Seed lot: ${esc(LOT_LABEL[p.lot] ?? p.lot)}</span>` : `<span class="tip-lot"><i class="hollow"></i>No seed lot recorded</span>`;
+          return `<span class="type landrace">Landrace accession${p.year ? `, collected ${p.year}` : ""}</span><strong>${esc(p.name)}</strong>`
+            + `<span class="muted">${esc([p.area, p.country].filter(Boolean).join(" · "))}</span>${lot}<span class="muted tip-src">Landrace.wiki</span>`;
+        }
+        const what = p.kind === "area" ? "Landrace growing area" : "Landrace growing region";
+        const status = p.status ? ` · <b class="tip-status ${p.status === "Active" ? "on" : ""}">${esc(p.status)}</b>` : "";
+        const where = [p.countries ?? p.country, p.provinces].filter(Boolean).join(" · ");
+        const elev = p.elev_min != null && p.elev_max != null ? `${num(p.elev_min)}–${num(p.elev_max)} m` : p.elev_max != null ? `up to ${num(p.elev_max)} m` : null;
+        const facts = [elev, p.climate, p.mountains && `${p.mountains} mountains`, p.extent_km2 && `${num(p.extent_km2)} km²`].filter(Boolean);
+        const acc = p.accessions ? `${num(p.accessions)} accession${p.accessions === 1 ? "" : "s"} · ` : "";
+        return `<span class="type landrace">${what}${status}</span><strong>${esc(p.name)}</strong>`
+          + (where ? `<span class="muted">${esc(where)}</span>` : "")
+          + (p.description ? `<span class="tip-desc">${esc(clip(p.description))}</span>` : "")
+          + (facts.length ? `<span class="tip-facts">${esc(facts.join(" · "))}</span>` : "")
+          + `<span class="muted tip-src">${acc}Landrace.wiki</span>`;
       };
+      // the smallest thing under the pointer: an accession, then an area, then a region
       const LANDRACE_HITS = ["landrace-accession", "landrace-area-dot", "landrace-area-fill", "landrace-region-fill"];
+      const landraceAt = (e: maplibregl.MapMouseEvent) => {
+        for (const l of LANDRACE_HITS) if (map.getLayer(l)) { const f = map.queryRenderedFeatures(e.point, { layers: [l] })[0]; if (f) return f; }
+        return null;
+      };
       for (const id of LANDRACE_HITS) {
         map.on("mousemove", id, (e) => {
           if (overReport(e)) return;
           map.getCanvas().style.cursor = "pointer";
-          // the smallest thing under the pointer: an accession, then an area, then a region
-          const f = map.queryRenderedFeatures(e.point, { layers: LANDRACE_HITS.filter((l) => map.getLayer(l)) })[0] ?? e.features![0];
+          const f = landraceAt(e) ?? e.features![0];
           popup.setLngLat(f.geometry.type === "Point" ? (f.geometry as any).coordinates : e.lngLat).setHTML(landraceBox(f.properties)).addTo(map);
         });
         map.on("mouseleave", id, () => { map.getCanvas().style.cursor = ""; popup.remove(); });
         map.on("click", id, (e) => {
           if (overReport(e)) return;
-          const top = map.queryRenderedFeatures(e.point, { layers: LANDRACE_HITS.filter((l) => map.getLayer(l)) })[0];
+          const top = landraceAt(e);
           if (top) window.open((top.properties as any).url, "_blank", "noopener");
         });
       }
