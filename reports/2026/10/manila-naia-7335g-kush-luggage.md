@@ -28,6 +28,10 @@ sources:
     url: https://balita.org/n/marijuana-in-luggage-seized-at-naia/110104
     publisher: Balita
     date: 2026-10-28
+  - title: Unclaimed luggages containing P7.3-M worth of Marijuana Kush seized at NAIA
+    url: https://tribune.net.ph/2026/10/28/unclaimed-luggages-containing-p73-m-worth-of-marijuana-kush-seized-at-naia
+    publisher: Daily Tribune
+    date: 2026-10-28
 ---
 
 Bureau of Customs officers discovered 7,335 grams of marijuana kush inside three unclaimed pieces
@@ -37,5 +41,5 @@ screening, manual inspection and a PDEA canine panel flagged the bags. [@1,2]
 
 The bags were linked to two passengers who arrived from Bangkok on 24 September, and the
 inspection brought together the NAIA inter-agency drug task group and the police aviation
-security group. [@1,2] No owner has been identified; the drugs were turned over to PDEA custody.
+security group. [@1,2,3] No owner has been identified; the drugs were turned over to PDEA custody.
 [@1,2]
