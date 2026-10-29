@@ -1,7 +1,7 @@
 ---
 // The map of reports: MapLibre GL JS on OpenFreeMap's vector tiles (src/lib/map.js), dark or light
-// with the site's theme, a diamond marker per report by type, grouped into numbered clusters where
-// they crowd. The markers come from the shared index (/api/index.json), loaded once and cached by the
+// with the site's theme, a diamond marker per report by type; grouping crowded markers into numbered
+// clusters is an option in the Layers panel (off unless the reader turns it on). The markers come from the shared index (/api/index.json), loaded once and cached by the
 // browser, so a page does not carry the reports itself however many there are.
 //   focus: a report to centre on and ring (the report page)
 //   country: show only this country's reports (its states included) and zoom to them
@@ -25,6 +25,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   data-types={JSON.stringify(types)} role="region" aria-label={label}>
   <details class="map-layers">
     <summary>Layers</summary>
+    <label><input type="checkbox" data-option="cluster" /> <span class="swatch cluster">3</span> Group nearby reports</label>
     <label><input type="checkbox" data-layer="area" /> <span class="swatch area"></span> Landrace growing areas</label>
     <label><input type="checkbox" data-layer="region" /> <span class="swatch region"></span> Landrace growing regions</label>
     <label><input type="checkbox" data-layer="accession" /> <span class="swatch accession"></span> Landrace accessions</label>
@@ -68,7 +69,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     let shown: Row[] = [];       // those the filters let through
     let hovered = "";
     const KEY = "map-layers";    // which Landrace layers are on, remembered in this browser
-    let chosen: Record<string, boolean> = { area: true, region: false, accession: false };
+    let chosen: Record<string, boolean> = { cluster: false, area: true, region: false, accession: false };
     // the Landrace files each layer needs, and the map layers it draws
     const FILES: Record<string, string> = { points: "landrace.geojson", areas: "landrace-areas.geojson", regions: "landrace-regions.geojson" };
     const NEEDS: Record<string, string[]> = { area: ["points", "areas"], region: ["regions"], accession: ["points"] };
@@ -141,8 +142,16 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     // drops all added sources and layers
     async function build() {
       await icons();
+      addReports();
+      addLandrace();
+    }
+
+    // the report markers, grouped into clusters only when the reader chose it; a "clusters" layer is
+    // always there (empty without grouping), as the Landrace layers are placed under it
+    const REPORT_LAYERS = ["reports", "focus", "hover", "cluster-count", "clusters"];
+    function addReports() {
       const c = INK[theme()];
-      map.addSource("reports", { type: "geojson", data: geojson(shown), cluster: true, clusterRadius: 26, clusterMaxZoom: 5 });
+      map.addSource("reports", { type: "geojson", data: geojson(shown), cluster: chosen.cluster, clusterRadius: 26, clusterMaxZoom: 5 });
       // clusters: a neutral disc with the number of reports
       map.addLayer({
         id: "clusters", type: "circle", source: "reports", filter: ["has", "point_count"],
@@ -166,7 +175,12 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
           "symbol-sort-key": ["case", ["get", "focus"], 1, 0],
         },
       });
-      addLandrace();
+    }
+    // switching grouping on or off: a GeoJSON source cannot change that, so the markers are redrawn
+    function regroup() {
+      for (const id of REPORT_LAYERS) if (map.getLayer(id)) map.removeLayer(id);
+      if (map.getSource("reports")) map.removeSource("reports");
+      addReports();
     }
 
     const showLandrace = async (kind: string, on: boolean) => {
@@ -189,6 +203,13 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
       }
 
+      const group = box.querySelector<HTMLInputElement>('[data-option="cluster"]')!;
+      group.checked = chosen.cluster;
+      group.addEventListener("change", () => {
+        chosen.cluster = group.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(chosen)); } catch {}
+        regroup();
+      });
       for (const input of box.querySelectorAll<HTMLInputElement>("[data-layer]")) {
         const kind = input.dataset.layer!;
         input.checked = chosen[kind];
@@ -200,25 +221,12 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         });
       }
 
-      // hover boxes and clicks; bound to layer names, so they keep working after a rebuild
+      // Hover boxes and clicks: one handler for the whole map, which looks under the pointer in a fixed
+      // order, so a report always wins over everything else: a report marker (with a few pixels of
+      // slack, as the diamonds are small), a cluster, then the Landrace layers from the smallest thing
+      // to the largest (an accession, an area, a region). Layers are looked up by name on every move,
+      // so this keeps working after the basemap or the grouping changes.
       const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, maxWidth: "300px", className: "map-tip" });
-      map.on("mouseenter", "reports", (e) => {
-        map.getCanvas().style.cursor = "pointer";
-        const f = e.features![0], p = f.properties as any;
-        popup.setLngLat((f.geometry as any).coordinates)
-          .setHTML(`<span class="type" style="--c:${esc(p.color)}">${esc(p.type)}</span><strong>${esc(p.title)}</strong><span class="muted">${esc(p.place)}<br>${esc(p.date)}</span>`)
-          .addTo(map);
-      });
-      map.on("mouseleave", "reports", () => { map.getCanvas().style.cursor = ""; popup.remove(); });
-      map.on("click", "reports", (e) => { location.href = `${base}report/${(e.features![0].properties as any).id}/`; });
-      map.on("mouseenter", "clusters", () => { map.getCanvas().style.cursor = "zoom-in"; });
-      map.on("mouseleave", "clusters", () => { map.getCanvas().style.cursor = ""; });
-      map.on("click", "clusters", async (e) => {
-        const f = e.features![0];
-        const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(f.properties!.cluster_id);
-        map.easeTo({ center: (f.geometry as any).coordinates, zoom });
-      });
-      const overReport = (e: maplibregl.MapMouseEvent) => map.queryRenderedFeatures(e.point, { layers: ["reports", "clusters"] }).length > 0;
       // what a Landrace hover box says: for an area or region its status, place, description and facts
       // from its Landrace.wiki infobox; for an accession its place, year and seed lot status
       const LOT_COLOR: Record<string, string> = { Urgent: "#c92a2a", "At risk": "#e67700", Secure: "#0ca678", "Held in a genebank": "#4c6ef5", "Data deficient": "#6c757d" };
@@ -243,26 +251,45 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
           + (facts.length ? `<span class="tip-facts">${esc(facts.join(" · "))}</span>` : "")
           + `<span class="muted tip-src">${acc}Landrace.wiki</span>`;
       };
-      // the smallest thing under the pointer: an accession, then an area, then a region
-      const LANDRACE_HITS = ["landrace-accession", "landrace-area-dot", "landrace-area-fill", "landrace-region-fill"];
-      const landraceAt = (e: maplibregl.MapMouseEvent) => {
-        for (const l of LANDRACE_HITS) if (map.getLayer(l)) { const f = map.queryRenderedFeatures(e.point, { layers: [l] })[0]; if (f) return f; }
+      const ORDER = ["reports", "clusters", "landrace-accession", "landrace-area-dot", "landrace-area-fill", "landrace-region-fill"];
+      const SLACK: Record<string, number> = { reports: 5, clusters: 2, "landrace-accession": 3 };
+      const hitAt = (pt: maplibregl.Point) => {
+        for (const layer of ORDER) {
+          if (!map.getLayer(layer) || map.getLayoutProperty(layer, "visibility") === "none") continue;
+          const s = SLACK[layer] ?? 0;
+          const box: [maplibregl.PointLike, maplibregl.PointLike] = [[pt.x - s, pt.y - s], [pt.x + s, pt.y + s]];
+          const f = map.queryRenderedFeatures(s ? box : pt, { layers: [layer] })[0];
+          if (f) return { layer, f };
+        }
         return null;
       };
-      for (const id of LANDRACE_HITS) {
-        map.on("mousemove", id, (e) => {
-          if (overReport(e)) return;
-          map.getCanvas().style.cursor = "pointer";
-          const f = landraceAt(e) ?? e.features![0];
-          popup.setLngLat(f.geometry.type === "Point" ? (f.geometry as any).coordinates : e.lngLat).setHTML(landraceBox(f.properties)).addTo(map);
-        });
-        map.on("mouseleave", id, () => { map.getCanvas().style.cursor = ""; popup.remove(); });
-        map.on("click", id, (e) => {
-          if (overReport(e)) return;
-          const top = landraceAt(e);
-          if (top) window.open((top.properties as any).url, "_blank", "noopener");
-        });
-      }
+      let current = "";
+      map.on("mousemove", (e) => {
+        const hit = hitAt(e.point);
+        if (!hit) { if (current) { popup.remove(); current = ""; map.getCanvas().style.cursor = ""; } return; }
+        const { layer, f } = hit, p = f.properties as any;
+        map.getCanvas().style.cursor = layer === "clusters" ? "zoom-in" : "pointer";
+        if (layer === "clusters") { popup.remove(); current = "cluster"; return; }
+        const key = `${layer}:${p.id ?? p.url ?? p.name}`;
+        const point = f.geometry.type === "Point" ? (f.geometry as any).coordinates : e.lngLat;
+        if (key === current && f.geometry.type === "Point") return; // the same marker: leave the box where it is
+        current = key;
+        const html = layer === "reports"
+          ? `<span class="type" style="--c:${esc(p.color)}">${esc(p.type)}</span><strong>${esc(p.title)}</strong><span class="muted">${esc(p.place)}<br>${esc(p.date)}</span>`
+          : landraceBox(p);
+        popup.setLngLat(point).setHTML(html).addTo(map);
+      });
+      map.getCanvas().addEventListener("mouseleave", () => { popup.remove(); current = ""; });
+      map.on("click", async (e) => {
+        const hit = hitAt(e.point);
+        if (!hit) return;
+        const { layer, f } = hit, p = f.properties as any;
+        if (layer === "reports") location.href = `${base}report/${p.id}/`;
+        else if (layer === "clusters") {
+          const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(p.cluster_id);
+          map.easeTo({ center: (f.geometry as any).coordinates, zoom });
+        } else if (p.url) window.open(p.url, "_blank", "noopener");
+      });
 
       // the home page's filters and list
       document.addEventListener("reports:filter", ((e: CustomEvent<Set<string>>) => {
