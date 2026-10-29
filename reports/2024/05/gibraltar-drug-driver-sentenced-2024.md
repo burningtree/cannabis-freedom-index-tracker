@@ -8,6 +8,7 @@ summary: >-
   A driver was fined £250 and disqualified for eight months after testing at not less than 3.8
   micrograms of THC per litre of blood. Police had stopped his erratically driven car in November
   2023.
+created_by_model: unknown
 status: verified
 cfi_id: gibraltar-drug-driver-sentenced-2024
 sources:

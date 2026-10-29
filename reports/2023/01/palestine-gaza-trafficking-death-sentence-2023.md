@@ -8,6 +8,7 @@ summary: >-
   Gaza's Supreme Criminal Chamber sentenced a 30-year-old man to death by hanging for possessing and
   trafficking narcotics to Israel. PCHR called it the first death sentence of 2023 and said the
   number issued since 1994 had reached 281, including 251 in Gaza.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-gaza-trafficking-death-sentence-2023
 sources:

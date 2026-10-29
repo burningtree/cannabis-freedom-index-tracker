@@ -12,6 +12,7 @@ summary: >-
 figures:
   arrested: 47
   kg_seized: 482
+created_by_model: unknown
 status: verified
 tags: [anp, moroccan-border, weekly-bilan]
 sources:

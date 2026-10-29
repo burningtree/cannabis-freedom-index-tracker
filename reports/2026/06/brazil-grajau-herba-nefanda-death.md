@@ -14,6 +14,7 @@ summary: >-
   part of Herba Nefanda III, also seized a press, a hydraulic jack, seeds and a shotgun.
 figures:
   deaths: 1
+created_by_model: unknown
 status: verified
 tags: [maranhao, indigenous-land, herba-nefanda]
 sources:

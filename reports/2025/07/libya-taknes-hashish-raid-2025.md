@@ -8,6 +8,7 @@ summary: >-
   Security forces raided a network in the Green Mountain near Taknes, about 127 km east of Benghazi,
   at dawn on 19 July. They seized five tonnes of hashish and broke up what officials called a
   cannabis cultivation and processing operation, arresting several people.
+created_by_model: unknown
 status: verified
 cfi_id: libya-taknes-hashish-raid-2025
 sources:

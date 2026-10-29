@@ -28,6 +28,7 @@ media:
     archived: https://web.archive.org/web/20260712215844/https://www.hoy.com.py/nacionales/2025/10/24/eliminan-98-hectareas-de-marihuana-en-la-frontera
     publisher: Hoy (Paraguay)
     caption: A pile of cannabis plants burns in a field, smoke rising over the crop
+created_by_model: unknown
 status: verified
 tags: [nueva-alianza, brazil, joint-operation, protected-areas, deforestation]
 sources:

@@ -9,6 +9,7 @@ summary: >-
   found 19.7 kg of marijuana and 1,500 methadone tablets, the State Border Service reported. It was
   one of a series of drone-borne drug shipments along the Araz river border in 2024 and 2025,
   alongside marijuana hidden in lorries and boats.
+created_by_model: unknown
 status: verified
 cfi_id: azerbaijan-drone-marijuana-2024
 sources:

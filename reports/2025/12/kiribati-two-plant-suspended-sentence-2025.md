@@ -9,6 +9,7 @@ summary: >-
   backyard and dried leaves in his sleeping hut. The High Court sentenced him on 23 December 2025 to
   18 months in prison suspended for two years and a A$600 fine. The primary judgment was blocked;
   the details come from a case summary.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-two-plant-suspended-sentence-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   to create a specialised drug enforcement body modelled on the US Drug Enforcement Administration
   and to turn an army barracks at Tanezrouft in the Sahara into a high-security prison for drug
   traffickers. The presidency announced no legal text or start date.
+created_by_model: unknown
 status: verified
 cfi_id: algeria-high-security-prison-2026
 sources:

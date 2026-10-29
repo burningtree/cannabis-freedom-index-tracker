@@ -9,6 +9,7 @@ summary: >-
   Casablanca to load hashish onto inflatable boats. Officers seized 16 tonnes of resin, six boats
   and eight engines in raids in Kenitra and Casablanca, and arrested eight people including two
   women. The operation was based on intelligence from the DGST.
+created_by_model: unknown
 status: verified
 cfi_id: morocco-bcij-seizure-2025
 sources:

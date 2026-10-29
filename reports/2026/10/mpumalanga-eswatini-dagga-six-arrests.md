@@ -15,6 +15,7 @@ figures:
   arrested: 6
   kg_seized: 325.2
   value: { amount: 1950000, currency: ZAR }
+created_by_model: unknown
 status: verified
 tags: [dagga, eswatini, festive-season]
 sources:

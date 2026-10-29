@@ -8,6 +8,7 @@ summary: >-
   A woman received a £300 fine and £125 costs for possessing half a gram of cannabis. The reported
   case shows that a small personal quantity can still lead to a court penalty alongside the island's
   referral options for eligible offenders.
+created_by_model: unknown
 status: verified
 cfi_id: isle-of-man-small-possession-fines-2024
 sources:

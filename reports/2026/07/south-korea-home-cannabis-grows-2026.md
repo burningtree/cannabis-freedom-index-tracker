@@ -9,6 +9,7 @@ summary: >-
   home and factory grows; those charged included a hip-hop group member, an English teacher and a
   composer. Investigators seized about 3 kg of cannabis, 39 plants and cannabis jelly, and said
   ordinary residents were treating home growing as an entry drug.
+created_by_model: unknown
 status: verified
 cfi_id: south-korea-home-cannabis-grows-2026
 sources:

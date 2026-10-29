@@ -16,6 +16,7 @@ figures:
   plants_destroyed: 1150
   kg_seized: 20
   value: { amount: 2700000, currency: PHP }
+created_by_model: unknown
 status: verified
 tags: [cordillera, roundup]
 sources:

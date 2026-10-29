@@ -9,6 +9,7 @@ summary: >-
   islands; police said 110 people were arrested on the first day. By late December they had searched
   166 locations and nine vessels, arrested 193 people, and seized 30.63 kg of drugs and 182 bottles
   of alcohol.
+created_by_model: unknown
 status: verified
 cfi_id: maldives-operation-alimagu-2025
 sources:

@@ -10,6 +10,7 @@ summary: >-
   Quriyat. The Royal Oman Police said the drugs had been loaded into a vehicle for trafficking and
   consumption. The statement did not split the cannabis between resin and herb or name the source
   country.
+created_by_model: unknown
 status: verified
 cfi_id: oman-quriyat-drug-haul-2025
 sources:

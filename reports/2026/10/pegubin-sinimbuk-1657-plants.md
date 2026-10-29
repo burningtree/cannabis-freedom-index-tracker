@@ -14,6 +14,7 @@ summary: >-
   harvest-ready cannabis stems to keep them from being harvested and misused.
 figures:
   plants_destroyed: 1657
+created_by_model: unknown
 status: verified
 sources:
   - title: Sinergi Aparat Keamanan Kembali Berantas Ladang Ganja di Kampung Sinimbuk

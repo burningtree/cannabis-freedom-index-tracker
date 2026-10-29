@@ -9,6 +9,7 @@ summary: >-
   personal cannabis possession or use between 2022 and 2025, after thousands in 2020–21. Police said
   the enforcement framework for the 2022 regulations was still being designed, leaving the fine
   scheme on the books but unused.
+created_by_model: unknown
 status: verified
 cfi_id: israel-cannabis-fines-zero-2026
 sources:

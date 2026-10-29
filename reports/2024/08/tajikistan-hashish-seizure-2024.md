@@ -9,6 +9,7 @@ summary: >-
   criminal case was opened under Article 200 of the Criminal Code, which can carry up to 20 years
   for especially large supply. The police said they were still looking for other members of the
   group.
+created_by_model: unknown
 status: verified
 cfi_id: tajikistan-hashish-seizure-2024
 sources:

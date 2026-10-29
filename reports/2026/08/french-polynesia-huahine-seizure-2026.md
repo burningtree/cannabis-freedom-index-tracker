@@ -7,6 +7,7 @@ title: French Polynesia seizes half a tonne of cannabis in Huahine
 summary: >-
   Customs seized 794 cannabis plants and 208 cuttings, about 513 kg, in Huahine and destroyed them
   on site. The raid was one of the largest cannabis seizures reported in the territory.
+created_by_model: unknown
 status: verified
 cfi_id: french-polynesia-huahine-seizure-2026
 sources:

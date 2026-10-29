@@ -9,6 +9,7 @@ summary: >-
   possessing 50 kg of hashish with intent to distribute; prosecutors said the shipment came from
   Iran and the intelligence dated from March. On appeal the sentence became life imprisonment, and
   the Court of Cassation upheld the life term on 24 July 2023.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-hashish-death-sentence-2022
 sources:

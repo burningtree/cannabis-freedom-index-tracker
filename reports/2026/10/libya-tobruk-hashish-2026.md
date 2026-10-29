@@ -8,6 +8,7 @@ summary: >-
   Eastern Libyan anti-drug officers found about 400 kg of hashish at a house in an agricultural area
   southeast of Tobruk. Officials valued it at about 6 million dinars and said it had crossed the
   Egyptian border for sale in Libya. The detainees were Libyan and Egyptian nationals.
+created_by_model: unknown
 status: verified
 cfi_id: libya-tobruk-hashish-2026
 sources:

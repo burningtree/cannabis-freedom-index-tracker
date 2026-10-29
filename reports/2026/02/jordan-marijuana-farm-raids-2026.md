@@ -9,6 +9,7 @@ summary: >-
   Raids on three marijuana-growing sites in Southern Shouneh led to two arrests, and in Amman
   officers detained four dealers with 5 kg of marijuana; they also seized hashish blocks, crystal
   meth and firearms in Ma'an, Zarqa, Ajloun and Ramtha.
+created_by_model: unknown
 status: verified
 cfi_id: jordan-marijuana-farm-raids-2026
 sources:

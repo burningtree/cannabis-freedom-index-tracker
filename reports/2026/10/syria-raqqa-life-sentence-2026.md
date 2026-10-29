@@ -9,6 +9,7 @@ summary: >-
   Syrian pounds for possessing narcotics with intent to traffic and use. The court applied Article
   40 of the 1993 narcotics law, which carries life imprisonment for trafficking and can reach death
   with aggravating facts.
+created_by_model: unknown
 status: verified
 cfi_id: syria-raqqa-life-sentence-2026
 sources:

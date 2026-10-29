@@ -13,6 +13,7 @@ summary: >-
   agricultural entrepreneur was reported to prosecutors.
 figures:
   kg_seized: 1000
+created_by_model: unknown
 status: verified
 tags: [guardia-di-finanza, fermo, warehouse]
 sources:

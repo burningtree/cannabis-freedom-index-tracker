@@ -10,6 +10,7 @@ summary: >-
   found 1,150 packets of cannabis straw weighing 26.907 kg in total, which the man said were sold at
   2,000 som each, about 2.5 million som. The case was opened under the supply article of the
   Criminal Code.
+created_by_model: unknown
 status: verified
 cfi_id: kyrgyzstan-marijuana-trafficking-case-2024
 sources:

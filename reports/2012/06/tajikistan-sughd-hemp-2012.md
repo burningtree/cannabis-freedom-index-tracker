@@ -9,6 +9,7 @@ summary: >-
   districts during operation «Мак-2012». Over the same period, officers in the region seized more
   than 113 kg of hashish and opened 98 criminal cases under Articles 200 and 201. The operation
   began on 20 May and was due to run until 30 November.
+created_by_model: unknown
 status: verified
 cfi_id: tajikistan-sughd-hemp-2012
 sources:

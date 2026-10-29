@@ -9,6 +9,7 @@ summary: >-
   government-controlled areas in the first half of 2026: 613.7 kg of hashish, 617.6 kg of
   methamphetamine, 100 kg of heroin, 4 kg of opium, more than a million Captagon pills and 41,768
   other pills.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-drug-seizures-2026-h1
 sources:

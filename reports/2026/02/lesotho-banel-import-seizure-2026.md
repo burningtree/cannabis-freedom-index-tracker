@@ -9,6 +9,7 @@ summary: >-
   February 2026; police seized it without producing a warrant. The High Court later set aside the
   seizure and ordered the cannabis returned. The case exposed the gap between the licensed import
   route and police practice.
+created_by_model: unknown
 status: verified
 cfi_id: lesotho-banel-import-seizure-2026
 sources:

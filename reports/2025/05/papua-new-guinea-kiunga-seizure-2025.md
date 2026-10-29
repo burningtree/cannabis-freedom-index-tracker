@@ -9,6 +9,7 @@ summary: >-
   kg of dried marijuana in two boxes at Rubber Corner. The boxes had been sent by Mail Express from
   Mount Hagen via Port Moresby; police put the street value at K90,000–100,000. Both were charged
   under section 3(1) of the Dangerous Drugs Act.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-kiunga-seizure-2025
 sources:

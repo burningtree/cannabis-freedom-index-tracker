@@ -9,6 +9,7 @@ summary: >-
   least ten networks and arresting dozens of people. The largest seizures were 202 kg of cannabis
   resin hidden in food shipments, 230 kg in a truck trailer at Bassiknou and 210 kg at Nouadhibou,
   alongside smaller amounts and thousands of psychotropic tablets.
+created_by_model: unknown
 status: verified
 cfi_id: mauritania-drug-seizures-2026
 sources:

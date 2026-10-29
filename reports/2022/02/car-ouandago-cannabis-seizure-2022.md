@@ -8,6 +8,7 @@ summary: >-
   A joint security operation in Ouandago had led to eleven arrests and the seizure of eleven
   homemade weapons and over ten kilograms of cannabis, MINUSCA reported. The operation responded to
   abuses by a self-defence group; the figures were a mid-operation report.
+created_by_model: unknown
 status: verified
 cfi_id: car-ouandago-cannabis-seizure-2022
 tags:

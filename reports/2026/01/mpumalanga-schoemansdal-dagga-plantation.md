@@ -13,6 +13,7 @@ summary: >-
   No arrests were made; police opened an investigation to find the cultivators.
 figures:
   value: { amount: 2900000, currency: ZAR }
+created_by_model: unknown
 status: verified
 tags: [dagga, mpumalanga]
 sources:

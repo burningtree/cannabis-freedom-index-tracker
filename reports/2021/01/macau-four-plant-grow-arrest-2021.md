@@ -10,6 +10,7 @@ summary: >-
   rented flat near Tap Seac. The pair had met a year earlier, and police said they believed the
   plants were grown for sale. Officers came across the operation while investigating another drug
   case.
+created_by_model: unknown
 status: verified
 cfi_id: macau-four-plant-grow-arrest-2021
 sources:

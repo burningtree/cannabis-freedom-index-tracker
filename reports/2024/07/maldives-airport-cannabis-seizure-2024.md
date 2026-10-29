@@ -9,6 +9,7 @@ summary: >-
   arrived on flight EK656 on 27 July 2024. Police put the street value at MVR 12.3 million and
   called it the largest single cannabis seizure of the year; a controlled delivery led to a second
   arrest, of a 41-year-old Malaysian man.
+created_by_model: unknown
 status: verified
 cfi_id: maldives-airport-cannabis-seizure-2024
 sources:

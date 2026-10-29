@@ -14,6 +14,7 @@ summary: >-
 figures:
   kg_seized: 327.7
   value: { amount: 16400000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [bsf, tsr, drums]
 sources:

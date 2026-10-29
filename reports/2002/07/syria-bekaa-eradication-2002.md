@@ -9,6 +9,7 @@ summary: >-
   Lebanese authorities ran a joint eradication campaign from 2002 to 2004 that sharply cut the area
   under cannabis and opium. Syria also upgraded its counternarcotics branch to a directorate in 2002
   and opened regional offices in Aleppo and Homs to watch the Turkish and Lebanese borders.
+created_by_model: unknown
 status: verified
 cfi_id: syria-bekaa-eradication-2002
 sources:

@@ -7,8 +7,9 @@ title: Japan seizes a record tonne of cannabis hidden in a container
 summary: >-
   Narcotics agents said on 13 August 2025 that they had seized 1.046 tonnes of dried cannabis, worth
   about 5.2 billion yen on the street, from a shipping container that had left Vietnam in May and
-  arrived in Japan in June.[@1] It was the largest single seizure of any illegal drug in Japan, and
-  more than twice the 452 kg of herbal cannabis recorded across the country in 2024.[@1]
+  arrived in Japan in June. It was the largest single seizure of any illegal drug in Japan, and
+  more than twice the 452 kg of herbal cannabis recorded across the country in 2024.
+created_by_model: unknown
 status: verified
 cfi_id: japan-record-cannabis-seizure-2025
 sources:

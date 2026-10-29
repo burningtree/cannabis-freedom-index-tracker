@@ -6,10 +6,11 @@ type: eradication
 title: Tanzania upholds thirty years for growing cannabis but drops a possession count
 summary: >-
   Tanzania's Court of Appeal upheld Hamis Muhibu Abdallah's thirty-year sentence for cultivating
-  cannabis after police found 535 plants on a farm.[@1] It quashed a separate possession conviction
-  because the uprooted plants proved cultivation, not the additional possession offence charged.[@1]
+  cannabis after police found 535 plants on a farm. It quashed a separate possession conviction
+  because the uprooted plants proved cultivation, not the additional possession offence charged.
   His confession, though retracted, was supported by other evidence linking him to the field, so
   the…
+created_by_model: unknown
 status: verified
 cfi_id: tanzania-cultivation-sentence-upheld-2022
 tags:

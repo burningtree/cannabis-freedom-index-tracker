@@ -9,6 +9,7 @@ summary: >-
   brought from Amsterdam and importing 3 g from the south of the island. The Nicosia court noted
   that cultivation carried a fifteen-year statutory maximum and treated the combined offences as
   serious.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-three-plants-sentence-2019
 sources:

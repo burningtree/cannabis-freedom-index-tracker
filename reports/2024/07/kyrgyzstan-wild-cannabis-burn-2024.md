@@ -9,6 +9,7 @@ summary: >-
   cut and burn it. The service reported more than 85 tonnes destroyed, including 27 tonnes in Chuy
   region, 17 tonnes in Issyk-Kul and Naryn, 15 tonnes in Bishkek and smaller amounts in the south.
   The operation was part of the annual Kara-kuurai eradication campaign.
+created_by_model: unknown
 status: verified
 cfi_id: kyrgyzstan-wild-cannabis-burn-2024
 sources:

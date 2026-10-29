@@ -10,6 +10,7 @@ summary: >-
   arrested at Phnom Penh airport on 17 June 2025 with 19.9 kg of dried cannabis before a UK flight.
   The 14-year term exceeds the 5–10 year band for 8–20 kg, suggesting aggravation or a charging
   issue.
+created_by_model: unknown
 status: verified
 cfi_id: cambodia-cannabis-airport-sentence-2026
 tags:

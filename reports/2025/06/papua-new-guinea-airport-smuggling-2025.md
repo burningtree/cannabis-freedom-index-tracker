@@ -9,6 +9,7 @@ summary: >-
   arrived from the Highlands, and finding about 10 kg left unattended after a flight from Tapini.
   They were also investigating more than eight bags that arrived on an Air Sanga flight in May and
   disappeared from the terminal with the help of airport and police officers.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-airport-smuggling-2025
 sources:

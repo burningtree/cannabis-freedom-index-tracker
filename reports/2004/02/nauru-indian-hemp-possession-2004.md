@@ -8,6 +8,7 @@ summary: >-
   The Supreme Court dismissed appeals against three-month sentences for possessing Indian hemp under
   section 10(1)(c) of the Dangerous Drugs Act 1968. It was the last reported pre-2004 cannabis
   prosecution and showed the old law's three-month statutory minimum.
+created_by_model: unknown
 status: verified
 cfi_id: nauru-indian-hemp-possession-2004
 sources:

@@ -6,9 +6,10 @@ type: sentence
 title: Hong Kong jails a traveller in its first CBD imprisonment case
 summary: >-
   A traveller received two months overall after convictions for possessing CBD, possessing ketamine
-  and having injection equipment.[@1] Officers had found two personal-care bottles containing about
+  and having injection equipment. Officers had found two personal-care bottles containing about
   5 g of CBD, about 2.2 g of ketamine and ten syringes after her arrival from the United States in
   March.
+created_by_model: unknown
 status: verified
 cfi_id: hong-kong-first-cbd-prison-sentence-2023
 tags:

@@ -9,6 +9,7 @@ summary: >-
   took payment through unverified bank accounts and cryptocurrency. Ten people were arrested and 550
   kg of dried cannabis and 10 kg of resin were seized, along with packaging disguised as tea and
   food. The ringleader told police he had arranged seven shipments, about two tonnes, in two months.
+created_by_model: unknown
 status: verified
 cfi_id: vietnam-crypto-cannabis-ring-2024
 sources:

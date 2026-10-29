@@ -8,6 +8,7 @@ summary: >-
   Dubai's Court of Appeal acquitted a 35-year-old Filipina who had been sentenced to 10 years and a
   AED 100,000 fine for bringing 20 grams of cannabis extract into the country. Customs found the
   extract in 20 vape cartridges hidden in pancake-mix packages at Terminal 3 on 15 December 2024.
+created_by_model: unknown
 status: verified
 cfi_id: uae-cannabis-extract-acquittal-2025
 sources:

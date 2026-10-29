@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 2
   plants_destroyed: 770
+created_by_model: unknown
 status: verified
 tags: [dagga, mbanje, intercropping]
 sources:

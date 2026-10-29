@@ -9,6 +9,7 @@ summary: >-
   in hashish arrived in Bahrain by post. Officers found bags bearing traces of cannabis,
   BHD1,516.925 and SAR635 in cash; prosecutors said he was part of a wider group using concealed
   shipments. The case was before the courts in April 2025, with a verdict expected on 29 April.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-hashish-fabric-2024
 sources:

@@ -6,10 +6,11 @@ type: prosecution
 title: Timor-Leste arrests nine in a Dili drug operation involving cannabis
 summary: >-
   Police and intelligence officers arrested nine suspects in Dili on 11–12 August; TATOLI reported
-  seizures including suspected cannabis and methamphetamine.[@1] The district court imposed
+  seizures including suspected cannabis and methamphetamine. The district court imposed
   identity-and-residence declarations and periodic reporting, a decision later challenged publicly
-  by a student movement.[@2] Justice Minister Tiago Amaral Sarmento also called for stronger
+  by a student movement. Justice Minister Tiago Amaral Sarmento also called for stronger
   penalties and…
+created_by_model: unknown
 status: verified
 cfi_id: timor-leste-dili-drug-arrests-2022
 tags:

@@ -9,6 +9,7 @@ summary: >-
   five were convicted of murder or rape; no drug offender was among them. The hangings ended a de
   facto moratorium that had lasted since 2007, in a country whose drug law already allowed death for
   trafficking.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-executions-resume-2013
 sources:

@@ -9,6 +9,7 @@ summary: >-
   September 2009. Customs found 0.003 grams of cannabis, invisible to the eye, in the tread of his
   shoe. He was sentenced to four years, then the minimum for possession. Another traveller was
   reported jailed over three poppy seeds from a bread roll.
+created_by_model: unknown
 status: verified
 cfi_id: uae-speck-on-shoe-2010
 tags:

@@ -15,6 +15,7 @@ figures:
   plants_destroyed: 133000
   hectares: 57
   value: { amount: 1995000000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [ncb, antf, operation-ganjagaveshana]
 sources:

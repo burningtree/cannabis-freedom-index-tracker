@@ -10,6 +10,7 @@ summary: >-
   leading newspapers ran the same front page, the case was dropped after four days, and five
   officers were later sentenced to between 5 and 12 years. The case revived calls to soften Article
   228.
+created_by_model: unknown
 status: verified
 cfi_id: russia-golunov-article-228-2019
 sources:

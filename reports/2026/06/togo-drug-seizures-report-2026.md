@@ -8,6 +8,7 @@ summary: >-
   Togo reported that security forces had seized more than 50 tonnes of drugs in 2025, mainly
   cannabis, alongside 52 kg of cocaine and psychotropic drugs. Security minister Calixte Madjoulba
   pointed to the seizures as evidence of anti-trafficking work.
+created_by_model: unknown
 status: verified
 cfi_id: togo-drug-seizures-report-2026
 tags:

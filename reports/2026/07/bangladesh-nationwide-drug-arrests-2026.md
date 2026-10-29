@@ -9,6 +9,7 @@ summary: >-
   operation from 1 May to 12 July 2026, part of nearly 117,000 arrests for all offences. Officers
   filed 14,157 drug cases and seized 5,336 packets of cannabis along with yaba, heroin, phensedyl
   and liquor. The operation ended the day before parliament passed the 2026 narcotics amendment.
+created_by_model: unknown
 status: verified
 cfi_id: bangladesh-nationwide-drug-arrests-2026
 sources:

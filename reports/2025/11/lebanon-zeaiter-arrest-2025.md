@@ -8,6 +8,7 @@ summary: >-
   The army arrested Nouh Zeaiter, a US-sanctioned Captagon and cannabis trafficker, at Kneiseh in
   Baalbek-Hermel. He had admitted cannabis cultivation and trafficking. The arrest was one of
   several against Bekaa networks in 2025.
+created_by_model: unknown
 status: verified
 cfi_id: lebanon-zeaiter-arrest-2025
 tags:

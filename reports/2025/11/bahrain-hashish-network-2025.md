@@ -9,6 +9,7 @@ summary: >-
   convicted in a network that brought about 350 kg of hashish into Bahrain by sea between 2021 and
   2023. Six other defendants, including a woman, were named in the case; the court treated the
   challenge to an in-absentia judgment as having no legal basis.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-hashish-network-2025
 sources:

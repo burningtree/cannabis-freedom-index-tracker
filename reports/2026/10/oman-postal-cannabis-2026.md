@@ -9,6 +9,7 @@ summary: >-
   on 19 October 2026. Earlier parcels yielded 2.07 kilograms in September 2024, and 5.4 kilograms
   from Thailand and 2.56 kilograms from Canada in June 2026. The cases point to small, repeated
   postal imports rather than one large shipment; no sender or recipient was named.
+created_by_model: unknown
 status: verified
 cfi_id: oman-postal-cannabis-2026
 sources:

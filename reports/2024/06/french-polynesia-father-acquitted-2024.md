@@ -8,6 +8,7 @@ summary: >-
   The court in Papeete acquitted a father prosecuted for two years over about a hundred plants grown
   in Taravao to make oil for his son; the prosecutor had asked it to waive punishment. Growing for
   therapy remained prohibited.
+created_by_model: unknown
 status: verified
 cfi_id: french-polynesia-father-acquitted-2024
 tags:

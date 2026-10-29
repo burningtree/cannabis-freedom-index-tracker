@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 2
   kg_seized: 14
+created_by_model: unknown
 status: verified
 tags: [thai-ganja, airport, batik-air]
 sources:

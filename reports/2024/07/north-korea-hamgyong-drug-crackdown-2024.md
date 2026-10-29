@@ -9,6 +9,7 @@ summary: >-
   North Hamgyong had risen 40% from a year earlier, with more than 900 cases in Chongjin in the
   first half of the year. The committee made July and August an intensive crackdown and said
   smuggling drugs to China should draw heavier sentences, up to death.
+created_by_model: unknown
 status: verified
 cfi_id: north-korea-hamgyong-drug-crackdown-2024
 sources:

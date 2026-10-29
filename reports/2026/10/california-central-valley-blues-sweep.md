@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 146
   kg_seized: 1444.2
+created_by_model: unknown
 status: verified
 tags: [social-media, sweep, meta]
 sources:

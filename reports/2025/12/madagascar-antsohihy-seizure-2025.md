@@ -8,6 +8,7 @@ summary: >-
   The Sofia gendarmerie reported 1,440 kg of cannabis in 114 sacks seized around Antsohihy over six
   months, with 10 arrests. The stock was burned on 8 December, and another 400 kg was seized the
   same afternoon.
+created_by_model: unknown
 status: verified
 cfi_id: madagascar-antsohihy-seizure-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   fine; distributors received two years suspended and a 500,000 CFP fine. Police had seized 2 kg of
   cannabis, 177 sticks and 4.5 million CFP in cash. The case followed the August seizure of 513 kg
   of plants and cuttings on the island.
+created_by_model: unknown
 status: verified
 cfi_id: french-polynesia-huahine-trial-2026
 tags:

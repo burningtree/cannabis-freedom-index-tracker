@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 582
+created_by_model: unknown
 status: verified
 tags: [ndlea, forest-farms]
 sources:

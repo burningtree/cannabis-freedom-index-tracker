@@ -9,6 +9,7 @@ summary: >-
   Vietnamese-organised cannabis grow-house syndicate in Auckland. Twelve people were arrested in 19
   raids; police seized about NZ$1.25 million of cultivation equipment, 35 kg of cannabis and
   NZ$80,000 in cash.
+created_by_model: unknown
 status: verified
 cfi_id: new-zealand-operation-blackout-2026
 sources:

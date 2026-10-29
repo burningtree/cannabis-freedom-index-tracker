@@ -9,6 +9,7 @@ summary: >-
   then searched the cell of a non-Kuwaiti inmate who ran the gang from Central Prison. Another
   accomplice was at large outside Kuwait. The case showed that prison-based dealers can direct
   smuggling networks beyond the walls.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-prison-hashish-ring-2025
 sources:

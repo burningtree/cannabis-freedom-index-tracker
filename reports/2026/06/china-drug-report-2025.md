@@ -10,6 +10,7 @@ summary: >-
   of 2025, down 4.7%, and 3,000 cannabis users punished during the year, down 30.2%. Of 20.5 tonnes
   seized from foreign sources, the report named methamphetamine, heroin and cannabis as the main
   types.
+created_by_model: unknown
 status: verified
 cfi_id: china-drug-report-2025
 sources:

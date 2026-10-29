@@ -8,6 +8,7 @@ summary: >-
   Eleven young men appeared in Dixinn after cannabis arrests in Ratoma; prosecutors sought prison
   for some and acquittal for four. Their lawyer challenged the possession evidence and the requested
   fines, arguing that the law linked fines to the value of drugs seized.
+created_by_model: unknown
 status: verified
 cfi_id: guinea-dixinn-cannabis-defence-2019
 tags:

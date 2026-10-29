@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 11
   kg_seized: 36.23
+created_by_model: unknown
 status: verified
 tags: [meth, police-operation]
 sources:

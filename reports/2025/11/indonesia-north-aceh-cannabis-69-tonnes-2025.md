@@ -9,6 +9,7 @@ summary: >-
   and 69 tonnes wet weight; 151 personnel destroyed them in place on 6 November 2025. The village is
   one of four alternative-development pilot sites where BNN is trying to move growers to legal
   crops.
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-north-aceh-cannabis-69-tonnes-2025
 sources:

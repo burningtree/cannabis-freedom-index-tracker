@@ -9,6 +9,7 @@ summary: >-
   Carroll Brooker, a disabled veteran with chronic pain, shared with his son in Alabama. Weighed
   with stalks and leaves, the plants came to about 2.8 pounds, over the 2.2-pound trafficking
   threshold.
+created_by_model: unknown
 status: verified
 cfi_id: us-brooker-life-sentence-2014
 tags:

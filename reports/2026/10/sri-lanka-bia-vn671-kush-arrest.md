@@ -16,6 +16,7 @@ figures:
   arrested: 1
   kg_seized: 5.1
   value: { amount: 51000000, currency: LKR }
+created_by_model: unknown
 status: verified
 tags: [kush, airport, green-channel]
 sources:

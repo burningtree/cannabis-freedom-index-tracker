@@ -16,6 +16,7 @@ figures:
   arrested: 2
   kg_seized: 735
   value: { amount: 11300000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [truck, night-patrol]
 sources:

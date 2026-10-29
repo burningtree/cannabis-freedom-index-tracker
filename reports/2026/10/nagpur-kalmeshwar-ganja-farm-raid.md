@@ -16,6 +16,7 @@ figures:
   plants_destroyed: 9
   kg_seized: 1.358
   value: { amount: 27120, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [nagpur]
 sources:

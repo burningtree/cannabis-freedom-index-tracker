@@ -7,8 +7,9 @@ title: Marshall Islands reports suspended jail term for a personal cannabis impo
 summary: >-
   A January newspaper report described a six-month suspended sentence and a $1,000 fine for Gandhi
   Heine after he pleaded guilty to importing marijuana. His lawyer said the cannabis was for
-  personal use to relieve back pain.[@1] Chief Justice Carl Ingram approved the plea agreement,
-  which included probation conditions restricting travel outside Majuro.[@1]
+  personal use to relieve back pain. Chief Justice Carl Ingram approved the plea agreement,
+  which included probation conditions restricting travel outside Majuro.
+created_by_model: unknown
 status: verified
 cfi_id: marshall-islands-personal-cannabis-import-report-2020
 tags:

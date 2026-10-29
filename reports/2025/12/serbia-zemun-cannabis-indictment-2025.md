@@ -8,6 +8,7 @@ summary: >-
   Belgrade’s Higher Public Prosecutor said it filed an indictment against two defendants in the case
   involving two tonnes of cannabis seized in Zemun. The indictment followed the investigation opened
   in August.
+created_by_model: unknown
 status: verified
 cfi_id: serbia-zemun-cannabis-indictment-2025
 sources:

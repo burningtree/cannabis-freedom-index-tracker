@@ -8,6 +8,7 @@ summary: >-
   Police arrested a Drukair employee in his forties on 14 September 2026 over an attempt to smuggle
   22.34 kg of cannabis. The case was reported in October and was one of several large airport and
   parcel seizures that year. It was an enforcement case, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: bhutan-drukair-cannabis-2026
 tags:

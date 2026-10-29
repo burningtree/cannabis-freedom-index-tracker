@@ -9,6 +9,7 @@ summary: >-
   Island with more than 120 kilograms of hashish and 10,000 psychotropic pills. They confessed and
   said each would be paid KD10,000 for delivering the shipment. The case confirmed that cannabis
   resin trafficking can still end in a death sentence.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-cannabis-death-sentences-upheld-2026
 sources:

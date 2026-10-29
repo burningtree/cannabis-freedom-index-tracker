@@ -8,6 +8,7 @@ summary: >-
   The Royal Oman Police arrested one person in South Al Batinah after finding more than 30 kilograms
   of hashish, the force said on 21 October 2024. It gave no origin, destination or estimated value
   for the resin. The case was one of the larger single cannabis seizures reported in Oman that year.
+created_by_model: unknown
 status: verified
 cfi_id: oman-hashish-seizure-2024
 sources:

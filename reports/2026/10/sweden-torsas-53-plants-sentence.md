@@ -14,6 +14,7 @@ summary: >-
 figures:
   prison: 2 years
   charged: 1
+created_by_model: unknown
 status: verified
 tags: [kalmar, torsas, indoor]
 sources:

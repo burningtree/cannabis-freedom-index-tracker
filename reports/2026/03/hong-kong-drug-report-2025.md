@@ -10,6 +10,7 @@ summary: >-
   under 21 after etomidate, with 263 young users. Police arrested 4,108 people for drug offences, up
   27 per cent, and cannabis was one of the three main drugs involved; the conviction rate was 86 per
   cent.
+created_by_model: unknown
 status: verified
 cfi_id: hong-kong-drug-report-2025
 sources:

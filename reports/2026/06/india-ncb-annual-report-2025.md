@@ -8,6 +8,7 @@ summary: >-
   The Narcotics Control Bureau's annual report for 2025 counted 633.59 tonnes of cannabis seized,
   about half of all drugs by weight, up from 540.8 tonnes in 2024 but below the 816.9 tonnes of
   2021.
+created_by_model: unknown
 status: verified
 cfi_id: india-ncb-annual-report-2025
 sources:

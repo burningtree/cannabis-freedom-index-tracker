@@ -17,6 +17,7 @@ figures:
   plants_destroyed: 9720
   arrested: 13
   value: { amount: 4500000, currency: EUR }
+created_by_model: unknown
 status: verified
 tags: [vienna, liesing, operation-psycho, indoor]
 sources:

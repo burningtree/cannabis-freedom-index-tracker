@@ -15,6 +15,7 @@ figures:
   prison: 22 years
   kg_seized: 1299.65
   charged: 1
+created_by_model: unknown
 status: verified
 tags: [macara, loja, panamericana]
 sources:

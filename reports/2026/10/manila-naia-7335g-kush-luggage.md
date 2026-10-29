@@ -14,6 +14,7 @@ summary: >-
 figures:
   kg_seized: 7.335
   value: { amount: 7335000, currency: PHP }
+created_by_model: unknown
 status: verified
 tags: [kush, airport, bangkok-route]
 sources:

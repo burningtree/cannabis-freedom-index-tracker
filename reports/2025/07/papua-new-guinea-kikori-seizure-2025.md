@@ -8,6 +8,7 @@ summary: >-
   Gulf police arrested nine people after finding seven bags holding 125.6 kg of marijuana at Kikori
   on 13 July 2025. Police said the load came from the Southern Highlands and was to be taken by
   dinghy and road towards Daru and then Australia through Saibai, Cairns and Townsville.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-kikori-seizure-2025
 sources:

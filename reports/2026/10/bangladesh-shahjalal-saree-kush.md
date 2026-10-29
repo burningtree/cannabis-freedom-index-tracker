@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 4.28
+created_by_model: unknown
 status: verified
 tags: [kush, airport, concealment, sarees]
 sources:

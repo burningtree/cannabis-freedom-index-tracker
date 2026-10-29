@@ -10,6 +10,7 @@ summary: >-
   kg of cannabis, 83 cannabis products, 97 vape pods and 581 pieces of paraphernalia. The High
   Prosecutors' Office said the operation was meant to uncover hidden users and reject calls for
   legalisation.
+created_by_model: unknown
 status: verified
 cfi_id: taiwan-cannabis-crackdown-2025
 sources:

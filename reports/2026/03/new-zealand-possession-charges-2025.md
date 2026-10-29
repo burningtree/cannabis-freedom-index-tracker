@@ -8,6 +8,7 @@ summary: >-
   Ministry of Justice figures reported in March 2026 showed 3,438 people charged with possessing
   cannabis in 2025, up from 2,881 in 2024 and 2,287 in 2023, the highest number since a 2019 law
   change told police to consider a health-based response first.
+created_by_model: unknown
 status: verified
 cfi_id: new-zealand-possession-charges-2025
 sources:

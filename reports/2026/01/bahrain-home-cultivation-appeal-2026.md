@@ -6,10 +6,11 @@ type: sentence
 title: Bahrain appeal court cuts a cannabis-seed sentence to ten years
 summary: >-
   An appeal court reduced a man’s sentence from fifteen years to ten and retained a 5,000-dinar fine
-  and confiscation in a cannabis-seed and multiple-drug case, The Daily Tribune reported.[@1]
+  and confiscation in a cannabis-seed and multiple-drug case, The Daily Tribune reported.
   Prosecutors said he held cannabis seeds for trafficking and hashish and pregabalin for personal
-  use; investigators described a home-growing operation.[@1] Laboratory tests identified viable
+  use; investigators described a home-growing operation. Laboratory tests identified viable
   cannabis seeds…
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-home-cultivation-appeal-2026
 tags:

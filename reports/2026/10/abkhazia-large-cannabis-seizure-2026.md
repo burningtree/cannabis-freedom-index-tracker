@@ -9,6 +9,7 @@ summary: >-
   opened a criminal case for illegal purchase, possession and transport of narcotics and placed him
   under house arrest. At 82 g the amount is above the 50 g especially-large threshold, so the top
   possession tier of five to seven years applies.
+created_by_model: unknown
 status: verified
 cfi_id: abkhazia-large-cannabis-seizure-2026
 sources:

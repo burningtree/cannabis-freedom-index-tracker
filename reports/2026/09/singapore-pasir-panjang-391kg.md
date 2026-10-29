@@ -13,6 +13,7 @@ summary: >-
   through Singapore; no origin or destination was disclosed and investigations continue.
 figures:
   kg_seized: 391
+created_by_model: unknown
 status: verified
 tags: [transit, container, port]
 sources:

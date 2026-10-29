@@ -8,6 +8,7 @@ summary: >-
   The anti-drug office destroyed seized cannabis and other products after operations along the
   Oubangui river, in Boy-Rabe and at Combattant market. Radio Ndeke Luka reported that the seizures
   took place from 14 to 20 October, before the destruction on 5 November.
+created_by_model: unknown
 status: verified
 cfi_id: car-bangui-seized-cannabis-destroyed-2024
 tags:

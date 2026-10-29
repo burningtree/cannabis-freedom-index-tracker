@@ -7,6 +7,7 @@ title: Transnistria counts 241 prisoners serving drug sentences
 summary: >-
   The justice ministry reported 241 people imprisoned for drug offences, 11% of its sentenced prison
   population, and more than 200 people serving suspended sentences under supervision.
+created_by_model: unknown
 status: verified
 cfi_id: transnistria-drug-prison-count-2011
 tags:

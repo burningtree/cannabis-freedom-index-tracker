@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 4200
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [huila, neiva, highway]
 sources:

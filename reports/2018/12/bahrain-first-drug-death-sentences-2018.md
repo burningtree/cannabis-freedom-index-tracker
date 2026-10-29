@@ -9,6 +9,7 @@ summary: >-
   possessing, cultivating, smuggling and dealing in drugs; more than 18.5 kg of hashish was
   involved, and each was fined BHD10,000. It was the first time Bahraini courts imposed death for a
   non-lethal drug offence.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-first-drug-death-sentences-2018
 sources:

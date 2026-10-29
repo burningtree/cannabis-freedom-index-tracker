@@ -9,6 +9,7 @@ summary: >-
   cannabis herb, 34 balls of cannabis and 200 kg of psychotropic substances, beside 7.5 tonnes of
   adulterated alcohol. The deputy prosecutor present said the destruction complied with Law 22/PR/95
   on drug control.
+created_by_model: unknown
 status: verified
 cfi_id: chad-police-burn-2025
 tags:

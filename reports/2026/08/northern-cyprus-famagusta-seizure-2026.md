@@ -8,6 +8,7 @@ summary: >-
   Police reported finding 1.2 kg of suspected cannabis and a precision scale in an operation in
   Famagusta. Two men were arrested and the investigation continued; the announcement did not report
   a conviction.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-famagusta-seizure-2026
 sources:

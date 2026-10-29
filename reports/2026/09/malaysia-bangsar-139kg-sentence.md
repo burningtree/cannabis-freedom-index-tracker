@@ -16,6 +16,7 @@ figures:
   charged: 2
   kg_seized: 139
   prison: 30 years
+created_by_model: unknown
 status: verified
 tags: [caning, trafficking, bangsar]
 sources:

@@ -9,6 +9,7 @@ summary: >-
   kg of marijuana, charged under section 3(1)(d) of the Dangerous Drugs Act. He had been arrested on
   12 October 2024 and pleaded guilty; 25 days in pre-trial custody were deducted. Police put the
   street value at K20,000–30,000.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-tabubil-sentence-2024
 sources:

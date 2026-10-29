@@ -8,6 +8,7 @@ summary: >-
   After an earlier judgment was partly overturned, testing found 63–65% THC in three sampled vapes
   from a seized consignment. A combined CHF2,400 fine remained, with CHF600 expert costs; the
   reported judgment was still open to appeal.
+created_by_model: unknown
 status: verified
 cfi_id: liechtenstein-thc-vape-case-2025
 sources:

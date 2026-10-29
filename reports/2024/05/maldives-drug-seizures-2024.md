@@ -9,6 +9,7 @@ summary: >-
   MVR 104 million. They had arrested 260 Maldivians and 16 foreigners, opened 257 drug cases, sent
   95 to the Prosecutor General and reported shutting five drug networks. The figures covered all
   drugs, not cannabis alone.
+created_by_model: unknown
 status: verified
 cfi_id: maldives-drug-seizures-2024
 sources:

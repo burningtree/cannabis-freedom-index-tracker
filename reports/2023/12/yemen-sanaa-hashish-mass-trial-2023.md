@@ -9,6 +9,7 @@ summary: >-
   five to death, 12 to 25 years and 15 to five years. The court ordered 994 kg of hashish destroyed
   and confiscated property; in a separate case that day, one man got five years and two others 25
   years for possessing a block of hashish.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-sanaa-hashish-mass-trial-2023
 sources:

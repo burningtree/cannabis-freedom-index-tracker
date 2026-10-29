@@ -13,6 +13,7 @@ summary: >-
   29 plastic sacks holding 940.44 kg of marijuana; the owner is being traced.
 figures:
   kg_seized: 940.44
+created_by_model: unknown
 status: verified
 sources:
   - title: Police seize Over 1,050 kg marijuana in Udayapur

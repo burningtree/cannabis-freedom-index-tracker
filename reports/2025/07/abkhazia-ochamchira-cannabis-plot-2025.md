@@ -9,6 +9,7 @@ summary: >-
   on him. He led officers to a plot in the forest near Elyr where he had grown 15 South Krasnodar
   cannabis plants. A criminal case was opened and he was placed under house arrest. The case shows
   that a small outdoor plot is prosecuted as a crime, not treated as a minor infraction.
+created_by_model: unknown
 status: verified
 cfi_id: abkhazia-ochamchira-cannabis-plot-2025
 sources:

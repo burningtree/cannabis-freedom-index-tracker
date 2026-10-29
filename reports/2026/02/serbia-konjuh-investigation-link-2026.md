@@ -9,6 +9,7 @@ summary: >-
   earlier two-tonne Zemun case. The office publicly questioned when the organised-crime prosecutor
   became involved and why inspectors had notified it. The statement exposed a dispute over the
   investigation’s handling while the cases continued.
+created_by_model: unknown
 status: verified
 cfi_id: serbia-konjuh-investigation-link-2026
 sources:

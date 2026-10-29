@@ -8,6 +8,7 @@ summary: >-
   Diosdado Cabello, the vice-president for security, announced the seizure of 3,077 kg of marijuana
   at Pico de Zamuro in Falcón state. Eight Venezuelans travelling in a boat with five high-powered
   engines were arrested by the investigative police's anti-drug division.
+created_by_model: unknown
 status: verified
 cfi_id: venezuela-falcon-seizure-2025
 sources:

@@ -11,6 +11,7 @@ summary: >-
 figures:
   kg_seized: 750
   value: { amount: 10000000, currency: XAF }
+created_by_model: unknown
 status: verified
 tags: [exhibit-destruction, ngounie]
 sources:

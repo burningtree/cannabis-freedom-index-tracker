@@ -9,6 +9,7 @@ summary: >-
   sacks of peanuts at the Tchérassa checkpoint. The load had come from Kalmalo in Nigeria and was
   bound for Dan Issa and Maradi. Three people were arrested for international trafficking of
   high-risk drugs.
+created_by_model: unknown
 status: verified
 cfi_id: niger-konni-seizure-2025
 tags:

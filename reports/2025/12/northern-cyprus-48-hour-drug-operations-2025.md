@@ -9,6 +9,7 @@ summary: >-
   police reported seizing about 3.5 kg of drugs, most of it cannabis, including about 2 kg from a
   22-year-old in Metehan and 600 g in Kyrenia, and arresting ten suspects. Two of them were held at
   the airport over four cannabis cigarettes after a detection dog alerted officers.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-48-hour-drug-operations-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   800 kg of cannabis and nearly 300 amphetamine pills. The same report described 1,000 kg of crystal
   meth seized in Xayaboury and 166 kg in Bokeo. It gave no charge, court date or sentence for the
   cannabis case.
+created_by_model: unknown
 status: verified
 cfi_id: laos-bolikhamxay-cannabis-haul-2024
 sources:

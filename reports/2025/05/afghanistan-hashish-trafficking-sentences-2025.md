@@ -6,7 +6,8 @@ type: sentence
 title: Taliban court gives hashish traffickers prison and lashes
 summary: >-
   A Taliban court sentences eleven people for trafficking hashish and narcotic tablets to between
-  seven months and three and a half years in prison, plus ten to thirty-nine lashes.[@1]
+  seven months and three and a half years in prison, plus ten to thirty-nine lashes.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-hashish-trafficking-sentences-2025
 tags:

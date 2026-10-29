@@ -9,6 +9,7 @@ summary: >-
   third countries, earning about B$21,000. They used modified luggage, and the case showed Brunei
   acting as a courier source rather than only a consumer market. The arrests were an enforcement
   action, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: brunei-cannabis-couriers-2025
 tags:

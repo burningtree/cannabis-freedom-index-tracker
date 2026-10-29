@@ -9,6 +9,7 @@ summary: >-
   Papua New Guinea Defence Force and police uniforms. The bags were found in the bush at Bitapabeke
   and Ulagunan after a group of young people fled; no one was arrested at the time. Police said the
   suspects' identities were known and appealed for them to surrender.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-kokopo-seizure-2025
 sources:

@@ -16,6 +16,7 @@ figures:
   kg_seized: 271.3
   arrested: 4
   value: { amount: 13400000, currency: KES }
+created_by_model: unknown
 status: verified
 tags: [dci, nandi, kiambu, kisii, bhang]
 sources:

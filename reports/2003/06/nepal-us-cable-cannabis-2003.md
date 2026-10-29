@@ -9,6 +9,7 @@ summary: >-
   cannabis sold in India and for hashish sent to North America, Europe and South-East Asia. The
   Narcotic Drug Control Law Enforcement Unit told the embassy that Maoist insurgents levied a tax of
   up to 35 percent on cannabis cultivation and transport, and that trucks could hide 500-700 kg.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-us-cable-cannabis-2003
 sources:

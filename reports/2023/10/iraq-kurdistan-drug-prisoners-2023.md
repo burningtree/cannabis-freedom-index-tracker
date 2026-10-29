@@ -8,6 +8,7 @@ summary: >-
   The regional government reported that 1,097 of its 5,283 prisoners were serving sentences for
   narcotics, 617 of them for use and 480 for trafficking, in prisons holding about three times their
   capacity. Arrests had risen from 142 in 2014 to 2,017 in 2022.
+created_by_model: unknown
 status: verified
 cfi_id: iraq-kurdistan-drug-prisoners-2023
 sources:

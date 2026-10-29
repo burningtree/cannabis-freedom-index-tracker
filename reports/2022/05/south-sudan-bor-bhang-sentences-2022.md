@@ -7,8 +7,9 @@ title: Bor court gives five young men prison terms and fines five over bhang
 summary: >-
   A Bor court sentenced ten men aged eighteen to twenty-two after police found them smoking bhang
   during a night patrol. According to the state police commissioner, one received a year in prison,
-  four received six months, and five were fined 50,000 South Sudanese pounds each.[@1] Police also
-  arrested a supplier; the report did not state how much cannabis each young man held.[@1]
+  four received six months, and five were fined 50,000 South Sudanese pounds each. Police also
+  arrested a supplier; the report did not state how much cannabis each young man held.
+created_by_model: unknown
 status: verified
 cfi_id: south-sudan-bor-bhang-sentences-2022
 tags:

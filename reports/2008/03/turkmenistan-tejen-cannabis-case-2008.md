@@ -9,6 +9,7 @@ summary: >-
   produced 153 grams of marijuana, which he sold for $100. A court sentenced the two men involved to
   11 and 10 years in prison. The US State Department's 2010 narcotics report cited the case as an
   example of how small-scale cannabis growing was punished.
+created_by_model: unknown
 status: verified
 cfi_id: turkmenistan-tejen-cannabis-case-2008
 sources:

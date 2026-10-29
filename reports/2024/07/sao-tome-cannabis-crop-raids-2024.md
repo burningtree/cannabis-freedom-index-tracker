@@ -6,10 +6,11 @@ type: eradication
 title: São Tomé police raid cannabis fields and sales points, arresting nine
 summary: >-
   Police’s Operation 971 targeted cannabis fields and sales points across São Tomé and Príncipe in
-  July 2024, according to a later account of the operation.[@1] Seven men and two women, all São
-  Toméan, were detained and brought for an initial judicial hearing.[@1] The operation involved the
+  July 2024, according to a later account of the operation. Seven men and two women, all São
+  Toméan, were detained and brought for an initial judicial hearing. The operation involved the
   prison and social reintegration service and the state leaders’ protection unit alongside the
   judicial…
+created_by_model: unknown
 status: verified
 cfi_id: sao-tome-cannabis-crop-raids-2024
 tags:

@@ -10,6 +10,7 @@ summary: >-
   supply-reduction strategy alongside the legal programme. The area remains far larger than the
   3,141 hectares in legal production that year, and the figure is a government estimate rather than
   an independent survey.
+created_by_model: unknown
 status: verified
 cfi_id: morocco-illegal-cultivation-down-2025
 sources:

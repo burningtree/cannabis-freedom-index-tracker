@@ -9,6 +9,7 @@ summary: >-
   kilograms, in the village of Vakiri in Sighnaghi municipality. Searches of homes linked to the
   suspects also turned up 3.3 kilograms of dried marijuana already packaged, drying equipment and
   digital scales.
+created_by_model: unknown
 status: verified
 cfi_id: georgia-kakheti-cannabis-farm-2025
 sources:

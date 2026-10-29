@@ -8,6 +8,7 @@ summary: >-
   Belgrade’s Higher Public Prosecutor said it opened an investigation against two suspects after two
   tonnes of cannabis packaged for further sale were seized in Zemun. The office later linked its
   continuing investigation to the five-tonne seizure near Kruševac in January 2026.
+created_by_model: unknown
 status: verified
 cfi_id: serbia-zemun-cannabis-seizure-2025
 sources:

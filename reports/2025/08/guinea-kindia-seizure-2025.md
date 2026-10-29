@@ -9,6 +9,7 @@ summary: >-
   carrying 1,725 kg of cannabis; the driver abandoned it and was arrested four days later. The
   operation was part of an anti-drug campaign launched by the prosecutor general at the Conakry
   court of appeal, and the Kindia prosecutor was informed.
+created_by_model: unknown
 status: verified
 cfi_id: guinea-kindia-seizure-2025
 tags:

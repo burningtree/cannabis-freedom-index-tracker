@@ -16,6 +16,7 @@ summary: >-
 figures:
   deaths: 1
   prison: life (minimum 27 years)
+created_by_model: unknown
 status: verified
 tags: [burglary, shotgun, self-defence]
 sources:

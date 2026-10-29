@@ -9,6 +9,7 @@ summary: >-
   anti-narcotics officers. The court convicted him on five felony counts, including three counts of
   assaulting officers enforcing the narcotics law that resulted in death, and ordered the
   confiscation of all seized items.
+created_by_model: unknown
 status: verified
 cfi_id: jordan-officer-killing-death-sentence-2026
 sources:

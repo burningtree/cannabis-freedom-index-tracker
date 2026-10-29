@@ -8,6 +8,7 @@ summary: >-
   An official account of an addiction symposium reported 218 participants in supervised-release
   programmes. The figure covered drug cases generally and described the work of the Prime Ministry’s
   drug commission.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-treatment-programme-report-2026
 sources:

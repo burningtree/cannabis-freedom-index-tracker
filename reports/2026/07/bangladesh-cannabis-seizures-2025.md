@@ -8,6 +8,7 @@ summary: >-
   A report in July 2026 counted at least 105 border points in 18 districts used to bring in
   narcotics of all kinds. Authorities seized 96,358 kg of cannabis in 2025, down from 114,345 kg in
   2024.
+created_by_model: unknown
 status: verified
 cfi_id: bangladesh-cannabis-seizures-2025
 tags:

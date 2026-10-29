@@ -16,6 +16,7 @@ figures:
   kg_seized: 70
   arrested: 3
   charged: 3
+created_by_model: unknown
 status: verified
 tags: [gdbop, kyustendil, mine]
 sources:

@@ -9,6 +9,7 @@ summary: >-
   and the arrest of two men accused of trafficking drugs. Officers searched the men and their
   vehicles and said they found illegal items, but the announcement gave no quantity or charge. The
   ministry did not say what happened to the men after the arrest.
+created_by_model: unknown
 status: verified
 cfi_id: qatar-drug-raid-arrests-2024
 sources:

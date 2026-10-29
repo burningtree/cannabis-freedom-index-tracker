@@ -6,10 +6,11 @@ type: seizure
 title: Singapore seizes 36 kg of cannabis at Changi Airport
 summary: >-
   A 25-year-old Portuguese man who arrived at Changi Airport Terminal 2 on 14 April 2026 was stopped
-  for checks, and 68 packets holding about 36.3 kg of cannabis were found in his luggage.[@1] He had
-  been due to leave Singapore the next day.[@1] The amount was more than 70 times the 500 g
+  for checks, and 68 packets holding about 36.3 kg of cannabis were found in his luggage. He had
+  been due to leave Singapore the next day. The amount was more than 70 times the 500 g
   threshold for the death penalty; the Immigration & Checkpoints Authority said investigations
   continued, and…
+created_by_model: unknown
 status: verified
 cfi_id: singapore-changi-airport-cannabis-seizure-2026
 sources:

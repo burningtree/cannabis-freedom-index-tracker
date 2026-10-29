@@ -14,6 +14,7 @@ summary: >-
 figures:
   plants_destroyed: 56000
   hectares: 0.6
+created_by_model: unknown
 status: verified
 tags: [semar, nayarit, navy]
 sources:

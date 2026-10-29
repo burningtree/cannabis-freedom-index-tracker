@@ -6,9 +6,10 @@ type: seizure
 title: Timor-Leste police seize live cannabis seedlings from Ireland
 summary: >-
   Police and customs seized a package of live cannabis seedlings during maritime cargo checks on 1
-  June, the national police reported.[@1] Officers detained a 43-year-old who came to collect it;
+  June, the national police reported. Officers detained a 43-year-old who came to collect it;
   police said relatives had sent the parcel from Ireland and that examination of its quantity was
-  continuing.[@1] The suspect was referred for an initial court hearing on 3 June.[@1]
+  continuing. The suspect was referred for an initial court hearing on 3 June.
+created_by_model: unknown
 status: verified
 cfi_id: timor-leste-marijuana-parcel-seizure-2022
 tags:

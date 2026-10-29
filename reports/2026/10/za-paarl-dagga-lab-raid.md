@@ -14,6 +14,7 @@ summary: >-
   and a woman were arrested for dealing and were due in court on 29 October.
 figures:
   arrested: 3
+created_by_model: unknown
 status: verified
 tags: [dagga-lab, paarl]
 sources:

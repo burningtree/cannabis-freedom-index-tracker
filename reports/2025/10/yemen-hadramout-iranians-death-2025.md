@@ -9,6 +9,7 @@ summary: >-
   nearly three tonnes of hashish and crystal methamphetamine from Iran into Yemeni waters. The court
   ordered the drugs destroyed and the seized items confiscated, and the justice ministry said the
   case was part of efforts against transnational organised crime.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-hadramout-iranians-death-2025
 sources:

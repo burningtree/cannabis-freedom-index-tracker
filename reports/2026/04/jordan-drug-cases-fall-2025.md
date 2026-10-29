@@ -9,6 +9,7 @@ summary: >-
   25,260 in 2024. Possession and use fell 10 per cent to 15,720 and trafficking 19 per cent to
   6,311. A separate human-rights report had compared 2025 crimes with 2024 arrests, producing a
   misleading 34 per cent drop.
+created_by_model: unknown
 status: verified
 cfi_id: jordan-drug-cases-fall-2025
 sources:

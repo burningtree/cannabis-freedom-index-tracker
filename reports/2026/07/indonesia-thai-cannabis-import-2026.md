@@ -9,6 +9,7 @@ summary: >-
   of cannabis buds from Thailand in 500 suitcases and 80 cartons at a warehouse in Gresik. Twelve
   people were arrested, including a Chinese national; BNN said the buds were intended to be turned
   into THC vape liquid.
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-thai-cannabis-import-2026
 sources:

@@ -12,6 +12,7 @@ summary: >-
   weighing 583 kg. No arrests were reported.
 figures:
   kg_seized: 583
+created_by_model: unknown
 status: verified
 tags: [ndlea, farm]
 sources:

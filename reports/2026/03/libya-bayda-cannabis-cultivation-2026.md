@@ -9,6 +9,7 @@ summary: >-
   Wadi al-Akki. Three received life imprisonment and a 50,000-dinar fine each; two received ten
   years and a 3,000-dinar fine each. All five lost their civil rights, and the ruling was reported
   on 15 March.
+created_by_model: unknown
 status: verified
 cfi_id: libya-bayda-cannabis-cultivation-2026
 sources:

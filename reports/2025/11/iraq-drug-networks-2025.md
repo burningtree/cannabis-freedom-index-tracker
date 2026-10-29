@@ -10,6 +10,7 @@ summary: >-
   2025. It counted 23,118 court judgments in drug cases, among them 300 death sentences and 1,147
   life sentences, and said 6,022 people had recovered from addiction while 1,228 were in treatment
   at 16 centres.
+created_by_model: unknown
 status: verified
 cfi_id: iraq-drug-networks-2025
 sources:

@@ -7,6 +7,7 @@ title: Syria launches 'Syria Without Drugs' with a tally of the crackdown
 summary: >-
   The interior and health ministries launched a national anti-drug campaign at a ceremony in
   Damascus attended by President al-Sharaa.
+created_by_model: unknown
 status: verified
 cfi_id: syria-without-drugs-campaign-2026
 sources:

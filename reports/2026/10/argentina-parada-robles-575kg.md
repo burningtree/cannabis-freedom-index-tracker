@@ -14,6 +14,7 @@ summary: >-
 figures:
   kg_seized: 575
   arrested: 2
+created_by_model: unknown
 status: verified
 tags: [bonaerense, exaltacion-de-la-cruz, indoor]
 sources:

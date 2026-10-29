@@ -10,6 +10,7 @@ summary: >-
   and Dashoguz regions and refused to name his accomplices. The case was reported on 27 March; it
   involved heroin, not cannabis, and showed the border service's role in interdicting Afghan
   opiates.
+created_by_model: unknown
 status: verified
 cfi_id: turkmenistan-heroin-seizure-2025
 sources:

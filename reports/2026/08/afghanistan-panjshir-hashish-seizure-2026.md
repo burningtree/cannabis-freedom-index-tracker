@@ -9,6 +9,7 @@ summary: >-
   Paryan district, Panjshir province, and arrested four people. The suspects were referred to
   judicial authorities after initial questioning. The ministry did not say where the shipment was
   going.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-panjshir-hashish-seizure-2026
 sources:

@@ -9,6 +9,7 @@ summary: >-
   prohibited plants under section 8(a) and possessing a dangerous drug under section 8(b) of the
   Dangerous Drugs Act. Officers uprooted his plants and found cannabis on him at the arrest. The
   case shows both limbs of the 1941 law being used against a small grower.
+created_by_model: unknown
 status: verified
 cfi_id: solomon-islands-choiseul-cultivation-charges-2025
 sources:

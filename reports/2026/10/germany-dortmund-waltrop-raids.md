@@ -14,6 +14,7 @@ summary: >-
   weapons, cocaine and cannabis trafficking.
 figures:
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [firearms, organised-crime, nrw]
 sources:

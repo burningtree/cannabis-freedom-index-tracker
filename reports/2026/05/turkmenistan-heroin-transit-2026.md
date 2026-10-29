@@ -9,6 +9,7 @@ summary: >-
   at the Olot border post on 30 May 2026. The truck had crossed Turkmenistan, and Turkmen customs
   had not found the drugs on either entry or exit. The case was reported by Hronika on 4 June and
   highlighted the gap in Turkmen border checks.
+created_by_model: unknown
 status: verified
 cfi_id: turkmenistan-heroin-transit-2026
 sources:

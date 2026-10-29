@@ -8,6 +8,7 @@ summary: >-
   Iran's Drug Control Headquarters said more than 500,000 retailers, distributors and people
   connected to drug offences were arrested in the Iranian year 1404, which ended in March 2026. It
   said seizures rose about 3% from 1403 but gave no cannabis breakdown.
+created_by_model: unknown
 status: verified
 cfi_id: iran-drug-arrests-1404
 sources:

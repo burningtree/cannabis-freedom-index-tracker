@@ -9,6 +9,7 @@ summary: >-
   marijuana near Meghri, after they picked up the load from a cache near Nrnadzor. The case was
   opened under the aggravated sale and smuggling articles, and a court ordered the two Armenians
   held.
+created_by_model: unknown
 status: verified
 cfi_id: armenia-marijuana-seizure-2026
 sources:

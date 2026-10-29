@@ -9,6 +9,7 @@ summary: >-
   drug crimes: 799 sales, 245 cultivation and 194 possession. Police seized 21.5 tonnes of drugs,
   including about 4.5 tonnes of marijuana, more than 200 kg of hashish and 16 tonnes of cannabis
   plants, and destroyed more than 100 tonnes of wild cannabis on 380 hectares in the Shu district.
+created_by_model: unknown
 status: verified
 cfi_id: kazakhstan-karasora-2024
 sources:

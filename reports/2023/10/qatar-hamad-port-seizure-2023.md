@@ -7,6 +7,7 @@ title: Qatar's customs find 87 kg of hashish in bales of animal feed
 summary: >-
   Customs officers at Hamad Port announced that they had found about 87.5 kilograms of hashish
   packed among stacks of hay in a container declared as animal feed.
+created_by_model: unknown
 status: verified
 cfi_id: qatar-hamad-port-seizure-2023
 sources:

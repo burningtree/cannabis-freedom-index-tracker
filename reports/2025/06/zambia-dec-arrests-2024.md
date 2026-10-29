@@ -8,6 +8,7 @@ summary: >-
   The Drug Enforcement Commission reported 4,728 arrests and 43.2 tonnes of cannabis seized in 2024,
   alongside 27.9 kg of codeine and 1.9 kg of cocaine. The figures cover all drugs and all forms of
   cannabis, not cannabis alone.
+created_by_model: unknown
 status: verified
 cfi_id: zambia-dec-arrests-2024
 sources:

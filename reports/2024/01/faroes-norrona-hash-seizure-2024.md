@@ -7,6 +7,7 @@ title: Faroese customs find 24 kg of hashish in a ferry passenger’s car
 summary: >-
   Customs found 24 kg of hashish in a car arriving on Norrøna. Police arrested two people and
   charged them under Penal Code § 191; the following day a court remanded them for four weeks.
+created_by_model: unknown
 status: verified
 cfi_id: faroes-norrona-hash-seizure-2024
 sources:

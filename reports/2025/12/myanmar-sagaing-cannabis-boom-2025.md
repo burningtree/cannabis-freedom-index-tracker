@@ -8,6 +8,7 @@ summary: >-
   The Irrawaddy reported that villages in Ayadaw township and along the Myinmu border had shifted
   from rice, beans, betel nut and cotton to cannabis since 2022–23. Residents estimated at least
   five acres per village and more than thirty acres across six villages.
+created_by_model: unknown
 status: verified
 cfi_id: myanmar-sagaing-cannabis-boom-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   for lack of prosecution, and a court order directed the return of 337 plants and 4 kg seized from
   his Thetsane residence in 2024. Police had still not returned the plants by October 2026, and the
   Ministry of Health was withholding a licence renewal.
+created_by_model: unknown
 status: verified
 cfi_id: lesotho-srugo-case-2026
 sources:

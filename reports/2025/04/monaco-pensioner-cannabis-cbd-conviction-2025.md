@@ -9,6 +9,7 @@ summary: >-
   after a search of his home found 15.62 g of cannabis, a CBD spray and CBD chewing gum. The
   prosecutor cited a ministerial order banning cannabis and its derivatives, including CBD, even at
   low THC levels, and asked for three months suspended.
+created_by_model: unknown
 status: verified
 cfi_id: monaco-pensioner-cannabis-cbd-conviction-2025
 tags:

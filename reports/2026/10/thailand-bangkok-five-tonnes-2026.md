@@ -8,6 +8,7 @@ summary: >-
   Immigration police raided a rented house in Bang Khen district, Bangkok, on 19 October 2026 and
   found five tonnes of cannabis buds. They arrested a Vietnamese man and four Myanmar workers who
   were paid 200–300 baht a day to sort and pack the flower.
+created_by_model: unknown
 status: verified
 cfi_id: thailand-bangkok-five-tonnes-2026
 sources:

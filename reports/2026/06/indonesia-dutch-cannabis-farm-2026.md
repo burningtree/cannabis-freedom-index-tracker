@@ -9,6 +9,7 @@ summary: >-
   hydroponic cannabis farm in their rented Denpasar house. Prosecutors sought nine years, but the
   Denpasar court convicted him under the plant-cultivation article and sentenced him to three years
   and a Rp510 million fine on 23 June 2026.
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-dutch-cannabis-farm-2026
 sources:

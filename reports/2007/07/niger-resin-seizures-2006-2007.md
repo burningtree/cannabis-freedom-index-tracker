@@ -7,8 +7,9 @@ title: Niger seizes 5.7 tons of Moroccan resin in transit
 summary: >-
   Five seizures in Niger in the 2006–2007 period netted a total of 5.7 tons of cannabis resin moving
   along the newly identified trans-Saharan route from Morocco through Mauritania, Mali and Niger
-  toward Chad and on into Egypt or Sudan.[@1] The seizures made Niger the most visible interception
-  point on that route.[@1]
+  toward Chad and on into Egypt or Sudan. The seizures made Niger the most visible interception
+  point on that route.
+created_by_model: unknown
 status: verified
 cfi_id: niger-resin-seizures-2006-2007
 sources:

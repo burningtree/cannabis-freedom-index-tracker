@@ -6,9 +6,10 @@ type: arrest
 title: Montenegro police arrest a third suspect in the Trnovo cannabis case
 summary: >-
   Police arrested a 31-year-old man from Bar, identified as N.D., on suspicion of drug production
-  and supply in the Trnovo investigation.[@1] The August operation had uncovered about 13,100
-  cannabis plants and led to two arrests.[@1] Investigators said they were continuing to identify
-  people involved in cultivation and distribution; further complaints followed in March 2026.[@1,2]
+  and supply in the Trnovo investigation. The August operation had uncovered about 13,100
+  cannabis plants and led to two arrests. Investigators said they were continuing to identify
+  people involved in cultivation and distribution; further complaints followed in March 2026.
+created_by_model: unknown
 status: verified
 cfi_id: montenegro-trnovo-third-arrest-2025
 tags:

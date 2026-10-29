@@ -14,6 +14,7 @@ summary: >-
 figures:
   kg_seized: 5.969
   value: { amount: 60260000, currency: LKR }
+created_by_model: unknown
 status: verified
 tags: [kush, hashish, postal, customs]
 sources:

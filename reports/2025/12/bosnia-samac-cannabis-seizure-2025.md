@@ -8,6 +8,7 @@ summary: >-
   Republika Srpska police arrested one person and reported finding 3.8 kg of suspected marijuana
   during a court-authorised search. The suspect was referred to the Doboj prosecutor the following
   day.
+created_by_model: unknown
 status: verified
 cfi_id: bosnia-samac-cannabis-seizure-2025
 sources:

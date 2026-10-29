@@ -16,6 +16,7 @@ figures:
   kg_seized: 23.22
   arrested: 1
   value: { amount: 81200000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [hydroponic, bangkok-route, air-cargo]
 sources:

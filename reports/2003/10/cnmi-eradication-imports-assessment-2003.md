@@ -9,6 +9,7 @@ summary: >-
   campaigns and a greater reliance on supplies from the Philippines and Palau. It reported a sharp
   rise in retail prices and said local cultivation was largely confined to small amounts for
   personal use.
+created_by_model: unknown
 status: verified
 cfi_id: cnmi-eradication-imports-assessment-2003
 tags:

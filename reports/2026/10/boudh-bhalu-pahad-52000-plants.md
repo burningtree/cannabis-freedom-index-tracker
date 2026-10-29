@@ -13,6 +13,7 @@ summary: >-
   unidentified growers under the NDPS and Forest Acts.
 figures:
   plants_destroyed: 52000
+created_by_model: unknown
 status: verified
 tags: [boudh, zero-cultivation-mission]
 sources:

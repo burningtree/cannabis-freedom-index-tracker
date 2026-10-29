@@ -9,6 +9,7 @@ summary: >-
   turned to cannabis as their main cash crop. A Nepali Times report said the Maoists had first
   declared the area a marijuana-free zone, then allowed the trade in exchange for a cut. Police had
   seized 8,000 kg of cannabis and destroyed the crop on 74.5 hectares the year before.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-maoists-cannabis-2001
 sources:

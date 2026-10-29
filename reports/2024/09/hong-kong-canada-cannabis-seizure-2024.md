@@ -10,6 +10,7 @@ summary: >-
   Officers found the buds in 83 bags, then arrested two men and one woman aged 44 to 55 after a
   controlled delivery. The case showed smugglers using ordinary food cargoes to move cannabis into
   Hong Kong.
+created_by_model: unknown
 status: verified
 cfi_id: hong-kong-canada-cannabis-seizure-2024
 sources:

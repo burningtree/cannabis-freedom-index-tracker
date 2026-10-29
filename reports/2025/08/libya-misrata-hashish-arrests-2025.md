@@ -8,6 +8,7 @@ summary: >-
   Libya's Counter-Terrorism Forces arrested two Nigerian nationals in Misrata on suspicion of drug
   trafficking, finding hashish, hallucinogenic pills and cash, according to a statement by the
   monitoring group Migrant Rescue Watch. The case was referred to the public prosecution.
+created_by_model: unknown
 status: verified
 cfi_id: libya-misrata-hashish-arrests-2025
 sources:

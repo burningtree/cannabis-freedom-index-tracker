@@ -9,6 +9,7 @@ summary: >-
   at his home and was growing 714 cannabis plants for sale; the dried material weighed 201 kg. In a
   separate case in Tashkent, a previously convicted man was stopped with 1.994 kg of hashish said to
   have been smuggled from a neighbouring country. Criminal cases were opened in both.
+created_by_model: unknown
 status: verified
 cfi_id: uzbekistan-cannabis-greenhouse-2026
 sources:

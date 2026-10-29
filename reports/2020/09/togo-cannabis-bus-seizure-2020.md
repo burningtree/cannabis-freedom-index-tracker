@@ -9,6 +9,7 @@ summary: >-
   stopping a bus arriving from Ghana during the night of 14–15 September. According to the
   authorities, the cannabis was hidden among second-hand clothing and was being taken to Benin
   through Togo.
+created_by_model: unknown
 status: verified
 cfi_id: togo-cannabis-bus-seizure-2020
 tags:

@@ -9,6 +9,7 @@ summary: >-
   cannabis-type plants in their car. They seized medicines, syringes, a drip set and cash as
   evidence and said the investigation was continuing. No charge, quantity or court outcome was
   reported.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-cannabis-plants-tov-2026
 sources:

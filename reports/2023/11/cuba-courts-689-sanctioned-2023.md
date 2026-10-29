@@ -9,6 +9,7 @@ summary: >-
   sanctioned 689 people linked to drug trafficking so far that year, 92% with prison sentences.
   These totals cover drugs generally, not cannabis alone. Authorities separately reported 77 cases
   of marihuana growing.
+created_by_model: unknown
 status: verified
 cfi_id: cuba-courts-689-sanctioned-2023
 tags:

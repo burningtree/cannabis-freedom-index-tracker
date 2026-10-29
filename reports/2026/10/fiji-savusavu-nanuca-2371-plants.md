@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 1
   plants_destroyed: 2371
+created_by_model: unknown
 status: verified
 tags: [savusavu]
 sources:

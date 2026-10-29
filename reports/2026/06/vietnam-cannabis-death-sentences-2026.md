@@ -9,6 +9,7 @@ summary: >-
   ring that had used Telegram to take orders and arrange payment. The court found more than 401 kg
   of cannabis had been traded between 2023 and June 2024. Nguyễn Phi Cơ and Nguyễn Duy Mạnh received
   death sentences; Nguyễn Tuấn Anh received life.
+created_by_model: unknown
 status: verified
 cfi_id: vietnam-cannabis-death-sentences-2026
 sources:

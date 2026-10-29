@@ -8,6 +8,7 @@ summary: >-
   Police seized 2,665 cannabis plants at Mataika in Vava'u on 24 September 2018 and charged seven
   people. Media called it Tonga's largest cannabis bust at the time, though a 2017 raid at Matahau
   had found 3,894 plants.
+created_by_model: unknown
 status: verified
 cfi_id: tonga-vavau-cannabis-bust-2018
 sources:

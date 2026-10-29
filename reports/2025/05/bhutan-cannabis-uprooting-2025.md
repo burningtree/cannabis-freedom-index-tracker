@@ -9,6 +9,7 @@ summary: >-
   dzongkhags in May 2025, starting with Thimphu. The force reported 13.15 kg of cannabis leaves,
   1.26 kg of hashish and 337 plants seized in 2024, and 225 cannabis-abuse cases against 197 in
   2023. The campaign was enforcement, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: bhutan-cannabis-uprooting-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   people, the Interior Ministry said. In the same round of operations police recovered 2,800
   intoxicating tablets in Jalalabad and 1,000 tablet K pills in Herat. The ministry said the
   suspects would face legal action.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-helmand-hashish-seizure-2026
 sources:

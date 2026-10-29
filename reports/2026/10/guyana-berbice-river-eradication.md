@@ -16,6 +16,7 @@ figures:
   plants_destroyed: 310500
   kg_seized: 199.6
   value: { amount: 165071544, currency: GYD }
+created_by_model: unknown
 status: verified
 tags: [berbice-river, savannah]
 sources:

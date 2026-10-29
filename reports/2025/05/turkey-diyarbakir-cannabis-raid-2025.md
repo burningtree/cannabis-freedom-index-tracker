@@ -10,6 +10,7 @@ summary: >-
   the plants could have produced 174 tonnes of hashish, and eight people were detained. The
   operation was one of the largest in the southeast, where most illegal cannabis cultivation is
   found.
+created_by_model: unknown
 status: verified
 cfi_id: turkey-diyarbakir-cannabis-raid-2025
 sources:

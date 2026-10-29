@@ -10,6 +10,7 @@ summary: >-
   exports and transport. At the same time the agency said 1,100 hectares of the local beldiya
   variety had been harvested, 60% of the area planted with it, by about 1,800 farmers in 154
   cooperatives.
+created_by_model: unknown
 status: verified
 cfi_id: morocco-cannabis-licences-revoked-2026
 sources:

@@ -6,9 +6,10 @@ type: arrest
 title: São Tomé police arrest three in a park with cannabis and amphetamines
 summary: >-
   Judicial police arrested three men in Parque Popular with about 30 grams of liamba, or cannabis,
-  and three doses of amphetamines.[@1] Two were São Toméan and one Portuguese; all were suspected of
-  trafficking, and the judicial authorities imposed bail.[@1] RSTP’s August report quoted a police
-  announcement and recalled the previous year’s raids on cannabis fields and sales points.[@1]
+  and three doses of amphetamines. Two were São Toméan and one Portuguese; all were suspected of
+  trafficking, and the judicial authorities imposed bail. RSTP’s August report quoted a police
+  announcement and recalled the previous year’s raids on cannabis fields and sales points.
+created_by_model: unknown
 status: verified
 cfi_id: sao-tome-park-cannabis-arrests-2025
 tags:

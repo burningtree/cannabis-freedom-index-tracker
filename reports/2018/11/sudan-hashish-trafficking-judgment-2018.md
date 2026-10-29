@@ -8,6 +8,7 @@ summary: >-
   In Sudan Government v. Z. A. A. J., the National Supreme Court confirms an article 15 conviction
   involving 657.3 grams of hashish found in the accused’s locked bag. It treats the quantity as
   evidence of trafficking intent, upholds life imprisonment and reduces the fine to 10,000 pounds.
+created_by_model: unknown
 status: verified
 cfi_id: sudan-hashish-trafficking-judgment-2018
 tags:

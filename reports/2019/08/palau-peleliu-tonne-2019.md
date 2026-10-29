@@ -7,6 +7,7 @@ title: Palau burns more than a tonne of cannabis in Peleliu
 summary: >-
   Police seized and burned over a tonne of marijuana from about 20 houses in Peleliu. It was one of
   the largest cannabis seizures in Palau and showed the scale of local cultivation.
+created_by_model: unknown
 status: verified
 cfi_id: palau-peleliu-tonne-2019
 sources:

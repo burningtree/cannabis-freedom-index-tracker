@@ -9,6 +9,7 @@ summary: >-
   four months, 115 of them in Damascus, against fewer than 500 in the whole of 2013. He recalled
   that trafficking carries ten years to death under the 1993 law, that whoever plants cannabis is
   treated as a trader, and that the law regards addicts as the victims of dealers.
+created_by_model: unknown
 status: verified
 cfi_id: syria-drug-cases-rise-2014
 sources:

@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 13.7
+created_by_model: unknown
 status: verified
 tags: [motorbike, chase, manhunt]
 sources:

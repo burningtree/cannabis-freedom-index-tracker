@@ -8,6 +8,7 @@ summary: >-
   A mobile customs unit stopped a ride-hailing car coming from Aboisso on the Moossou bridge and
   found 78 balls and 40 slabs of cannabis, 74 kg in all. The driver and two passengers were
   detained.
+created_by_model: unknown
 status: verified
 cfi_id: ivory-coast-customs-seizure-2025
 sources:

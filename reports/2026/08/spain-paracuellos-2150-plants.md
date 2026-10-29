@@ -14,6 +14,7 @@ summary: >-
 figures:
   plants_destroyed: 2150
   arrested: 2
+created_by_model: unknown
 status: verified
 tags: [guardia-civil, madrid, indoor]
 sources:

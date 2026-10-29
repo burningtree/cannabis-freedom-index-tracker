@@ -9,6 +9,7 @@ summary: >-
   herb, 31.57 g of ice and 80 ecstasy tablets seized, and 15.7 million XFP in assets. Police
   implicated 395 people and held 45 in custody. It was an enforcement operation, not a change in the
   law.
+created_by_model: unknown
 status: verified
 cfi_id: french-polynesia-matai-rorofai-2025
 sources:

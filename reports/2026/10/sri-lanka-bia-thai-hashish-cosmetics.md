@@ -16,6 +16,7 @@ figures:
   arrested: 3
   kg_seized: 5.096
   value: { amount: 51000000, currency: LKR }
+created_by_model: unknown
 status: verified
 tags: [hashish, airport, bangkok-route, concealment]
 sources:

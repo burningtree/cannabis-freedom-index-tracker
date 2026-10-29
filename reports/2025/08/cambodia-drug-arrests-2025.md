@@ -9,6 +9,7 @@ summary: >-
   between January and July 2025, 2.7% more than in the same period a year earlier; 537 of them were
   foreigners. Seizures included 505 kg of dried cannabis and 12,212 fresh cannabis plants, out of
   1.91 tonnes of drugs in all.
+created_by_model: unknown
 status: verified
 cfi_id: cambodia-drug-arrests-2025
 sources:

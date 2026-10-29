@@ -8,6 +8,7 @@ summary: >-
   Police arrested 27 people in Operasi Ursa Heal in Tutong on 16 and 19 June 2024, seizing 75.29 g
   of syabu and 37.21 g of cannabis. The operation was one of the year's street-level enforcement
   actions and did not change the law.
+created_by_model: unknown
 status: verified
 cfi_id: brunei-tutong-drug-sweep-2024
 sources:

@@ -7,6 +7,7 @@ title: Kiribati fines a fisheries officer who kept and used cannabis
 summary: >-
   Fisheries officer Tebaatei Kourabi received a fine after being convicted of keeping cannabis he
   had found and used for about a month.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-cannabis-knowledge-conviction-2018
 tags:

@@ -8,6 +8,7 @@ summary: >-
   The head of Tajikistan's Drug Control Agency said about 2,742 kg of narcotics were seized along
   the border with Afghanistan in 2025, and the authorities said trafficking from Afghanistan had
   risen by nearly half over 2024.
+created_by_model: unknown
 status: verified
 cfi_id: tajikistan-border-seizures-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   month-long drive to destroy illegal cannabis cultivation in remote parts of Kullu. The teams
   geo-tag and film the plots and the Forest Department issues destruction certificates; the NCB said
   legal action would follow against those responsible.
+created_by_model: unknown
 status: verified
 cfi_id: india-ncb-kullu-eradication-2026
 sources:

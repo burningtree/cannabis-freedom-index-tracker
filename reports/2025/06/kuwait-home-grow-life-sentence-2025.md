@@ -9,6 +9,7 @@ summary: >-
   apartment and selling it. Police found 45 plants and four kilograms of prepared cannabis, along
   with 37 kilograms of gold bars and precious metals that investigators treated as proceeds. The
   sentence was passed under the 1983 drug law, five months before its replacement took effect.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-home-grow-life-sentence-2025
 sources:

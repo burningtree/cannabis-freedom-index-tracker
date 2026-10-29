@@ -15,6 +15,7 @@ figures:
   arrested: 1
   plants_destroyed: 2000
   hectares: 0.8
+created_by_model: unknown
 status: verified
 tags: [malkangiri, forest-land]
 sources:

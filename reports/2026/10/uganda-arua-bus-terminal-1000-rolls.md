@@ -13,6 +13,7 @@ summary: >-
   charges.
 figures:
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [arua, bus-terminal, west-nile]
 sources:

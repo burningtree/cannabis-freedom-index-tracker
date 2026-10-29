@@ -9,6 +9,7 @@ summary: >-
   seedlings, a kilogram of prepared cannabis, a firearm and ammunition. The Interior Ministry said
   cultivation for trafficking can bring death or life under the 2025 law. The raid showed that small
   indoor grows, not only imports, supply some users.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-indoor-cannabis-farm-2026
 sources:

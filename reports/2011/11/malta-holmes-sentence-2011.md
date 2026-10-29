@@ -9,6 +9,7 @@ summary: >-
   cultivating cannabis in circumstances suggesting it was not for personal use and trafficking over
   1 kg, a weight his defence said counted the whole dry plant. He was sentenced to eleven years and
   a fine of over €23,000. He said he grew it for himself.
+created_by_model: unknown
 status: verified
 cfi_id: malta-holmes-sentence-2011
 tags:

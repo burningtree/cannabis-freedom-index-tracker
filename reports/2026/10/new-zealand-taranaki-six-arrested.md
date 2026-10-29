@@ -14,6 +14,7 @@ summary: >-
   27-year-old woman faces cannabis supply charges and was remanded until 29 October.
 figures:
   arrested: 6
+created_by_model: unknown
 status: verified
 tags: [taranaki]
 sources:

@@ -8,6 +8,7 @@ summary: >-
   On 21 and 22 October 2019 a joint RSIPF team uprooted more than 5,500 marijuana plants at several
   locations in Mbarande, North East Guadalcanal. No one was arrested at the time, and police asked
   village chiefs, church leaders and youth leaders to help identify the growers.
+created_by_model: unknown
 status: verified
 cfi_id: solomon-islands-mbarande-raid-2019
 sources:

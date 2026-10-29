@@ -9,6 +9,7 @@ summary: >-
   pills, 759.6 kg of cocaine and 1.7 kg of heroin in 2024, with a total value of about 620 million
   dinars. It also listed 2,073 arrests and just 951 grams of hashish. Pills and cocaine dominated
   the published haul.
+created_by_model: unknown
 status: verified
 cfi_id: libya-anti-narcotics-2024-report
 sources:

@@ -8,6 +8,7 @@ summary: >-
   Libreville prosecutors destroyed three truckloads of seized drugs, including cannabis, in the
   presence of Justice Minister Augustin Emane. The ministry valued the combined haul at nearly five
   billion CFA francs and said the operation aimed to prevent seized drugs from returning to sale.
+created_by_model: unknown
 status: verified
 cfi_id: gabon-libreville-seized-drugs-destroyed-2026
 tags:

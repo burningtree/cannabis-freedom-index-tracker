@@ -9,6 +9,7 @@ summary: >-
   in Vientiane markets, despite Laos's ban. A Vientiane police officer said only cannabis products
   authorised by the Ministry of Health for medical use were allowed and that police confiscated
   illegal products.
+created_by_model: unknown
 status: verified
 cfi_id: laos-thai-cannabis-drinks-2024
 sources:

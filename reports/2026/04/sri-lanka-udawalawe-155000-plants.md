@@ -14,6 +14,7 @@ summary: >-
 figures:
   hectares: 1.2
   value: { amount: 4500000, currency: LKR }
+created_by_model: unknown
 status: verified
 tags: [udawalawe, nature-reserve]
 sources:

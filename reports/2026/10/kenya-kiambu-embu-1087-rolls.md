@@ -14,6 +14,7 @@ summary: >-
   operations target drug distribution networks.
 figures:
   arrested: 2
+created_by_model: unknown
 status: verified
 tags: [bhang, peddling]
 sources:

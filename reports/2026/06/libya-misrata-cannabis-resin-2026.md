@@ -8,6 +8,7 @@ summary: >-
   Customs officers at Misrata Free Zone port found 4,752 blocks of hashish, each about 1.15 kg,
   hidden among other goods in two containers. The haul totalled more than five tonnes and one Libyan
   man was arrested. Prosecutors in East Misrata supervised the case.
+created_by_model: unknown
 status: verified
 cfi_id: libya-misrata-cannabis-resin-2026
 sources:

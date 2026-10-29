@@ -9,6 +9,7 @@ summary: >-
   December 2020. More than 122.5 kg of narcotics seized by the Interior Ministry were burned in its
   furnaces. The government presented the facility as a sign of its commitment to drug control; it
   did not say which drugs made up the total.
+created_by_model: unknown
 status: verified
 cfi_id: turkmenistan-drug-incinerator-2020
 sources:

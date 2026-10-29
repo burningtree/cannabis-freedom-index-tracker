@@ -9,6 +9,7 @@ summary: >-
   Thailand, allegedly destined for South Africa. The pilots were fined M200,000 for unlawful landing
   and sent back; police denied that it was a cannabis seizure. The cannabis and destination claims
   were allegations, not court findings.
+created_by_model: unknown
 status: verified
 cfi_id: lesotho-pilot-cannabis-2026
 sources:

@@ -16,6 +16,7 @@ summary: >-
 figures:
   kg_seized: 5000
   arrested: 5
+created_by_model: unknown
 status: verified
 tags: [bangkok, foreigners, licensing]
 sources:

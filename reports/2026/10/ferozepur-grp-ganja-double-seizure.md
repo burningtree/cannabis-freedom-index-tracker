@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 2
   kg_seized: 48.9
+created_by_model: unknown
 status: verified
 tags: [railway, grp]
 sources:

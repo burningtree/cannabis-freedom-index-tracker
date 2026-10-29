@@ -9,6 +9,7 @@ summary: >-
   of drugs burned over five months in Arghandab district. The haul also included 2,766 kg of opium,
   9.7 kg of methamphetamine and 1 kg of heroin. In Kabul, police arrested 123 people over a week and
   seized 15 kg of hashish, while 50,000 stimulant tablets were seized in Nangarhar.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-kandahar-cannabis-destruction-2026
 sources:

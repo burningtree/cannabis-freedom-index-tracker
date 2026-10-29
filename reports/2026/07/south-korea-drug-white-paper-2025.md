@@ -9,6 +9,7 @@ summary: >-
   and 4,085 in 2023; use fell to 1,016 while smuggling rose to 335. Overall drug offenders rose 1.7%
   to 23,403, and smuggling offenders hit a record 1,772. Seizures included 128.6 kg of herbal
   cannabis and 5.6 kg of resin.
+created_by_model: unknown
 status: verified
 cfi_id: south-korea-drug-white-paper-2025
 sources:

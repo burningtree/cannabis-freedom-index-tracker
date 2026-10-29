@@ -9,6 +9,7 @@ summary: >-
   alongside 6.3 million methamphetamine pills and more than two tonnes of kratom leaves. Vientiane's
   National Anti-Drug Day burn on 10 October included 8.578 kg of dried cannabis in a 3,894 kg total.
   The figures are post-conviction destructions, not annual seizures.
+created_by_model: unknown
 status: verified
 cfi_id: laos-drug-destruction-2026
 sources:

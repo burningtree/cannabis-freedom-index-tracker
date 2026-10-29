@@ -8,6 +8,7 @@ summary: >-
   SIPA reported 78.904 kg of marijuana/skank and 126 cannabis plants seized during 2023. Its
   all-drug trafficking work covered 68 cases and sixteen reports to prosecutors concerning 32
   people, plus a supplementary report concerning three people.
+created_by_model: unknown
 status: verified
 cfi_id: bosnia-sipa-drug-results-2023
 sources:

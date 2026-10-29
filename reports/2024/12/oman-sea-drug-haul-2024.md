@@ -10,6 +10,7 @@ summary: >-
   force said on 29 December 2024. The statement did not split the haul by drug or name the vessel's
   origin. It showed cannabis resin and herb moving alongside methamphetamine and tablets in the same
   shipment.
+created_by_model: unknown
 status: verified
 cfi_id: oman-sea-drug-haul-2024
 sources:

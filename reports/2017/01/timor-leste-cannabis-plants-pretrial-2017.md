@@ -6,10 +6,11 @@ type: prosecution
 title: Timor-Leste holds an Australian before trial over five cannabis plants
 summary: >-
   An Australian resident entered pretrial custody in Dili in a case involving five suspected
-  cannabis plants, according to Lusa reporting.[@1] Prosecutors had challenged an earlier decision
+  cannabis plants, according to Lusa reporting. Prosecutors had challenged an earlier decision
   allowing him to remain outside prison with reporting requirements and a confiscated passport, and
-  the appeal court backed detention.[@1] The case later led to a three-and-a-half-year prison
+  the appeal court backed detention. The case later led to a three-and-a-half-year prison
   sentence, with the…
+created_by_model: unknown
 status: verified
 cfi_id: timor-leste-cannabis-plants-pretrial-2017
 tags:

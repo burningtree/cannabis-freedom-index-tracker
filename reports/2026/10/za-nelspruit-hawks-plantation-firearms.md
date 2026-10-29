@@ -14,6 +14,7 @@ summary: >-
   71-year-old man and a 32-year-old woman were arrested and appeared in court the next day.
 figures:
   arrested: 2
+created_by_model: unknown
 status: verified
 tags: [dagga, firearms, hawks]
 sources:

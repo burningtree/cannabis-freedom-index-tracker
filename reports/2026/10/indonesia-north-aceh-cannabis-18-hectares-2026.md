@@ -8,6 +8,7 @@ summary: >-
   A 90-person joint team found about 18 hectares of cannabis in Teupin Reusep, North Aceh, on 27
   October 2026 and handed four farmers to police. The plants were one to two metres tall and two to
   four months old. The site is in the same village where BNN destroyed 69 tonnes in November 2025.
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-north-aceh-cannabis-18-hectares-2026
 sources:

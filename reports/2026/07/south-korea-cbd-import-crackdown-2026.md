@@ -9,6 +9,7 @@ summary: >-
   kanna and found controlled substances in 22 of them, including cannabis compounds and the
   temporary narcotic mesembrine. It asked customs to hold the products and platforms to block their
   sale, and warned that importing or eating them is punishable.
+created_by_model: unknown
 status: verified
 cfi_id: south-korea-cbd-import-crackdown-2026
 sources:

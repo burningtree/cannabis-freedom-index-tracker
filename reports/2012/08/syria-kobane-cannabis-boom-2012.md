@@ -9,6 +9,7 @@ summary: >-
   the surrounding villages and onto rooftops in the town. The local Asayish spokesman told Rudaw
   that almost every village was growing it and that nobody had been arrested because nearly everyone
   was involved and the villagers were armed.
+created_by_model: unknown
 status: verified
 cfi_id: syria-kobane-cannabis-boom-2012
 sources:

@@ -7,8 +7,9 @@ title: Bahrain jails a home cannabis grower and acquits him of selling
 summary: >-
   A 56-year-old former flight attendant received three years in prison and a 1,000-dinar fine after
   convictions involving growing cannabis at home and unlawful possession of a weapon and ammunition,
-  The Daily Tribune reported.[@1] Police had raided his home after a tip-off; he said he grew for
-  himself and learned online.[@1] The court acquitted him of selling because the evidence was…
+  The Daily Tribune reported. Police had raided his home after a tip-off; he said he grew for
+  himself and learned online. The court acquitted him of selling because the evidence was…
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-home-growing-sentence-2019
 tags:

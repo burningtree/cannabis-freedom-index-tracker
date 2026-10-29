@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 3565
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [hashish, port, truck]
 sources:

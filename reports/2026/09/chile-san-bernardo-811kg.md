@@ -14,6 +14,7 @@ summary: >-
 figures:
   kg_seized: 811
   arrested: 4
+created_by_model: unknown
 status: verified
 tags: [pdi, san-bernardo, bolivia]
 sources:

@@ -13,6 +13,7 @@ summary: >-
   stopping it between Gorakhpur and Kushinagar.
 figures:
   kg_seized: 591.3
+created_by_model: unknown
 status: verified
 tags: [dri, nepal-route, concealment]
 sources:

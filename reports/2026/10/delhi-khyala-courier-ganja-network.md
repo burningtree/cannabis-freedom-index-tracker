@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 3
   kg_seized: 26.46
+created_by_model: unknown
 status: verified
 tags: [courier, interstate, odisha-route]
 sources:

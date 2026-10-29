@@ -8,6 +8,7 @@ summary: >-
   The Interior Ministry told parliament that marijuana and hashish remained present in seizures
   while synthetic drugs were growing. It reported 737 people sent to trial for drug offences in
   2025; this figure covers all drugs.
+created_by_model: unknown
 status: verified
 cfi_id: moldova-drug-market-hearing-2026
 sources:

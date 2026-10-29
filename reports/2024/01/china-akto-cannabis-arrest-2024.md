@@ -13,6 +13,7 @@ figures:
   arrested: 1
   kg_seized: 0.627
 status: reported
+created_by_model: "opencode-go/deepseek-v4.1-flash#max"
 tags: [xinjiang, akto, cannabis, police-dog, drug-use]
 sources:
   - title: 雷霆出击！阿克陶公安多警种联合作战 警犬助力查获毒品原植物

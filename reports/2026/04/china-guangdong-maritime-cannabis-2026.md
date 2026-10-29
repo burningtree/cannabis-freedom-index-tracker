@@ -9,6 +9,7 @@ summary: >-
   China Sea and seized 735 kg of cannabis, arresting five people. Police described the route as
   running from Southeast Asia through Chinese waters to overseas buyers. The case was one of five
   major drug operations published by Guangdong's public security department on 22 June 2026.
+created_by_model: unknown
 status: verified
 cfi_id: china-guangdong-maritime-cannabis-2026
 sources:

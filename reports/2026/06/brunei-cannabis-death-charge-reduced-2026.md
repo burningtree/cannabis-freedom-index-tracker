@@ -8,6 +8,7 @@ summary: >-
   A man arrested in January 2016 with 756.33 g of cannabis had faced a trafficking charge that
   carried the death penalty. In June 2026 prosecutors replaced it with two charges of possession for
   trafficking, covering 200 g of cannabis and 84.17 g of cannabis mixture, and he pleaded guilty.
+created_by_model: unknown
 status: verified
 cfi_id: brunei-cannabis-death-charge-reduced-2026
 sources:

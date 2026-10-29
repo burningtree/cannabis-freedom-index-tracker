@@ -13,6 +13,7 @@ summary: >-
   administration took part; no arrests were reported.
 figures:
   hectares: 133.9
+created_by_model: unknown
 status: verified
 tags: [balochistan, joint-operation]
 sources:

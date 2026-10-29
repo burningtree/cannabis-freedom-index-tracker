@@ -8,6 +8,7 @@ summary: >-
   Three Malaysians aged 25 to 29 were arrested at Wattay International Airport in Vientiane with 86
   kg of cannabis in 103 packages, concealed in suitcases and bound for Germany. The case was one of
   the few cannabis-specific airport seizures reported in 2025.
+created_by_model: unknown
 status: verified
 cfi_id: laos-wattay-cannabis-seizure-2025
 tags:

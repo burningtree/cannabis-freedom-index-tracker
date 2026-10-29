@@ -6,10 +6,11 @@ type: sentence
 title: Vanuatu suspends a young cannabis seller’s ten-month prison sentence
 summary: >-
   Kaston Niawiye received concurrent ten-month sentences, suspended for two years, for possession,
-  cultivation and sale of cannabis, plus twelve months’ supervision.[@1] He had been eighteen when
+  cultivation and sale of cannabis, plus twelve months’ supervision. He had been eighteen when
   he sold rolls for an older relative; the court found no evidence that he grew his ten plants
-  commercially or personally shared the sale proceeds.[@1] The judgment applied the personal-growing
+  commercially or personally shared the sale proceeds. The judgment applied the personal-growing
   guidance…
+created_by_model: unknown
 status: verified
 cfi_id: vanuatu-young-cannabis-seller-sentence-2019
 tags:

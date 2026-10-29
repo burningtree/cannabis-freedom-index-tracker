@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 2
   kg_seized: 0.512
+created_by_model: unknown
 status: verified
 tags: [ndlea, airport, saudi-route, concealment]
 sources:

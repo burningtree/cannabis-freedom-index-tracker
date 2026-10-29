@@ -13,6 +13,7 @@ summary: >-
   on the spot at 2,100 to 3,050 metres, with photos and GPS locations recorded.
 figures:
   hectares: 239.6
+created_by_model: unknown
 status: verified
 tags: [parvati-valley, hashish, mountains]
 sources:

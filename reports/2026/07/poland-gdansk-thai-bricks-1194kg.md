@@ -16,6 +16,7 @@ figures:
   kg_seized: 1194
   arrested: 8
   value: { amount: 48000000, currency: PLN }
+created_by_model: unknown
 status: verified
 tags: [border-guard, gdansk, thailand, smuggling]
 sources:

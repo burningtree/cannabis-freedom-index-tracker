@@ -9,6 +9,7 @@ summary: >-
   twenty gendarmes and four agents of Madagascar National Parks uprooted about 600,000 cannabis
   plants on ten hectares and burned 950 kg of dried cannabis. The growers fled as the patrols
   arrived and no one was arrested.
+created_by_model: unknown
 status: verified
 cfi_id: madagascar-tsaratanana-plantation-2024
 tags:

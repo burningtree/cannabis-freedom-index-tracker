@@ -13,6 +13,7 @@ summary: >-
   say they do not know who shot him and no arrests have been made.
 figures:
   deaths: 1
+created_by_model: unknown
 status: verified
 tags: [cannasvg, break-in]
 sources:

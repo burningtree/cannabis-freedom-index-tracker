@@ -8,6 +8,7 @@ summary: >-
   Gaza's anti-narcotics police raided a home in Zeitoun, south of Gaza City, and seized 21 slabs of
   hashish, 317 Rotana pills, five marijuana plants, a rifle and ammunition. Two suspects were
   arrested; the police said drug flows into Gaza had risen since the war.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-gaza-zeitoun-drug-raid-2025
 sources:

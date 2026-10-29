@@ -9,6 +9,7 @@ summary: >-
   901 kg less than in 2023. Seizures of plant-based drugs fell by more than 900 kg, while
   psychotropic substances rose to 101 kg, 59% more than the year before. The agency said traffickers
   were shifting from cannabis and opium toward methamphetamine and other synthetics.
+created_by_model: unknown
 status: verified
 cfi_id: tajikistan-drug-market-2024
 sources:

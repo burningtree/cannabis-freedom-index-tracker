@@ -7,9 +7,10 @@ title: Two Malaysians arrested with 10 kg of cannabis at Tuas
 summary: >-
   ICA officers stopped a Malaysia-registered motorcycle at Tuas Checkpoint on 15 September 2026 and
   found about 10,164 g of cannabis in bundles under the seat and in a haversack on the
-  handlebar.[@1] A 36-year-old Malaysian man and a 35-year-old Malaysian woman were arrested.[@1]
+  handlebar. A 36-year-old Malaysian man and a 35-year-old Malaysian woman were arrested.
   The drugs were worth more than S$203,000 and could feed about 1,450 abusers for a week, and the
   amount was twenty…
+created_by_model: unknown
 status: verified
 cfi_id: singapore-2026-tuas-cannabis-seizure
 sources:

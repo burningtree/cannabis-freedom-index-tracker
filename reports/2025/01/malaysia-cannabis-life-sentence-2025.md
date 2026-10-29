@@ -9,6 +9,7 @@ summary: >-
   and 18 strokes of the cane for trafficking 707.05 g of cannabis and cultivating plants. The
   trafficking charge carried 12 strokes and the cultivation charge six, to run concurrently from
   their arrest in December 2021.
+created_by_model: unknown
 status: verified
 cfi_id: malaysia-cannabis-life-sentence-2025
 sources:

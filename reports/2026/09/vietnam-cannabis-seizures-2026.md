@@ -9,6 +9,7 @@ summary: >-
   35,400 suspects since the start of the year. Seizures included 407 kg of cannabis, 99.8 kg of
   heroin, 953 kg and nearly 900,000 pills of synthetic drugs, and 1.16 tonnes of ketamine. The case
   and suspect figures cover all drugs; the cannabis figure is a seizure total.
+created_by_model: unknown
 status: verified
 cfi_id: vietnam-cannabis-seizures-2026
 sources:

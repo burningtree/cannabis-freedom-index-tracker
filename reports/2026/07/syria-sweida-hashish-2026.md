@@ -9,6 +9,7 @@ summary: >-
   southeastern countryside of Sweida and seized nearly half a tonne of hashish. It said the drugs
   belonged to outlaw groups operating in the province and that the operation was run with the
   Internal Security Command in the Badia. The announcement gave no arrest figure.
+created_by_model: unknown
 status: verified
 cfi_id: syria-sweida-hashish-2026
 sources:

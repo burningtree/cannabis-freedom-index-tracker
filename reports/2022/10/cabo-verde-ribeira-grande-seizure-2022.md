@@ -6,9 +6,10 @@ type: seizure
 title: Cabo Verde seizes 717 kg of cannabis in Ribeira Grande
 summary: >-
   The Judicial Police seized about 717 kg of cannabis in Tronco, Ribeira Grande de Santiago, during
-  field checks of cannabis-growing areas; 17 kg was ready to enter the market.[@1] A 38-year-old
+  field checks of cannabis-growing areas; 17 kg was ready to enter the market. A 38-year-old
   local man was detained outside flagrante delicto, and a court imposed preventive detention, the
-  harshest pre-trial measure.[@1] All seized drugs were incinerated on site after weighing.[@1]
+  harshest pre-trial measure. All seized drugs were incinerated on site after weighing.
+created_by_model: unknown
 status: verified
 cfi_id: cabo-verde-ribeira-grande-seizure-2022
 sources:

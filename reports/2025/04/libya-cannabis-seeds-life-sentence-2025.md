@@ -8,6 +8,7 @@ summary: >-
   The Tripoli Criminal Court sentenced a man to life imprisonment for importing cannabis seeds with
   customs documents that falsely described the goods. It fined him 40,000 dinars and permanently
   stripped him of his civil rights. The charge was importing the seeds, not growing plants.
+created_by_model: unknown
 status: verified
 cfi_id: libya-cannabis-seeds-life-sentence-2025
 sources:

@@ -7,6 +7,7 @@ title: Islamic State films itself burning a Syrian cannabis farm
 summary: >-
   After taking the town of Akhtarin, north of Aleppo, from the Free Syrian Army, fighters of the
   Islamic State cut down a field of cannabis, soaked it in fuel and set it alight for the camera.
+created_by_model: unknown
 status: verified
 cfi_id: syria-isis-burns-cannabis-2014
 tags:

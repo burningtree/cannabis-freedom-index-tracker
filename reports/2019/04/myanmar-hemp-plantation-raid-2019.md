@@ -9,6 +9,7 @@ summary: >-
   and arrested the American entrepreneur John Frederic Todoroki and two Myanmar employees. Six days
   later the region's chief minister said his government had allowed the firm to grow fibre plants
   for one year. Todoroki was released on medical bail in July 2019 and reportedly left the country.
+created_by_model: unknown
 status: verified
 cfi_id: myanmar-hemp-plantation-raid-2019
 tags:

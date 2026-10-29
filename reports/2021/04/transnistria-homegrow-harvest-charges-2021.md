@@ -7,6 +7,7 @@ title: Transnistria sends a personal grower’s harvest case to court
 summary: >-
   Investigators sent Ivan Zavyazkin’s case to court after police found 34 cannabis plants and
   749.054 g of dried cannabis at his cottage in an October 2020 search.
+created_by_model: unknown
 status: verified
 cfi_id: transnistria-homegrow-harvest-charges-2021
 tags:

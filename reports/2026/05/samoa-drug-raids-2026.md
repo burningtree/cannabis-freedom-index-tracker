@@ -8,6 +8,7 @@ summary: >-
   The acting police commissioner said 20 raids between January and May 2026 led to 55 charges,
   including 12 women aged 18–47 and 43 men aged 16–53. Seizures included just over 100 g of
   methamphetamine, marijuana plants and joints, and firearms. The figures cover all drugs.
+created_by_model: unknown
 status: verified
 cfi_id: samoa-drug-raids-2026
 sources:

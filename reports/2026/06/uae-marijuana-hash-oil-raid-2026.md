@@ -9,6 +9,7 @@ summary: >-
   marijuana, hash oil and synthetic cannabinoid materials in a nationwide operation. Two were
   arrested while transporting drugs, 11 more were linked to a ringleader based abroad, and 10 were
   held in Dubai, Abu Dhabi and Ajman.
+created_by_model: unknown
 status: verified
 cfi_id: uae-marijuana-hash-oil-raid-2026
 sources:

@@ -16,6 +16,7 @@ figures:
   arrested: 3
   kg_seized: 165.7
   value: { amount: 10000000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [truck, scout-car, concealment, odisha-route]
 sources:

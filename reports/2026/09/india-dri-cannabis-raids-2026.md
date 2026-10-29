@@ -9,6 +9,7 @@ summary: >-
   kg of cannabis and charas in eight operations and arrested 13 people. The largest haul was 375.95
   kg of ganja from two trucks near Raipur; officers also found 140.5 kg near Patna, 69 kg near
   Ludhiana and 5 kg of charas smuggled from Nepal.
+created_by_model: unknown
 status: verified
 cfi_id: india-dri-cannabis-raids-2026
 sources:

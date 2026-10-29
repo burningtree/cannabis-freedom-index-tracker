@@ -8,6 +8,7 @@ summary: >-
   Acting Inspector General Deshabandu Tennekoon, backed by Public Security Minister Tiran Alles,
   launched a nationwide anti-drug operation on 17 December that arrested at least a thousand people
   a day in its first weeks.
+created_by_model: unknown
 status: verified
 cfi_id: sri-lanka-yukthiya-2023
 sources:

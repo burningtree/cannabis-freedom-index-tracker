@@ -9,6 +9,7 @@ summary: >-
   cultivation cases in 2024–2025 and convicted 29 people. Twelve received real prison terms, nine
   suspended sentences and four were sent for compulsory treatment; fines came to 2.45 million
   roubles. Police seized 598 cannabis roots, mostly South Krasnodar, and 547 opium poppy roots.
+created_by_model: unknown
 status: verified
 cfi_id: abkhazia-cannabis-prosecutions-2024-2025
 sources:

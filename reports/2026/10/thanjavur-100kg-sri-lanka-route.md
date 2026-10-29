@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 4
   kg_seized: 100
+created_by_model: unknown
 status: verified
 tags: [sri-lanka-route, carrier]
 sources:

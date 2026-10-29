@@ -17,6 +17,7 @@ figures:
   kg_seized: 1
   arrested: 1
   value: { amount: 117600, currency: EUR }
+created_by_model: unknown
 status: verified
 tags: [garda, operation-tara, cork]
 sources:

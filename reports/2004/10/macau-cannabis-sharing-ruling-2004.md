@@ -6,10 +6,11 @@ type: prosecution
 title: Macau’s top court treats shared-cost cannabis supply as trafficking
 summary: >-
   Macau’s top court upheld a cannabis trafficking conviction, ruling that providing cannabis to
-  other people counted as supply even when they shared the purchase cost.[@1] The old law’s
+  other people counted as supply even when they shared the purchase cost. The old law’s
   lesser-quantity tier used a three-day personal-use reference, which the court placed at six to
-  eight grams for cannabis; the quantity supplied exceeded it.[@1] Macau’s 2009 replacement later
+  eight grams for cannabis; the quantity supplied exceeded it. Macau’s 2009 replacement later
   introduced a…
+created_by_model: unknown
 status: verified
 cfi_id: macau-cannabis-sharing-ruling-2004
 tags:

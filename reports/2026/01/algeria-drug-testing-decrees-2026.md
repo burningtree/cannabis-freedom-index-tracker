@@ -9,6 +9,7 @@ summary: >-
   Job applicants in the public and private sectors must file a negative test taken within the
   previous three months; a positive result blocks the application until the person completes
   treatment, though the decree says it is not a permanent exclusion.
+created_by_model: unknown
 status: verified
 cfi_id: algeria-drug-testing-decrees-2026
 sources:

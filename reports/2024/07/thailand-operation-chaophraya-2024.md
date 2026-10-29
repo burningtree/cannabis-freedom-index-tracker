@@ -9,6 +9,7 @@ summary: >-
   Thailand to Britain. By April 2025 more than 50 British nationals had been arrested in Thailand,
   Thai customs had intercepted over 800 smugglers and nine tonnes of cannabis since October 2024,
   and cannabis posted to Britain had fallen by 90 per cent in the first quarter of 2025.
+created_by_model: unknown
 status: verified
 cfi_id: thailand-operation-chaophraya-2024
 sources:

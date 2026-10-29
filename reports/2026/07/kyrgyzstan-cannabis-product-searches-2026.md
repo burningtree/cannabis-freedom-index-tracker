@@ -6,10 +6,11 @@ type: arrest
 title: Kyrgyzstan reports three arrests over cannabis teas and oils
 summary: >-
   Police reported detaining three suspects after investigating cannabis products prepared for a
-  festival in Tuura-Suu and searching homes and a shop.[@1] The Interior Ministry said laboratory
+  festival in Tuura-Suu and searching homes and a shop. The Interior Ministry said laboratory
   tests found marijuana in two sample packages; searches also recovered cannabis oil, marijuana,
-  seeds and products marketed as teas and other goods.[@1] A supply investigation was continuing
+  seeds and products marketed as teas and other goods. A supply investigation was continuing
   when the arrests…
+created_by_model: unknown
 status: verified
 cfi_id: kyrgyzstan-cannabis-product-searches-2026
 tags:

@@ -8,6 +8,7 @@ summary: >-
   Gaza's military appeal and permanent courts sentenced two men to death and eight to life
   imprisonment in a batch of drug cases. One man was convicted of repeated trafficking under article
   29 of the 2013 drug law; the other of importing drugs for trafficking under article 28.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-gaza-military-drug-sentences-2023
 sources:

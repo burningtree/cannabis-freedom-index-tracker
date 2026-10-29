@@ -8,6 +8,7 @@ summary: >-
   Police searched locations in Pristina and Babush near Ferizaj after several months of
   investigation, seizing about 60 kg of suspected marijuana, two cars and a truck. Four suspects
   were arrested and the prosecutor ordered 48 hours of detention while proceedings continued.
+created_by_model: unknown
 status: verified
 cfi_id: kosovo-pristina-ferizaj-seizure-2026
 sources:

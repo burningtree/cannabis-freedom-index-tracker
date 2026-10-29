@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 30
+created_by_model: unknown
 status: verified
 tags: [odisha-route, dansaf, operation-toofan]
 sources:

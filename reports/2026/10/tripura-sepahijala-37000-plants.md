@@ -13,6 +13,7 @@ summary: >-
 figures:
   plants_destroyed: 37000
   hectares: 10.1
+created_by_model: unknown
 status: verified
 tags: [ncb, joint-operation]
 sources:

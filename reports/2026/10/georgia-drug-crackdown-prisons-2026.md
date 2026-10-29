@@ -9,6 +9,7 @@ summary: >-
   half of 2026; more than half were purchase or possession under Article 260. The Prosecutor
   General's Office opened 119 drug cases against Russian citizens in 2024, 196 in 2025 and 234 in
   the first nine months of 2026.
+created_by_model: unknown
 status: verified
 cfi_id: georgia-drug-crackdown-prisons-2026
 sources:

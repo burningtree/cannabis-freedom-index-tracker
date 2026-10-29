@@ -15,6 +15,7 @@ summary: >-
   seized.
 figures:
   arrested: 21
+created_by_model: unknown
 status: verified
 tags: [airport, couriers, eurojust]
 sources:

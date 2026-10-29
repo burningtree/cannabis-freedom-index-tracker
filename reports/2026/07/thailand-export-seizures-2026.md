@@ -10,6 +10,7 @@ summary: >-
   tonnes hidden in construction bricks in Poland. The force said couriers could face life
   imprisonment or the death penalty abroad, although Thailand itself has no death penalty for
   cannabis.
+created_by_model: unknown
 status: verified
 cfi_id: thailand-export-seizures-2026
 sources:

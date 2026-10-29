@@ -16,6 +16,7 @@ figures:
   arrested: 5
   kg_seized: 14.489
   value: { amount: 50000, currency: DZD }
+created_by_model: unknown
 status: verified
 tags: [network, house-search]
 sources:

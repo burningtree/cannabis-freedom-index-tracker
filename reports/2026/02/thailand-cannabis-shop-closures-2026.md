@@ -9,6 +9,7 @@ summary: >-
   but 8,636 licences expired during 2025 and only 1,339 were renewed. Another 7,297 shops closed,
   leaving 11,136 in business. The closures followed the June 2025 prescription rule and the
   requirement for trained staff and medical-style premises.
+created_by_model: unknown
 status: verified
 cfi_id: thailand-cannabis-shop-closures-2026
 sources:

@@ -9,6 +9,7 @@ summary: >-
   kg of marijuana and hashish worth about BHD1.5 million and arrested three men. The drugs came from
   Iran through dead drops and were moved in two boats; cash, smuggling equipment and the boats were
   seized, and the case went to the Public Prosecution.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-iran-cannabis-seizure-2026
 sources:

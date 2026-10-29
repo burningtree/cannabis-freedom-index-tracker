@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 2
   kg_seized: 22
+created_by_model: unknown
 status: verified
 tags: [baalbek]
 sources:

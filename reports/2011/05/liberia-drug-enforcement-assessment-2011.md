@@ -9,6 +9,7 @@ summary: >-
   with on-the-spot fines, and that only one drug conviction had been recorded in 2010. Officers
   lacked a forensic laboratory and relied on old UN-donated testing kits. The report called for a
   stronger anti-trafficking law; Liberia adopted a new drug statute in 2014.
+created_by_model: unknown
 status: verified
 cfi_id: liberia-drug-enforcement-assessment-2011
 tags:

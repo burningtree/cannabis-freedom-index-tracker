@@ -8,6 +8,7 @@ summary: >-
   Majuro Atoll Local Police searched the national police jail in Uliga on 3 August 2024 and found
   marijuana, crystal meth, cash, mobile phones and alcohol in prisoners' cells. The raid followed a
   sting in which an inmate sold methamphetamine to a police informant.
+created_by_model: unknown
 status: verified
 cfi_id: marshall-islands-jail-marijuana-raid-2024
 sources:

@@ -9,6 +9,7 @@ summary: >-
   large quantities of methamphetamine and hashish were found in his possession for sale. The Supreme
   Judicial Council announced the judgment on 27 October 2026. Article 27(1) is one of the law's
   trafficking provisions and carries death or life imprisonment.
+created_by_model: unknown
 status: verified
 cfi_id: iraq-basra-cannabis-death-sentence-2026
 sources:

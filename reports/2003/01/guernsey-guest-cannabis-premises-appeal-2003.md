@@ -8,7 +8,8 @@ summary: >-
   The Court of Appeal left Heather Guest's conviction for permitting cannabis-resin smoking at the
   Helmsman pub undisturbed, despite doubts about whether the conviction was safe. Convicted in 2002
   and sentenced to six weeks in prison, she said she ejected suspected smokers. The judges
-  considered their powers too limited to set aside the conviction on the basis of those doubts.[@1]
+  considered their powers too limited to set aside the conviction on the basis of those doubts.
+created_by_model: unknown
 status: verified
 cfi_id: guernsey-guest-cannabis-premises-appeal-2003
 tags:

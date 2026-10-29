@@ -9,6 +9,7 @@ summary: >-
   and 2024, drug seizures rose 8.5 times and synthetic-drug seizures 400 times. He warned that
   'pharmacy drug addiction' was spreading among young people and called for regional cooperation.
   The figures cover all drugs, not cannabis alone.
+created_by_model: unknown
 status: verified
 cfi_id: uzbekistan-drug-crime-doubles-2024
 sources:

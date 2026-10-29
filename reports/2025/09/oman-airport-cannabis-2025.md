@@ -10,6 +10,7 @@ summary: >-
   days later. At Muscat airport, officers reported 12.66 kilograms from a Chinese woman on 21 August
   and, on 13 September, 9 kilograms from one traveller and 8 kilograms hidden in food bags from
   another.
+created_by_model: unknown
 status: verified
 cfi_id: oman-airport-cannabis-2025
 sources:

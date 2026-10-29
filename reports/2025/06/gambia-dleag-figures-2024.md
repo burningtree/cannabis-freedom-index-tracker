@@ -8,6 +8,7 @@ summary: >-
   The director general of the Drug Law Enforcement Agency reported 1,219 people arrested in 1,208
   drug cases in 2024, 1,014 of them Gambians. The agency seized 1.9 tonnes of cannabis sativa and
   2.2 tonnes from plantations; cannabis made up 54.7% of all seizures.
+created_by_model: unknown
 status: verified
 cfi_id: gambia-dleag-figures-2024
 sources:

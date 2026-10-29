@@ -8,6 +8,7 @@ summary: >-
   The High Criminal Appeals Court on 2 August 2025 upheld life sentences for the first two
   defendants in a cannabis-growing operation run from a rented villa in Adliya, and cut the third
   defendant's life term to 15 years; a fourth received 10 years and a fifth one year.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-adliya-cannabis-farm-2025
 sources:

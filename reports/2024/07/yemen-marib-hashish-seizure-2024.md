@@ -9,6 +9,7 @@ summary: >-
   was being smuggled into Houthi-controlled territory. The head of Marib's drug-control department,
   Abdul Razzaq al-Ruwaifi, said the shipment and the accused were handed to the prosecution. The
   seizure was announced by the official Saba news agency and reported by Yemen Monitor.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-marib-hashish-seizure-2024
 sources:

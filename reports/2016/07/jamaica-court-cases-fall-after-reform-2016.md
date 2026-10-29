@@ -9,6 +9,7 @@ summary: >-
   more than 90 per cent after the reform of April 2015, and criminal cases referred to the courts in
   2016 were 25 per cent fewer than in 2014. In 2016 the government nearly doubled its budget for the
   national HIV response, from 2.83 to 5.17 million US dollars.
+created_by_model: unknown
 status: verified
 cfi_id: jamaica-court-cases-fall-after-reform-2016
 sources:

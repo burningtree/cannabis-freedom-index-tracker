@@ -9,6 +9,7 @@ summary: >-
   from a vehicle disguised as a livestock carrier. The provincial police spokesman said the men were
   handed to judicial authorities. It was one of the largest single cannabis seizures reported in
   northern Afghanistan in 2025.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-badakhshan-hashish-seizure-2025
 sources:

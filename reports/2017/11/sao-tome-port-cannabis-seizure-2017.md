@@ -6,10 +6,11 @@ type: seizure
 title: São Tomé port police seize over a kilogram of cannabis on a Lagos ship
 summary: >-
   Police detained a Nigerian crew member and a São Toméan alleged accomplice after intercepting more
-  than a kilogram of liamba, or cannabis, at São Tomé’s port.[@1] Criminal investigation police
+  than a kilogram of liamba, or cannabis, at São Tomé’s port. Criminal investigation police
   director Suleimany Tenjua said the seizure involved a ship on the Lagos–São Tomé route; the two
-  detainees were to be brought before the judicial authorities.[@1] State news agency STP-PRESS
+  detainees were to be brought before the judicial authorities. State news agency STP-PRESS
   reported the…
+created_by_model: unknown
 status: verified
 cfi_id: sao-tome-port-cannabis-seizure-2017
 tags:

@@ -14,6 +14,7 @@ summary: >-
   post since 2024. Cash, drugs, guns and cars were seized; the network's assets are put at €4 million.
 figures:
   arrested: 10
+created_by_model: unknown
 status: verified
 tags: [parcels, eurojust, trafficking]
 sources:

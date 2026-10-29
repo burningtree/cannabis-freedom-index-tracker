@@ -9,6 +9,7 @@ summary: >-
   Chinaratu district of Uruzgan province and destroyed it by burning. In the same announcement it
   reported 37 kilograms of opium seized in Farah and four arrests there. The Uruzgan haul was the
   largest cannabis seizure reported in the period reviewed.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-uruzgan-cannabis-seizure-2026
 sources:

@@ -8,7 +8,8 @@ summary: >-
   At Nicosia’s judicial-year closing session, supervised-release board member Mustafa Hidayet
   reported 42 beneficiaries between 18 September 2023 and 30 June 2025, with programmes for 36
   people continuing. The figures concerned drug cases generally and were presented at the Nicosia
-  court session.[@1]
+  court session.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-nicosia-treatment-figures-2025
 tags:

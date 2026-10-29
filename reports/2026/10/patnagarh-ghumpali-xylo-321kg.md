@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 321
   value: { amount: 2200000, currency: INR }
+created_by_model: unknown
 status: verified
 sources:
   - title: Balangir Police Seize 321 kg Ganja Worth Rs 22 Lakh in Patnagarh

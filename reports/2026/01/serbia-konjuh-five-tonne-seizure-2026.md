@@ -8,6 +8,7 @@ summary: >-
   The Interior Ministry announced about five tonnes of marijuana seized near Kruševac, calling it a
   record national drug seizure. It reported two arrests and a search for another suspect, alongside
   seized firearms. Authorities suspected unlawful production and distribution.
+created_by_model: unknown
 status: verified
 cfi_id: serbia-konjuh-five-tonne-seizure-2026
 sources:

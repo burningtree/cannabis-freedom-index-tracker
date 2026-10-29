@@ -8,6 +8,7 @@ summary: >-
   Police reported approximately 2.5 kg of cannabis and a growing site in an investigation involving
   two men suspected of cultivation and supply. One suspect was detained for 72 hours while the other
   was investigated at liberty; both retained the presumption of innocence.
+created_by_model: unknown
 status: verified
 cfi_id: moldova-vadul-cannabis-laboratory-2026
 sources:

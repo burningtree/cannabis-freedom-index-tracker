@@ -6,9 +6,10 @@ type: seizure
 title: Japan records its highest number of cannabis investigations
 summary: >-
   Police investigated a record 6,832 people for cannabis offences in 2025, 754 more than the year
-  before, the National Police Agency said on 2 April 2026.[@1] About 700 were pursued under the new
-  offence of use, and 1,373 were under 20, the highest since 1990.[@1] More than 40% of those under
+  before, the National Police Agency said on 2 April 2026. About 700 were pursued under the new
+  offence of use, and 1,373 were under 20, the highest since 1990. More than 40% of those under
   30 said they had bought cannabis through apps such as X and Telegram, and police seized 315 kg of…
+created_by_model: unknown
 status: verified
 cfi_id: japan-record-cannabis-investigations-2026
 sources:

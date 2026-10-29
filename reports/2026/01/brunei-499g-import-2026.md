@@ -9,6 +9,7 @@ summary: >-
   on 1 January 2024. Because the amount was just under the 500 g death threshold, the charge was
   amended to the 330–500 g band, carrying twenty to thirty years and fifteen strokes. He had been in
   remand for nearly two years.
+created_by_model: unknown
 status: verified
 cfi_id: brunei-499g-import-2026
 tags:

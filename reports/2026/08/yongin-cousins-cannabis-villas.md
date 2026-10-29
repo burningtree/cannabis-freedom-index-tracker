@@ -17,6 +17,7 @@ figures:
   arrested: 2
   kg_seized: 2.3
   value: { amount: 230000000, currency: KRW }
+created_by_model: unknown
 status: verified
 tags: [villas, online-sales]
 sources:

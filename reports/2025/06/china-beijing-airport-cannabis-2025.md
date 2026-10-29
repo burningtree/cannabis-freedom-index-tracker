@@ -9,6 +9,7 @@ summary: >-
   in four suitcases belonging to two foreign passengers who were transiting to a third country. Both
   were convicted of drug smuggling and sentenced to eight and four years in prison, with fines and
   deportation.
+created_by_model: unknown
 status: verified
 cfi_id: china-beijing-airport-cannabis-2025
 sources:

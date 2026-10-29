@@ -9,6 +9,7 @@ summary: >-
   New Zealand and arrested 34 people. Police seized 270 kg of loose cannabis and 6,183 plants, along
   with methamphetamine, opium, MDMA, cash and firearms. The cannabis came from grow houses in
   Auckland linked to Vietnamese organised crime.
+created_by_model: unknown
 status: verified
 cfi_id: new-zealand-transtasman-cannabis-sting-2026
 sources:

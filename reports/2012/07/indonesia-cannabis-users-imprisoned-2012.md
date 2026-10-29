@@ -8,6 +8,7 @@ summary: >-
   Between 2009 and 2012, 37,923 people were imprisoned for using cannabis, according to figures
   cited by the Transnational Institute, even though the 2009 narcotics law and a Supreme Court
   circular were meant to send users to rehabilitation.
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-cannabis-users-imprisoned-2012
 tags:

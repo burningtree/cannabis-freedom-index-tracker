@@ -8,6 +8,7 @@ summary: >-
   The Anti-Narcotics Department reported 25,260 drug cases involving 38,782 people in 2024. It
   seized 3,000 kg of hashish, 262 kg of marijuana and 27.5 million Captagon pills, and 744 people
   entered rehabilitation. The figures cover all drugs, not cannabis alone.
+created_by_model: unknown
 status: verified
 cfi_id: jordan-drug-seizures-2024
 sources:

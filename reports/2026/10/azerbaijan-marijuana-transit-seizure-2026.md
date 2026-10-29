@@ -9,6 +9,7 @@ summary: >-
   Russia found 97.685 kg of marijuana in 90 packages under a load of fresh lettuce. The State
   Customs Committee said the vehicle was carrying the cargo in transit through Azerbaijan and that
   an investigation had begun.
+created_by_model: unknown
 status: verified
 cfi_id: azerbaijan-marijuana-transit-seizure-2026
 sources:

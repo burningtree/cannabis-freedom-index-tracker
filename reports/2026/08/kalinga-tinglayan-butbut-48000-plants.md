@@ -21,6 +21,7 @@ cover:
   credit: PDEA Cordillera, via Daily Tribune
   licence: Work of the Government of the Philippines (no copyright, RA 8293 §176)
   url: https://tribune.net.ph/2026/08/04/p96-million-worth-of-weeds-destroyed-in-kalinga
+created_by_model: unknown
 status: verified
 tags: [cordillera, communal-land]
 sources:

@@ -16,6 +16,7 @@ figures:
   arrested: 1
   kg_seized: 17.88
   value: { amount: 25500000, currency: MUR }
+created_by_model: unknown
 status: verified
 tags: [airport, dubai-route, controlled-delivery]
 sources:

@@ -10,6 +10,7 @@ summary: >-
   elephant tusk were found. The suspects were presented to the prosecutor. The report, dated 20
   November, still cited the colonial-era 1916 poisonous-substances law as a basis for cannabis
   enforcement.
+created_by_model: unknown
 status: verified
 cfi_id: congo-owando-cannabis-arrests-2024
 tags:

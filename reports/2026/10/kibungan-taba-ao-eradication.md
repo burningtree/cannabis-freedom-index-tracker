@@ -13,6 +13,7 @@ summary: >-
 figures:
   plants_destroyed: 1200
   value: { amount: 256000, currency: PHP }
+created_by_model: unknown
 status: verified
 tags: [benguet]
 sources:

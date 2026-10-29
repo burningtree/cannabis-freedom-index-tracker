@@ -9,6 +9,7 @@ summary: >-
   the 14,977 a year earlier; 889 were foreigners. Authorities seized 2.51 tonnes of illicit drugs
   and 105 kg of dried cannabis, against 1.91 tonnes in the same period of 2025. The figures cover
   all drugs.
+created_by_model: unknown
 status: verified
 cfi_id: cambodia-drug-arrests-2026
 sources:

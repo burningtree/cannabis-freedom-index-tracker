@@ -8,7 +8,8 @@ summary: >-
   A man who kept a small cannabis plant belonging to his late half-brother received a A$250 fine
   after pleading guilty to possession. Chief Justice William Hastings found no evidence of use or
   dealing and treated the case as less serious than the earlier fisheries officer’s cannabis
-  offence.[@1] Failure to pay by the end of December would bring one month in prison.[@1]
+  offence. Failure to pay by the end of December would bring one month in prison.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-one-cannabis-plant-fine-2021
 tags:

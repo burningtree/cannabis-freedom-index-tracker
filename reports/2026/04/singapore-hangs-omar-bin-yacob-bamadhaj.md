@@ -13,6 +13,7 @@ summary: >-
 figures:
   kg_seized: 1.009
   deaths: 1
+created_by_model: unknown
 status: verified
 tags: [death-penalty, mandatory-sentence, courier]
 sources:

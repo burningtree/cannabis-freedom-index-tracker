@@ -6,9 +6,10 @@ type: seizure
 title: Drugs-for-arms barter reported as PNG tops Oceanian cannabis use
 summary: >-
   Reports described barter trade exchanging illicit drugs for arms in the coastal cities of Lae,
-  Madang, Wewak and Port Moresby.[@1] Papua New Guinea shared with Micronesia the highest prevalence
+  Madang, Wewak and Port Moresby. Papua New Guinea shared with Micronesia the highest prevalence
   of cannabis abuse in Oceania, and cannabis plants were also illicitly cultivated in Fiji, Samoa
-  and Tonga.[@1]
+  and Tonga.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-arms-barter-prevalence-2006
 sources:

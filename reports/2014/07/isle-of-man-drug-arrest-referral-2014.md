@@ -9,6 +9,7 @@ summary: >-
   personal quantities complete drug education and receive a caution. The government's 2024 review
   says most referrals involved cannabis, especially among under-18s, and records 93 completions from
   108 entrants in 2021/22.
+created_by_model: unknown
 status: verified
 cfi_id: isle-of-man-drug-arrest-referral-2014
 sources:

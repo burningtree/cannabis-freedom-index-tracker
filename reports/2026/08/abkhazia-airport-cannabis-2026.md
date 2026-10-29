@@ -9,6 +9,7 @@ summary: >-
   38-year-old Russian citizen during a pre-flight check. He was detained and handed to the interior
   ministry. The amount was just above the 4 g large-amount threshold, so the case could be
   prosecuted in the aggravated possession tier rather than as simple possession.
+created_by_model: unknown
 status: verified
 cfi_id: abkhazia-airport-cannabis-2026
 sources:

@@ -9,6 +9,7 @@ summary: >-
   freephone line for complaints about cannabis smells from private homes. Complaints must be signed
   and say where the smell comes from; officers first advise, then enforce the €235 fine if the
   nuisance continues.
+created_by_model: unknown
 status: verified
 cfi_id: malta-odour-enforcement-2025
 sources:

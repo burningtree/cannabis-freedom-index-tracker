@@ -6,10 +6,11 @@ type: seizure
 title: Senegal police intercept a cannabis convoy bound for Guinea-Bissau
 summary: >-
   Police arrested a courier near Sédhiou on 21 February 2026 with part of a 56 kg cannabis convoy
-  bound for Guinea-Bissau; his accomplice fled, leaving a loaded bicycle.[@1] Senegal's Ziguinchor
+  bound for Guinea-Bissau; his accomplice fled, leaving a loaded bicycle. Senegal's Ziguinchor
   customs seized more than 10 tonnes of cannabis between January and June 2026, already above the
   5.168 tonnes taken by all southern units in the whole of 2025, with cannabis moving opposite to
   the cashew…
+created_by_model: unknown
 status: verified
 cfi_id: guinea-bissau-senegal-cannabis-convoy-2026
 tags:

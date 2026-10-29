@@ -9,6 +9,7 @@ summary: >-
   anti-trafficking operations and 993 cases registered, with 1,325 charged and 1,113 remanded in
   custody. Police seized 1,603 kg of cannabis, 204 kg of Thai cannabis, 41.5 kg of hashish and
   13.347 kg of cocaine, with a total market value of Rs 857.75 million.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-ncb-drug-data-2026
 sources:

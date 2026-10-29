@@ -9,6 +9,7 @@ summary: >-
   Central Kwara'ae, Malaita. Community leaders had helped the police, and the alleged owner ran off
   before officers arrived; no arrest was reported. The provincial commander praised the village for
   acting against cultivation.
+created_by_model: unknown
 status: verified
 cfi_id: solomon-islands-auki-uproot-2024
 sources:

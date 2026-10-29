@@ -9,6 +9,7 @@ summary: >-
   selling marijuana. The same caseload included 13 assault cases, four burglaries or larcenies and
   three sexual assaults, so cannabis sales were a small part of the serious criminal work. The
   report gives case counts, not arrest or seizure figures.
+created_by_model: unknown
 status: verified
 cfi_id: marshall-islands-marijuana-cases-2008
 sources:

@@ -9,6 +9,7 @@ summary: >-
   Substances Agency with its headquarters in Tripoli and branches to be opened by the interior
   minister. The agency was given powers over cultivation, trafficking and use, treatment and
   rehabilitation, and its own budget, including half of the assets confiscated in drug cases.
+created_by_model: unknown
 status: verified
 cfi_id: libya-anti-narcotics-agency-rebuilt-2022
 sources:

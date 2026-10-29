@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 2692
   arrested: 2
+created_by_model: unknown
 status: verified
 tags: [hashish, morocco-route, gendarmerie]
 sources:

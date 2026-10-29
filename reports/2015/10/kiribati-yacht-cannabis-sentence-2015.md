@@ -7,8 +7,9 @@ title: Kiribati jails a sailor and confiscates his yacht in a cannabis case
 summary: >-
   Lyderic Morlier received nine months in prison and total fines of A$4,400 after admitting drug
   cultivation, prohibited import and immigration offences. The prison terms ran together, with
-  credit for time already spent in custody.[@1,2] The court also confiscated his yacht, two engines,
-  vessel-monitoring equipment and radios under the drug law.[@1]
+  credit for time already spent in custody. The court also confiscated his yacht, two engines,
+  vessel-monitoring equipment and radios under the drug law.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-yacht-cannabis-sentence-2015
 tags:

@@ -8,6 +8,7 @@ summary: >-
   Clifford Nkomo, 51, was arrested at a farm in Gantsi and charged with unlawful possession and
   unlawful cultivation after police reported about 500 kg of cannabis worth P250,000, plus about 1
   kg in sachets. He was remanded to 27 April 2026.
+created_by_model: unknown
 status: verified
 cfi_id: botswana-gantsi-cannabis-farm-2026
 sources:

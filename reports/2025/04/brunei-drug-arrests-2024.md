@@ -8,6 +8,7 @@ summary: >-
   Brunei recorded 777 drug arrests in 2024, up from 711 in 2023; 641 were men, 136 women, and 645
   were locals. Methamphetamine seizures rose above 40 kg, while UNODC recorded 2.6 kg of herbal
   cannabis seized against 6.3 kg in 2023. No cannabis-specific arrest count was published.
+created_by_model: unknown
 status: verified
 cfi_id: brunei-drug-arrests-2024
 sources:

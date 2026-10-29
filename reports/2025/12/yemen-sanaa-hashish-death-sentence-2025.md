@@ -9,6 +9,7 @@ summary: >-
   possessing, transporting and selling hashish, and ordered his movable and immovable property
   confiscated. A second defendant received 25 years for drug trafficking, and three others five
   years each for possessing hashish with intent to use.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-sanaa-hashish-death-sentence-2025
 sources:

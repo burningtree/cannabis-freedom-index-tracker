@@ -9,6 +9,7 @@ summary: >-
   warehouses and processing and packing workshops during a sweep of villages along the Lebanese
   border. He said the area had been the economic artery of armed smuggling gangs and that the former
   regime had turned the border into a drug corridor.
+created_by_model: unknown
 status: verified
 cfi_id: syria-border-hashish-factories-2025
 sources:

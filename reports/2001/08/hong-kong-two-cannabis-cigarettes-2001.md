@@ -6,9 +6,10 @@ type: sentence
 title: Hong Kong keeps a two-month sentence for selling two cannabis cigarettes
 summary: >-
   Chor Lui’s two-month prison sentence stood after he sold an undercover officer two cannabis
-  cigarettes containing 0.24 g for HK$30.[@1] The appeal judge considered his prior drug convictions
+  cigarettes containing 0.24 g for HK$30. The appeal judge considered his prior drug convictions
   and the commercial sale in a discotheque important despite the small amount, while recognising the
-  then-lower sentencing benchmark for herbal cannabis than resin.[@1]
+  then-lower sentencing benchmark for herbal cannabis than resin.
+created_by_model: unknown
 status: verified
 cfi_id: hong-kong-two-cannabis-cigarettes-2001
 tags:

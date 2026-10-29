@@ -9,6 +9,7 @@ summary: >-
   raids, phone searches and pre-trial detention, with lawyers saying the repression was the worst
   since Ben Ali. People were held for carrying rolling papers or filters, and activists said
   prosecutors treated small users as dealers.
+created_by_model: unknown
 status: verified
 cfi_id: tunisia-cannabis-arrest-wave-2024
 sources:

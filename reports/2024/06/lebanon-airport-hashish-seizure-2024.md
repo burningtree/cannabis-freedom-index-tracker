@@ -8,6 +8,7 @@ summary: >-
   Customs seized 6.416 kg of hashish at Beirut airport from an Egyptian traveller, hidden in a
   shipping suitcase and bound for an Arab country. The case was one of the few cannabis-specific
   seizures reported in 2024.
+created_by_model: unknown
 status: verified
 cfi_id: lebanon-airport-hashish-seizure-2024
 tags:

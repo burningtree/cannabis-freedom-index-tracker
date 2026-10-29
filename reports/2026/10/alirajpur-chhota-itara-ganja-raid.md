@@ -16,6 +16,7 @@ figures:
   kg_seized: 2079
   arrested: 2
   value: { amount: 10000000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [alirajpur]
 sources:

@@ -14,6 +14,7 @@ summary: >-
 figures:
   hectares: 18
   kg_seized: 60000
+created_by_model: unknown
 status: verified
 tags: [hermel]
 sources:

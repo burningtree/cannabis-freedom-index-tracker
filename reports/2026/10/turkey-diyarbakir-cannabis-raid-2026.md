@@ -9,6 +9,7 @@ summary: >-
   drones, destroying 48,579 cannabis and skunk plants. The Interior Ministry said the plants could
   have produced 1.2 tonnes of hashish, and officers seized 36 kg of hashish. The operation was part
   of the national action plan against illegal cannabis cultivation.
+created_by_model: unknown
 status: verified
 cfi_id: turkey-diyarbakir-cannabis-raid-2026
 sources:

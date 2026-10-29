@@ -8,6 +8,7 @@ summary: >-
   Police seized 182 cannabis plants, $31,600 in cash, seeds, joints, scales and a ledger in Peleliu;
   Anna Gotlob was charged on 4 July 2024. Peleliu had been raided repeatedly since 2019, showing
   that local cultivation persisted despite the crackdowns.
+created_by_model: unknown
 status: verified
 cfi_id: palau-peleliu-raid-2024
 sources:

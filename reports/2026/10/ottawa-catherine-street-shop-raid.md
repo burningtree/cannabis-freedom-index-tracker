@@ -15,6 +15,7 @@ summary: >-
 figures:
   charged: 1
   kg_seized: 13.4
+created_by_model: unknown
 status: verified
 tags: [unlicensed-shop, ottawa]
 sources:

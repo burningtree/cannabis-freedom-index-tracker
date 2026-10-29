@@ -8,6 +8,7 @@ summary: >-
   Police found 56 vacuum-sealed packets of cannabis buds, more than 30 kg, in the luggage of two
   Malaysian men who had flown in from South Korea. A Hong Kong man travelling with them was also
   arrested.
+created_by_model: unknown
 status: verified
 cfi_id: macau-record-cannabis-seizure-2025
 sources:

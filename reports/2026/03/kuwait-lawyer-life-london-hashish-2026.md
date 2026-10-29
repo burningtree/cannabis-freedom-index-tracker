@@ -9,6 +9,7 @@ summary: >-
   trafficking hashish and psychotropic substances sent by air cargo. A young woman and another
   Kuwaiti received seven years each. The case showed that air cargo from Europe, not only Gulf sea
   routes, supplies the market.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-lawyer-life-london-hashish-2026
 sources:

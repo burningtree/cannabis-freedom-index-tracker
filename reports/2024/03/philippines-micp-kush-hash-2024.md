@@ -8,6 +8,7 @@ summary: >-
   PDEA, Customs and the PNP Maritime Group seized 278.32 kg of marijuana kush, 2.36 litres of liquid
   marijuana in vape cartridges and 880.25 grams of hash at the Manila International Container Port.
   The same operation found 1.06 kg of dried mushroom.
+created_by_model: unknown
 status: verified
 cfi_id: philippines-micp-kush-hash-2024
 sources:

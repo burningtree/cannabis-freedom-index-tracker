@@ -8,6 +8,7 @@ summary: >-
   The government announced a further six cultivation-licence withdrawals following the Health
   Ministry commission’s inspections. Its spokesperson attributed the decisions to failures to meet
   legal conditions. These were individual licensing decisions within the medical cultivation system.
+created_by_model: unknown
 status: verified
 cfi_id: north-macedonia-cannabis-licences-revoked-march-2026
 sources:

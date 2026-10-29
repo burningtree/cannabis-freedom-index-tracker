@@ -9,6 +9,7 @@ summary: >-
   found 3,332 kg of cannabis packed in 100 sacks. The drivers fled and no arrests were reported. It
   was one of the largest single cannabis seizures in Nepal, in a period when police reported a
   record 51,439 kg seized in the previous fiscal year.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-saptari-seizure-2026
 sources:

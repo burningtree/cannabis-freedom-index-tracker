@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 17
   hectares: 6
+created_by_model: unknown
 status: verified
 tags: [army, migrant-workers]
 sources:

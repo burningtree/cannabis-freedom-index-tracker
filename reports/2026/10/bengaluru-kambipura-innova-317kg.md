@@ -16,6 +16,7 @@ figures:
   arrested: 2
   kg_seized: 317
   value: { amount: 17800000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [rental-car, odisha-route, kerala-route]
 sources:

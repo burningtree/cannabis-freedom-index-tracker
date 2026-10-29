@@ -9,6 +9,7 @@ summary: >-
   370 grams of methamphetamine concealed in candy wrappers and sweets. The General Authority of
   Customs said officers found the contraband during a luggage inspection and referred it to the
   authorities. The seizure was announced on 3 September 2026.
+created_by_model: unknown
 status: verified
 cfi_id: qatar-customs-candy-hashish-2026
 sources:

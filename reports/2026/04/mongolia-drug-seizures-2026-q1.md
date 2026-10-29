@@ -9,6 +9,7 @@ summary: >-
   210 suspects, and 45 more crimes involving 54 suspects in joint operations with intelligence and
   customs. It said it had stopped an amount equal to 27,671 single doses, without giving a weight or
   a cannabis breakdown. The figures cover all controlled drugs.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-drug-seizures-2026-q1
 sources:

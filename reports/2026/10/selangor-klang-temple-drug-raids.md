@@ -16,6 +16,7 @@ figures:
   arrested: 8
   kg_seized: 118.3
   value: { amount: 16200000, currency: MYR }
+created_by_model: unknown
 status: verified
 tags: [temple, syndicates, selangor]
 sources:

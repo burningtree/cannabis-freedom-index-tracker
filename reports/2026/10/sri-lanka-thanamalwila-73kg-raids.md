@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 2
   kg_seized: 73.07
+created_by_model: unknown
 status: verified
 tags: [stf]
 sources:

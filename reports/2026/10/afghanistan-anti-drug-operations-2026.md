@@ -8,6 +8,7 @@ summary: >-
   The Interior Ministry's deputy minister for counter-narcotics said the ministry had carried out
   more than 8,000 operations against drug suspects in 2026 and arrested more than 10,000 people. He
   also claimed 4,300 operations to round up addicts and 12,500 operations to destroy poppy fields.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-anti-drug-operations-2026
 sources:

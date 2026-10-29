@@ -9,6 +9,7 @@ summary: >-
   Valley, worth more than 500,000 shekels. Police said the haul was meant for distribution in
   several governorates and some for smuggling across the border; no arrests were announced in the
   first statement.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-jericho-hashish-seizure-2026
 sources:

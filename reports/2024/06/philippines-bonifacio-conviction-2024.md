@@ -9,6 +9,7 @@ summary: >-
   during a September 2016 drug raid. The officers were sentenced to up to ten years in prison and
   ordered to pay damages to the family. It was only the fourth known conviction of police for a
   drug-war killing, out of thousands of deaths.
+created_by_model: unknown
 status: verified
 cfi_id: philippines-bonifacio-conviction-2024
 sources:

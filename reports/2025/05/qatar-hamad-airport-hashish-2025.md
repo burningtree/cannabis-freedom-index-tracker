@@ -8,6 +8,7 @@ summary: >-
   Customs officers at Hamad International Airport found 6 kilograms of hashish and 1 kilogram of
   heroin hidden in automotive spare parts in a passenger's luggage. The General Authority of Customs
   said the drugs were seized and legal proceedings began. The seizure was announced on 23 May 2025.
+created_by_model: unknown
 status: verified
 cfi_id: qatar-hamad-airport-hashish-2025
 sources:

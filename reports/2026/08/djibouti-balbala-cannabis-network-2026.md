@@ -9,6 +9,7 @@ summary: >-
   Balbala district of Djibouti City, finding 88 packages weighing 12 kg at a storage site, with an
   estimated street value of 1.76 million Djiboutian francs. Several people were arrested, held in
   police custody before presentation to the justice authorities.
+created_by_model: unknown
 status: verified
 cfi_id: djibouti-balbala-cannabis-network-2026
 tags:

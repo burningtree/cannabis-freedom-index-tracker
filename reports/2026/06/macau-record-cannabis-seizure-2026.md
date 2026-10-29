@@ -9,6 +9,7 @@ summary: >-
   cannabis flower in two suitcases, packed in 60 packets, after arriving from Southeast Asia. Police
   valued the haul at about MOP35 million and called it the largest cannabis case in Macau's history,
   eight months after the previous record.
+created_by_model: unknown
 status: verified
 cfi_id: macau-record-cannabis-seizure-2026
 sources:

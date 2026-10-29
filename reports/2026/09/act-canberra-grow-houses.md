@@ -16,6 +16,7 @@ summary: >-
 figures:
   kg_seized: 70
   arrested: 9
+created_by_model: unknown
 status: verified
 tags: [grow-houses, organised-crime]
 sources:

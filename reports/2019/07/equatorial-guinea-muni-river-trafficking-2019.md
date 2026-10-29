@@ -6,7 +6,8 @@ type: seizure
 title: Home-grown cannabis is trafficked to Gabon via the Muni river
 summary: >-
   Cannabis is cultivated in Equatorial Guinea, with some of the product trafficked to Gabon via the
-  Muni river, according to the 2019 United States OSAC crime and safety report for the country.[@1]
+  Muni river, according to the 2019 United States OSAC crime and safety report for the country.
+created_by_model: unknown
 status: verified
 cfi_id: equatorial-guinea-muni-river-trafficking-2019
 tags:

@@ -9,6 +9,7 @@ summary: >-
   delos Santos during a 2017 anti-drug operation in Caloocan. It upheld reclusion perpetua without
   parole and 275,000 pesos in damages, rejecting the officers' claim that the teenager had fought
   back. The decision was dated 11 August 2025 and made public on 22 December.
+created_by_model: unknown
 status: verified
 cfi_id: philippines-kian-conviction-affirmed-2025
 sources:

@@ -11,6 +11,7 @@ summary: >-
   statements did not say whether anyone was arrested.
 figures:
   kg_seized: 2000
+created_by_model: unknown
 status: verified
 tags: [pakistan-navy, ispr, arabian-sea, hashish]
 sources:

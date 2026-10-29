@@ -9,6 +9,7 @@ summary: >-
   five cannabis plants in pots on a rented terrace in Thiruvananthapuram. The court held that
   ‘cannabis plant’ means any plant of the genus, whether or not it bears flowering tops, and that
   growing it in a pot is cultivation under sections 8(b) and 20(a).
+created_by_model: unknown
 status: verified
 cfi_id: india-kerala-hc-potted-cannabis-2025
 sources:

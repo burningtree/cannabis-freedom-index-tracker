@@ -9,6 +9,7 @@ summary: >-
   International Airport with 110 kg of kush hidden in their luggage, valued at about US$3.5 million.
   It was reported as the country's largest single cannabis seizure. The case was an enforcement
   event, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: sri-lanka-record-kush-seizure-2026
 tags:

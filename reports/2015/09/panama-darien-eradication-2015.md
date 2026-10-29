@@ -6,7 +6,8 @@ type: eradication
 title: Panama burns thousands of marijuana plants on a Darien island
 summary: >-
   In September 2015 Panamanian soldiers uprooted and burned thousands of marijuana plants on a
-  remote island in the Darien.[@1]
+  remote island in the Darien.
+created_by_model: unknown
 status: verified
 cfi_id: panama-darien-eradication-2015
 tags:

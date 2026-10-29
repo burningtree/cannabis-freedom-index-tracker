@@ -9,6 +9,7 @@ summary: >-
   than 50 tonnes of heroin, opium, ketamine, methamphetamine, marijuana and crystal meth, valued at
   about US$600 million, in Yangon, Mandalay and Taunggyi. The total was more than double the 2025
   figure. No marijuana weight was given.
+created_by_model: unknown
 status: verified
 cfi_id: myanmar-drug-burning-2026
 sources:

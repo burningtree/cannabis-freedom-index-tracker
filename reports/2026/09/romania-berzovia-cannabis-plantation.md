@@ -11,6 +11,7 @@ summary: >-
   DIICOT prosecutors and organised-crime police carried out five searches after finding a cannabis
   plantation in an isolated area outside Berzovia, run by four suspects aged 19 to 53 who bought
   seeds from Spain. The four were taken for questioning.
+created_by_model: unknown
 status: verified
 tags: [diicot, caras-severin, plantation]
 sources:

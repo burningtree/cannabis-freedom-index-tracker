@@ -9,6 +9,7 @@ summary: >-
   2024 with about 17 kg of cannabis plants. The case was cited under Article 20.7 of the Criminal
   Code; no verdict was reported. It was one of the few cannabis-specific seizures reported that
   year.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-cannabis-plants-seizure-2024
 sources:

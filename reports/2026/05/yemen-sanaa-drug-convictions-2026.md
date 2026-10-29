@@ -9,6 +9,7 @@ summary: >-
   distributing hashish with intent to traffic and for preparing a place for its use. Three others
   got five years for possessing hashish for use, five got one year for preparing drug-use premises,
   and one was acquitted.
+created_by_model: unknown
 status: verified
 cfi_id: yemen-sanaa-drug-convictions-2026
 sources:

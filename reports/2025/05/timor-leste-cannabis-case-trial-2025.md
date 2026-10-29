@@ -9,6 +9,7 @@ summary: >-
   August 2022 raids; nine appeared and four were abroad. The 2022 seizure included hashish, hashish
   chocolate and 0.50 g of methamphetamine, with $4,139.25 in cash. Witnesses described the
   intelligence-led raids and disputed who had detained the first five suspects.
+created_by_model: unknown
 status: verified
 cfi_id: timor-leste-cannabis-case-trial-2025
 sources:

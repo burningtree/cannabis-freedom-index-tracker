@@ -6,10 +6,11 @@ type: seizure
 title: Montenegro police file complaints against two more Trnovo suspects
 summary: >-
   Police filed supplementary criminal complaints against two men from Zeta, aged 42 and 49, on
-  suspicion of drug production and supply linked to the Trnovo cannabis plantation.[@1]
+  suspicion of drug production and supply linked to the Trnovo cannabis plantation.
   Investigators cited forensic examinations, analysis of traces and other collected evidence; three
-  earlier suspects had already been processed.[@1] The case began with the discovery of about 13,100
+  earlier suspects had already been processed. The case began with the discovery of about 13,100
   plants near Bar in…
+created_by_model: unknown
 status: verified
 cfi_id: montenegro-trnovo-further-complaints-2026
 tags:

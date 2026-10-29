@@ -8,6 +8,7 @@ summary: >-
   The government ordered police to be armed during drug raids after drugs were found in boxes of
   frozen chicken, and the prime minister called drug trafficking a top priority. The order was an
   enforcement response, not a change in the Narcotics Act.
+created_by_model: unknown
 status: verified
 cfi_id: samoa-armed-drug-raids-2025
 sources:

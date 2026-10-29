@@ -10,6 +10,7 @@ summary: >-
   Causeway found the devices and containers holding suspected CBD. Two co-defendants received one
   year and BHD1,000 each. The case began in 2024 and the suspected CBD liquid was prosecuted as
   cannabis.
+created_by_model: unknown
 status: verified
 cfi_id: bahrain-cbd-vape-ruling-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   cannabis fields with herbicides, alleging paraquat, glyphosate and dicamba use without
   environmental assessment or registered applicators. Police continued Operation Thunder, destroying
   fields and seizing hundreds of kilograms.
+created_by_model: unknown
 status: verified
 cfi_id: eswatini-dagga-spraying-2025
 tags:

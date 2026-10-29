@@ -9,6 +9,7 @@ summary: >-
   of marijuana in a dawn raid on 8 October 2026. Five suspects from Nipa-Kutubu in the Southern
   Highlands and their spouses were arrested; police said locals had harboured them. The suspects and
   exhibits were being taken to Daru for charges.
+created_by_model: unknown
 status: verified
 cfi_id: papua-new-guinea-balimo-seizure-2026
 sources:

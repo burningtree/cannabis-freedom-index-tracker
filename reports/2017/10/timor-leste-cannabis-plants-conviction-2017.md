@@ -6,9 +6,10 @@ type: sentence
 title: Timor-Leste gives an Australian 3½ years in a suspected cannabis-plant case
 summary: >-
   A Dili court sentenced Australian resident Tony Crean to three and a half years in prison in a
-  case involving cannabis plants, according to Lusa.[@1] The report says he was convicted for
-  possession and trafficking but acquitted of consumption after a negative urine test.[@1] He had
-  been held since January, and his defence said it would appeal.[@1]
+  case involving cannabis plants, according to Lusa. The report says he was convicted for
+  possession and trafficking but acquitted of consumption after a negative urine test. He had
+  been held since January, and his defence said it would appeal.
+created_by_model: unknown
 status: verified
 cfi_id: timor-leste-cannabis-plants-conviction-2017
 tags:

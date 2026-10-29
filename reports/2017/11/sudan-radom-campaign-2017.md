@@ -8,6 +8,7 @@ summary: >-
   A force of 366 men with 29 vehicles, a helicopter and drones spent the harvest month in El Radoom,
   destroyed about 500 farms and seized more than 30,000 packages of cannabis and 54,000 pieces of
   hashish. An armed group ambushed them and two officers were wounded.
+created_by_model: unknown
 status: verified
 cfi_id: sudan-radom-campaign-2017
 tags:

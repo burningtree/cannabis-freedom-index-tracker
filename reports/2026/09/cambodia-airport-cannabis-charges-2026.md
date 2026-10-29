@@ -9,6 +9,7 @@ summary: >-
   Article 40 after two stops at Techo International Airport. On 6 September officers seized about 18
   kg of cannabis and heroin from two of them; on 9 September they found 73.017 kg of dried cannabis
   and 6.219 kg of white powder suspected to be heroin in the luggage of the other three.
+created_by_model: unknown
 status: verified
 cfi_id: cambodia-airport-cannabis-charges-2026
 sources:

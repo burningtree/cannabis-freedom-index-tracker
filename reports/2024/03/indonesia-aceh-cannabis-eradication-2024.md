@@ -9,6 +9,7 @@ summary: >-
   in Aceh Besar, roughly 20,000 plants, on 6 March 2024. Days earlier it had seized 200 kg of dried
   cannabis and arrested a suspect in the same district. The fields were found with monitoring by the
   national research agency (BRIN) and the geospatial agency (BIG).
+created_by_model: unknown
 status: verified
 cfi_id: indonesia-aceh-cannabis-eradication-2024
 sources:

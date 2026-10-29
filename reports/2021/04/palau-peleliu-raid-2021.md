@@ -8,6 +8,7 @@ summary: >-
   Police seized 635 cannabis plants, 136 joints, about 250 lb of marijuana and $18,000 in cash in
   Peleliu; four Bangladeshi suspects were arrested. Police estimated the retail value at more than
   $400,000.
+created_by_model: unknown
 status: verified
 cfi_id: palau-peleliu-raid-2021
 sources:

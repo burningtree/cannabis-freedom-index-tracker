@@ -8,6 +8,7 @@ summary: >-
   Police stopped three men transporting 16 kg of hashish and opium into Dushanbe and opened a case
   under part 4 of Article 200, the especially-large supply offence. The men were held in custody
   while police looked for their supply chain. The offence carries 12–20 years in prison.
+created_by_model: unknown
 status: verified
 cfi_id: tajikistan-hashish-seizure-2025
 sources:

@@ -9,6 +9,7 @@ summary: >-
   of hashish and 200,000 narcotic pills. The head of the Drug Enforcement Administration said the
   men were trying to smuggle the shipment and that the drugs would be destroyed. It was one of the
   largest cannabis seizures reported since the fall of Assad.
+created_by_model: unknown
 status: verified
 cfi_id: syria-aleppo-hashish-800kg-2025
 sources:

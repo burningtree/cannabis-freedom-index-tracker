@@ -15,6 +15,7 @@ figures:
   arrested: 1
   kg_seized: 14.8
   value: { amount: 157000000, currency: LKR }
+created_by_model: unknown
 status: verified
 tags: [hashish, thailand-route, concealment]
 sources:

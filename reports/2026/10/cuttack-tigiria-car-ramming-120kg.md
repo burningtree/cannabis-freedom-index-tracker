@@ -16,6 +16,7 @@ summary: >-
 figures:
   kg_seized: 120
   value: { amount: 1200000, currency: INR }
+created_by_model: unknown
 status: verified
 sources:
   - title: Ganja smugglers flees after ramming excise team's vehicle, car seized with 120 kgs of cannabis

@@ -13,6 +13,7 @@ summary: >-
 figures:
   hectares: 12.1
   arrested: 9
+created_by_model: unknown
 status: verified
 tags: [kandhamal]
 sources:

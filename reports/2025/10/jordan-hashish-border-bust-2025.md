@@ -10,6 +10,7 @@ summary: >-
   searches across the country recovered 119 blocks of hashish, including 40 in Jerash and 36 in
   Aqaba. The operations also led to arrests in Amman and Zarqa, where officers found further hashish
   and pills.
+created_by_model: unknown
 status: verified
 cfi_id: jordan-hashish-border-bust-2025
 sources:

@@ -13,6 +13,7 @@ summary: >-
   no one had been arrested.
 figures:
   plants_destroyed: 1000
+created_by_model: unknown
 status: verified
 tags: [hennepkwekerij, losser, police]
 sources:

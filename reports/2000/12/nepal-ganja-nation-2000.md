@@ -9,6 +9,7 @@ summary: >-
   worked openly, with Indian buyers supplying seed on credit and returning at harvest. The paper
   estimated Nepal grew 3 million kg of ganja and charas a year and exported Rs 6 billion worth to
   India, with police, local officials and Maoist cadres taking a share.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-ganja-nation-2000
 sources:

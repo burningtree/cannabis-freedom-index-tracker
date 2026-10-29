@@ -9,6 +9,7 @@ summary: >-
   on two trafficking counts. He had been stopped at Velana airport on 7 October 2024 with 252.17 g
   of cannabis and 23.60 g of diamorphine taped to his legs before a domestic flight; the court
   imposed life on each count, calculated at 25 years, and the terms added up to 50 years.
+created_by_model: unknown
 status: verified
 cfi_id: maldives-cannabis-life-sentence-2026
 sources:

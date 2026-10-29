@@ -8,6 +8,7 @@ summary: >-
   A court sentenced a man to 80 months in prison for cultivation and custody of marijuana seeds and
   plants under article 314 of the Penal Code, after police found 12 plants and 279 seeds in Los
   Santos.
+created_by_model: unknown
 status: verified
 cfi_id: panama-los-santos-cultivation-2023
 sources:

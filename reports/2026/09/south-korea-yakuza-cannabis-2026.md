@@ -10,6 +10,7 @@ summary: >-
   prosecutors called it the largest cannabis import for domestic sale and sought 20 years. The case
   began with intelligence from the National Intelligence Service and was handled by the joint drug
   headquarters.
+created_by_model: unknown
 status: verified
 cfi_id: south-korea-yakuza-cannabis-2026
 sources:

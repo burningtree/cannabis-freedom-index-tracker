@@ -14,6 +14,7 @@ summary: >-
   appeared in Norfolk court the same day.
 figures:
   charged: 7
+created_by_model: unknown
 status: verified
 tags: [rico, corruption, indictment]
 sources:

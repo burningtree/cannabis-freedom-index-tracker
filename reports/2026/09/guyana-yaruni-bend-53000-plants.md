@@ -15,6 +15,7 @@ figures:
   hectares: 3.24
   kg_seized: 4.5
   value: { amount: 22038728, currency: GYD }
+created_by_model: unknown
 status: verified
 tags: [linden, upper-demerara, police]
 sources:

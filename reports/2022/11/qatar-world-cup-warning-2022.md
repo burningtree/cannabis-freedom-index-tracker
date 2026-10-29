@@ -9,6 +9,7 @@ summary: >-
   restrictive countries in the world on drugs: cannabis is prohibited, as are some common medicines;
   bags and passengers are scanned at Hamad International Airport, and travellers carrying even very
   small quantities have been arrested. Smuggling charges can carry the death penalty.
+created_by_model: unknown
 status: verified
 cfi_id: qatar-world-cup-warning-2022
 tags:

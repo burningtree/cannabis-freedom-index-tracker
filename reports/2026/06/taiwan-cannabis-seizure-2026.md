@@ -10,6 +10,7 @@ summary: >-
   and mixed drugs. The coast guard valued the haul at about NT$1.62 billion and said it was its
   largest cannabis seizure in ten years; seven people were arrested and prosecutors indicted them on
   24 August.
+created_by_model: unknown
 status: verified
 cfi_id: taiwan-cannabis-seizure-2026
 sources:

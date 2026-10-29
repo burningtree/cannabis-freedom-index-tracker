@@ -9,6 +9,7 @@ summary: >-
   pills' with intent to traffic, a repeat offence. SHAMS said the PA's 2018 drug law did not provide
   death; PCHR later said Gaza's 2013 law did. It was the first death sentence by that court in a
   drug case.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-gaza-hashish-death-sentence-2022
 sources:

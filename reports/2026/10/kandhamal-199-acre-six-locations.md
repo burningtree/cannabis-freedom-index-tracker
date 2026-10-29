@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 6
   hectares: 80.5
+created_by_model: unknown
 status: verified
 tags: [kandhamal, drones]
 sources:

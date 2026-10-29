@@ -9,6 +9,7 @@ summary: >-
   two years in prison for possession, about five years after his arrest. He said the plant material
   was never tested and that the investigating officer had died and could not be cross-examined. His
   lawyer in the constitutional case said the sentence did not end that challenge.
+created_by_model: unknown
 status: verified
 cfi_id: namibia-activist-jailed-2023
 tags:

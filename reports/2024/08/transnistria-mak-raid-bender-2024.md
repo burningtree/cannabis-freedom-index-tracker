@@ -8,6 +8,7 @@ summary: >-
   During the annual Mak-2024 anti-drug operation, militia officers in the city of Bender raided a
   residential plot and discovered 64 two-metre-tall cannabis plants cultivated alongside dried
   marijuana.
+created_by_model: unknown
 status: verified
 cfi_id: transnistria-mak-raid-bender-2024
 tags:

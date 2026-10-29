@@ -8,6 +8,7 @@ summary: >-
   After the 2011 uprising, the transitional cabinet dissolved the Anti-Narcotics and Psychotropic
   Substances Agency and moved its assets, staff and powers to the Interior Ministry. The agency had
   been created in 2006. Drug enforcement passed to the ministry.
+created_by_model: unknown
 status: verified
 cfi_id: libya-anti-narcotics-agency-abolished-2012
 sources:

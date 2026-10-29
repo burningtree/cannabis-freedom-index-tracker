@@ -9,6 +9,7 @@ summary: >-
   security vacuum that followed weakened control of Libya's borders and ports. Trafficking networks
   expanded through the country over the next decade. The cannabis ban stayed on the books, but
   enforcement became local and uneven.
+created_by_model: unknown
 status: verified
 cfi_id: libya-revolution-drug-enforcement-2011
 sources:

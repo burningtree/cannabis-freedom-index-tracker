@@ -14,6 +14,7 @@ summary: >-
   cabbage were 19 packets holding 570 kg of marijuana.
 figures:
   kg_seized: 570
+created_by_model: unknown
 status: verified
 sources:
   - title: 570 kg of marijuana seized from vegetable-laden vehicle in Morang

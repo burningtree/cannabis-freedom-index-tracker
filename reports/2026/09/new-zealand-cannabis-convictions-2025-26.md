@@ -9,6 +9,7 @@ summary: >-
   finalised charges, down from 5,854 a year earlier, and 3,543 people charged, down from 3,606.
   Convictions were stable: 2,551 people were convicted, against 2,600 in 2024/25, and 558 received
   imprisonment as their most serious sentence, about 22%.
+created_by_model: unknown
 status: verified
 cfi_id: new-zealand-cannabis-convictions-2025-26
 sources:

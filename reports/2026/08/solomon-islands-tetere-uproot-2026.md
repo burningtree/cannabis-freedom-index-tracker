@@ -9,6 +9,7 @@ summary: >-
   riverside near Ngalimera community in North Guadalcanal. The suspected grower ran off before
   police arrived and no arrest was made. Police repeated that cultivation is a serious offence under
   the Dangerous Drugs Act.
+created_by_model: unknown
 status: verified
 cfi_id: solomon-islands-tetere-uproot-2026
 sources:

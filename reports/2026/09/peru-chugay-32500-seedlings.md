@@ -14,6 +14,7 @@ summary: >-
 figures:
   plants_destroyed: 32500
   kg_seized: 621.7
+created_by_model: unknown
 status: verified
 tags: [chugay, la-libertad, pnp]
 sources:

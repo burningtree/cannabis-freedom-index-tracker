@@ -9,6 +9,7 @@ summary: >-
   two or three unidentified people over THC-infused CBD oil it said had been sold on the e-commerce
   platform. The case was filed on 16 August 2026, after a raid in Badda arrested the supplier and
   recovered oil, materials and equipment.
+created_by_model: unknown
 status: verified
 cfi_id: bangladesh-first-digital-drug-case-2026
 sources:

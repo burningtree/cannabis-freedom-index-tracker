@@ -8,6 +8,7 @@ summary: >-
   A raid on a house used as a depot and consumption lounge at Ambohimanarina, Antananarivo, found
   35.054 kg of cannabis and led to 13 arrests: four wholesalers and nine dealers or buyers. All were
   jailed at Antanimora.
+created_by_model: unknown
 status: verified
 cfi_id: madagascar-ambohimanarina-raids-2026
 sources:

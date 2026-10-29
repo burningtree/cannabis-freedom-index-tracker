@@ -9,6 +9,7 @@ summary: >-
   trying to take 25 kg of cannabis on a domestic flight from Adelaide to New South Wales. Airport
   staff became suspicious of his suitcase in August 2024, and he pleaded guilty to a Commonwealth
   trafficking charge in August 2025. The District Court set a non-parole period of one year.
+created_by_model: unknown
 status: verified
 cfi_id: australia-afp-cannabis-suitcases-2026
 sources:

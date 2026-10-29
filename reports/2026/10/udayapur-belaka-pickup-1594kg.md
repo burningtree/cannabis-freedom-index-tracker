@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 159.4
+created_by_model: unknown
 status: verified
 tags: [pickup, concealment]
 sources:

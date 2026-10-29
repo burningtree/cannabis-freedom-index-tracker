@@ -9,6 +9,7 @@ summary: >-
   boxes containing gloves at Pasir Panjang. Their 2 October release said preliminary investigations
   indicated the container was transiting Singapore for another country and that investigations
   continued.
+created_by_model: unknown
 status: verified
 cfi_id: singapore-pasir-panjang-transit-seizure-2026
 tags:

@@ -5,6 +5,7 @@ country: mg
 type: arrest
 title: Police arrest nineteen men consuming cannabis at Namontana
 summary: Police arrested 19 men for consuming cannabis at Namontana, Antananarivo, and seized 142 sachets.
+created_by_model: unknown
 status: verified
 cfi_id: madagascar-namontana-consumption-arrests-2026
 sources:

@@ -10,6 +10,7 @@ summary: >-
   Prosecutors supported the searches and eradication work. The operations applied the existing
   cultivation prohibition, which carries five to twenty years in prison plus a fine for unauthorised
   growing.
+created_by_model: unknown
 status: verified
 cfi_id: guatemala-cannabis-eradication-report-2026
 tags:

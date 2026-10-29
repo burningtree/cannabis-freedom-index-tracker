@@ -7,9 +7,10 @@ title: Nauru fines two adults after a one-gram cannabis case
 summary: >-
   Two adults received fines of A$1,500 each, community service and one year’s probation after
   pleading guilty in a one-gram cannabis case. A teenager received a A$200 fine and one month’s
-  community service, with no conviction recorded.[@1] The magistrate considered imprisonment
+  community service, with no conviction recorded. The magistrate considered imprisonment
   disproportionate for the adults, months before parliament introduced mandatory custody for
-  possession.[@1,2]
+  possession.
+created_by_model: unknown
 status: verified
 cfi_id: nauru-one-gram-cannabis-sentence-2024
 tags:

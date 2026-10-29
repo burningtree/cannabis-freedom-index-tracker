@@ -9,6 +9,7 @@ summary: >-
   the West region and found 50 sacks of cannabis hidden among cartons of soap. The driver and two
   other men were detained, and the defence ministry said they and the cargo would be handed to the
   courts.
+created_by_model: unknown
 status: verified
 cfi_id: cameroon-noun-seizure-2025
 tags:

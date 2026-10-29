@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 90
+created_by_model: unknown
 status: verified
 tags: [house-search, tip-off]
 sources:

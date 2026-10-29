@@ -8,6 +8,7 @@ summary: >-
   The United States Coast Guard stopped a vessel about eight nautical miles off Môle- Saint-Nicolas
   carrying about 3,200 pounds of marijuana, valued at 3.8 million dollars, and detained one person.
   The cargo and the suspect were handed to the Haitian authorities for prosecution.
+created_by_model: unknown
 status: verified
 cfi_id: haiti-mole-saint-nicolas-seizure-2026
 sources:

@@ -14,6 +14,7 @@ summary: >-
   airport on 27 October trying to leave the country.
 figures:
   arrested: 8
+created_by_model: unknown
 status: verified
 tags: [maritime, thailand-route, coast-guard]
 sources:

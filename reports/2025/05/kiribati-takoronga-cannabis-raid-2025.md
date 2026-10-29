@@ -8,6 +8,7 @@ summary: >-
   Police found a cannabis plantation about two metres high near the clinic at Takoronga, Tarawa,
   arrested and cautioned a suspect, and described it as the second drug bust of 2025. The first was
   at Abatao on 28 April.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-takoronga-cannabis-raid-2025
 sources:

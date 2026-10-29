@@ -14,6 +14,7 @@ summary: >-
 figures:
   plants_destroyed: 7414
   value: { amount: 30000000, currency: MUR }
+created_by_model: unknown
 status: verified
 tags: [adsu, sugar-cane, helicopter]
 sources:

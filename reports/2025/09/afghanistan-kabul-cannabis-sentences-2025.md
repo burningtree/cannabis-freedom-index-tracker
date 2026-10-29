@@ -9,6 +9,7 @@ summary: >-
   three and a half years in prison and 15 to 35 lashes for selling and trafficking narcotic tablets,
   alcohol and cannabis. The Supreme Court approved the sentences, which were carried out on 23
   September 2025.
+created_by_model: unknown
 status: verified
 cfi_id: afghanistan-kabul-cannabis-sentences-2025
 sources:

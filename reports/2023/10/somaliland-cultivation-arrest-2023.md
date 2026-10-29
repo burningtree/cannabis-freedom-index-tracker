@@ -6,9 +6,10 @@ type: arrest
 title: Somaliland police report a cannabis-cultivation arrest
 summary: >-
   Somaliland police reported arresting a man accused of growing cannabis in the yard of a house he
-  owned in Hargeisa’s Ga’an Libaah district.[@1] The published account said traffic police worked
+  owned in Hargeisa’s Ga’an Libaah district. The published account said traffic police worked
   with the district station; it reported an arrest and allegation, with no conviction or
-  sentence.[@1]
+  sentence.
+created_by_model: unknown
 status: verified
 cfi_id: somaliland-cultivation-arrest-2023
 tags:

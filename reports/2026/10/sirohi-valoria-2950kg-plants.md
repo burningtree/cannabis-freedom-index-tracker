@@ -14,6 +14,7 @@ summary: >-
 figures:
   arrested: 4
   kg_seized: 2950.84
+created_by_model: unknown
 status: verified
 tags: [sirohi, intercropping]
 sources:

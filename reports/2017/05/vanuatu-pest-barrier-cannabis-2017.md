@@ -6,10 +6,11 @@ type: sentence
 title: Vanuatu gives community work to a man who grew cannabis to deter rats
 summary: >-
   Roro Iauko received sixty hours of community service after admitting that he had planted
-  twenty-six cannabis plants as a pest barrier in his garden.[@1] The judge accepted that the crop
+  twenty-six cannabis plants as a pest barrier in his garden. The judge accepted that the crop
   was intended for horticultural use, but ruled that this purpose did not provide a defence to
-  unlawful cultivation.[@1] Applying the 2013 guidance, he placed the case at the lower end of the
+  unlawful cultivation. Applying the 2013 guidance, he placed the case at the lower end of the
   personal-growing…
+created_by_model: unknown
 status: verified
 cfi_id: vanuatu-pest-barrier-cannabis-2017
 tags:

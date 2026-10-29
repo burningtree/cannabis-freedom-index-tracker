@@ -8,6 +8,7 @@ summary: >-
   Republika Srpska police reported seeing a person consume marijuana in a public place in Vlasenica
   and issuing a misdemeanour notice under Article 17 of the public-order law. The bulletin records
   one enforcement action, not a national arrest total or a criminal conviction.
+created_by_model: unknown
 status: verified
 cfi_id: bosnia-vlasenica-public-use-ticket-2026
 sources:

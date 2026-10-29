@@ -9,6 +9,7 @@ summary: >-
   Nandlall said the detention misapplied the amended drug law. Because a court cannot impose prison
   for possessing up to 30 g, he said, the police cannot detain a person for it before trial and bail
   must be granted; they should charge the person and bring them before a magistrate.
+created_by_model: unknown
 status: verified
 cfi_id: guyana-attorney-general-no-detention-2024
 tags:

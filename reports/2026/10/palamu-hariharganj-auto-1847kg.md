@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 18.47
+created_by_model: unknown
 status: verified
 tags: [autorickshaw, concealment, bihar-route]
 sources:

@@ -6,9 +6,10 @@ type: sentence
 title: Vanuatu suspends a five-plant sentence after months already spent in custody
 summary: >-
   A first offender who grew five cannabis plants weighing 15.5 grams received a suspended sentence,
-  sixty hours of community work and six months’ supervision.[@1] Brightly Kaiding had already spent
+  sixty hours of community work and six months’ supervision. Brightly Kaiding had already spent
   three months and two days in custody before bail, which the court deducted from a nine-month term,
-  leaving five months and twenty-eight days suspended for two years.[@1] The court treated the grow…
+  leaving five months and twenty-eight days suspended for two years. The court treated the grow…
+created_by_model: unknown
 status: verified
 cfi_id: vanuatu-five-plants-remand-2024
 tags:

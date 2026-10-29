@@ -9,6 +9,7 @@ summary: >-
   UAE law, for trafficking cannabis after police found 193.13 grams in his flat and WhatsApp
   messages about sales. He had been caught in a sting in Al Nahda after a Sudanese buyer led
   investigators to him.
+created_by_model: unknown
 status: verified
 cfi_id: uae-cannabis-life-sentence-2024
 sources:

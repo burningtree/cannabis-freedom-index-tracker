@@ -14,6 +14,7 @@ summary: >-
   sent the exhibits to the crime lab; Lotsu remains in custody pending arraignment.
 figures:
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [indian-hemp, volta-lake]
 sources:

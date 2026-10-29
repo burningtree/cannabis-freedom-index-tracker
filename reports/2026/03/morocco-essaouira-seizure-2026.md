@@ -9,6 +9,7 @@ summary: >-
   and found 11,755 kilograms of cannabis. The drivers ran off, leaving the drugs and ten false
   plates; a parallel search at Sidi Kaouki turned up another vehicle. The operation was run by the
   DGSN with the DGST, local authorities and the royal gendarmerie.
+created_by_model: unknown
 status: verified
 cfi_id: morocco-essaouira-seizure-2026
 sources:

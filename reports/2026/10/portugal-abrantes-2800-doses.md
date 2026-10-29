@@ -13,6 +13,7 @@ summary: >-
   Vale das Mós, Abrantes. Officers also found equipment used to grow and pack the drug.
 figures:
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [gnr, abrantes, ribatejo]
 sources:

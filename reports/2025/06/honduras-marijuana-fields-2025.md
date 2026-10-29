@@ -8,6 +8,7 @@ summary: >-
   The Honduran armed forces said they had secured 13 illegal marijuana fields with about 180,000
   plants so far in 2025, beside 37 coca plantations with more than 770,000 bushes. The latest
   marijuana field, at Tocoa in Colón, held about 36,000 plants on eight manzanas.
+created_by_model: unknown
 status: verified
 cfi_id: honduras-marijuana-fields-2025
 tags:

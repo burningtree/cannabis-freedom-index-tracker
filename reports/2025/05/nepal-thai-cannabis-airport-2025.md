@@ -9,6 +9,7 @@ summary: >-
   Airport, up from 540 grams the year before and 36 grams in 2022. Most came in suitcases on flights
   from Thailand, where legalisation had made strong indoor-grown cannabis easy to buy, and
   investigators said the destination was India.
+created_by_model: unknown
 status: verified
 cfi_id: nepal-thai-cannabis-airport-2025
 sources:

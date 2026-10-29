@@ -9,6 +9,7 @@ summary: >-
   half as many again as the 18,395 of 2022. Teenagers numbered 1,477, three times the year before,
   and people in their twenties 8,368. The report as published did not break the figures down by
   drug.
+created_by_model: unknown
 status: verified
 cfi_id: south-korea-record-drug-offenders-2024
 sources:

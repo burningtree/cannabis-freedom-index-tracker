@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 1050.2
   arrested: 1
+created_by_model: unknown
 status: verified
 tags: [ficco, sao-paulo, highway]
 sources:

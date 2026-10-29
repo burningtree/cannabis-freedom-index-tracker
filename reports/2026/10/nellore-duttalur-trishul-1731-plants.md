@@ -15,6 +15,7 @@ figures:
   arrested: 6
   plants_destroyed: 1731
   hectares: 3.8
+created_by_model: unknown
 status: verified
 tags: [operation-trishul, intercropping]
 sources:

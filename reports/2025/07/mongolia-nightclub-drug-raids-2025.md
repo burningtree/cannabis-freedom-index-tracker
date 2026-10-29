@@ -8,6 +8,7 @@ summary: >-
   Police raided nightclubs and bars in Ulaanbaatar from 25 to 27 July 2025 and tested 1,043 people
   positive for an illicit drug. The campaign followed a rise in drug crime and calls for tougher
   enforcement. It was an enforcement operation, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-nightclub-drug-raids-2025
 sources:

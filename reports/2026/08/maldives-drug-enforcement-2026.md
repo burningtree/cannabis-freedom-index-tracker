@@ -10,6 +10,7 @@ summary: >-
   than 7,300 places, opened 1,533 cases and sent 634 to the Prosecutor General; 116 foreign
   nationals were handed to Immigration for deportation. The figures covered all drugs and did not
   separate cannabis.
+created_by_model: unknown
 status: verified
 cfi_id: maldives-drug-enforcement-2026
 sources:

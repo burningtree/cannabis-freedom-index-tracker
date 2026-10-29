@@ -9,6 +9,7 @@ summary: >-
   production and distribution under Article 215. Two suspects were in 48-hour custody, and
   investigators were examining links to cannabis seized in Serbia. The ministry said some inspected
   companies operated lawfully; the complaint was not a conviction.
+created_by_model: unknown
 status: verified
 cfi_id: north-macedonia-cannabis-complaint-2026
 sources:

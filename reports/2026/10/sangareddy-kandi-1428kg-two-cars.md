@@ -16,6 +16,7 @@ figures:
   arrested: 2
   kg_seized: 142.8
   value: { amount: 7140000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [cars, odisha-route, maharashtra-route]
 sources:

@@ -10,6 +10,7 @@ summary: >-
   driving-under-the-influence arrest in May, when the driver told police he had bought crack cocaine
   from Aiseia. Officers found marijuana in bags and containers, methamphetamine, crack and $1,109 in
   cash.
+created_by_model: unknown
 status: verified
 cfi_id: marshall-islands-aiseia-marijuana-charges-2024
 sources:

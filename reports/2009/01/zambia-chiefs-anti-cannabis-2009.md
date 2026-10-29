@@ -8,6 +8,7 @@ summary: >-
   The Drug Enforcement Commission met traditional leaders to persuade farmers to grow food and cash
   crops instead of cannabis; chiefs reported growers to the agency. The campaign was an enforcement
   and crop-substitution effort, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: zambia-chiefs-anti-cannabis-2009
 sources:

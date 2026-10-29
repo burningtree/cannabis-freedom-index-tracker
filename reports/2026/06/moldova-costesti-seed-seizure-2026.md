@@ -8,6 +8,7 @@ summary: >-
   Border and customs officers at Costești found 50 suspected cannabis seeds in a passenger’s baggage
   on a coach arriving from Belgium. The seeds were sent for expert examination and the investigation
   continued.
+created_by_model: unknown
 status: verified
 cfi_id: moldova-costesti-seed-seizure-2026
 sources:

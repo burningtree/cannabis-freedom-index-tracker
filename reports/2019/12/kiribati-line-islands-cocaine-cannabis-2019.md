@@ -8,6 +8,7 @@ summary: >-
   Police reported a 1.5 kg cocaine package and more than 3 kg of marijuana found in the Line Islands
   and taken to Betio headquarters. Police said illicit drugs were already in the country and warned
   that young people were probably using them; no arrest or outcome was reported.
+created_by_model: unknown
 status: verified
 cfi_id: kiribati-line-islands-cocaine-cannabis-2019
 sources:

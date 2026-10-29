@@ -8,6 +8,7 @@ summary: >-
   The Palestinian Public Prosecution's 2024 annual report said it opened investigations into 1,396
   drug cases and resolved 97% of them. The report covers the areas under PA jurisdiction; Gaza's
   courts were outside the PA system and largely closed by the war.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-public-prosecution-drug-cases-2024
 sources:

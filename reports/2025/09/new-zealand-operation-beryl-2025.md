@@ -9,6 +9,7 @@ summary: >-
   cannabis grow houses, destroyed more than 11,000 plants and seized more than 10 tonnes of
   cannabis. Thirty people were arrested, most Vietnamese nationals facing deportation, and police
   put the black-market value at more than NZ$50 million.
+created_by_model: unknown
 status: verified
 cfi_id: new-zealand-operation-beryl-2025
 sources:

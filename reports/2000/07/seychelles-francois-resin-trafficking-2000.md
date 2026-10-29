@@ -8,6 +8,7 @@ summary: >-
   The Supreme Court convicted Robin Francois of trafficking after finding that he knowingly
   possessed 166.4 g of cannabis resin. It treated the individually wrapped portions as evidence of
   preparation for supply, while explaining that the presumption above 25 g could be rebutted.
+created_by_model: unknown
 status: verified
 cfi_id: seychelles-francois-resin-trafficking-2000
 tags:

@@ -6,10 +6,11 @@ type: seizure
 title: Illicit small-scale growing still dwarfs the legal sector
 summary: >-
   Fieldwork in 2022–2024 found Zimbabwe's illicit cannabis sector still far larger than the new
-  legal one in estimated output and significance to people's livelihoods.[@1] Mutoko in the
+  legal one in estimated output and significance to people's livelihoods. Mutoko in the
   north-east and Binga in the north-west were known for small-scale illicit cultivation, with local
-  supply complemented by imports from Malawi, South Africa and Mozambique.[@1] Binga and Chiredzi
+  supply complemented by imports from Malawi, South Africa and Mozambique. Binga and Chiredzi
   were chosen for…
+created_by_model: unknown
 status: verified
 cfi_id: zimbabwe-small-scale-illicit-cultivation-2024
 sources:

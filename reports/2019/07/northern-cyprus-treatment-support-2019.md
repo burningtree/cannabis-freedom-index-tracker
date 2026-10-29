@@ -7,8 +7,9 @@ title: Northern Cyprus reports counselling 98 people on supervised release
 summary: >-
   The Social Services Department reported regular interviews and psychosocial support for 98 people
   benefiting from the supervised-release law. The figure covered drug users together; the report
-  gave no separate cannabis count.[@1] It documented the support work following the 2016 law’s
-  treatment alternative to sentencing.[@1,2]
+  gave no separate cannabis count. It documented the support work following the 2016 law’s
+  treatment alternative to sentencing.
+created_by_model: unknown
 status: verified
 cfi_id: northern-cyprus-treatment-support-2019
 tags:

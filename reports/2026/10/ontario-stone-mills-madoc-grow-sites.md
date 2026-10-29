@@ -15,6 +15,7 @@ summary: >-
 figures:
   plants_destroyed: 1072
   value: { amount: 1800000, currency: CAD }
+created_by_model: unknown
 status: verified
 tags: [grow-ops, opp]
 sources:

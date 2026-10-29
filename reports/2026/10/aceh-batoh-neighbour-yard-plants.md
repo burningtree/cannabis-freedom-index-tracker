@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   plants_destroyed: 21
+created_by_model: unknown
 status: verified
 tags: [aceh, polybag]
 sources:

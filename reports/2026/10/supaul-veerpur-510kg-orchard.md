@@ -14,6 +14,7 @@ summary: >-
   police.
 figures:
   kg_seized: 510
+created_by_model: unknown
 status: verified
 tags: [ssb, nepal-border, orchard]
 sources:

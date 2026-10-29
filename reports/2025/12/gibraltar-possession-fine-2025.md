@@ -6,9 +6,10 @@ type: sentence
 title: Gibraltar fines a man £800 for possessing 127 grams of cannabis resin
 summary: >-
   A 42-year-old man received an £800 fine after police found about 127 grams of cannabis resin
-  during a foot patrol.[@1] He appeared in the Magistrates’ Court the morning after his arrest and
-  was charged with possession of a Class B drug.[@1] The case came under the current criminal code,
-  which allows fines or imprisonment for possession.[@2]
+  during a foot patrol. He appeared in the Magistrates’ Court the morning after his arrest and
+  was charged with possession of a Class B drug. The case came under the current criminal code,
+  which allows fines or imprisonment for possession.
+created_by_model: unknown
 status: verified
 cfi_id: gibraltar-possession-fine-2025
 tags:

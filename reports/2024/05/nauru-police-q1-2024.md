@@ -8,6 +8,7 @@ summary: >-
   Police recorded 175 crime offences in the first quarter of 2024 across categories including
   illicit drug use and possession, but published no drug-specific breakdown. The figure covers all
   crime, not cannabis alone.
+created_by_model: unknown
 status: verified
 cfi_id: nauru-police-q1-2024
 sources:

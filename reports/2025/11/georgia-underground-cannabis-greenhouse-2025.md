@@ -8,6 +8,7 @@ summary: >-
   The Interior Ministry arrested a previously convicted man after finding a greenhouse built
   underground on land beside his home. Police seized 283 cannabis plants and about 3 kilograms of
   dried marijuana, along with packaging materials, adhesive tape and an electronic scale.
+created_by_model: unknown
 status: verified
 cfi_id: georgia-underground-cannabis-greenhouse-2025
 sources:

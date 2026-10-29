@@ -8,6 +8,7 @@ summary: >-
   A fight outside an Ulaanbaatar nightclub on 18 July 2025 left a man badly injured; three suspects
   were arrested and a fourth, the chief executive of Gobi Cashmere, left the country. The assailants
   were reported to have been under the influence of illegal drugs, though no drug was named.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-nightclub-assault-2025
 sources:

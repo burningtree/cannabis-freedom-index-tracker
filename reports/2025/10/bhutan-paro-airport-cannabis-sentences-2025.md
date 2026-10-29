@@ -9,6 +9,7 @@ summary: >-
   bringing more than 7 kg of cannabis through Paro airport from Bangkok. In October it sentenced
   three Indian nationals to between five years and five years and six months for a separate haul of
   more than 7 kg on the same route.
+created_by_model: unknown
 status: verified
 cfi_id: bhutan-paro-airport-cannabis-sentences-2025
 sources:

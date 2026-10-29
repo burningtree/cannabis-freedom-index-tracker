@@ -9,6 +9,7 @@ summary: >-
   cans at Bhutan Post and 15.6 kg in an air compressor. Further Bangkok consignments brought the
   total to more than 33 kg by early March, with four Bhutanese and two Indian nationals arrested.
   The case was an enforcement event, not a change in the law.
+created_by_model: unknown
 status: verified
 cfi_id: bhutan-parcel-cannabis-seizure-2026
 tags:

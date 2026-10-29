@@ -10,6 +10,7 @@ summary: >-
   billion. Police said the farms belonged to the same group and charged 11 people, including an
   alleged organised-crime figure. It was the largest cannabis cultivation case by plant count in
   Taiwan's history.
+created_by_model: unknown
 status: verified
 cfi_id: taiwan-hsinchu-cannabis-bust-2024
 sources:

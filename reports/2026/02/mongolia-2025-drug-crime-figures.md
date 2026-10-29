@@ -9,6 +9,7 @@ summary: >-
   than in 2024, and police arrested 417 people. More than 40.7 per cent of those arrested were aged
   25 to 35. The prosecutor's office said ignorance of the drug laws and attempts to make easy money
   helped explain the increase; the figures cover all drugs.
+created_by_model: unknown
 status: verified
 cfi_id: mongolia-2025-drug-crime-figures
 sources:

@@ -15,6 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 9.45
+created_by_model: unknown
 status: verified
 tags: [ndlea, airport, loud, couriers]
 sources:

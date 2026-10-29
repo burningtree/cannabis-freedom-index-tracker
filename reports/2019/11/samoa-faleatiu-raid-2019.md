@@ -9,6 +9,7 @@ summary: >-
   than 10,000 cannabis plants; 11 people were arrested. Police valued the crop at about ST$10
   million at ST$1,000 a plant. The area had been raided in 2015 and 2016, and officers reported guns
   being pointed at them.
+created_by_model: unknown
 status: verified
 cfi_id: samoa-faleatiu-raid-2019
 sources:

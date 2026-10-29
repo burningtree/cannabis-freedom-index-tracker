@@ -16,6 +16,7 @@ figures:
   arrested: 2
   kg_seized: 673
   value: { amount: 12500000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [truck, odisha-route]
 sources:

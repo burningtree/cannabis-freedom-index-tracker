@@ -8,6 +8,7 @@ summary: >-
   Police in Bohicon arrested two motorcyclists coming from Azovè with 130 kg of cannabis in 237
   slabs, packed in six sacks made to look like bags of maize. The men were handed to the central
   anti-drug office, Ocertid, for investigation.
+created_by_model: unknown
 status: verified
 cfi_id: benin-bohicon-seizure-2025
 sources:

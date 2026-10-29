@@ -6,9 +6,10 @@ type: sentence
 title: Hong Kong cuts a repeat offender’s cannabis-possession sentence to two months
 summary: >-
   Phung Hai’s six-month prison sentence for possessing 1.18 g of cannabis was reduced to two months
-  on appeal.[@1] The original magistrate had relied on two earlier drug convictions to reject a
+  on appeal. The original magistrate had relied on two earlier drug convictions to reject a
   fine, but the appeal judge accepted that the sentence was excessive in light of the sentencing
-  authorities; the prosecution did not defend it.[@1]
+  authorities; the prosecution did not defend it.
+created_by_model: unknown
 status: verified
 cfi_id: hong-kong-personal-cannabis-sentence-2000
 tags:

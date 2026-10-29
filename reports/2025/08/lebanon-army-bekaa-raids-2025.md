@@ -9,6 +9,7 @@ summary: >-
   including plants grown inside homes, and arrested a suspect. The raids came the same week the
   government appointed the Cannabis Regulatory Authority. They were enforcement, not a change in the
   law.
+created_by_model: unknown
 status: verified
 cfi_id: lebanon-army-bekaa-raids-2025
 tags:

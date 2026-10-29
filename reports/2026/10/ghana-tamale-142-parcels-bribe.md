@@ -14,6 +14,7 @@ summary: >-
   arrested after officers refused a GH₵50,000 bribe; all were handed to the drug unit.
 figures:
   arrested: 4
+created_by_model: unknown
 status: verified
 tags: [indian-hemp, bribery]
 sources:

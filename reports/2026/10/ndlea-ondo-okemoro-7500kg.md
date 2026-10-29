@@ -16,6 +16,7 @@ figures:
   hectares: 3
   arrested: 5
   kg_seized: 7500
+created_by_model: unknown
 status: verified
 tags: [ndlea, skunk]
 sources:

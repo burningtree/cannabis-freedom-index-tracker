@@ -9,6 +9,7 @@ summary: >-
   they had detained four Kyrgyz citizens accused of moving and selling drugs from Southeast Asia.
   Searches recovered mephedrone, hashish and marijuana worth more than 15 million som. The case was
   opened under the supply article of the Criminal Code and the investigation continued.
+created_by_model: unknown
 status: verified
 cfi_id: kyrgyzstan-mixed-drug-case-2026
 sources:

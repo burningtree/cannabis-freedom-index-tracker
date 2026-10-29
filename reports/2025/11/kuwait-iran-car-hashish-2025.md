@@ -9,6 +9,7 @@ summary: >-
   ferry and found more than 100 kilograms of hashish and marijuana in hidden compartments in his
   car. The case pointed to Iran as a source of resin shipped across the Gulf. The suspect was
   referred to the narcotics prosecution.
+created_by_model: unknown
 status: verified
 cfi_id: kuwait-iran-car-hashish-2025
 sources:

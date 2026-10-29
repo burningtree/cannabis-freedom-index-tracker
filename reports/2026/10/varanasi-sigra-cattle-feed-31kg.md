@@ -16,6 +16,7 @@ figures:
   arrested: 1
   kg_seized: 31.275
   value: { amount: 1500000, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [cattle-feed, concealment, festival-supply]
 sources:

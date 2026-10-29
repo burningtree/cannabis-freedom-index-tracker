@@ -13,6 +13,7 @@ summary: >-
   raise school-food money. The 520-gram batch tested at 0.72% THC, over the 0.3% limit.
 figures:
   charged: 2
+created_by_model: unknown
 status: verified
 tags: [edibles, students]
 sources:

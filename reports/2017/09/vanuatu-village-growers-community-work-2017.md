@@ -6,10 +6,11 @@ type: sentence
 title: Vanuatu gives eight villagers community work for cannabis offences
 summary: >-
   Eight first offenders from Bankir village on Malekula each received fifty hours of community work
-  and six months’ probation for cannabis cultivation or possession.[@1] The case concerned conduct
-  dating to 2009, with several defendants describing single small plants.[@1] The judge applied the
+  and six months’ probation for cannabis cultivation or possession. The case concerned conduct
+  dating to 2009, with several defendants describing single small plants. The judge applied the
   2013 personal-growing guidance and warned one defendant that his church belief did not permit him
   to…
+created_by_model: unknown
 status: verified
 cfi_id: vanuatu-village-growers-community-work-2017
 tags:

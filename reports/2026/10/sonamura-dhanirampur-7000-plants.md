@@ -14,6 +14,7 @@ summary: >-
 figures:
   plants_destroyed: 7000
   hectares: 2.0
+created_by_model: unknown
 status: verified
 tags: [bsf, tsr, drones]
 sources:

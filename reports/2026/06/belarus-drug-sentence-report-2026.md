@@ -9,6 +9,7 @@ summary: >-
   in the previous year, with personal-use offences its most frequent application. Short custodial
   sentences rose from 0.14% to 3.4% of sentences. The figures covered drug offences generally and
   followed the 2025 expansion of sentencing options.
+created_by_model: unknown
 status: verified
 cfi_id: belarus-drug-sentence-report-2026
 tags:

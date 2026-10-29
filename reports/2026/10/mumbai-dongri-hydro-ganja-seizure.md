@@ -15,6 +15,7 @@ figures:
   arrested: 2
   kg_seized: 3.563
   value: { amount: 12470500, currency: INR }
+created_by_model: unknown
 status: verified
 tags: [hydro-ganja, mumbai]
 sources:

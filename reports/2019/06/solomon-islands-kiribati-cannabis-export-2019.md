@@ -8,6 +8,7 @@ summary: >-
   Aviation security detected a suspicious box on a Solomon Airlines flight to Kiribati and police
   found cannabis. Two people, including an airline employee, were charged with attempted export and
   appeared in the Honiara Magistrates' Court in late July 2019. The amount was not stated.
+created_by_model: unknown
 status: verified
 cfi_id: solomon-islands-kiribati-cannabis-export-2019
 sources:

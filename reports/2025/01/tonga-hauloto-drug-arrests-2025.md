@@ -9,6 +9,7 @@ summary: >-
   people. In the first they seized 21 packs of cannabis weighing 8.17 g and five packs of
   methamphetamine; in the second, two packs of cannabis weighing 1.54 g and 27 packs of
   methamphetamine.
+created_by_model: unknown
 status: verified
 cfi_id: tonga-hauloto-drug-arrests-2025
 sources:

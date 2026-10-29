@@ -9,6 +9,7 @@ summary: >-
   Captagon laboratory in the country had been dismantled. In the weeks after the collapse the
   security forces had destroyed about 100 million pills and about 15 tonnes of hashish. He named
   treatment and rehabilitation of addicts as the next priority.
+created_by_model: unknown
 status: verified
 cfi_id: syria-transitional-government-drugs-2025
 sources:

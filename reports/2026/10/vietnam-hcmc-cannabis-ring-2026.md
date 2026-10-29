@@ -9,6 +9,7 @@ summary: >-
   cannabis ring led by Trần Huy Long, arresting 151 people and seizing 176.2 kg of cannabis and 178
   e-cigarettes containing cannabis oil. Eighty-one of those arrested faced criminal proceedings and
   70 received administrative penalties.
+created_by_model: unknown
 status: verified
 cfi_id: vietnam-hcmc-cannabis-ring-2026
 sources:

@@ -15,6 +15,7 @@ summary: >-
 figures:
   kg_seized: 460
   value: { amount: 13800000, currency: GBP }
+created_by_model: unknown
 status: verified
 tags: [couriers, trafficking]
 sources:

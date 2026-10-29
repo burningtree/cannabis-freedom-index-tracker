@@ -8,6 +8,7 @@ summary: >-
   Palestinian police in the West Bank said they had handled 2,150 drug cases and arrested 2,419
   people, including 50 women, since the start of 2026. More than 100 families had reported relatives
   to the police in the hope of treatment, the police spokesman said.
+created_by_model: unknown
 status: verified
 cfi_id: palestine-west-bank-drug-arrests-2026
 sources:
