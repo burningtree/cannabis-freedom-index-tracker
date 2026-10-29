@@ -71,10 +71,10 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 	defer tx.Rollback()
 	if err = tx.QueryRowContext(ctx, `SELECT
       (SELECT count(*) FROM submissions),
-      count(DISTINCT CASE WHEN j.status='running' AND j.lease_until>unixepoch() THEN c.id END),
-      count(DISTINCT CASE WHEN j.status='queued' AND c.status<>'budget_wait' AND NOT EXISTS(SELECT 1 FROM jobs active WHERE active.ref=c.id AND active.status='running' AND active.lease_until>unixepoch()) THEN c.id END),
-      count(DISTINCT CASE WHEN c.status='budget_wait' THEN c.id END)
-      FROM cases c LEFT JOIN jobs j ON j.ref=c.id
+      count(CASE WHEN c.status NOT IN ('queued','budget_wait') OR EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='running' AND j.lease_until>unixepoch()) THEN 1 END),
+      count(CASE WHEN c.status='queued' AND NOT EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='running' AND j.lease_until>unixepoch()) THEN 1 END),
+      count(CASE WHEN c.status='budget_wait' THEN 1 END)
+      FROM cases c
       WHERE c.status IN ('queued','budget_wait','fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')`).Scan(&out.Summary.Total, &out.Summary.Running, &out.Summary.Queued, &out.Summary.Paused); err != nil {
 		return out, err
 	}
@@ -128,10 +128,13 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 		out.Submissions = out.Submissions[:SubmissionPageSize]
 		out.NextCursor = strconv.FormatInt(out.Submissions[SubmissionPageSize-1].sequence, 10)
 	}
+	// working: every request from the source check until it has finished, whether a job is running
+	// for it this second or it waits between steps (a draft waiting for its commit); not those still
+	// queued or paused
 	active, err := tx.QueryContext(ctx, projection+` WHERE
-      c.status IN ('queued','fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
+      (c.status IN ('fetching','classifying','researching','verifying','drafted','awaiting_review','publishing','merged','deploying')
+       OR (c.status IN ('queued','budget_wait') AND EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='running' AND j.lease_until>unixepoch())))
       AND s.rowid=(SELECT max(latest.rowid) FROM submissions latest WHERE latest.case_id=c.id)
-      AND EXISTS(SELECT 1 FROM jobs j WHERE j.ref=c.id AND j.status='running' AND j.lease_until>unixepoch())
       ORDER BY c.updated_at DESC,s.rowid DESC LIMIT 50`)
 	if err != nil {
 		return out, err

@@ -57,13 +57,18 @@ func (w *Worker) Run(parent context.Context) {
 	go func() { defer wg.Done(); w.janitor(ctx) }()
 	for i := 0; i < loops; i++ {
 		wg.Add(1)
-		go func() { defer wg.Done(); w.jobs(ctx) }()
+		go func() { defer wg.Done(); w.jobs(ctx, "") }()
 	}
+	// and a lane of its own for committing validated drafts, so a finished draft is committed (and
+	// pushed) within seconds instead of waiting for a research run to end
+	wg.Add(1)
+	go func() { defer wg.Done(); w.jobs(ctx, "publish") }()
 	wg.Wait()
 }
 
-// jobs claims and processes queued jobs one after another until the context ends.
-func (w *Worker) jobs(ctx context.Context) {
+// jobs claims and processes queued jobs (of one kind when kind is set) one after another until the
+// context ends.
+func (w *Worker) jobs(ctx context.Context, kind string) {
 	ticker := time.NewTicker(2 * time.Second)
 	defer ticker.Stop()
 	for {
@@ -72,7 +77,7 @@ func (w *Worker) jobs(ctx context.Context) {
 			return
 		case <-ticker.C:
 
-			j, err := w.Store.Claim(ctx, "jobs", 2*time.Minute)
+			j, err := w.Store.ClaimKind(ctx, "jobs", kind, 2*time.Minute)
 			if errors.Is(err, sql.ErrNoRows) {
 				continue
 			}

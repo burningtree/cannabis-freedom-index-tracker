@@ -353,12 +353,18 @@ type Job struct {
 }
 
 func (s *Store) Claim(ctx context.Context, table string, lease time.Duration) (Job, error) {
+	return s.ClaimKind(ctx, table, "", lease)
+}
+
+// ClaimKind claims the next due job, of the given kind only when kind is set. Publish jobs come
+// first: committing a validated draft takes seconds and should not wait behind research.
+func (s *Store) ClaimKind(ctx context.Context, table, kind string, lease time.Duration) (Job, error) {
 	if table != "jobs" && table != "outbox" {
 		return Job{}, errors.New("invalid queue")
 	}
 	j := Job{Token: ID()}
 	now := time.Now().Unix()
-	err := s.DB.QueryRowContext(ctx, `UPDATE `+table+` SET status='running',lease_until=?,lease_token=?,attempts=attempts+1 WHERE id=(SELECT id FROM `+table+` WHERE (status='queued' AND available_at<=?) OR (status='running' AND lease_until<?) ORDER BY available_at,id LIMIT 1) RETURNING id,kind,ref,payload,attempts`, now+int64(lease.Seconds()), j.Token, now, now).Scan(&j.ID, &j.Kind, &j.Ref, &j.Payload, &j.Attempts)
+	err := s.DB.QueryRowContext(ctx, `UPDATE `+table+` SET status='running',lease_until=?,lease_token=?,attempts=attempts+1 WHERE id=(SELECT id FROM `+table+` WHERE ((status='queued' AND available_at<=?) OR (status='running' AND lease_until<?)) AND (?='' OR kind=?) ORDER BY kind='publish' DESC,available_at,id LIMIT 1) RETURNING id,kind,ref,payload,attempts`, now+int64(lease.Seconds()), j.Token, now, now, kind, kind).Scan(&j.ID, &j.Kind, &j.Ref, &j.Payload, &j.Attempts)
 	return j, err
 }
 func (s *Store) Finish(ctx context.Context, table string, j Job, workErr error) error {
