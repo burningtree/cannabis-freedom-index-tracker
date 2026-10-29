@@ -1,4 +1,5 @@
 ---
+code: ZK0Z8S
 date: 2026-04-11
 country: lk
 place: Udawalawe Reserve

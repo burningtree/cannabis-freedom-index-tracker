@@ -1,4 +1,5 @@
 ---
+code: 5EV4NF
 date: 2026-08-06
 country: kr
 place: Yongin, Gyeonggi Province

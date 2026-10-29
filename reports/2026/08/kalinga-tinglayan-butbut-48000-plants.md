@@ -1,4 +1,5 @@
 ---
+code: 44AQZD
 date: 2026-08-03
 country: ph
 place: Butbut Proper, Tinglayan, Kalinga

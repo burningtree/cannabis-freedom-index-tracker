@@ -1,4 +1,5 @@
 ---
+code: YA1M57
 date: 2026-10-21
 country: ke
 place: Juja, Kiambu and Embu counties

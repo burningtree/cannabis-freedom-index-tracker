@@ -1,4 +1,5 @@
 ---
+code: CR28HF
 date: 2026-05-24
 country: fr
 place: Port of Sète, Hérault

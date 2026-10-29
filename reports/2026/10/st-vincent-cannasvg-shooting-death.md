@@ -1,4 +1,5 @@
 ---
+code: 0Q3EQ8
 date: 2026-10-17
 country: vc
 place: CANNASVG farm, Georgetown

@@ -1,4 +1,5 @@
 ---
+code: HG0AY0
 date: 2026-10-16
 country: zm
 place: Lusaka

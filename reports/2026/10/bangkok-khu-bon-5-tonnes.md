@@ -1,4 +1,5 @@
 ---
+code: W44CEK
 date: 2026-10-19
 country: th
 place: Soi Khu Bon 27, Tha Raeng, Bang Khen, Bangkok

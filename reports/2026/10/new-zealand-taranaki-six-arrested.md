@@ -1,4 +1,5 @@
 ---
+code: TSNJB8
 date: 2026-10-14
 country: nz
 place: New Plymouth, Taranaki

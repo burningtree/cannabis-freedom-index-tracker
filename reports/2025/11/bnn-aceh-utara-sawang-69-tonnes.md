@@ -1,4 +1,5 @@
 ---
+code: MGY67B
 date: 2025-11-06
 country: id
 place: Teupin Rusep, Sawang, North Aceh

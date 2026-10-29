@@ -1,4 +1,5 @@
 ---
+code: MWTR6K
 date: 2026-09-24
 country: sg
 place: Pasir Panjang Scanning Station, Singapore

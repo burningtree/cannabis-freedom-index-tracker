@@ -1,4 +1,5 @@
 ---
+code: EYNC6A
 date: 2026-10-13
 country: gh
 place: Mangoase, Central Tongu District, Volta Region

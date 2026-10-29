@@ -1,4 +1,5 @@
 ---
+code: VKBJCH
 date: 2026-08-31
 country: py
 place: Canindeyú and Caaguazú

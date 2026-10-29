@@ -1,4 +1,5 @@
 ---
+code: 7SHR33
 date: 2026-06-19
 country: fr
 place: Rennes region, France

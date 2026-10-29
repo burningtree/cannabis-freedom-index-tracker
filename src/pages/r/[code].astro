@@ -1,0 +1,7 @@
+---
+// The short link of a report, by its permanent code: /r/7KQ2MX/ leads to the report.
+import { reports } from "../../lib/reports.js";
+export const getStaticPaths = () => reports.map((r) => ({ params: { code: r.code }, props: { r } }));
+const { r } = Astro.props;
+return Astro.redirect(`${import.meta.env.BASE_URL}${r.url}`, 301);
+---

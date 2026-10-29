@@ -1,4 +1,5 @@
 ---
+code: BNFGBM
 date: 2026-10-11
 country: ma
 place: Tanger Med Port

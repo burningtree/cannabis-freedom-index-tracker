@@ -1,4 +1,5 @@
 ---
+code: 6X54KE
 date: 2026-10-19
 country: my
 place: Klang, Selangor

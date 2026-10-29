@@ -1,4 +1,5 @@
 ---
+code: Z279XB
 date: 2026-10-07
 country: ca
 place: Stone Mills Township and Madoc, Ontario

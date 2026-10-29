@@ -1,4 +1,5 @@
 ---
+code: QC6W46
 date: 2026-04-16
 country: sg
 place: Singapore

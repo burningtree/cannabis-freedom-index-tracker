@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import { TYPES } from "./types.js";
 import { countryName, countryOf } from "./countries.js";
 import { centreOf } from "./map.js";
+import { codeOf } from "./code.js";
 
 const fmtNum = (n) => n.toLocaleString("en-GB", { maximumFractionDigits: 1 });
 const fmtMoney = (m) => `${m.currency} ${fmtNum(m.amount)}`;
@@ -30,6 +31,7 @@ export const reports = entries.map(({ id, data, body }) => {
   const coordinates = data.coordinates ?? centreOf(data.country);
   return {
     id, ...data, body,
+    code: data.code ?? codeOf(id), // until npm run codes writes it into the file
     url: `report/${id}/`,
     countryName: countryName(data.country),
     parent: countryOf(data.country)?.parent ?? null,
@@ -112,7 +114,7 @@ export function indexRow(r) {
     ti: r.title, s: r.summary, p: r.place ?? null,
     ll: r.coordinates ? [r.coordinates[1], r.coordinates[0]] : null, // [lon, lat], as GeoJSON
     f: r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => [f.label, f.value]),
-    k: (r.tags ?? []).join(" "),
+    k: [`cet-${r.code}`, r.code, ...(r.tags ?? [])].join(" ").toLowerCase(),
   };
 }
 
@@ -120,7 +122,9 @@ export function indexRow(r) {
 export function compact(r, site) {
   return {
     id: r.id,
+    code: `CET-${r.code}`,
     url: new URL(r.url, site).href,
+    short_url: new URL(`r/${r.code}/`, site).href,
     date: isoDate(r.date),
     country: r.country,
     country_name: r.countryName,
@@ -136,6 +140,7 @@ export function compact(r, site) {
     tags: r.tags ?? [],
     cover: r.cover ? { url: new URL(r.cover.image.src, site).href, alt: r.cover.alt, credit: r.cover.credit, licence: r.cover.licence, source: r.cover.url } : null,
     media: r.media ?? [],
-    sources: r.sources.map((s) => ({ title: s.title, url: s.url, publisher: s.publisher, date: s.date ? isoDate(s.date) : null, archived: s.archived ?? null })),
+    cfi_id: r.cfi_id ?? null,
+    sources: r.sources.map((s) => ({ title: s.title, url: s.url ?? null, publisher: s.publisher, date: s.date ? isoDate(s.date) : null, archived: s.archived ?? null })),
   };
 }

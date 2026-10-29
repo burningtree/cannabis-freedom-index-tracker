@@ -1,4 +1,5 @@
 ---
+code: J72RSV
 date: 2025-10-31
 country: py
 place: Canindeyú, Caaguazú and Alto Paraná

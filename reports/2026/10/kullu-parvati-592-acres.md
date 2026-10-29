@@ -1,4 +1,5 @@
 ---
+code: E71W7X
 date: 2026-10-12
 country: in
 place: Parvati Valley, Kullu district, Himachal Pradesh

@@ -10,14 +10,22 @@ const COUNTRY_IDS = countries.map((c) => c.id) as [string, ...string[]];
 const day = z.coerce.date();
 const money = z.object({ amount: z.number().positive(), currency: z.string().regex(/^[A-Z]{3}$/) }).strict();
 
+// A source is a web page, or a publication with no public address (a book, journal, report or law)
+// described well enough to find it.
 const source = z.object({
   title: z.string().min(1),
-  url: z.string().url(),
+  url: z.string().url().optional(),
   publisher: z.string().min(1),
+  type: z.enum(["book", "chapter", "journal", "report", "law", "other"]).optional(), // not a web page
+  authors: z.array(z.string().min(1)).optional(),
+  container: z.string().min(1).optional(), // the journal or book a chapter is in
+  year: z.number().int().optional(),
+  isbn: z.string().min(1).optional(),
+  locator: z.string().min(1).optional(), // the page, section or paragraph
   date: day.optional(), // when the source was published
   archived: z.string().url().optional(), // a copy in the Wayback Machine or archive.today
   language: z.string().regex(/^[a-z]{2}$/).optional(), // if not English
-}).strict();
+}).strict().refine((s) => s.url || s.type, { message: "a source needs a url, or a type (book, journal, report, law) with its details" });
 
 // What the enforcement did, in numbers, where a source gives them. Everything is optional;
 // a number goes in only if a source states it.
@@ -38,6 +46,7 @@ const reports = defineCollection({
   // builds from another folder (scripts/load-test.mjs)
   loader: glob({ pattern: "**/*.md", base: process.env.REPORTS_DIR || "./reports", generateId: ({ entry }) => entry.split("/").pop()!.replace(/\.md$/, "") }),
   schema: ({ image }) => z.object({
+    code: z.string().regex(/^[0-9A-HJKMNP-TV-Z]{6}$/, { message: "six characters of Crockford base32; npm run codes writes it" }).optional(), // the permanent short id, CET-XXXXXX (scripts/codes.mjs)
     date: day, // when it happened (or, for a campaign, when it ended or was announced)
     country: z.enum(COUNTRY_IDS), // a country file of the Cannabis Freedom Index: "de", "us/ca"
     place: z.string().min(1).optional(),
@@ -65,6 +74,7 @@ const reports = defineCollection({
       archived: z.string().url().optional(), // a copy in the Wayback Machine
     }).strict()).optional(),
     status: z.enum(Object.keys(STATUS) as [string, ...string[]]),
+    cfi_id: z.string().regex(/^[a-z0-9-]+$/).optional(), // the Cannabis Freedom Index history entry it was moved from
     tags: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
     sources: z.array(source).min(1, { message: "a report needs at least one source" }),
   }).strict()

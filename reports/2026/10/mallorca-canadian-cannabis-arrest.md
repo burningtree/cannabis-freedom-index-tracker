@@ -1,4 +1,5 @@
 ---
+code: E5086K
 date: 2026-10-21
 country: es
 place: Mallorca, Balearic Islands

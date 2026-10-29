@@ -1,4 +1,5 @@
 ---
+code: Q2RTFX
 date: 2026-07-08
 country: us/ca
 place: Kern, Alameda, Butte, Los Angeles and six other counties

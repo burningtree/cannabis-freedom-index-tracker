@@ -26,13 +26,23 @@ for (const { file, data, body } of reports) {
     assert.equal(`${year}-${month}`, String(data.date).slice(0, 7), "the file sits in reports/<year>/<month>/ of its date");
     assert.ok(countries.has(data.country), `"${data.country}" is not a country id of the Cannabis Freedom Index (src/data/countries.json)`);
     assert.ok(Array.isArray(data.sources) && data.sources.length > 0, "a report needs sources");
-    for (const s of data.sources) assert.match(s.url ?? "", /^https?:\/\//, `source "${s.title}" needs a URL`);
+    for (const s of data.sources) assert.ok(/^https?:\/\//.test(s.url ?? "") || s.type, `source "${s.title}" needs a URL, or a type (book, journal, report, law) with its details`);
+    if (data.code != null) assert.match(String(data.code), /^[0-9A-HJKMNP-TV-Z]{6}$/, "the code is six characters of Crockford base32 (npm run codes writes it)");
     const cited = new Set([...body.matchAll(/\[@([^\]]+)\]/g)].flatMap((m) => m[1].split(",").map((x) => Number(x.trim()))));
     for (const n of cited) assert.ok(n >= 1 && n <= data.sources.length, `[@${n}] names no source`);
     for (let i = 1; i <= data.sources.length; i++) assert.ok(cited.has(i), `source ${i} is never cited ([@${i}])`);
     assert.ok(body.trim().length > 200, "the text is too short");
   });
 }
+
+test("codes are unique", () => {
+  const seen = new Map();
+  for (const { file, data } of reports) {
+    if (!data.code) continue; // worked out at build time until npm run codes writes it
+    assert.ok(!seen.has(data.code), `${file} and ${seen.get(data.code)} share the code ${data.code}`);
+    seen.set(data.code, file);
+  }
+});
 
 test("slugs are unique", () => {
   const seen = new Map();

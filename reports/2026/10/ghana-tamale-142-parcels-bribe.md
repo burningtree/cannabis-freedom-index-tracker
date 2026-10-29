@@ -1,4 +1,5 @@
 ---
+code: ZTV0C5
 date: 2026-10-15
 country: gh
 place: Bimbilla–Tamale road, Northern Region

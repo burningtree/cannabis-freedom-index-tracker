@@ -1,4 +1,5 @@
 ---
+code: RQD659
 date: 2026-10-26
 country: ph
 place: Ninoy Aquino International Airport, Manila

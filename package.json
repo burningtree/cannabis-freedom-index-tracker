@@ -10,7 +10,8 @@
     "prebuild": "npm test",
     "build": "astro build",
     "preview": "astro preview",
-    "countries:sync": "node scripts/sync-countries.mjs"
+    "countries:sync": "node scripts/sync-countries.mjs",
+    "codes": "node scripts/codes.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",

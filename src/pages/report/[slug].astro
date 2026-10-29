@@ -31,6 +31,7 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
         {r.also?.map((t) => <span class="type" style={`--c:${TYPES[t].color}`}>{TYPES[t].label}</span>)}
         <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time>
         <span class:list={["status", r.status]} title={STATUS[r.status]}>{r.status}</span>
+        <a class="code" href={`${base}r/${r.code}/`} title="The report's permanent short id and link">CET-{r.code}</a>
       </div>
       <h1>{r.title}</h1>
       <p class="lead">{r.summary}</p>
@@ -67,8 +68,11 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
     <ol class="sources">
       {cited.map((s, i) => (
         <li id={`ref-${i + 1}`}>
-          <a href={s.url} class="ext" target="_blank" rel="noopener noreferrer">{s.title}</a>.
-          {" "}{s.publisher}{s.date && `, ${formatDate(s.date)}`}.
+          {s.authors && <>{s.authors.join(", ")}. </>}
+          {s.url ? <a href={s.url} class="ext" target="_blank" rel="noopener noreferrer">{s.title}</a> : <cite>{s.title}</cite>}.
+          {s.container && <> In <cite>{s.container}</cite>.</>}
+          {" "}{s.publisher}{s.date ? `, ${formatDate(s.date)}` : s.year ? `, ${s.year}` : ""}.
+          {s.locator && <span class="muted"> {s.locator}.</span>}
           {s.language && <span class="muted"> In {languageName(s.language)}.</span>}
           {s.archived && <> <a href={s.archived} target="_blank" rel="noopener">Archived copy</a>.</>}
         </li>

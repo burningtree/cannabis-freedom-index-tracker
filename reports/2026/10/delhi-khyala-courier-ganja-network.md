@@ -1,4 +1,5 @@
 ---
+code: 05XGNN
 date: 2026-10-25
 country: in
 place: Khyala, West Delhi

@@ -306,3 +306,5 @@ sup.cite a { color: var(--cite); text-decoration: none; }
   .theme-toggle { margin-left: auto; }
   .brand-first { display: none; }
 }
+.report-head .code { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--border); border-radius: var(--r); padding: 1px 6px; }
+.report-head .code:hover { color: var(--text); text-decoration: none; }
