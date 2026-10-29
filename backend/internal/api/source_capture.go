@@ -13,6 +13,21 @@ import (
 )
 
 func (s *Server) sourceScreenshot(w http.ResponseWriter, r *http.Request) {
+	s.sourceFile(w, r, "page.png")
+}
+
+// sourceImage serves one of the article's photos the capture kept (images/<n>.png), local only
+// like the screenshot.
+func (s *Server) sourceImage(w http.ResponseWriter, r *http.Request) {
+	n := r.PathValue("n")
+	if len(n) != 1 || n < "1" || n > "8" {
+		problem(w, 404, "Image not found.")
+		return
+	}
+	s.sourceFile(w, r, "images/"+n+".png")
+}
+
+func (s *Server) sourceFile(w http.ResponseWriter, r *http.Request, name string) {
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if !s.localControls() || err != nil || !loopbackHost(host) || r.Header.Get("Sec-Fetch-Site") == "cross-site" {
 		problem(w, 403, "Source screenshots are available only on the local development backend.")
@@ -71,7 +86,7 @@ func (s *Server) sourceScreenshot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer root.Close()
-	file, err := root.Open(filepath.Join(relative, "page.png"))
+	file, err := root.Open(filepath.Join(relative, filepath.FromSlash(name)))
 	if err != nil {
 		problem(w, 404, "Screenshot unavailable.")
 		return
@@ -89,7 +104,7 @@ func (s *Server) sourceScreenshot(w http.ResponseWriter, r *http.Request) {
 	}
 	file.Seek(0, 0)
 	w.Header().Set("Content-Type", "image/png")
-	w.Header().Set("Content-Disposition", `inline; filename="source-page.png"`)
+	w.Header().Set("Content-Disposition", `inline; filename="source-`+strings.ReplaceAll(name, "/", "-")+`"`)
 	w.Header().Set("Cache-Control", "no-store")
-	http.ServeContent(w, r, "source-page.png", info.ModTime(), file)
+	http.ServeContent(w, r, "source-"+strings.ReplaceAll(name, "/", "-"), info.ModTime(), file)
 }

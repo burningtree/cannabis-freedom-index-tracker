@@ -93,6 +93,14 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
   hectares this event involved must also be in figures. A number about something else (a legal
   limit, last year's total) stays out of figures.
 - tags: up to five short lower-case words a reader would search (a province, a crop, a programme).
+- media: the photos and videos of this event on the pages you cite, as links (docs/WRITING.md §7:
+  a newspaper's or an agency's picture is never copied, only linked). request.json lists the
+  submitted page's photos (source_images) with their captions and credits. Add one entry per page
+  that shows the event itself (the field, the plants, the seizure, the raid, the court), with kind
+  "photo" or "video", url the cited page it is on, the publisher, and a caption saying what the
+  pictures show, with the credit when there is one ("Police photos of the 52 plants and the grow
+  room in the attic. Photo: Police of the Czech Republic"). Leave out a stock photo, a logo, a
+  portrait of an official or a picture of something else.
 - sources: the title and publisher as published, the source's publication date, and its language
   (two letters) if not English.
 
@@ -103,12 +111,13 @@ Return a single JSON object, no Markdown fences or commentary, with exactly thes
 "precision":"exact|locality|district|region|country",
 "figures":{"arrested":0,"charged":0,"kg_seized":0,"plants_destroyed":0,"hectares":0,"prison":"as stated","fine":{"amount":0,"currency":"XXX"},"value":{"amount":0,"currency":"XXX"},"deaths":0},
 "tags":["lower-case-words"],
+"media":[{"kind":"photo|video","url":"a cited page","publisher":"publisher","caption":"what the pictures show, and their credit"}],
 "sources":[{"url":"https://...","title":"actual source title","publisher":"publisher","date":"YYYY-MM-DD","language":"two letters if not English"}],
 "facts":[{"text":"One plain factual sentence of the report without markup","source":1,"quote":"Exact supporting passage from the source","paragraph":1}],
 "proposed_slug":"lower-case-hyphens or empty","title":"up to 90 characters","summary":"up to 400 characters",
 "existing_report":"existing slug or empty","explanation":"Short public reason without private details or unsupported allegations",
 "uncertainties":[]}
-In figures, include only the keys a source gives a number for; omit the rest. Omit also, tags or
+In figures, include only the keys a source gives a number for; omit the rest. Omit also, tags, media or
 a source's date and language when there are none. For outcomes other than new_event and
 existing_case, the report fields may be empty.
 

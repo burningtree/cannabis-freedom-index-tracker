@@ -38,3 +38,19 @@ func TestMarkdownLooksLikeAReport(t *testing.T) {
 		t.Fatal("title escaped into front matter")
 	}
 }
+
+// Photos of the event are linked as media, only for pages the report cites.
+func TestMediaLinksOnlyForCitedPages(t *testing.T) {
+	r := valid()
+	r.Media = []Media{{Kind: "photo", URL: r.Sources[0].URL, Publisher: "Publisher", Caption: "Police photos of the plants. Photo: Police"}}
+	if err := r.Validate(map[string]bool{"th": true}); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(r.Markdown(), "media:\n  - kind: photo\n    url: https://news.example/a\n    publisher: Publisher\n    caption: \"Police photos of the plants. Photo: Police\"\n") && !strings.Contains(r.Markdown(), "caption: 'Police photos of the plants. Photo: Police'") {
+		t.Fatal(r.Markdown())
+	}
+	r.Media[0].URL = "https://elsewhere.example/photo"
+	if r.Validate(map[string]bool{"th": true}) == nil {
+		t.Fatal("media link to an uncited page accepted")
+	}
+}

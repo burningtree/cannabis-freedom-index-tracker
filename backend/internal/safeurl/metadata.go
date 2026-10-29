@@ -19,6 +19,18 @@ type Metadata struct {
 	OpenGraph   map[string]string `json:"open_graph"`
 	Twitter     map[string]string `json:"twitter"`
 	JSONLD      []json.RawMessage `json:"json_ld"`
+	Images      []SourceImage     `json:"images,omitempty"`
+}
+
+// SourceImage is a photo in the article, as the browser saw it: the private copy beside the
+// screenshot (images/<n>.png), where it is published, and its caption and credit.
+type SourceImage struct {
+	File    string `json:"file"`
+	Src     string `json:"src"`
+	Caption string `json:"caption,omitempty"`
+	Credit  string `json:"credit,omitempty"`
+	Width   int    `json:"width,omitempty"`
+	Height  int    `json:"height,omitempty"`
 }
 
 func (e Evidence) ReadableText() string {

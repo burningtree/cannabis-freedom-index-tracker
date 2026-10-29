@@ -38,6 +38,17 @@ type Fact struct {
 	Quote     string `json:"quote"`
 	Paragraph int    `json:"paragraph,omitempty"` // facts with the same number make one paragraph
 }
+
+// Media is a photo or video of the event that may not be copied to the site (a newspaper's, an
+// agency's): a link to the page it is published on, its publisher and what it shows
+// (docs/WRITING.md §7, src/content.config.ts).
+type Media struct {
+	Kind      string `json:"kind"`
+	URL       string `json:"url"`
+	Publisher string `json:"publisher"`
+	Caption   string `json:"caption"`
+}
+
 type Money struct {
 	Amount   float64 `json:"amount"`
 	Currency string  `json:"currency"`
@@ -68,6 +79,7 @@ type Result struct {
 	Precision      string    `json:"precision,omitempty"`
 	Figures        *Figures  `json:"figures,omitempty"`
 	Tags           []string  `json:"tags,omitempty"`
+	Media          []Media   `json:"media,omitempty"`
 	Sources        []Source  `json:"sources"`
 	Facts          []Fact    `json:"facts"`
 	Slug           string    `json:"proposed_slug"`
@@ -173,6 +185,9 @@ func (r Result) Validate(countries map[string]bool) error {
 		}
 	}
 	if err := r.Figures.validate(); err != nil {
+		return err
+	}
+	if err := r.validateMedia(); err != nil {
 		return err
 	}
 	if len(r.Title) == 0 || len(r.Title) > 120 || len(r.Summary) == 0 || len(r.Summary) > 400 || plain.MatchString(r.Title) || plain.MatchString(r.Summary) {
@@ -338,6 +353,29 @@ func FigureGaps(r Result) []string {
 	return out
 }
 
+// a media link must be one of the report's own sources (a page about this event that was opened)
+func (r Result) validateMedia() error {
+	if len(r.Media) > 10 {
+		return errors.New("too many media links")
+	}
+	cited := map[string]bool{}
+	for _, s := range r.Sources {
+		if u, err := safeurl.Normalize(s.URL); err == nil {
+			cited[u] = true
+		}
+	}
+	for _, m := range r.Media {
+		u, err := safeurl.Normalize(m.URL)
+		if err != nil || !cited[u] {
+			return errors.New("a media link must be a page among the sources")
+		}
+		if (m.Kind != "photo" && m.Kind != "video") || m.Publisher == "" || len(m.Publisher) > 200 || len(m.Caption) < 3 || len(m.Caption) > 300 || plain.MatchString(m.Caption) || plain.MatchString(m.Publisher) {
+			return errors.New("invalid media link")
+		}
+	}
+	return nil
+}
+
 func (f *Figures) validate() error {
 	if f == nil {
 		return nil
@@ -389,6 +427,13 @@ func (r Result) Markdown() string {
 	add("summary", summary)
 	if f := r.Figures.node(); f != nil {
 		add("figures", f)
+	}
+	if len(r.Media) > 0 {
+		media := &yaml.Node{Kind: yaml.SequenceNode}
+		for _, m := range r.Media {
+			media.Content = append(media.Content, &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("kind"), str(m.Kind), str("url"), str(m.URL), str("publisher"), str(m.Publisher), str("caption"), str(strings.Join(strings.Fields(m.Caption), " "))}})
+		}
+		add("media", media)
 	}
 	add("status", str("reported"))
 	if r.CreatedByModel != "" {
@@ -621,6 +666,14 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 	text := e.ReadableText()
 	request := map[string]any{"case_id": cid, "url": e.URL, "final_url": e.FinalURL, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == "", "example_reports": "examples/"}
 	files := map[string][]byte{"reports-index.jsonl": []byte(index.String())}
+	// the article's photos the capture kept, with caption and credit: candidates for media links
+	if e.Metadata != nil && len(e.Metadata.Images) > 0 {
+		var images []map[string]string
+		for _, img := range e.Metadata.Images {
+			images = append(images, map[string]string{"src": img.Src, "caption": img.Caption, "credit": img.Credit})
+		}
+		request["source_images"] = images
+	}
 	if e.Content != "" {
 		request["source_text"] = "source.txt"
 		request["source_html"] = "source.html"

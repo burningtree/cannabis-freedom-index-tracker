@@ -89,6 +89,18 @@ export function renderDraft(container, v, { base = "/", types = {}, countries = 
 
   if (r.existing_report && SLUG.test(r.existing_report)) { const p = el("p", "Existing report: ", "muted"); const a = el("a", r.existing_report); a.href = `${base}report/${r.existing_report}/`; p.append(a); article.append(p); }
 
+  // photos and video of the event, as links to where they are published (as on a report page)
+  const media = (Array.isArray(r.media) ? r.media : []).filter((m) => httpURL(m.url));
+  if (media.length) {
+    article.append(el(compact ? "h4" : "h2", "Photos and video"));
+    const ul = el("ul", undefined, "media");
+    for (const m of media) {
+      const li = el("li"); const a = el("a", m.caption || m.url, "ext"); a.href = m.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      li.append(a, el("span", ` ${m.kind === "video" ? "Video" : "Photos"}: ${m.publisher || ""}`, "muted")); ul.append(li);
+    }
+    article.append(ul);
+  }
+
   if (sources.length) {
     article.append(el(compact ? "h4" : "h2", "Sources"));
     const ol = el("ol", undefined, "sources");

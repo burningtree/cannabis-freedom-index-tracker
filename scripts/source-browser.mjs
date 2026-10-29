@@ -113,6 +113,47 @@ export function extractSourcePage() {
   return { text, content: "<!doctype html>\n" + clone.outerHTML, metadata, height: document.documentElement.scrollHeight };
 }
 
+// The photos in the article: large enough to be photos, not in the page's header, menu, sidebar or
+// footer, each once, at most eight; each saved as images/<n>.png beside the screenshot.
+async function captureImages(page, dir) {
+  const found = await page.evaluate(() => {
+    const clean = (v, max = 400) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
+    // the story: the article or main around the headline (a page may have small <article> boxes
+    // elsewhere); when that holds no photo, the whole page
+    const story = document.querySelector("h1")?.closest("article, main") || document.querySelector("main") || document.body;
+    const big = (img) => { const r = img.getBoundingClientRect(); return r.width >= 280 && r.height >= 160; };
+    const scope = [...story.querySelectorAll("img")].some(big) ? story : document.body;
+    const seen = new Set(), out = [];
+    for (const img of scope.querySelectorAll("img")) {
+      const r = img.getBoundingClientRect(), src = img.currentSrc || img.src || "";
+      if (r.width < 280 || r.height < 160 || !/^https?:/.test(src) || seen.has(src)) continue;
+      if (img.closest("header, nav, aside, footer, [role=banner], [role=navigation], [role=complementary], [class*=related], [class*=recommend], [class*=promo], [class*=advert]")) continue;
+      seen.add(src);
+      const figure = img.closest("figure");
+      const caption = clean(figure?.querySelector("figcaption")?.innerText || img.alt || img.title);
+      const credit = clean((caption.match(/(?:foto|photo|zdroj|credit|source|©)\s*[:©]?\s*([^|·\n]{2,80})$/i) || [])[1], 120);
+      img.dataset.sourceImage = String(out.length + 1);
+      out.push({ index: out.length + 1, src: src.slice(0, 2000), caption, credit, width: Math.round(r.width), height: Math.round(r.height) });
+      if (out.length >= 8) break;
+    }
+    return out;
+  });
+  const images = [];
+  if (found.length) await fs.mkdir(path.join(dir, "images"), { recursive: true, mode: 0o700 });
+  for (const image of found) {
+    const file = `images/${image.index}.png`;
+    try {
+      const element = page.locator(`img[data-source-image="${image.index}"]`).first();
+      await element.scrollIntoViewIfNeeded({ timeout: 3000 });
+      await element.screenshot({ path: path.join(dir, file), animations: "disabled", timeout: 5000 });
+      await fs.chmod(path.join(dir, file), 0o600);
+      images.push({ file, src: image.src, caption: image.caption, credit: image.credit, width: image.width, height: image.height });
+    } catch { /* an image that could not be shot is left out */ }
+  }
+  await page.evaluate(() => scrollTo(0, 0)).catch(() => {});
+  return images;
+}
+
 export async function captureSource({ url, dir, bridge, token }) {
   if (!bridge || !token || !/^http:\/\/127\.0\.0\.1:\d+$/.test(bridge)) throw new Error("Source fetch bridge is unavailable.");
   const blocker = await loadBlocker();
@@ -163,6 +204,11 @@ export async function captureSource({ url, dir, bridge, token }) {
     }
     const extracted = await page.evaluate(extractSourcePage);
     if (Buffer.byteLength(extracted.text) > 2 * 1024 * 1024 || Buffer.byteLength(extracted.content) > 2 * 1024 * 1024) throw new Error("The rendered source is larger than 2 MB.");
+    // The article's own photos, each saved as it is shown on the page (an element screenshot: nothing
+    // is fetched again), with its caption and credit. They are kept in the private capture, shown on
+    // the local request page and offered to the researcher, which may link them as the report's
+    // media; the site itself never copies a newspaper's picture (docs/WRITING.md §7).
+    extracted.metadata.images = await captureImages(page, dir).catch(() => []);
     // The whole page, top to bottom, so nothing on it is lost (images of text, tables, comments):
     // scroll through it first so lazy images load, then one full-page screenshot, capped only for
     // pages that never end
