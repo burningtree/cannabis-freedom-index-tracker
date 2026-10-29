@@ -304,6 +304,40 @@ func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch fun
 	return r, evidence, v, nil
 }
 
+var (
+	plantCount = regexp.MustCompile(`(?i)\b(\d[\d,.]*)\s+(?:[a-z-]+\s+){0,2}plants\b`)
+	kgCount    = regexp.MustCompile(`(?i)\b(\d[\d,.]*)\s*(?:kg|kilograms?|kilos?)\b`)
+	haCount    = regexp.MustCompile(`(?i)\b(\d[\d,.]*)\s*(?:ha|hectares?)\b`)
+)
+
+// FigureGaps says, as open questions, which counts the text gives that are missing from the
+// figures: "52 cannabis plants" in the facts with no plants figure, a weight with no kg figure, an
+// area with no hectares figure. It only points them out; a number may be about something else (a
+// legal limit), so nothing is filled in.
+func FigureGaps(r Result) []string {
+	if r.Outcome != "new_event" && r.Outcome != "existing_case" {
+		return nil
+	}
+	text := r.Summary
+	for _, f := range r.Facts {
+		text += " " + f.Text
+	}
+	f := r.Figures
+	if f == nil {
+		f = &Figures{}
+	}
+	var out []string
+	check := func(missing bool, re *regexp.Regexp, what, field string) {
+		if m := re.FindStringSubmatch(text); missing && m != nil {
+			out = append(out, fmt.Sprintf("The text gives %s (%q) but the figures have no %s; check whether it belongs there.", what, strings.TrimSpace(m[0]), field))
+		}
+	}
+	check(f.PlantsDestroyed == nil, plantCount, "a number of plants", "plants_destroyed")
+	check(f.KgSeized == nil, kgCount, "a weight", "kg_seized")
+	check(f.Hectares == nil, haCount, "an area", "hectares")
+	return out
+}
+
 func (f *Figures) validate() error {
 	if f == nil {
 		return nil

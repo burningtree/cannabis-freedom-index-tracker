@@ -81,7 +81,17 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
   other kinds it involved.
 - figures: only numbers a source states for this event, converted (rai → hectares at 0.16 ha, lb →
   kg, acres → hectares), the original kept in the text. Leave a figure out rather than guess; leave
-  out a value the sources contradict and explain it in uncertainties.
+  out a value the sources contradict and explain it in uncertainties. Which count goes where:
+  - plants_destroyed: cannabis plants seized, uprooted, cut, burned or destroyed (the tracker keeps
+    seized plants here too: "officers seized 52 plants" is plants_destroyed 52);
+  - kg_seized: cannabis by weight, seized or destroyed (dried cannabis, resin, oil), in kg;
+  - hectares: fields destroyed; arrested: people detained; charged: people charged or tried;
+  - prison: only a sentence a court has given, as stated ("3 years", "life"); never the penalty a
+    charge could carry ("faces up to 3 years" stays in the text, not in figures);
+  - fine and value: amount and currency; deaths: people killed.
+  Before answering, read your facts and summary again: every count of people, plants, kilograms or
+  hectares this event involved must also be in figures. A number about something else (a legal
+  limit, last year's total) stays out of figures.
 - tags: up to five short lower-case words a reader would search (a province, a crop, a programme).
 - sources: the title and publisher as published, the source's publication date, and its language
   (two letters) if not English.

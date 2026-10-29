@@ -342,6 +342,8 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	for _, c := range countries {
 		ids[c.ID] = true
 	}
+	// counts in the text that the figures miss are pointed out as open questions
+	result.Uncertainties = append(result.Uncertainties, research.FigureGaps(result)...)
 	if err = result.Validate(ids); err != nil {
 		return w.Store.Transition(ctx, j.Ref, "failed", "The AI result did not pass validation ("+err.Error()+") and cannot be published automatically.", "", "")
 	}
