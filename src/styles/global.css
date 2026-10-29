@@ -316,3 +316,10 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .range-switch button:hover { color: var(--text); background: var(--surface-2); }
 .range-switch button[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); }
 @media (max-width: 860px) { .range-switch { top: 46px; left: 10px; transform: none; } .range-switch button { padding: 6px 9px; font-size: 12px; } }
+
+/* the zoom-to-map button beside a report's title in the map's side pane: shown on hover */
+.zoom-to { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-left: 6px; padding: 0; vertical-align: 2px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); color: var(--text-2); cursor: pointer; opacity: 0; transition: opacity .12s; }
+.zoom-to svg { width: 13px; height: 13px; }
+.report-item:hover .zoom-to, .zoom-to:focus-visible { opacity: 1; }
+.zoom-to:hover { color: var(--text); background: var(--surface-2); }
+@media (hover: none) { .zoom-to { opacity: 1; } }

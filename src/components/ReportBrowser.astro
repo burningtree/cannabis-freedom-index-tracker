@@ -44,7 +44,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   <div class="months" id="months" aria-label="Reports per month; choose a month to filter" hidden></div>
   <p class="count" id="count" aria-live="polite">{fmt(reports.length)} reports · newest first</p>
   <ul class="reports" id="list" data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
-    {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} />)}
+    {reports.slice(0, PAGE).map((r) => <ReportItem r={r} search={false} zoom={compact} />)}
   </ul>
   <p class="empty" id="empty" hidden>No report matches these filters.</p>
   <p class="more-row">
@@ -85,7 +85,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     <div class="meta"><span class="type" style="--c:${types[r.t].color}">${esc(types[r.t].label)}</span>
       <time datetime="${r.d}">${fmtDate(r.d)}</time>
       <a href="${base}country/${r.c}/">${flag(r.c)} ${esc(countries[r.c])}</a></div>
-    <h3><a href="${base}report/${r.i}/">${esc(r.ti)}</a></h3>
+    <h3><a href="${base}report/${r.i}/">${esc(r.ti)}</a>${zoomable && r.ll ? `<button type="button" class="zoom-to" data-zoom="${r.i}" aria-label="Show on the map" title="Show on the map"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/><path d="M8 0.5v3M8 12.5v3M0.5 8h3M12.5 8h3" stroke="currentColor" stroke-width="1.5"/></svg></button>` : ""}</h3>
     <p>${esc(r.s)}</p>
     ${r.f.length ? `<div class="figs-inline">${r.f.map(([l, v]) => `<span>${esc(l)} <b>${esc(v)}</b></span>`).join("")}</div>` : ""}
   </li>`;
@@ -144,6 +144,12 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     history.replaceState(null, "", (p.size ? `?${p}` : location.pathname) + location.hash); // the hash is the map's view
   }
 
+  // the target icon beside a title (where a map is on the page) flies the map to the report
+  const zoomable = list.querySelector(".zoom-to") != null || (list.closest(".compact") != null && document.querySelector("[data-map]") != null);
+  list.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>(".zoom-to");
+    if (b) document.dispatchEvent(new CustomEvent("reports:zoom", { detail: b.dataset.zoom }));
+  });
   // pointing at a report in the list rings its marker on the map
   const hover = (id: string | null) => document.dispatchEvent(new CustomEvent("reports:hover", { detail: id }));
   list.addEventListener("mouseover", (e) => hover((e.target as HTMLElement).closest<HTMLElement>(".report-item")?.dataset.id ?? null));

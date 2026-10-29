@@ -113,6 +113,7 @@ export function indexRow(r) {
     i: r.id, d: isoDate(r.date), c: r.country, t: r.type, a: r.also ?? [],
     ti: r.title, s: r.summary, p: r.place ?? null,
     ll: r.coordinates ? [r.coordinates[1], r.coordinates[0]] : null, // [lon, lat], as GeoJSON
+    pr: r.precision ?? null, // how precise ll is (types.js PRECISION)
     f: r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => [f.label, f.value]),
     k: [`cet-${r.code}`, r.code, ...(r.tags ?? [])].join(" ").toLowerCase(),
   };

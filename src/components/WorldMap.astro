@@ -305,6 +305,21 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         shown = rows.filter((r) => e.detail.has(r.i));
         (map.getSource("reports") as maplibregl.GeoJSONSource | undefined)?.setData(geojson(shown));
       }) as EventListener);
+      // the zoom icon in the list: fly to the report, ring it and show its hover box
+      document.addEventListener("reports:zoom", ((e: CustomEvent<string>) => {
+        const r = rows.find((x) => x.i === e.detail);
+        if (!r?.ll) return;
+        hovered = r.i;
+        if (map.getLayer("hover")) map.setFilter("hover", ["==", ["get", "id"], hovered]);
+        // close in as far as the place is known: a spot, a town, a district, a region or only the country
+        const zoom = ({ exact: 11, locality: 9, district: 8, region: 6, country: 4 } as Record<string, number>)[r.pr ?? "country"] ?? 6;
+        map.flyTo({ center: r.ll, zoom, duration: 1200, essential: true });
+        map.once("moveend", () => {
+          popup.setLngLat(r.ll!).setHTML(`<span class="type" style="--c:${esc(types[r.t].color)}">${esc(types[r.t].label)}</span><strong>${esc(r.ti)}</strong><span class="muted">${esc([r.p, index.countries[r.c]].filter(Boolean).join(" · "))}<br>${esc(fmtDate(r.d))}</span>`).addTo(map);
+          current = `reports:${r.i}`;
+        });
+        if (matchMedia("(max-width: 860px)").matches) box.scrollIntoView({ behavior: "smooth", block: "start" });
+      }) as EventListener);
       document.addEventListener("reports:hover", ((e: CustomEvent<string | null>) => {
         hovered = e.detail ?? "";
         if (map.getLayer("hover")) map.setFilter("hover", ["==", ["get", "id"], hovered]);
