@@ -30,3 +30,20 @@ func TestInvalidConfigurationFailsClosed(t *testing.T) {
 		})
 	}
 }
+
+func TestDailyBudgetZeroIsUnlimitedButOtherBoundsRemain(t *testing.T) {
+	for _, test := range []struct {
+		value string
+		valid bool
+	}{{"0", true}, {"100", true}, {"99", false}, {"-1", false}, {"invalid", false}} {
+		t.Run(test.value, func(t *testing.T) {
+			defaults(t)
+			t.Setenv("RESEARCH_RUN_CENTS", "100")
+			t.Setenv("RESEARCH_DAILY_CENTS", test.value)
+			_, err := Load()
+			if (err == nil) != test.valid {
+				t.Fatal(test, err)
+			}
+		})
+	}
+}

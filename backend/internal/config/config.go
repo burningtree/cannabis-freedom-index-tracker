@@ -118,7 +118,7 @@ func Load() (Config, error) {
 		return c, errors.New("invalid run budget")
 	}
 	c.DailyCents, err = strconv.Atoi(env("RESEARCH_DAILY_CENTS", "1000"))
-	if err != nil || c.DailyCents < c.RunCents {
+	if err != nil || c.DailyCents < 0 || (c.DailyCents > 0 && c.DailyCents < c.RunCents) {
 		return c, errors.New("invalid daily budget")
 	}
 	for _, v := range append([]string{c.PublicURL}, c.Origins...) {

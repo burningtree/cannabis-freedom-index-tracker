@@ -58,3 +58,33 @@ func TestLocalRestartEndpoint(t *testing.T) {
 		t.Fatal("duplicate restart accepted", status)
 	}
 }
+
+func TestLocalBudgetPausedRestartEndpoint(t *testing.T) {
+	s, _ := server(t)
+	s.Config.DevControls = true
+	s.Config.Addr = "127.0.0.1:8080"
+	ctx := context.Background()
+	id, err := s.Store.Accept(ctx, store.Intake{Origin: "web", URL: "https://news.example/paused", CanonicalURL: "https://news.example/paused"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	j, err := s.Store.Claim(ctx, "jobs", time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = s.Store.Finish(ctx, "jobs", j, store.ErrBudget); err != nil {
+		t.Fatal(err)
+	}
+	r := httptest.NewRequest("POST", "/v1/submissions/"+id+"/restart", strings.NewReader("{}"))
+	r.RemoteAddr = "127.0.0.1:1234"
+	r.Header.Set("Content-Type", "application/json")
+	response := httptest.NewRecorder()
+	s.Handler().ServeHTTP(response, r)
+	if response.Code != 202 {
+		t.Fatal(response.Code, response.Body.String())
+	}
+	v, _ := s.Store.Get(ctx, id)
+	if v.Status != "queued" || v.ResumeAt != 0 {
+		t.Fatal(v)
+	}
+}

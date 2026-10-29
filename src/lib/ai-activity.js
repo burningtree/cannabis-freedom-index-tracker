@@ -39,10 +39,11 @@ function renderBudget(container, budget) {
   if (!budget) { container.append(node("p", "Budget information unavailable. Restart backend-dev if it has not been updated.", "ai-worker-note")); return; }
   const money = cents => `$${(Number(cents) / 100).toFixed(2)}`;
   const used = Number(budget.reserved_cents), limit = Number(budget.daily_limit_cents);
+  const unlimited = budget.unlimited === true || limit === 0;
   const block = node("div", undefined, "ai-budget");
-  block.dataset.exhausted = String(Number(budget.runs_remaining) === 0);
+  block.dataset.exhausted = String(!unlimited && Number(budget.runs_remaining) === 0);
   const total = node("span", undefined, "ai-budget-total");
-  total.append(document.createTextNode("Reserved today "), node("strong", `${money(used)} / ${money(limit)}`));
+  total.append(document.createTextNode("Reserved today "), node("strong", `${money(used)} / ${unlimited ? "Unlimited" : money(limit)}`));
   total.title = "Daily research reservations used by the budget guard; these are not billed provider costs.";
   block.append(total);
   if (limit > 0) {
@@ -50,9 +51,9 @@ function renderBudget(container, budget) {
     meter.setAttribute("aria-label", `Daily budget reserved: ${money(used)} of ${money(limit)}`);
     block.append(meter);
   }
-  block.append(node("span", `${money(budget.per_run_cents)} per attempt`), node("span", `${Number(budget.runs_remaining).toLocaleString()} attempts left`));
+  block.append(node("span", `${money(budget.per_run_cents)} per attempt`), node("span", unlimited ? "Unlimited attempts" : `${Number(budget.runs_remaining).toLocaleString()} attempts left`));
   const reset = new Date(Number(budget.resets_at) * 1000);
-  const time = node("time", `Resets ${reset.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`);
+  const time = node("time", `${unlimited ? "Usage resets" : "Resets"} ${reset.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`);
   time.dateTime = reset.toISOString(); time.title = `Daily reset at 00:00 UTC · ${reset.toLocaleString()}`;
   block.append(time); container.append(block);
 }

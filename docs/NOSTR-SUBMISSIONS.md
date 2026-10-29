@@ -186,7 +186,7 @@ its old dated path when moving an existing report. It refuses local edits on tho
 concurrent changes to an existing report. Git `commit --only` excludes unrelated staged files.
 A case trailer and a persisted SHA recover publication retries without a second commit.
 
-On localhost, **Restart submission** appears for `failed`, `insufficient_evidence`,
+On localhost, **Restart submission** appears for `budget_wait`, `failed`, `insufficient_evidence`,
 `source_unavailable` and legacy `needs_review` receipts on their request detail page only.
 `backend-dev` sets `DEV_CONTROLS=true`; the backend must also bind to a loopback address and
 receive the request from loopback with a local origin and JSON content type. The server refuses
@@ -272,7 +272,14 @@ The register uses one-line rows with stage segments, cumulative input/output tok
 counts across all attempts; its SQL projections remain bounded to the current 50-row page.
 
 `RESEARCH_RUN_CENTS` reserves a conservative amount for a run, and `RESEARCH_DAILY_CENTS` limits
-starts per UTC day. These are run reservations, not a guarantee of metered model billing. Failed
+starts per UTC day. Set `RESEARCH_DAILY_CENTS=0` for an unlimited daily reservation budget.
+Usage and per-run reservations are still recorded; the UI shows Unlimited rather than a zero
+balance. The budget API sets `unlimited: true`, `daily_limit_cents: 0` and uses `-1` for
+`remaining_cents` and `runs_remaining` in this mode. Restart the backend after changing this value. With unlimited mode enabled, startup
+requeues existing budget-paused cases immediately, preserving history, evidence and usage.
+Budget-paused submissions can also be restarted from their localhost detail page; this does not
+bypass a finite daily limit.
+These are run reservations, not a guarantee of metered model billing. Failed
 runs count. OpenCode-reported token/cost telemetry is stored when available; enforce a provider
 spending limit separately. Set filesystem quotas and retention for private evidence, session
 storage, checkouts and build caches. The local runner has a wall-clock/output limit; Docker also
@@ -285,7 +292,10 @@ application's hardened fetcher does not make a local OpenCode tool a network san
 research needs an egress firewall/proxy denying private, host, loopback and metadata destinations.
 Article content is untrusted data and may never grant tools or signing/publishing authority.
 
-Short-lived rate limits cover IPs, authors and news hosts. Behind a proxy, configure only actual
+Short-lived rate limits cover IPs, authors and news hosts. Local web intake bypasses the per-IP
+and news-host hourly limits when `DEV_CONTROLS=true`, the backend binds to loopback, and the
+request arrives from loopback with a local or absent Origin (including Astro's development proxy).
+Public intake retains both limits. URL/body validation and the durable queue capacity still apply. Behind a proxy, configure only actual
 `TRUSTED_PROXY_CIDRS` and correct forwarding headers. Use upstream connection limits and minimize
 proxy access-log retention. No long-term IPs are stored by the service. Accountless does not mean
 network anonymous. Public URLs/notes/outcomes may persist on third-party Nostr relays forever.

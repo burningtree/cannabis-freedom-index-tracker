@@ -146,7 +146,8 @@ func (s *Server) Handler() http.Handler {
 }
 func (s *Server) submit(w http.ResponseWriter, r *http.Request) {
 	host := s.clientIP(r)
-	if !s.Limit.Allow("ip:"+host, 20) {
+	local := s.localDevelopmentRequest(r)
+	if !local && !s.Limit.Allow("ip:"+host, 20) {
 		w.Header().Set("Retry-After", "3600")
 		problem(w, 429, "Too many submissions. Try again in an hour.")
 		return
@@ -169,7 +170,7 @@ func (s *Server) submit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uhost := strings.SplitN(strings.TrimPrefix(strings.TrimPrefix(normalized, "https://"), "http://"), "/", 2)[0]
-	if !s.Limit.Allow("host:"+uhost, 100) {
+	if !local && !s.Limit.Allow("host:"+uhost, 100) {
 		w.Header().Set("Retry-After", "3600")
 		problem(w, 429, "This news host has reached its intake limit.")
 		return

@@ -64,6 +64,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const focus = box.dataset.focus ?? (box.dataset.hash != null ? new URLSearchParams(location.search).get("focus") ?? undefined : undefined);
     const single = box.dataset.focus != null; // a report page's map: everything else faded, no switches
     const FADE = single ? 0.3 : 1;
+    const markerScale = 0.85; // all point indicators on big maps and report minimaps
     const accuracy = box.dataset.accuracy ? JSON.parse(box.dataset.accuracy) : null;
     const types = JSON.parse(box.dataset.types!);
     const styles = JSON.parse(box.dataset.styles!);
@@ -84,8 +85,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     let rows: Row[] = [];        // this map's reports
     let shown: Row[] = [];       // those the filters let through
     let hovered = "";
-    const KEY = "map-layers";    // which Landrace layers are on, remembered in this browser
-    let chosen: Record<string, boolean> = { cluster: false, globe: false, area: true, region: false, accession: false };
+    const KEY = "map-layers-v2";    // which Landrace layers are on, remembered in this browser
+    let chosen: Record<string, boolean> = { cluster: false, globe: false, area: true, region: true, accession: true };
     // the Landrace files each layer needs, and the map layers it draws
     const FILES: Record<string, string> = { points: "landrace.geojson", areas: "landrace-areas.geojson", regions: "landrace-regions.geojson" };
     const NEEDS: Record<string, string[]> = { area: ["points", "areas"], region: ["regions"], accession: ["points"] };
@@ -96,7 +97,16 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     };
     const loaded: Record<string, unknown> = {};
     if (single) chosen = { ...chosen, area: true, region: true, accession: true };
-    else try { chosen = { ...chosen, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") }; } catch {}
+    else try {
+      const saved = localStorage.getItem(KEY);
+      if (saved) chosen = { ...chosen, ...JSON.parse(saved) };
+      else {
+        // Apply the new Landrace defaults once, retaining the other map preferences.
+        const previous = JSON.parse(localStorage.getItem("map-layers") ?? "{}");
+        chosen.cluster = previous.cluster ?? chosen.cluster;
+        chosen.globe = previous.globe ?? chosen.globe;
+      }
+    } catch {}
 
     const geojson = (list: Row[]) => ({
       type: "FeatureCollection" as const,
@@ -129,7 +139,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         // a growing area without an outline is a circle
         {
           id: "landrace-area-dot", kind: "area", type: "circle", source: "lr-points", filter: ["all", ["==", ["get", "kind"], "area"], ["!", ["get", "outlined"]]],
-          paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5, 6, 14, 10, 34], "circle-color": c.greenFill, "circle-opacity": 0.22 * FADE, "circle-stroke-color": c.green, "circle-stroke-width": 1, "circle-stroke-opacity": 0.8 * FADE },
+          paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 5 * markerScale, 6, 14 * markerScale, 10, 34 * markerScale], "circle-color": c.greenFill, "circle-opacity": 0.22 * FADE, "circle-stroke-color": c.green, "circle-stroke-width": 1, "circle-stroke-opacity": 0.8 * FADE },
         },
         {
           id: "landrace-area-label", kind: "area", type: "symbol", source: "lr-points", filter: ["==", ["get", "kind"], "area"], minzoom: 4.5,
@@ -140,9 +150,9 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
           // filled in its seed lot's colour (Landrace.wiki's), hollow when no seed lot is recorded
           id: "landrace-accession", kind: "accession", type: "circle", source: "lr-points", filter: ["==", ["get", "kind"], "accession"],
           paint: {
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2.6, 8, 5.5],
+            "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2.6 * markerScale, 8, 5.5 * markerScale],
             "circle-color": ["match", ["coalesce", ["get", "lot"], ""], "Urgent", "#c92a2a", "At risk", "#e67700", "Secure", "#0ca678", "Held in a genebank", "#4c6ef5", "Data deficient", "#6c757d", c.bg],
-            "circle-stroke-color": c.ink, "circle-stroke-width": ["case", ["!=", ["coalesce", ["get", "lot"], ""], ""], 0.8, 1.4], "circle-stroke-opacity": 0.85 * FADE, "circle-opacity": FADE,
+            "circle-stroke-color": c.ink, "circle-stroke-width": ["case", ["!=", ["coalesce", ["get", "lot"], ""], ""], 0.8 * markerScale, 1.4 * markerScale], "circle-stroke-opacity": 0.85 * FADE, "circle-opacity": FADE,
           },
         },
       ];
@@ -188,14 +198,14 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       // clusters: a neutral disc with the number of reports
       map.addLayer({
         id: "clusters", type: "circle", source: "reports", filter: ["has", "point_count"],
-        paint: { "circle-color": c.ink, "circle-opacity": 0.85, "circle-stroke-color": c.bg, "circle-stroke-width": 1.5, "circle-radius": ["step", ["get", "point_count"], 11, 10, 15, 50, 20, 250, 26] },
+        paint: { "circle-color": c.ink, "circle-opacity": 0.85, "circle-stroke-color": c.bg, "circle-stroke-width": 1.5 * markerScale, "circle-radius": ["step", ["get", "point_count"], 11 * markerScale, 10, 15 * markerScale, 50, 20 * markerScale, 250, 26 * markerScale] },
       });
       map.addLayer({
         id: "cluster-count", type: "symbol", source: "reports", filter: ["has", "point_count"],
-        layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Regular"], "text-size": 11.5, "text-allow-overlap": true },
+        layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Regular"], "text-size": 11.5 * markerScale, "text-allow-overlap": true },
         paint: { "text-color": c.bg },
       });
-      const ring = (r: number, w: number) => ({ "circle-radius": r, "circle-color": theme() === "dark" ? "rgba(242,240,233,.16)" : "rgba(17,17,15,.10)", "circle-stroke-color": c.ink, "circle-stroke-width": w });
+      const ring = (r: number, w: number) => ({ "circle-radius": r * markerScale, "circle-color": theme() === "dark" ? "rgba(242,240,233,.16)" : "rgba(17,17,15,.10)", "circle-stroke-color": c.ink, "circle-stroke-width": w * markerScale });
       // a ring under the report the reader points at in a list, and under the one this page is about
       map.addLayer({ id: "hover", type: "circle", source: "reports", filter: ["==", ["get", "id"], hovered], paint: ring(18, 2) });
       // (a report page's own map shows its accuracy circle instead)
@@ -204,7 +214,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         id: "reports", type: "symbol", source: "reports", filter: ["!", ["has", "point_count"]],
         layout: {
           "icon-image": ["concat", "t-", ["get", "t"]],
-          "icon-size": ["interpolate", ["linear"], ["zoom"], 1, 0.85, 6, 1, 10, 1.15],
+          "icon-size": ["interpolate", ["linear"], ["zoom"], 1, 0.85 * markerScale, 6, markerScale, 10, 1.15 * markerScale],
           "icon-allow-overlap": true, "icon-ignore-placement": true,
           "symbol-sort-key": ["case", ["get", "focus"], 1, 0],
         },

@@ -1,4 +1,4 @@
-export const RESTARTABLE = new Set(["failed", "insufficient_evidence", "source_unavailable", "needs_review"]);
+export const RESTARTABLE = new Set(["budget_wait", "failed", "insufficient_evidence", "source_unavailable", "needs_review"]);
 const localHost = () => ["localhost", "127.0.0.1", "[::1]", "::1"].includes(location.hostname);
 export function restartControl(submission, { api, enabled, onRestart }) {
   if (!enabled || !localHost() || !RESTARTABLE.has(submission.status)) return null;

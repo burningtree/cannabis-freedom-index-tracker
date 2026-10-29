@@ -66,3 +66,20 @@ func TestSubmissionFeedExposesCurrentBudgetConfiguration(t *testing.T) {
 		t.Fatal(b)
 	}
 }
+
+func TestUnlimitedBudgetInfoStillReportsUsage(t *testing.T) {
+	s, _ := server(t)
+	s.Config.DailyCents = 0
+	s.Config.RunCents = 100
+	ctx := context.Background()
+	id, err := s.Store.Accept(ctx, store.Intake{Origin: "web", URL: "https://news.example/unlimited", CanonicalURL: "https://news.example/unlimited"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	v, _ := s.Store.Get(ctx, id)
+	s.Store.Reserve(ctx, v.CaseID, "private", 100, 0)
+	b := s.budgetInfo(ctx, time.Now())
+	if b == nil || !b.Unlimited || b.DailyLimitCents != 0 || b.ReservedCents != 100 || b.RemainingCents != -1 || b.RunsRemaining != -1 {
+		t.Fatal(b)
+	}
+}

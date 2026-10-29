@@ -427,6 +427,9 @@ func (s *Store) Heartbeat(ctx context.Context, table string, j Job, lease time.D
 	return nil
 }
 func (s *Store) Reserve(ctx context.Context, cid, workspace string, perRun, daily int) (string, error) {
+	if perRun <= 0 || daily < 0 {
+		return "", errors.New("invalid research budget")
+	}
 	tx, err := s.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return "", err
@@ -437,7 +440,7 @@ func (s *Store) Reserve(ctx context.Context, cid, workspace string, perRun, dail
 	if err != nil {
 		return "", err
 	}
-	if used+perRun > daily {
+	if daily > 0 && used+perRun > daily {
 		return "", ErrBudget
 	}
 	id := ID()

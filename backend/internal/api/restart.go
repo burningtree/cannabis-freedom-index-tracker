@@ -17,6 +17,23 @@ func (s *Server) localControls() bool {
 	host, _, err := net.SplitHostPort(s.Config.Addr)
 	return s.Config.DevControls && err == nil && loopbackHost(host)
 }
+
+// Local development intake can bypass rate limits, including through Astro's
+// loopback proxy. A client-supplied forwarding header cannot grant this access.
+func (s *Server) localDevelopmentRequest(r *http.Request) bool {
+	host, _, err := net.SplitHostPort(r.RemoteAddr)
+	if !s.localControls() || err != nil || !loopbackHost(host) {
+		return false
+	}
+	if origin := r.Header.Get("Origin"); origin != "" {
+		u, err := url.Parse(origin)
+		if err != nil || (u.Scheme != "http" && u.Scheme != "https") || !loopbackHost(u.Hostname()) {
+			return false
+		}
+	}
+	return true
+}
+
 func (s *Server) restart(w http.ResponseWriter, r *http.Request) {
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if !s.localControls() || err != nil || !loopbackHost(host) {
@@ -47,7 +64,7 @@ func (s *Server) restart(w http.ResponseWriter, r *http.Request) {
 		case store.IsMissingAI(err):
 			problem(w, 404, "Receipt not found.")
 		case errors.Is(err, store.ErrRestartConflict):
-			problem(w, 409, "This submission is already running or is not a failed request.")
+			problem(w, 409, "This submission is already running or is not failed or budget paused.")
 		default:
 			problem(w, 503, "Submission could not be restarted.")
 		}

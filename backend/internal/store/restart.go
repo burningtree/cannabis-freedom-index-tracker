@@ -9,7 +9,7 @@ import (
 var ErrRestartConflict = errors.New("submission cannot be restarted in its current state")
 
 func Restartable(status string) bool {
-	return status == "failed" || status == "insufficient_evidence" || status == "source_unavailable" || status == "needs_review"
+	return status == "budget_wait" || status == "failed" || status == "insufficient_evidence" || status == "source_unavailable" || status == "needs_review"
 }
 
 // Restart a shared case atomically, fencing old leases and retaining all previous

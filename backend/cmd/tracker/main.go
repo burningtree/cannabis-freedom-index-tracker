@@ -126,6 +126,11 @@ func run() error {
 	if err := s.Recover(ctx); err != nil {
 		return fmt.Errorf("recover interrupted processing: %w", err)
 	}
+	if c.DailyCents == 0 {
+		if err := s.ResumeBudgetWait(ctx); err != nil {
+			return fmt.Errorf("resume unlimited research: %w", err)
+		}
+	}
 	slog.Info("durable queue recovery complete")
 	// runs recorded before reasoning tokens were counted: count them again from their logs
 	if err := research.BackfillTokens(ctx, s); err != nil {
