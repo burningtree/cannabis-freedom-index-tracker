@@ -1,55 +1,44 @@
 ---
-code: S9P293
 date: 2026-10-05
 country: mu
-place: Riche-en-Eau, Grand Port
-coordinates: [-20.3868, 57.6595]
+place: Riche-en-Eau sugarcane field, Grand Port
+coordinates: [-20.39, 57.66]
 precision: locality
 type: eradication
-title: Police uproot 7,414 cannabis plants at Riche-en-Eau
+also: [seizure]
+title: Police helicopter spot leads ADSU to 7,414 cannabis plants
 summary: >-
-  A police helicopter spotted a cannabis plantation hidden among sugar cane in south-east
-  Mauritius. Anti-drug officers then found two plots on abandoned land and uprooted 7,414 plants;
-  no one was there and no arrests were made.
+  A police helicopter crew spotted a cannabis plantation hidden in a Riche-en-Eau
+  sugarcane field on 5 October 2026; ADSU officers from Mahébourg uprooted 7,414
+  plants between 10 cm and 1.7 m tall. Nobody was at the site and no arrest was
+  made; an inquiry was opened.
 figures:
   plants_destroyed: 7414
-  value: { amount: 30000000, currency: MUR }
-created_by_model: unknown
-status: verified
-tags: [adsu, sugar-cane, helicopter]
-sources:
-  - title: 7 414 plants de cannabis déracinés après un repérage aérien
-    url: https://lexpress.mu/s/7-414-plants-de-cannabis-deracines-apres-un-reperage-aerien-563362
-    archived: https://web.archive.org/web/20261007173013/https://lexpress.mu/s/7-414-plants-de-cannabis-deracines-apres-un-reperage-aerien-563362
-    publisher: L'Express
-    date: 2026-10-07
-    language: fr
-  - title: Plus de 7 400 plants de cannabis estimés à près de 30 millions de roupies saisis à Riche-en-Eau
-    url: https://radio1.mu/plus-de-7-400-plants-de-cannabis-estimes-a-pres-de-30-millions-de-roupies-saisis-a-riche-en-eau/
-    publisher: Radio One
-    date: 2026-10-06
-    language: fr
 media:
   - kind: photo
-    url: https://lexpress.mu/s/7-414-plants-de-cannabis-deracines-apres-un-reperage-aerien-563362
-    archived: https://web.archive.org/web/20261007173013/https://lexpress.mu/s/7-414-plants-de-cannabis-deracines-apres-un-reperage-aerien-563362
+    url: https://lexpress.mu/storage/articles/E3CbBdGvh4Mm5p3m3iK1PZ7cpkS4ZLOK59YACUAh.jpg
     publisher: L'Express
-    caption: The cannabis plantation at Riche-en-Eau after its discovery
-  - kind: photo
-    url: https://radio1.mu/plus-de-7-400-plants-de-cannabis-estimes-a-pres-de-30-millions-de-roupies-saisis-a-riche-en-eau/
-    publisher: Radio One
-    caption: Uprooted cannabis plants from the two plots
+    caption: 'Uprooted cannabis seedlings and plants seized in the operation. Photo: L''Express'
+status: verified
+created_by_model: Meta Muse Spark (via Muse Code)
+tags: [cultivation, helicopter, sugarcane]
+open_questions:
+  - Only L'Express has published this account; no second outlet or police statement has been found.
+  - The growers are unknown; nobody was present when ADSU arrived.
+  - Whether the inquiry led to arrests has not been reported.
+sources:
+  - title: 'Riche-en-Eau : 7 414 plants de cannabis déracinés après un repérage aérien'
+    url: https://lexpress.mu/s/7-414-plants-de-cannabis-deracines-apres-un-reperage-aerien-563362
+    publisher: L'Express
+    date: 2026-10-07
 ---
 
-Anti-drug officers uprooted 7,414 cannabis plants at Riche-en-Eau in south-east Mauritius on
-5 October 2026, after a police helicopter crew returning to base spotted a plot hidden among sugar
-cane. [@1] The crew made another pass to confirm the site and passed its location to the Anti Drug
-and Smuggling Unit (ADSU) at Mahébourg. [@1]
+A police helicopter returning to base after a mission spotted a suspicious area
+hidden in a sugarcane field at Riche-en-Eau on Monday 5 October; the crew made a
+second pass to confirm the plantation and pin down its location. [@1]
 
-The ADSU found two plots on abandoned land. [@2] The first held 4,154 plants between 10 and 65 cm
-tall; the second 3,260 plants between 15 cm and 1.70 m. [@2] The plants were uprooted and
-seized. [@1,2]
-
-Nobody was on the land when the officers arrived, and no suspect has been arrested. [@1] An
-investigation is open. [@1] Radio One put the value of the plants at nearly 30 million
-rupees. [@2]
+The information was passed to the Anti-Drug and Smuggling Unit (ADSU) at
+Mahébourg, whose officers went to the site and found 7,414 cannabis plants
+measuring between ten centimetres and 1.70 metres, which were uprooted. [@1]
+Nobody was present when police intervened, so no suspect was arrested, and an
+inquiry was opened. [@1]
