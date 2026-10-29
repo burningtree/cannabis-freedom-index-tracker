@@ -1,4 +1,4 @@
-import { runCost, costEstimated } from "./model-cost.js";
+import { runCost, costEstimated, formatUSD } from "./model-cost.js";
 
 export const MODEL_LABELS = { "opencode-go/deepseek-v4.1-flash": "DeepSeek V4.1 Flash · OpenCode Go" };
 export function modelLabel(model) { return MODEL_LABELS[model] || model || "Not configured"; }
@@ -118,7 +118,7 @@ export function renderAIActivity(container, payload, { api, id, requestRunning =
     const all = activity.runs, many = all.length > 1;
     const sum = (key) => all.reduce((s, r) => s + Number(r[key] || 0), 0);
     const time = (r) => (r.started_at ? (r.finished_at || (r.status === "running" ? Date.now() / 1000 : r.started_at)) - r.started_at : 0);
-    const money = (v) => (v ? `$${v.toFixed(v < 1 ? 4 : 2)}` : "—");
+    const money = formatUSD;
     // OpenCode reports no cost for these runs, so it is worked out from the tokens at the price for
     // the hour the run started (src/lib/model-cost.js)
     const cost = runCost(run), totalCost = all.reduce((s, r) => s + runCost(r), 0);

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { runCost, isPeak, costEstimated } from "../src/lib/model-cost.js";
+import { runCost, isPeak, costEstimated, formatUSD } from "../src/lib/model-cost.js";
 
 const model = "opencode-go/deepseek-v4.1-flash";
 // 26 October 2026 is a Monday; 12:00 UTC is off-peak
@@ -41,4 +41,13 @@ test("an unknown model or no tokens has no cost", () => {
 test("the example run is a fraction of a cent off-peak", () => {
   const cost = runCost({ model, input_tokens: 39_521, output_tokens: 1_619, started_at: offPeak });
   assert.ok(Math.abs(cost - 0.00689955) < 1e-9);
+});
+
+test("costs keep four decimals, and six below a ten-thousandth of a dollar", () => {
+  assert.equal(formatUSD(0.0137991), "$0.0138");
+  assert.equal(formatUSD(0.00689955), "$0.0069");
+  assert.equal(formatUSD(1.23456), "$1.2346");
+  assert.equal(formatUSD(0.0001), "$0.0001");
+  assert.equal(formatUSD(0.000069), "$0.000069");
+  assert.equal(formatUSD(0), "—");
 });

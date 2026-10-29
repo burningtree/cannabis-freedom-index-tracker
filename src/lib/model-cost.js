@@ -30,3 +30,11 @@ export function runCost(run) {
 export function costEstimated(run) {
   return !(Number(run?.cost_usd || 0) > 0) && Boolean(MODEL_PRICES[run?.model]);
 }
+
+// A run costs a fraction of a cent, so keep four decimals ($0.0001) rather than rounding to cents;
+// the smallest runs get six so they do not show as $0.0000. 0 (unknown) is shown as a dash.
+export function formatUSD(value) {
+  const v = Number(value) || 0;
+  if (!v) return "—";
+  return `$${v.toFixed(v < 0.0001 ? 6 : 4)}`;
+}
