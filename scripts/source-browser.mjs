@@ -189,6 +189,8 @@ export async function captureSource({ url, dir, bridge, token }) {
     const consent = await enableAutoconsent(page);
     context.on("page", popup => { if (popup !== page) popup.close().catch(() => {}); });
     let response, navigationError = "";
+    // A challenge may navigate to the real article while the capture settles.
+    page.on("response", result => { if (result.request().isNavigationRequest() && result.frame() === page.mainFrame()) response = result; });
     try { response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 25000 }); }
     catch (error) { navigationError = String(error.message).split("\n")[0].slice(0, 300); }
     await page.waitForLoadState("networkidle", { timeout: 5000 }).catch(() => {});
@@ -232,7 +234,7 @@ export async function captureSource({ url, dir, bridge, token }) {
       fs.writeFile(path.join(dir, "metadata.json"), JSON.stringify(extracted.metadata, null, 2), { mode: 0o600 }),
     ]);
     const status = response?.status() || 0;
-    const evidence = { url, final_url: page.url(), content: extracted.content, text: extracted.text, metadata: extracted.metadata, rendered: true, screenshot, browser_warning: screenshotError,
+    const evidence = { access_blocked: (await response?.headerValue("cf-mitigated")) === "challenge" ? "Cloudflare" : "", url, final_url: page.url(), content: extracted.content, text: extracted.text, metadata: extracted.metadata, rendered: true, screenshot, browser_warning: screenshotError,
       cleanup: { blocker: Boolean(blocker), blocked_requests: blocked, consent: consent.done ? `refused (${consent.cmp || "dialog"})` : consent.detected ? `${blocker ? "hidden" : "found, not answered"} (${consent.cmp || "dialog"})` : "none found" } };
     if (height < fullHeight) evidence.browser_warning = [screenshotError, "Screenshot height limited to 40,000 pixels."].filter(Boolean).join(" ");
     const error = status >= 400 ? `The browser page answered HTTP ${status}.` : navigationError && !extracted.text ? "Browser navigation failed." : "";

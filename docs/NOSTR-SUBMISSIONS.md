@@ -346,3 +346,37 @@ Optional RSS/Atom feeds and GDELT queries feed the same durable queue without po
 candidate to Nostr. Provider/article keys deduplicate discovery. GDELT advances bounded one-hour
 windows, pauses saturated 250-record partitions instead of silently skipping, and keeps cursors.
 Public activity excludes machine discovery; the all-submissions register includes every origin.
+
+## Multilingual vocabulary
+
+The source check uses a versioned snapshot of CFI's `/api/glossary.json`, combining its glossary,
+language-atlas spellings and sourced country word lists. Sync explicitly with
+`node scripts/sync-glossary.mjs` (sibling CFI checkout), or pass a CFI site base URL as the argument.
+The JSON snapshot is embedded in the Go binary, so research does not depend on a live CFI API.
+Matching folds case/diacritics, uses Unicode word boundaries and inflection prefixes (including
+`konopy`, `konopí`, `marihuanu`), and supports scripts without spaces. Common ambiguous English
+words and unrelated legal jargon do not establish a keyword match.
+
+Missing keywords no longer reject an otherwise readable source: AI checks its relevance from
+article text. Migration 013 requeues old `not_relevant` outcomes caused solely by the keyword
+gate, with no recorded AI research; genuine AI relevance decisions remain unchanged.
+
+## Access challenges and archived sources
+
+Before reserving a model run, the service rejects Cloudflare `cf-mitigated: challenge` responses,
+recognizable challenge screens (including “Just a moment…”), and unreadable pages as article
+text. This is separate from the multilingual vocabulary hint. It never sends a challenge page
+to OpenCode as the submitted article.
+
+When live retrieval fails or a challenge blocks the article, it checks the Internet Archive's
+Wayback availability API for a successful capture of that exact original URL. Snapshot host,
+original URL and timestamp are validated; replay retrieval uses the same public-destination
+checks as live sources. No archive lookup is attempted for unsafe destinations. A readable,
+unchallenged capture is required before AI starts. No model call or reservation occurs if both
+live and archived access fail. Archive lookup has a 15-second timeout; normal capture limits apply.
+
+The request detail shows the archive URL and capture date. The model receives these explicitly,
+with the original source URL; the crawl date must not be used as the article's publication date.
+Independently opened archive links are saved as `sources[].archived` on new reports and updates.
+Screenshots/evidence remain private as usual. Existing jobs need the backend restarted to use
+these access checks; already consumed tokens and past activity are retained.

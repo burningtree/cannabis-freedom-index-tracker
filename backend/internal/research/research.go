@@ -26,6 +26,8 @@ import (
 )
 
 type Source struct {
+	Archived string `json:"-"` // independently opened archive, assigned by the service
+
 	URL       string `json:"url"`
 	Title     string `json:"title"`
 	Publisher string `json:"publisher"`
@@ -268,6 +270,7 @@ func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch fun
 				continue
 			}
 		}
+		r.Sources[i].Archived = e.ArchiveURL
 		v.Sources[i].Opened = true
 		opened[i] = &e
 		evidence = append(evidence, e)
@@ -445,6 +448,9 @@ func (r Result) Markdown() string {
 	sources := &yaml.Node{Kind: yaml.SequenceNode}
 	for _, s := range r.Sources {
 		m := &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("title"), str(s.Title), str("url"), str(s.URL), str("publisher"), str(s.Publisher)}}
+		if s.Archived != "" {
+			m.Content = append(m.Content, str("archived"), str(s.Archived))
+		}
 		if s.Date != "" {
 			m.Content = append(m.Content, str("date"), &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!timestamp", Value: s.Date})
 		}
@@ -665,6 +671,10 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 	// quotations are checked against, besides the markup), source.html the markup for details.
 	text := e.ReadableText()
 	request := map[string]any{"case_id": cid, "url": e.URL, "final_url": e.FinalURL, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == "", "example_reports": "examples/"}
+	if e.ArchiveURL != "" {
+		request["archive_url"] = e.ArchiveURL
+		request["archive_timestamp"] = e.ArchivedAt
+	}
 	files := map[string][]byte{"reports-index.jsonl": []byte(index.String())}
 	// the article's photos the capture kept, with caption and credit: candidates for media links
 	if e.Metadata != nil && len(e.Metadata.Images) > 0 {
@@ -995,13 +1005,26 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 						known, _ := safeurl.Normalize(oldURL)
 						if known == normalized {
 							mapping[i+1] = j + 1
+							if source.Archived != "" {
+								old["archived"] = source.Archived
+							}
 							break
 						}
 					}
 				}
 			}
 			if mapping[i+1] == 0 {
-				oldSources = append(oldSources, source)
+				entry := map[string]any{"title": source.Title, "url": source.URL, "publisher": source.Publisher}
+				if source.Date != "" {
+					entry["date"] = source.Date
+				}
+				if source.Language != "" {
+					entry["language"] = source.Language
+				}
+				if source.Archived != "" {
+					entry["archived"] = source.Archived
+				}
+				oldSources = append(oldSources, entry)
 				mapping[i+1] = len(oldSources)
 			}
 		}

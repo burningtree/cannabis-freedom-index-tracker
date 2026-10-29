@@ -5,6 +5,7 @@ go 1.27.3
 require (
 	fiatjaf.com/nostr v0.0.0-20261026145325-252a038facda
 	github.com/coder/websocket v1.8.13
+	golang.org/x/text v0.43.0
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.61.0
 )

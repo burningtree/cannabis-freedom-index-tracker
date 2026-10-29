@@ -12,6 +12,9 @@ import (
 )
 
 func (w *Worker) loadSource(ctx context.Context, cid, raw string) (safeurl.Evidence, error) {
+	return safeurl.ResolveSource(ctx, raw, func(ctx context.Context, u string) (safeurl.Evidence, error) { return w.loadSourceDirect(ctx, cid, u) }, safeurl.LookupArchive)
+}
+func (w *Worker) loadSourceDirect(ctx context.Context, cid, raw string) (safeurl.Evidence, error) {
 	if !w.Config.SourceBrowser {
 		return safeurl.Fetch(ctx, raw)
 	}

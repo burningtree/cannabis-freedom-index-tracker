@@ -48,3 +48,33 @@ func TestTextWrapAndContains(t *testing.T) {
 		t.Fatal("quotation check")
 	}
 }
+
+func TestCFIRecognitionCoversInflectionsAccentsAndUnicodeBoundaries(t *testing.T) {
+	for _, text := range []string{
+		"Polícia odhalila pestovanie konopy v Ilave.",
+		"Muž pestoval konopu a predával konopné produkty.",
+		"Dlouhodobě opatřoval pervitin a marihuanu.",
+		"Policie zajistila marihuany a konopím.",
+		"Policia apreendeu maconha.",
+		"Policie nasla KONOPI.",
+		"警察查获大量大麻并拘留嫌疑人。",
+		"เจ้าหน้าที่พบกัญชาจำนวนมาก",
+		"Полиция обнаружила коноплю.",
+		"La policía decomisó hachís.",
+	} {
+		t.Run(text, func(t *testing.T) {
+			c, err := Check(page("Public source", strings.Repeat(text+" ", 20)))
+			if err != nil || c.Mention == "" {
+				t.Fatalf("missing CFI term: %+v %v", c, err)
+			}
+		})
+	}
+	for _, text := range []string{"A hashtag was added to the scoreboard.", "The weeds in the garden need weeding.", "A joint statement about a grass football pitch.", "The market expanded in spring.", "The report mentions a trapot and a hashcode."} {
+		if got := cannabisMention(text); got != "" {
+			t.Errorf("unrelated text matched %q: %s", got, text)
+		}
+	}
+	if got := cannabisMention("konopi\u0301"); got == "" {
+		t.Fatal("decomposed diacritics were missed")
+	}
+}

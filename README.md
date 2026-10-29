@@ -319,3 +319,7 @@ Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved cr
 stays unavailable in production until `PUBLIC_SUBMISSIONS_API_URL` is set. For local work, run
 `npm run backend-dev` and `npm run dev` in separate terminals; the frontend connects to localhost automatically. Never include service secrets in an
 Astro build. Backend checks: `cd backend && go test -race ./... && go vet ./...`.
+
+The submission source vocabulary is synced from CFI's public `/api/glossary.json` with
+`node scripts/sync-glossary.mjs [../cannabis-freedom-index|https://cannabisfreedom.fyi/]`.
+The generated snapshot is embedded in the backend; rebuild/restart after syncing.

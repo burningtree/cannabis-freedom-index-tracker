@@ -105,6 +105,9 @@ func Client() *http.Client {
 }
 
 type Evidence struct {
+	AccessBlocked  string    `json:"access_blocked,omitempty"`
+	ArchiveURL     string    `json:"archive_url,omitempty"`
+	ArchivedAt     string    `json:"archived_at,omitempty"`
 	CaptureID      string    `json:"capture_id,omitempty"`
 	ArtifactDir    string    `json:"-"`
 	Text           string    `json:"text,omitempty"`
@@ -144,6 +147,9 @@ func Fetch(ctx context.Context, raw string) (Evidence, error) {
 		return Evidence{}, fmt.Errorf("the site could not be reached (%w)", err)
 	}
 	defer res.Body.Close()
+	if res.Header.Get("Cf-Mitigated") == "challenge" {
+		return Evidence{URL: normalized, FinalURL: res.Request.URL.String(), AccessBlocked: "Cloudflare"}, fmt.Errorf("%w: Cloudflare security verification blocked the article", ErrAccessChallenge)
+	}
 	// the reasons are written for the public request page: say what went wrong, plainly
 	if res.StatusCode != 200 {
 		return Evidence{}, fmt.Errorf("the site answered HTTP %d %s", res.StatusCode, http.StatusText(res.StatusCode))

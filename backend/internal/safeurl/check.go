@@ -13,6 +13,9 @@ import (
 // SourceCheck is what the service found on the submitted page before any AI research: its title,
 // where it lives, how much readable text it has, and the word for cannabis it uses, if any.
 type SourceCheck struct {
+	AccessBlocked  string          `json:"access_blocked,omitempty"`
+	ArchiveURL     string          `json:"archive_url,omitempty"`
+	ArchivedAt     string          `json:"archived_at,omitempty"`
 	CaptureID      string          `json:"capture_id,omitempty"`
 	Rendered       bool            `json:"rendered"`
 	Screenshot     bool            `json:"screenshot"`
@@ -35,21 +38,17 @@ var (
 	titleTag   = regexp.MustCompile(`(?is)<title[^>]*>(.*?)</title>`)
 )
 
-// words for cannabis and its products in the languages the tracker sees most; the first match is
-// reported. Short Latin words are matched as whole words so "hash" does not match "hashtag".
-var cannabisWords = []string{
-	"cannabis", "marijuana", "marihuana", "maconha", "ganja", "hashish", "haschisch", "hachís", "hachich", "hash", "weed", "kush", "dagga", "bhang", "charas", "kif", "esrar", "kenevir", "konopí", "konopie", "wiet", "canapa", "cânhamo", "cáñamo", "chanvre", "résine", "THC",
-	"กัญชา", "cần sa", "大麻", "대마", "마리화나", "गांजा", "चरस", "भांग", "গাঁজা", "கஞ்சா", "конопл", "марихуан", "гашиш", "канабис", "коноп", "حشيش", "قنب", "ماريجوانا", "بنگ", "חשיש", "קנאביס", "esrarı", "ganjah", "mbanje", "bangi", "insangu", "matekoane",
-}
-
 // Check reads the fetched page as text and says what it is. It fails when there is too little
 // readable text to research (a page that needs JavaScript or a login).
 func Check(e Evidence) (SourceCheck, error) {
 	host := e.FinalURL
-	if u, err := url.Parse(e.FinalURL); err == nil && u.Host != "" {
+	if e.ArchiveURL != "" {
+		host = e.URL
+	}
+	if u, err := url.Parse(host); err == nil && u.Host != "" {
 		host = strings.TrimPrefix(u.Hostname(), "www.")
 	}
-	c := SourceCheck{CaptureID: e.CaptureID, Host: host, Rendered: e.Rendered, Screenshot: e.Screenshot == "page.png", BrowserWarning: e.BrowserWarning, Cleanup: e.Cleanup}
+	c := SourceCheck{CaptureID: e.CaptureID, Host: host, Rendered: e.Rendered, Screenshot: e.Screenshot == "page.png", BrowserWarning: e.BrowserWarning, Cleanup: e.Cleanup, AccessBlocked: AccessChallenge(e), ArchiveURL: e.ArchiveURL, ArchivedAt: e.ArchivedAt}
 	if e.Metadata != nil {
 		m := e.Metadata
 		c.Metadata = &SourceMetadata{Description: limitText(m.Description, 500), Canonical: limitText(m.Canonical, 4096), Language: limitText(m.Language, 40), Authors: m.Authors, PublishedAt: limitText(m.PublishedAt, 100), ModifiedAt: limitText(m.ModifiedAt, 100), SiteName: limitText(m.SiteName, 200)}
@@ -69,25 +68,16 @@ func Check(e Evidence) (SourceCheck, error) {
 	}
 	text := strings.Join(strings.Fields(e.ReadableText()), " ")
 	c.Chars = utf8.RuneCountInString(text)
+	if c.AccessBlocked != "" {
+		return c, fmt.Errorf("%w: %s blocked access to the article", ErrAccessChallenge, c.AccessBlocked)
+	}
 	if c.Chars < 200 {
 		if e.Rendered {
 			return c, errors.New("the browser-rendered page has almost no readable article text (it may require a login, show an access challenge, or contain only media)")
 		}
 		return c, errors.New("the page has almost no readable text (it may need JavaScript or a login)")
 	}
-	lower := strings.ToLower(c.Title + " " + text)
-	for _, w := range cannabisWords {
-		lw := strings.ToLower(w)
-		if utf8.RuneCountInString(lw) <= 5 && isLatin(lw) {
-			if regexp.MustCompile(`(?i)\b` + regexp.QuoteMeta(lw) + `\b`).MatchString(lower) {
-				c.Mention = w
-				break
-			}
-		} else if strings.Contains(lower, lw) {
-			c.Mention = w
-			break
-		}
-	}
+	c.Mention = cannabisMention(c.Title + " " + text)
 	return c, nil
 }
 
@@ -144,20 +134,14 @@ func Contains(content, quote string) bool {
 	return q != "" && strings.Contains(strings.Join(strings.Fields(Text(content)), " "), q)
 }
 
-func isLatin(s string) bool {
-	for _, r := range s {
-		if r > 0x24F {
-			return false
-		}
-	}
-	return true
-}
-
 // Describe says in one line what the check found, for the request's history.
 func (c SourceCheck) Describe() string {
 	title := ""
 	if c.Title != "" {
 		title = fmt.Sprintf("“%s”, ", c.Title)
+	}
+	if c.Mention == "" {
+		return fmt.Sprintf("The source loaded: %s%s, %s characters of text. No known cannabis term detected; AI will check relevance.", title, c.Host, thousands(c.Chars))
 	}
 	return fmt.Sprintf("The source loaded: %s%s, %s characters of text, mentioning cannabis (%s).", title, c.Host, thousands(c.Chars), c.Mention)
 }

@@ -145,9 +145,15 @@ function sourceCheck(box, v, { api, local }) {
   if (c) {
     row(c.chars > 0, `Loaded from ${c.host}${c.title ? `: “${c.title}”` : ""}`);
     row(c.chars >= 200, `${Number(c.chars).toLocaleString()} characters of readable text`);
-    if (c.chars >= 200) row(Boolean(c.mention), c.mention ? `Mentions cannabis (${c.mention})` : "Does not mention cannabis");
+    if (c.access_blocked) row(false, `${c.access_blocked} blocked access to the article`);
+    else if (c.chars >= 200) row(c.mention ? true : null, c.mention ? `Mentions cannabis (${c.mention})` : "No known cannabis term detected; AI checks relevance");
   }
   box.append(list);
+  if (c?.archive_url) {
+    const note = el("p", "Read from a Wayback Machine capture: ");
+    const link = el("a", c.archived_at?.length === 14 ? `${c.archived_at.slice(0,4)}-${c.archived_at.slice(4,6)}-${c.archived_at.slice(6,8)}` : "Open archived page");
+    link.href=c.archive_url; link.target="_blank";link.rel="noopener noreferrer";note.append(link);box.append(note);
+  }
   if (c) {
     // what the browser kept out of the capture: ads and trackers, a cookie dialog
     const k = c.cleanup, kept = [];

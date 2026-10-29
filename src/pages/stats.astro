@@ -1,10 +1,12 @@
 ---
 import Base from "../layouts/Base.astro";
 import { reports, totals, countByType, countriesWithReports, monthSeries, monthName, years } from "../lib/reports.js";
+import { sourcesByDomain } from "../lib/source-domains.js";
 import { TYPES } from "../lib/types.js";
 import { countryOf, flagOf } from "../lib/countries.js";
 const base = import.meta.env.BASE_URL;
 const t = totals(reports);
+const domains = sourcesByDomain(reports);
 const fmt = (n) => n.toLocaleString("en-GB");
 const byType = Object.entries(countByType(reports)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
 const maxType = Math.max(1, ...byType.map(([, n]) => n));
@@ -72,4 +74,38 @@ const yearRows = years.map((y) => { const list = reports.filter((r) => r.year ==
     </table>
   </div>
   <p><a href={`${base}country/`}>All countries →</a> · <a href={`${base}${years[0] ?? ""}/`}>Browse by month →</a></p>
+  <section aria-labelledby="source-domains-title" class="source-domains">
+    <h2 id="source-domains-title">Sources by domain</h2>
+    <p>{fmt(domains.length)} domains, ranked by distinct source URLs. The report count shows how many tracker reports cite each domain. Addresses with and without <code>www.</code> are combined.</p>
+    <div class="source-domain-table">
+      <table class="table">
+        <thead><tr><th scope="col">Domain</th><th scope="col" class="num">Sources</th><th scope="col" class="num">Reports</th></tr></thead>
+        <tbody id="source-domain-rows">{domains.map(({ domain, sources, reports }) => <tr>
+          <td><a class="source-domain-link" href={`https://${domain}/`} target="_blank" rel="noopener noreferrer"><img src={`https://icons.duckduckgo.com/ip3/${encodeURIComponent(domain)}.ico`} width="16" height="16" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" /> <span>{domain}</span></a></td>
+          <td class="num">{fmt(sources)}</td><td class="num">{fmt(reports)}</td>
+        </tr>)}</tbody>
+      </table>
+    </div>
+    {domains.length > 15 && <div class="more-row"><button type="button" class="more" id="show-all-domains" aria-controls="source-domain-rows" aria-expanded="false" hidden>Show all {fmt(domains.length)} domains</button></div>}
+  </section>
+  <script>
+    const button = document.querySelector<HTMLButtonElement>("#show-all-domains");
+    if (button) {
+      const extra = [...document.querySelectorAll<HTMLTableRowElement>("#source-domain-rows tr")].slice(15);
+      for (const row of extra) row.hidden = true;
+      button.hidden = false;
+      button.addEventListener("click", () => {
+        for (const row of extra) row.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        button.hidden = true;
+      });
+    }
+  </script>
 </Base>
+
+<style>
+  .source-domains { margin-top: 2.5rem; }
+  .source-domain-link { display: inline-flex; align-items: center; gap: .6rem; }
+  .source-domain-link img { flex: none; object-fit: contain; }
+  .source-domain-link span { overflow-wrap: anywhere; }
+</style>

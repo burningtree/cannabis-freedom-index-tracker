@@ -281,9 +281,8 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		if err != nil {
 			return w.Store.Transition(ctx, j.Ref, "source_unavailable", "The submitted page loaded, but "+err.Error()+". Send a link to a page with the article text.", "", "")
 		}
-		if check.Mention == "" {
-			return w.Store.Transition(ctx, j.Ref, "not_relevant", fmt.Sprintf("The submitted page (%s, %d characters of text) does not mention cannabis.", check.Host, check.Chars), "", "")
-		}
+		// Vocabulary is an advisory hint, not a complete classifier of every language.
+		// OpenCode determines relevance from the opened article even when no term matched.
 		if err = w.Store.Transition(ctx, j.Ref, "classifying", check.Describe(), "", ""); err != nil {
 			return err
 		}
