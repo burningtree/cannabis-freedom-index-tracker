@@ -323,3 +323,11 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .report-item:hover .zoom-to, .zoom-to:focus-visible { opacity: 1; }
 .zoom-to:hover { color: var(--text); background: var(--surface-2); }
 @media (hover: none) { .zoom-to { opacity: 1; } }
+
+/* how precise a report's location is: a label on its map and a line under it */
+.pin-map { position: relative; }
+.loc-chip { position: absolute; z-index: 3; left: 10px; bottom: 10px; padding: 3px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
+.loc-chip.country, .loc-chip.region { color: var(--text); border-color: var(--muted); }
+.loc-accuracy { font-size: 13.5px; color: var(--text-2); margin-top: 8px; }
+.loc-accuracy b { color: var(--text); font-weight: 600; }
+.loc-coords { display: block; margin-top: 2px; font: 12px var(--mono); color: var(--muted); }

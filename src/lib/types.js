@@ -22,6 +22,14 @@ export const PRECISION = {
   region: "the province, state or region",
   country: "the country",
 };
+// How the report page says it, beside its map: a short label and what the dot stands for.
+export const PRECISION_INFO = {
+  exact: { label: "Exact spot", text: "The dot marks the place itself." },
+  locality: { label: "Village, town or city", text: "The dot marks the settlement the sources name, not the exact spot." },
+  district: { label: "District", text: "The dot marks the middle of the district or municipality the sources name; it happened somewhere in it." },
+  region: { label: "Province or region", text: "The dot marks the middle of the province, state or region the sources name; it happened somewhere in it." },
+  country: { label: "Country only", text: "The sources name no closer place; the dot marks the middle of the country." },
+};
 
 // What has been checked: `verified` means the facts were read in at least one source that was
 // opened; `reported` that they are taken from a report not yet checked; `disputed` that sources

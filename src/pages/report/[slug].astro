@@ -6,7 +6,7 @@ import WorldMap from "../../components/WorldMap.astro";
 import CfiWidget from "../../components/CfiWidget.astro";
 import ReportItem from "../../components/ReportItem.astro";
 import { reports, related, formatDate, isoDate } from "../../lib/reports.js";
-import { TYPES, STATUS, PRECISION } from "../../lib/types.js";
+import { TYPES, STATUS, PRECISION_INFO } from "../../lib/types.js";
 import { flagOf } from "../../lib/countries.js";
 
 export async function getStaticPaths() {
@@ -83,8 +83,20 @@ const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" 
   <div class="side-grid">
     <section>
       <h2>Where</h2>
-      {r.coordinates ? <div class="pin-map"><WorldMap focus={r} label={`Map: ${r.place ?? r.countryName}`} /></div> : <p class="muted">No location given.</p>}
-      {r.precision && <p class="note">The dot marks {PRECISION[r.precision]}{r.precision === "country" ? " (no closer place given)" : ""}.</p>}
+      {r.coordinates ? (
+        <div class="pin-map">
+          <WorldMap focus={r} label={`Map: ${r.place ?? r.countryName}`} />
+          {r.precision && <span class:list={["loc-chip", r.precision]} title={PRECISION_INFO[r.precision].text}>{PRECISION_INFO[r.precision].label}</span>}
+        </div>
+      ) : <p class="muted">No location given.</p>}
+      {r.precision && (
+        <p class="loc-accuracy">
+          <b>Location accuracy: {PRECISION_INFO[r.precision].label.toLowerCase()}.</b>{" "}
+          {r.precision === "country" ? `The sources name no closer place; the dot marks the middle of ${r.countryName}.` : PRECISION_INFO[r.precision].text}
+          {r.place && r.precision !== "country" && <> Place: {r.place}.</>}
+          <span class="loc-coords">{r.coordinates[0].toFixed(r.precision === "exact" ? 4 : 2)}, {r.coordinates[1].toFixed(r.precision === "exact" ? 4 : 2)}</span>
+        </p>
+      )}
     </section>
     <section>
       <h2>The law there</h2>
