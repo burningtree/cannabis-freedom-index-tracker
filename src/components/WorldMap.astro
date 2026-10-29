@@ -5,6 +5,7 @@
 // browser, so a page does not carry the reports itself however many there are.
 //   focus: a report to centre on and ring (the report page)
 //   country: show only this country's reports (its states included) and zoom to them
+//   hash: keep the view in the address (#map=zoom/lat/lon), so a view can be shared (the Map page)
 //   otherwise all reports and the whole world; the home page's filters narrow it through the
 //   "reports:filter" event, and pointing at a report in its list rings it ("reports:hover").
 // Optional layers show Landrace.wiki's growing areas (their outlines), growing regions and accessions
@@ -12,13 +13,13 @@
 // cannabis has been grown for generations, next to where it is destroyed.
 import { MAP_STYLES } from "../lib/map.js";
 import { TYPES, typeIcon } from "../lib/types.js";
-const { focus = null, country = null, label = "Map of reports" } = Astro.props;
+const { focus = null, country = null, hash = false, label = "Map of reports" } = Astro.props;
 const ZOOM = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
 const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordinates[0]], zoom: ZOOM[focus.precision] ?? 5 } : null;
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color, icon: typeIcon(k, 64) }]));
 ---
 <div class="map" data-map data-styles={JSON.stringify(MAP_STYLES)} data-base={import.meta.env.BASE_URL}
-  data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined}
+  data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined} data-hash={hash ? "" : undefined}
   data-types={JSON.stringify(types)} role="region" aria-label={label}>
   <details class="map-layers">
     <summary>Layers</summary>
@@ -50,7 +51,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] };
     const map = new maplibregl.Map({
       container: box, style: styles[theme()], ...view,
-      minZoom: -1, maxZoom: 14, renderWorldCopies: false,
+      minZoom: -1, maxZoom: 14, renderWorldCopies: false, hash: box.dataset.hash != null ? "map" : false,
       // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
       attributionControl: { compact: true, customAttribution: '<a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a> (CC BY-SA)' },

@@ -126,7 +126,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     document.dispatchEvent(new CustomEvent("reports:filter", { detail: (window as any).__reportsShown }));
     const p = new URLSearchParams();
     for (const f of fields) if ($(f).value) p.set(f, $(f).value);
-    history.replaceState(null, "", p.size ? `?${p}` : location.pathname);
+    history.replaceState(null, "", (p.size ? `?${p}` : location.pathname) + location.hash); // the hash is the map's view
   }
 
   // pointing at a report in the list rings its marker on the map

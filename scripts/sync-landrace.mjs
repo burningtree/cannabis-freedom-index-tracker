@@ -51,7 +51,8 @@ function entries(lua) {
   return out;
 }
 
-// "lat,lon;lat,lon;…" (several rings separated by "|") to GeoJSON rings of [lon, lat], simplified
+// "lat,lon;lat,lon;…" to GeoJSON rings of [lon, lat], simplified. The parts of a multipolygon are
+// separated by ":" (Module:Boundaries/doc, "Polygon string format"); each part is one ring.
 // (Douglas–Peucker, in proportion to each shape's size) so the file stays small
 function simplify(pts, tol) {
   if (pts.length < 4) return pts;
@@ -71,7 +72,7 @@ function simplify(pts, tol) {
   return pts.filter((_, i) => keep[i]);
 }
 function rings(polygon) {
-  return polygon.split("|").map((ring) => {
+  return polygon.split(":").map((ring) => {
     const pts = ring.split(";").map((p) => p.split(",").map(Number)).filter((p) => p.length === 2 && p.every(Number.isFinite)).map(([lat, lon]) => [lon, lat]);
     // detail in proportion to the shape: about 1/500 of its extent, at least about 500 m
     const xs = pts.map((q) => q[0]), ys = pts.map((q) => q[1]);

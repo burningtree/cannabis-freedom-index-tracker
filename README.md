@@ -17,7 +17,7 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 
 | Address | What it shows |
 |---|---|
-| `/` | **Map**: a full-screen map of all reports (a diamond marker per type, clustered where they crowd) with a pane on the right: the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
+| `/` | **Map**: a full-screen map of all reports (the view is kept in the address, `#map=zoom/lat/lon`, so it can be shared) (a diamond marker per type, clustered where they crowd) with a pane on the right: the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
 | `/reports/` | **Reports**: the same filterable list as a page of its own |
 | `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
 | `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports |
