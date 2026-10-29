@@ -82,6 +82,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .cfi-link-short { display: none; }
 /* the submissions service beside the brand (see the cog below), amber when
    AI processing is off, red when it does not answer) and the number of requests being worked on */
+.svc-counters { display: inline-flex; align-items: center; gap: 10px; }
+.svc-counters > a { padding: 0; margin: 0; }
 .svc-total { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 6px; border-radius: var(--r); font: 500 12px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
 .svc-total:hover { background: var(--surface); text-decoration: none; color: var(--text); }
 .svc-total svg { width: 15px; height: 15px; flex: none; }
