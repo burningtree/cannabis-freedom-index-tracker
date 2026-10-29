@@ -18,6 +18,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -43,12 +44,28 @@ func (w *Worker) Run(parent context.Context) {
 		}
 	}()
 
-	ticker := time.NewTicker(2 * time.Second)
-	defer ticker.Stop()
 	if w.Nostr != nil {
 		w.Nostr.Listen(ctx)
 		go func() { defer close(outboxDone); w.outbox(ctx) }()
 	}
+	// several requests are worked on at once (WORKER_CONCURRENCY); each loop claims its own job,
+	// and a claim is one atomic update, so two loops never take the same one
+	loops := max(1, w.Config.WorkerConcurrency)
+	var wg sync.WaitGroup
+	// job storage: build leftovers and finished requests' workspaces are cleaned up
+	wg.Add(1)
+	go func() { defer wg.Done(); w.janitor(ctx) }()
+	for i := 0; i < loops; i++ {
+		wg.Add(1)
+		go func() { defer wg.Done(); w.jobs(ctx) }()
+	}
+	wg.Wait()
+}
+
+// jobs claims and processes queued jobs one after another until the context ends.
+func (w *Worker) jobs(ctx context.Context) {
+	ticker := time.NewTicker(2 * time.Second)
+	defer ticker.Stop()
 	for {
 		select {
 		case <-ctx.Done():

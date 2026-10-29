@@ -14,12 +14,14 @@ export function renderProcessingStatus(container, processing, { compact = false 
   if (!processing) { container.dataset.state = "blocked"; container.append(node("p", "AI worker status is unavailable. Restart backend-dev after backend changes.")); return; }
   container.dataset.state = processing.enabled ? "ready" : "blocked";
   if (compact) {
-    // one line for the submissions list: is the worker running, which model, anything holding it up
+    // compact, for the top of the submissions list: is the worker running, which model and OpenCode,
+    // anything holding it up
     const line = node("div", undefined, "ai-worker-line");
-    line.append(node("i", undefined, "ai-worker-dot"), node("strong", processing.enabled ? (processing.mode === "automatic" ? "AI worker running" : processing.mode === "demo" ? "Demonstration mode" : "Review mode") : "AI worker paused"), node("span", modelLabel(processing.model), "ai-model"));
-    if (processing.startup?.version) line.append(node("span", `OpenCode ${processing.startup.version}`, "ai-muted"));
-    container.append(line);
-    renderBudget(container, processing.budget);
+    line.append(node("i", undefined, "ai-worker-dot"), node("strong", processing.enabled ? (processing.mode === "automatic" ? "AI worker running" : processing.mode === "demo" ? "Demonstration mode" : "Review mode") : "AI worker paused"));
+    const detail = node("div", undefined, "ai-worker-detail");
+    detail.append(node("span", modelLabel(processing.model), "ai-model"));
+    if (processing.startup?.version) detail.append(node("span", `OpenCode ${processing.startup.version.replace(/^opencode\s+/i, "")}`, "ai-muted"));
+    container.append(line, detail);
     const notes = [];
     if (!processing.enabled && processing.reason) notes.push(processing.reason);
     if (processing.automatic_publication && !processing.publication_configured) notes.push("Research runs; committing waits for a configured local repository.");

@@ -53,7 +53,6 @@ export const FILTERS = [
   ["", "All"],
   ["researching", "Researching"],
   ["queued", "Queued"],
-  ["budget_wait", "Budget paused"],
   ["committed", "Committed"],
   ["published", "Published"],
   ["duplicate", "Already covered"],

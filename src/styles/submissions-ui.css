@@ -26,7 +26,7 @@
 .sx-tag { padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; font: 11.5px var(--mono); color: var(--text-2); }
 
 /* ── the list ── */
-.sx-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 18px; }
+.sx-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 18px; }
 .sx-head h1 { margin: 0 0 6px; font-size: clamp(30px, 4vw, 40px); }
 .sx-lead { margin: 0; color: var(--text-2); max-width: 62ch; }
 .sx-head-side { display: flex; align-items: center; gap: 14px; flex: none; }
@@ -186,23 +186,36 @@
 
 /* Compact one-line register; keep columns aligned and scroll on small screens. */
 [data-tone="paused"] { --tone: var(--sx-attention, #b78318); }
-.sx-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
-.sx-table .sx-list { border: 0; border-radius: 0; min-width: 1040px; }
-.sx-grid-head, .sx-table .sx-row-link { display: grid; grid-template-columns: 160px minmax(180px, 1fr) 108px 86px 86px 40px 70px 80px; gap: 12px; align-items: center; min-width: 1040px; padding: 11px 14px; box-sizing: border-box; }
-.sx-grid-head { border-bottom: 1px solid var(--border); background: var(--surface-2); font: 10px var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-.sx-grid-head > :nth-child(n+4):nth-child(-n+6) { text-align: right; }
-.sx-table .sx-row-link { min-height: 52px; font-size: 12px; }
-.sx-table .sx-pill { justify-self: start; max-width: 160px; font-size: 11px; padding: 3px 8px; }
-.sx-row-source { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; white-space: nowrap; }
-.sx-row-source strong { flex: 0 0 auto; max-width: 60%; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
-.sx-row-source .sx-path { font-size: 11px; }
-.sx-row-progress { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; height: 5px; }
-.sx-row-progress i { display: block; background: var(--border); border-radius: 2px; }
-.sx-row-progress i[data-state="done"] { background: var(--tone); opacity: .55; }
-.sx-row-progress i[data-state="current"] { background: var(--tone); }
-.sx-row-number { text-align: right; font: 11px var(--mono); font-variant-numeric: tabular-nums; }
-.sx-table .sx-origin { font-size: 9px; }
-.sx-table time { white-space: nowrap; text-align: right; font-size: 11px; color: var(--muted); }
+/* The submission tables: dense, monospaced, one line per request, columns in scanning order
+   (received, id, source, status, tokens, runs and time, cost) */
+.sx-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.sx-table .sx-list { border: 0; border-radius: 0; min-width: 900px; }
+.sx-grid-head, .sx-table .sx-row-link { display: grid; grid-template-columns: 62px 62px minmax(220px, 1fr) 150px 92px 96px 68px; gap: 14px; align-items: center; min-width: 900px; padding: 7px 14px; box-sizing: border-box; }
+.sx-grid-head { border-bottom: 1px solid var(--border); background: var(--surface-2); font: 9.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.sx-grid-head > :nth-child(n+5) { text-align: right; }
+.sx-table .sx-row-link { min-height: 40px; font: 11.5px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
+.sx-table .sx-row + .sx-row { border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent); }
+.sx-row-time { display: flex; flex-direction: column; line-height: 1.25; color: var(--text); }
+.sx-row-date { font-size: 10px; color: var(--muted); }
+.sx-row-id { color: var(--muted); letter-spacing: .02em; }
+.sx-row-source { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; white-space: nowrap; font-family: Inter, system-ui, sans-serif; }
+.sx-row-source strong { flex: 0 0 auto; max-width: 55%; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12.5px; font-weight: 600; color: var(--text); }
+.sx-row-source .sx-path { font: 11px var(--mono); color: var(--muted); }
+.sx-row-state { display: grid; gap: 5px; min-width: 0; }
+.sx-row-label { display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--tone); }
+.sx-row-label .sx-dot { width: 6px; height: 6px; flex: none; }
+.sx-row-progress { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; height: 3px; }
+.sx-row-progress i { display: block; background: var(--border); border-radius: 1px; }
+.sx-row-progress i[data-state="done"] { background: var(--tone); opacity: .5; }
+.sx-row-progress i[data-state="current"], .sx-row-progress i[data-state="active"] { background: var(--tone); }
+/* the step being worked on pulses */
+.sx-row-progress i[data-state="active"] { animation: sx-step 1.4s ease-in-out infinite; }
+@keyframes sx-step { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .sx-row-progress i[data-state="active"] { animation: none; } }
+.sx-row-tokens, .sx-row-runs, .sx-row-cost { display: flex; justify-content: flex-end; gap: 5px; white-space: nowrap; }
+.sx-row-sep { color: var(--muted); opacity: .6; }
+.sx-row-cost { color: var(--text); }
+.sx-row[data-tone="running"] .sx-row-time { color: var(--tone); }
 .sx-table-note { margin: 9px 0; font-size: 11px; color: var(--muted); }
 
 /* Intake stays close to the register, with optional fields folded away. */
@@ -243,7 +256,7 @@
 }
 
 /* Global totals remain independent of table filters and pagination. */
-.sx-overview { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin:0 0 1.5rem; }
+.sx-overview { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin:0 0 1.5rem; }
 .sx-overview > div { display:flex; flex-direction:column; gap:.2rem; padding:1rem 1.25rem; border:1px solid var(--border,#dcd8cb); border-radius:12px; }
 .sx-overview strong { font:600 2rem/1.2 var(--font-mono,monospace); }
 .sx-overview small { opacity:.65; font-size:.8rem; }
@@ -272,3 +285,15 @@
 
 /* a commit hash in an explanation, linked to GitHub */
 .sx a.sx-commit-link { font-family: var(--mono); text-decoration: underline; text-underline-offset: 3px; }
+
+/* the AI worker at the top right of the submissions list: its state, model and OpenCode version,
+   and the live connection, in a small card level with the title */
+.sx-worker-card { flex-direction: column; align-items: flex-end; gap: 6px; margin-top: 6px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.sx-worker-card .sx-worker { display: grid; gap: 3px; justify-items: end; padding: 0; margin: 0; border: 0; background: none; font-size: 13px; }
+.sx-worker-card .ai-worker-line { display: flex; align-items: center; gap: 8px; }
+.sx-worker-card .ai-worker-detail { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 2px 10px; font: 11.5px var(--mono); color: var(--muted); }
+.sx-worker-card .ai-worker-note { max-width: 320px; text-align: right; font-size: 12px; }
+/* the connection shows only when it is not live (the worker's dot says enough) */
+.sx-worker-card .sx-live { font-size: 11px; }
+.sx-worker-card .sx-live[data-state="live"] { display: none; }
+@media (max-width: 760px) { .sx-worker-card { align-items: flex-start; } .sx-worker-card .sx-worker { justify-items: start; } .sx-worker-card .ai-worker-detail { justify-content: flex-start; } .sx-worker-card .ai-worker-note { text-align: left; } }

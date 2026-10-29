@@ -19,16 +19,17 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
         <h1>Submissions</h1>
         <p class="sx-lead">Send a news URL and follow its processing. All submitted sources appear below, newest first.</p>
       </div>
-      <div class="sx-head-side">
+      {/* the AI worker and the live connection, compact, at the top right */}
+      <aside class="sx-head-side sx-worker-card" aria-label="AI worker">
+        <section class="sx-worker" id="register-processing">{api ? "Checking the AI worker…" : "The submissions service is not connected."}</section>
         <span class="sx-live" id="register-connection" data-state="offline" role="status"><i aria-hidden="true"></i><span>{api ? "Connecting…" : "Offline"}</span></span>
-      </div>
+      </aside>
     </header>
 
     <section class="sx-overview" aria-label="All submissions" aria-live="polite">
       <div class="sx-overview-running"><strong id="register-running">—</strong><span>Running now</span><small>Active processing jobs</small></div>
       <div><strong id="register-total">—</strong><span>Total submissions</span><small>All sources and pages</small></div>
       <div><strong id="register-queued">—</strong><span>Queued</span><small>Cases waiting to run</small></div>
-      <div><strong id="register-paused">—</strong><span>Budget paused</span><small>Cases waiting for budget</small></div>
     </section>
 
     <section class="sx-compose" aria-labelledby="submit-source-title">
@@ -49,12 +50,10 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
       </form>
     </section>
 
-    <section class="sx-worker" id="register-processing" aria-label="AI worker">{api ? "Checking the AI worker…" : "The submissions service is not connected."}</section>
-
     <section class="sx-working" aria-labelledby="working-title">
       <h2 id="working-title">Working now <span id="register-working-count"></span></h2>
       <div class="sx-table" tabindex="0" role="region" aria-label="Currently running submissions">
-        <div class="sx-grid-head" aria-hidden="true"><span>Status</span><span>Source</span><span>Progress</span><span>Tokens in</span><span>Tokens out</span><span>Runs</span><span>Origin</span><span>Updated</span></div>
+        <div class="sx-grid-head" aria-hidden="true"><span>Received</span><span>ID</span><span>Source</span><span>Status</span><span>Tokens in/out</span><span>Runs · time</span><span>Cost</span></div>
         <ol class="sx-list" id="register-working" aria-live="polite"><li class="sx-empty">Checking active work…</li></ol>
       </div>
       <p class="sx-table-note">Live processing across all sources. Restarted submissions appear here when work begins.</p>
@@ -75,7 +74,7 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
     </div>
 
     <div class="sx-table" tabindex="0" role="region" aria-label="Submission table; scroll horizontally on smaller screens">
-    <div class="sx-grid-head" aria-hidden="true"><span>Status</span><span>Source</span><span>Progress</span><span>Tokens in</span><span>Tokens out</span><span>Runs</span><span>Origin</span><span>Updated</span></div>
+    <div class="sx-grid-head" aria-hidden="true"><span>Received</span><span>ID</span><span>Source</span><span>Status</span><span>Tokens in/out</span><span>Runs · time</span><span>Cost</span></div>
     <ol class="sx-list" id="register-rows" aria-live="polite" aria-busy="true">
       <li class="sx-empty">{api ? "Loading submissions…" : "Submissions are not available yet."}</li>
     </ol>

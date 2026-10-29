@@ -2,6 +2,7 @@
 // A row says what is happening (a pulsing status while running, its stage and attempt) or how it
 // ended and why, and links to the request's own page.
 import { renderProcessingStatus } from "../lib/ai-activity.js";
+import { runCost, planCost, formatUSD } from "../lib/model-cost.js";
 import { ID_PATTERN } from "../lib/submission-receipts.js";
 import { statusMeta, isRunning, STAGES, ORIGINS, relativeTime, fullTime, sourceParts } from "../lib/submission-status.js";
 
@@ -14,7 +15,7 @@ function initialize(root) {
   const base = root.dataset.base;
   const $ = (id) => document.getElementById(`register-${id}`);
   const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (className) n.className = className; return n; };
-  let cursors = [""], nextCursor = "", revision = "", rows = [], status = "";
+  let cursors = [""], nextCursor = "", revision = "", rows = [], status = "", plan = null;
   let socket, retryTimer, refreshTimer, tick, failures = 0, request, pending = false, disposed = false;
 
   function connection(text, state = "offline") { const c = $("connection"); c.dataset.state = state; c.querySelector("span").textContent = text; }
@@ -34,24 +35,50 @@ function initialize(root) {
     const meta = statusMeta(s), p = el("span", undefined, "sx-pill"); p.dataset.tone = meta.tone;
     p.append(el("i", undefined, "sx-dot"), document.createTextNode(meta.label)); return p;
   }
+  // One row, in the order a reader scans: when it came in, its short id, the source, where it is
+  // (status and the pipeline, the step being worked on pulsing), tokens read and written, AI runs and
+  // how long the request has taken, and what it cost (the plan's share when there is a plan).
+  const compact = (n) => { n = Number(n) || 0; return n >= 1e6 ? `${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(n >= 1e4 ? 0 : 1)}k` : String(n); };
+  const span = (sec) => { sec = Math.max(0, Math.round(sec)); return sec < 60 ? `${sec}s` : sec < 3600 ? `${Math.floor(sec / 60)}m ${String(sec % 60).padStart(2, "0")}s` : `${Math.floor(sec / 3600)}h ${String(Math.round((sec % 3600) / 60)).padStart(2, "0")}m`; };
+  const stamp = (sec) => { const d = new Date(sec * 1000), p = (x) => String(x).padStart(2, "0"); return { date: `${p(d.getMonth() + 1)}-${p(d.getDate())}`, time: `${p(d.getHours())}:${p(d.getMinutes())}` }; };
   function row(v) {
-    const meta = statusMeta(v.status);
+    const meta = statusMeta(v.status), running = isRunning(v.status), now = Date.now() / 1000;
     const li = el("li", undefined, "sx-row"); li.dataset.tone = meta.tone;
     const a = el("a", undefined, "sx-row-link"); a.href = `${base}submission/?id=${v.id}`; a.title = v.explanation;
+    // when it came in
+    const { date, time } = stamp(v.created_at);
+    const when = el("time", undefined, "sx-row-time"); when.dateTime = new Date(v.created_at * 1000).toISOString(); when.title = `Received ${fullTime(v.created_at)} · updated ${relativeTime(Math.max(v.created_at, v.updated_at || 0))}`;
+    when.append(el("span", date, "sx-row-date"), el("span", time));
+    const id = el("span", v.id.slice(0, 7), "sx-row-id"); id.title = `Receipt ${v.id}`;
+    // the source
     const { host, path } = sourceParts(v.url);
-    const src = el("span", undefined, "sx-row-source"); src.append(el("strong", host), el("span", path, "sx-path")); src.title = `${v.url}\n${v.explanation}`;
+    const src = el("span", undefined, "sx-row-source"); src.append(el("strong", host), el("span", path, "sx-path")); src.title = `${v.url}\n${ORIGINS[v.origin] || v.origin}${v.note ? ` · ${v.note}` : ""}`;
+    // where it is: the status, and under it the pipeline
+    const state = el("span", undefined, "sx-row-state");
+    const label = el("span", undefined, "sx-row-label"); label.append(el("i", undefined, "sx-dot"), document.createTextNode(meta.label));
     const progress = el("span", undefined, "sx-row-progress");
     const lastStage = meta.stage === 5 && !["committed", "published", "duplicate", "routed_to_cfi"].includes(v.status) && v.last_stage ? statusMeta(v.last_stage).stage : meta.stage;
     progress.setAttribute("role", "progressbar"); progress.setAttribute("aria-label", "Processing stage");
     progress.setAttribute("aria-valuemin", "0"); progress.setAttribute("aria-valuemax", "5"); progress.setAttribute("aria-valuenow", String(lastStage));
     progress.setAttribute("aria-valuetext", meta.label); progress.title = `${STAGES[lastStage]} · ${meta.label}${v.resume_at ? ` · resumes ${fullTime(v.resume_at)}` : ""}`;
-    for (let i = 0; i < STAGES.length; i++) { const part = el("i"); part.dataset.state = i < lastStage ? "done" : i === lastStage ? "current" : "todo"; progress.append(part); }
-    const number = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString() : "—";
-    const input = el("span", number(v.input_tokens), "sx-row-number"); input.title = "Tokens read across all attempts (new input and cached)";
-    const output = el("span", number(v.output_tokens), "sx-row-number"); output.title = "Tokens written across all attempts (answer and reasoning)";
-    const runs = el("span", number(v.run_count), "sx-row-number"); runs.title = "AI runs across all attempts";
-    const when = el("time", relativeTime(Math.max(v.created_at, v.updated_at || 0))); when.dateTime = new Date(Math.max(v.created_at, v.updated_at || 0) * 1000).toISOString(); when.title = `Updated ${fullTime(Math.max(v.created_at, v.updated_at || 0))}`;
-    a.append(pill(v.status), src, progress, input, output, runs, el("span", ORIGINS[v.origin] || v.origin, "sx-origin"), when);
+    for (let i = 0; i < STAGES.length; i++) { const part = el("i"); part.dataset.state = i < lastStage ? "done" : i === lastStage ? (running ? "active" : "current") : "todo"; progress.append(part); }
+    state.append(label, progress);
+    // tokens read and written
+    const tokens = el("span", undefined, "sx-row-tokens");
+    tokens.append(el("span", compact(v.input_tokens)), el("span", "/", "sx-row-sep"), el("span", compact(v.output_tokens)));
+    tokens.title = `${Number(v.input_tokens || 0).toLocaleString()} tokens read (new and cached) · ${Number(v.output_tokens || 0).toLocaleString()} written (answer and reasoning)`;
+    // AI runs and how long the request has taken (until now while it runs)
+    const list = Array.isArray(v.runs) ? v.runs : [];
+    const runTime = list.reduce((t, r) => t + (r.started_at ? (r.finished_at || (r.status === "running" ? now : r.started_at)) - r.started_at : 0), 0);
+    const total = (running ? now : Math.max(v.updated_at || 0, v.created_at)) - v.created_at;
+    const runs = el("span", undefined, "sx-row-runs");
+    runs.append(el("span", String(v.run_count || 0), "sx-row-count"), el("span", "·", "sx-row-sep"), el("span", span(total)));
+    runs.title = `${v.run_count || 0} AI ${v.run_count === 1 ? "run" : "runs"} (${span(runTime)} of research) · ${span(total)} from receipt${running ? " so far" : ""}`;
+    // cost: the plan's share, or the API price without a plan
+    const apiCost = list.reduce((t, r) => t + runCost(r), 0), share = planCost(apiCost, plan);
+    const cost = el("span", apiCost ? formatUSD(share || apiCost) : "—", "sx-row-cost");
+    cost.title = apiCost ? `${share ? `${formatUSD(share)} of the plan · ` : ""}${formatUSD(apiCost)} at API prices` : "No AI run yet";
+    a.append(when, id, src, state, tokens, runs, cost);
     li.append(a); return li;
   }
   function render() {
@@ -72,18 +99,18 @@ function initialize(root) {
       const data = await get(`/v1/submissions?${params}`, active.signal);
       if (disposed || active.signal.aborted) return;
       renderProcessingStatus($("processing"), data.processing, { compact: true });
+      plan = data.processing?.plan || null;
       const working = (data.working || []).filter(v => ID_PATTERN.test(v.id));
       $("working").replaceChildren(...working.map(row));
       if (!working.length) $("working").append(el("li", "No submissions are running right now.", "sx-empty"));
       $("working-count").textContent = Number.isFinite(data.summary?.running) ? `· ${data.summary.running.toLocaleString()}` : "";
       rows = data.submissions.filter((v) => ID_PATTERN.test(v.id));
       nextCursor = data.next_cursor; revision = data.revision; render();
-      for (const key of ["total", "running", "queued", "paused"]) {
+      for (const key of ["total", "running", "queued"]) {
         $(key).textContent = Number.isFinite(data.summary?.[key]) ? data.summary[key].toLocaleString() : "—";
       }
       const running = rows.filter((v) => isRunning(v.status)).length;
-      const paused = rows.filter(v => v.status === "budget_wait").length;
-      $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}${paused ? ` · ${paused} budget paused` : ""}`;
+      $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}`;
       $("message").textContent = cursors.length > 1 ? "Showing older submissions. Choose Newest to see new arrivals." : "";
     } catch {
       if (!active.signal.aborted) { $("message").textContent = "Submissions could not be refreshed; the last loaded list is kept."; if (!rows.length) $("rows").replaceChildren(el("li", "Submissions could not be loaded.", "sx-empty")); }

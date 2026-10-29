@@ -1006,7 +1006,48 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 	}
 	return d, nil
 }
+
+// buildLeftovers are what checking a draft with the site build leaves in a workspace: about 300 MB
+// of dependencies, npm cache and built pages, none of it needed once the check is over.
+var buildLeftovers = []string{"node_modules", "dist", ".npm", ".astro", ".cache"}
+
+// PruneBuild removes a workspace's build leftovers, keeping the draft and the repository copy the
+// commit step reads.
+func PruneBuild(dir string) {
+	for _, name := range buildLeftovers {
+		_ = os.RemoveAll(filepath.Join(dir, name))
+	}
+}
+
+// KeptFile says what a finished request's workspace keeps: the AI run's logs (the raw log view and
+// the token count read them), the build check's log and the evidence files.
+func KeptFile(name string) bool {
+	switch name {
+	case "research-events.jsonl", "research-stderr.log", "validation.log":
+		return true
+	}
+	return strings.HasPrefix(name, "evidence-") && strings.HasSuffix(name, ".json")
+}
+
+// PruneWorkspace empties a finished request's workspace down to its logs and evidence: the
+// repository copy, the research input and any session left by an interrupted run go.
+func PruneWorkspace(dir string) error {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return err
+	}
+	for _, e := range entries {
+		if !(e.Type().IsRegular() && KeptFile(e.Name())) {
+			if err := os.RemoveAll(filepath.Join(dir, e.Name())); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
 func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
+	defer PruneBuild(dir) // the check is over either way: its dependencies and output go
 	d, err := PrepareDraft(dir, r)
 	if err != nil {
 		return d, err

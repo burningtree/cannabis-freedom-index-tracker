@@ -69,6 +69,9 @@ export default defineConfig({
   base,
   vite: {
     server: {
+      // the Go backend's code and its job storage (thousands of files changing while research runs:
+      // repository copies, builds, logs) are nothing the site needs to reload for
+      watch: { ignored: ["**/backend/**", "**/.cache/**"] },
       proxy: {
         "/__submissions": {
           target: "http://127.0.0.1:8080",

@@ -19,6 +19,7 @@ type Config struct {
 	ResearchRunner, OpenCodeBinary, OpenCodeAuthFile                            string
 	AutoPublish                                                                 bool
 	AutoPush                                                                    bool // push the report repository after each report commit
+	WorkerConcurrency                                                           int  // requests worked on at the same time
 	SourceBrowser                                                               bool
 	DevControls                                                                 bool
 	RawAILogs                                                                   bool
@@ -49,6 +50,11 @@ func Load() (Config, error) {
 	c.AutoPublish, boolErr = strconv.ParseBool(env("AUTO_PUBLISH", "true"))
 	if boolErr != nil {
 		return c, errors.New("invalid AUTO_PUBLISH")
+	}
+	var concurrencyErr error
+	c.WorkerConcurrency, concurrencyErr = strconv.Atoi(env("WORKER_CONCURRENCY", "2"))
+	if concurrencyErr != nil || c.WorkerConcurrency < 1 || c.WorkerConcurrency > 8 {
+		return c, errors.New("WORKER_CONCURRENCY must be 1 to 8")
 	}
 	c.AutoPush, boolErr = strconv.ParseBool(env("AUTO_PUSH", "true"))
 	if boolErr != nil {

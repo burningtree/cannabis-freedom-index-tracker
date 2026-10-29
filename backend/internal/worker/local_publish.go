@@ -10,15 +10,20 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 )
 
 var reportPath = regexp.MustCompile(`^reports/[0-9]{4}/[0-9]{2}/[a-z0-9]+(?:-[a-z0-9]+)*\.md$`)
 
+var pushMu sync.Mutex
+
 // pushRepo pushes the report repository's current branch to its upstream (origin), using the
 // machine's own Git credentials. Bounded in time; the last line of Git's message says why it failed.
 func pushRepo(ctx context.Context, repo string) error {
+	pushMu.Lock() // one push at a time: concurrent jobs would trip over Git's ref locks
+	defer pushMu.Unlock()
 	pushCtx, cancel := context.WithTimeout(ctx, 90*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(pushCtx, "git", "push", "--quiet", "origin", "HEAD")
@@ -60,8 +65,16 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 		return "", err
 	}
 	defer lock.Close()
-	if err = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
-		return "", errors.New("another report is being committed")
+	// with several jobs at once, two reports can be ready together: wait for the other commit (and
+	// its push) rather than failing the job
+	for waited := time.Duration(0); ; waited += 250 * time.Millisecond {
+		if err = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err == nil {
+			break
+		}
+		if waited >= 2*time.Minute || ctx.Err() != nil {
+			return "", errors.New("another report is being committed")
+		}
+		time.Sleep(250 * time.Millisecond)
 	}
 	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
 	content, err := os.ReadFile(filepath.Join(d.Dir, d.Rel))

@@ -2,6 +2,7 @@ package store
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"strconv"
 )
@@ -14,19 +15,21 @@ type SubmissionEntry struct {
 	InputTokens  int64  `json:"input_tokens"`
 	OutputTokens int64  `json:"output_tokens"`
 	RunCount     int64  `json:"run_count"`
-	ID           string `json:"id"`
-	Origin       string `json:"origin"`
-	URL          string `json:"url"`
-	Note         string `json:"note"`
-	CaseID       string `json:"case_id"`
-	Status       string `json:"status"`
-	Explanation  string `json:"explanation"`
-	ReportSlug   string `json:"report_slug,omitempty"`
-	PRURL        string `json:"pr_url,omitempty"`
-	NostrEventID string `json:"nostr_event_id,omitempty"`
-	ReplyEventID string `json:"reply_event_id,omitempty"`
-	CreatedAt    int64  `json:"created_at"`
-	UpdatedAt    int64  `json:"updated_at"`
+	// the request's AI runs, newest first: model, times and tokens, for its duration and cost
+	Runs         json.RawMessage `json:"runs"`
+	ID           string          `json:"id"`
+	Origin       string          `json:"origin"`
+	URL          string          `json:"url"`
+	Note         string          `json:"note"`
+	CaseID       string          `json:"case_id"`
+	Status       string          `json:"status"`
+	Explanation  string          `json:"explanation"`
+	ReportSlug   string          `json:"report_slug,omitempty"`
+	PRURL        string          `json:"pr_url,omitempty"`
+	NostrEventID string          `json:"nostr_event_id,omitempty"`
+	ReplyEventID string          `json:"reply_event_id,omitempty"`
+	CreatedAt    int64           `json:"created_at"`
+	UpdatedAt    int64           `json:"updated_at"`
 	sequence     int64
 }
 type SubmissionSummary struct {
@@ -99,7 +102,8 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
  coalesce((SELECT sum(input_tokens+cache_read_tokens) FROM research_runs WHERE case_id=c.id),0),
  coalesce((SELECT sum(output_tokens+reasoning_tokens) FROM research_runs WHERE case_id=c.id),0),
  (SELECT count(*) FROM research_runs WHERE case_id=c.id),
- coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0)
+ coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0),
+ coalesce((SELECT json_group_array(json_object('model',model,'status',status,'started_at',coalesce(started_at,0),'finished_at',coalesce(finished_at,0),'input_tokens',input_tokens,'output_tokens',output_tokens,'reasoning_tokens',reasoning_tokens,'cache_read_tokens',cache_read_tokens,'cache_write_tokens',cache_write_tokens,'cost_usd',cost_usd)) FROM (SELECT * FROM research_runs WHERE case_id=c.id ORDER BY rowid DESC LIMIT 20)),'[]')
  FROM submissions s JOIN cases c ON c.id=s.case_id`
 	rows, err := tx.QueryContext(ctx, projection+where+` AND s.rowid<? ORDER BY s.rowid DESC LIMIT 51`, args...)
 	if err != nil {
@@ -107,10 +111,12 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 	}
 	for rows.Next() {
 		var v SubmissionEntry
-		if err = rows.Scan(&v.sequence, &v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &v.UpdatedAt, &v.LastStage, &v.InputTokens, &v.OutputTokens, &v.RunCount, &v.ResumeAt); err != nil {
+		var runs string
+		if err = rows.Scan(&v.sequence, &v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &v.UpdatedAt, &v.LastStage, &v.InputTokens, &v.OutputTokens, &v.RunCount, &v.ResumeAt, &runs); err != nil {
 			rows.Close()
 			return out, err
 		}
+		v.Runs = json.RawMessage(runs)
 		out.Submissions = append(out.Submissions, v)
 	}
 	err = rows.Err()
@@ -132,10 +138,12 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor int64, status, origi
 	}
 	for active.Next() {
 		var v SubmissionEntry
-		if err = active.Scan(&v.sequence, &v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &v.UpdatedAt, &v.LastStage, &v.InputTokens, &v.OutputTokens, &v.RunCount, &v.ResumeAt); err != nil {
+		var runs string
+		if err = active.Scan(&v.sequence, &v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &v.UpdatedAt, &v.LastStage, &v.InputTokens, &v.OutputTokens, &v.RunCount, &v.ResumeAt, &runs); err != nil {
 			active.Close()
 			return out, err
 		}
+		v.Runs = json.RawMessage(runs)
 		out.Working = append(out.Working, v)
 	}
 	err = active.Err()
