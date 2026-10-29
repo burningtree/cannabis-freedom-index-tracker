@@ -1,0 +1,55 @@
+---
+// All submitted sources and what became of them: one compact row each, linking to the request's own
+// page (/submission/?id=). Rows, the AI worker line and the connection state are filled by
+// src/scripts/submissions-table.js from the submissions API, live over a WebSocket.
+import Base from "../layouts/Base.astro";
+import { submissionsAPI as api } from "../lib/submissions-config.js";
+import { FILTERS, ORIGINS } from "../lib/submission-status.js";
+import "../styles/submissions-ui.css";
+import "../styles/ai-activity.css";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Submissions" description="Every source sent to the tracker: what is being researched, what was published and why the rest was not." wide>
+  <div class="sx" data-submission-register data-api={api} data-base={base}>
+    <header class="sx-head">
+      <div>
+        <h1>Submissions</h1>
+        <p class="sx-lead">Every source sent to the tracker, newest first: what the AI is researching now, what was published, and why the rest was not.</p>
+      </div>
+      <div class="sx-head-side">
+        <span class="sx-live" id="register-connection" data-state="offline" role="status"><i aria-hidden="true"></i><span>{api ? "Connecting…" : "Offline"}</span></span>
+        <a class="sx-btn sx-btn-primary" href={`${base}submit/`}>Submit a source</a>
+      </div>
+    </header>
+
+    <section class="sx-worker" id="register-processing" aria-label="AI worker">{api ? "Checking the AI worker…" : "The submissions service is not connected."}</section>
+
+    <div class="sx-toolbar">
+      <div class="sx-filters" role="group" aria-label="Filter by status">
+        {FILTERS.map(([value, label]) => <button type="button" class="sx-chip" data-filter={value} aria-pressed={value === "" ? "true" : "false"} disabled={!api}>{label}</button>)}
+      </div>
+      <div class="sx-toolbar-side">
+        <select id="register-origin" aria-label="Filter by source" disabled={!api}>
+          <option value="">All sources</option>
+          {Object.entries(ORIGINS).map(([value, label]) => <option value={value}>{label}</option>)}
+        </select>
+        <span id="register-count" class="sx-count"></span>
+      </div>
+    </div>
+
+    <ol class="sx-list" id="register-rows" aria-live="polite" aria-busy="true">
+      <li class="sx-empty">{api ? "Loading submissions…" : "Submissions are not available yet."}</li>
+    </ol>
+    <p id="register-message" class="sx-message" role="status"></p>
+
+    <nav class="sx-pager" aria-label="Pages">
+      <button id="register-newest" type="button" class="sx-btn" disabled>Newest</button>
+      <button id="register-previous" type="button" class="sx-btn" disabled>← Newer</button>
+      <span id="register-page">Page 1</span>
+      <button id="register-next" type="button" class="sx-btn" disabled>Older →</button>
+    </nav>
+    <p class="sx-foot">Sources come from the website, Nostr and automatic discovery (RSS, GDELT). Addresses, public notes and outcomes are public; private research evidence is not shown.</p>
+    <noscript><p>JavaScript is needed to load submissions.</p></noscript>
+  </div>
+  <script>import "../scripts/submissions-table.js";</script>
+</Base>

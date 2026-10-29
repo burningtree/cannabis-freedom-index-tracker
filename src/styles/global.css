@@ -360,3 +360,9 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 }
 /* pinned while the text scrolls, only where the window is tall enough to show the whole column */
 @media (min-width: 1200px) and (min-height: 1000px) { .report-side { position: sticky; top: 76px; } }
+
+/* the top bar on a phone: the menu fits one row, the GitHub link waits for a wider screen */
+@media (max-width: 640px) {
+  .nav { gap: 12px; font-size: 14px; }
+  .github-link { display: none; }
+}

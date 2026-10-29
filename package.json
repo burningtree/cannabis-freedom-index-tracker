@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
+    "backend-dev": "node scripts/backend-dev.mjs",
     "test": "node --test scripts/*.test.mjs",
     "prebuild": "npm test",
     "build": "astro build",

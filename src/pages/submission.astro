@@ -1,0 +1,31 @@
+---
+// One submitted source: what it is, where it stands in the pipeline, what came out of it and why,
+// the AI run that researched it (with its live chat) and its history, grouped by attempt. Filled
+// by src/scripts/submissions.js from the submissions API; updates live while it runs.
+import Base from "../layouts/Base.astro";
+import { submissionsAPI as api } from "../lib/submissions-config.js";
+import "../styles/submissions-ui.css";
+import "../styles/ai-activity.css";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Submission" description="Follow a submitted source from intake to research, review and publication." wide>
+  <div class="sx sx-detail" data-submission-status data-api={api} data-base={base}>
+    <nav class="sx-crumbs"><a href={`${base}submissions/`}>Submissions</a> <span aria-hidden="true">/</span> <span id="crumb-id">Request</span></nav>
+    <p id="status-message" class="sx-message" role="status" aria-live="polite">{api ? "Loading the submission…" : "Submission status is not available yet."}</p>
+    <header id="submission-detail" class="sx-hero" hidden></header>
+    <ol id="submission-stages" class="sx-stages" aria-label="Progress" hidden></ol>
+    <div class="sx-detail-grid" id="submission-body" hidden>
+      <div class="sx-detail-main">
+        <section id="submission-output" class="sx-card sx-output" aria-label="Outcome"></section>
+        <section id="submission-ai" class="sx-card ai-panel" aria-label="AI research and live activity"></section>
+      </div>
+      <aside class="sx-detail-side">
+        <section id="submission-history" class="sx-card" aria-label="History"></section>
+        <section id="submission-facts" class="sx-card" aria-label="Details"></section>
+      </aside>
+    </div>
+    <p class="sx-foot">This page is a public link: anyone with it can follow this submission. <a href={`${base}submit/`}>Submit another source →</a></p>
+    <noscript><p>JavaScript is needed to load this submission.</p></noscript>
+  </div>
+  <script>import "../scripts/submissions.js";</script>
+</Base>

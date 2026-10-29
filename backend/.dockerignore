@@ -1,0 +1,4 @@
+data
+tracker
+*.sqlite*
+*.env

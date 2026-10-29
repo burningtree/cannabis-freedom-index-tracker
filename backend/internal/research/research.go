@@ -1,0 +1,593 @@
+// Package research treats model output as a draft proposal, never verified evidence.
+package research
+
+import (
+	"bufio"
+	"bytes"
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/config"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/safeurl"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
+	"gopkg.in/yaml.v3"
+	"io"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"strings"
+	"time"
+)
+
+type Source struct {
+	URL       string `json:"url"`
+	Title     string `json:"title"`
+	Publisher string `json:"publisher"`
+}
+type Fact struct {
+	Text   string `json:"text"`
+	Source int    `json:"source"`
+	Quote  string `json:"quote"`
+}
+type Result struct {
+	Outcome        string   `json:"outcome"`
+	Country        string   `json:"country"`
+	Date           string   `json:"incident_date"`
+	Type           string   `json:"type"`
+	Sources        []Source `json:"sources"`
+	Facts          []Fact   `json:"facts"`
+	Slug           string   `json:"proposed_slug"`
+	Title          string   `json:"title"`
+	Summary        string   `json:"summary"`
+	ExistingReport string   `json:"existing_report"`
+	Explanation    string   `json:"explanation"`
+	Uncertainties  []string `json:"uncertainties"`
+}
+
+var slug = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
+var plain = regexp.MustCompile("[<>\\[\\]`*\\x00-\\x08]")
+
+func Strict(data []byte) (Result, error) {
+	var r Result
+	d := json.NewDecoder(bytes.NewReader(data))
+	d.DisallowUnknownFields()
+	if err := d.Decode(&r); err != nil {
+		return r, err
+	}
+	if d.Decode(new(any)) != io.EOF {
+		return r, errors.New("extra research output")
+	}
+	return r, nil
+}
+func (r Result) Validate(countries map[string]bool) error {
+	switch r.Outcome {
+	case "new_event", "existing_case", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review":
+	default:
+		return errors.New("invalid outcome")
+	}
+	if len(r.Explanation) < 10 || len(r.Explanation) > 1500 || plain.MatchString(r.Explanation) {
+		return errors.New("invalid explanation")
+	}
+	if len(r.Sources) > 8 || len(r.Facts) > 30 {
+		return errors.New("result exceeds bounds")
+	}
+	for _, s := range r.Sources {
+		if _, err := safeurl.Normalize(s.URL); err != nil {
+			return err
+		}
+		if s.Title == "" || s.Publisher == "" || len(s.Title) > 500 || len(s.Publisher) > 200 {
+			return errors.New("invalid source metadata")
+		}
+	}
+	if (r.Outcome == "not_relevant" || r.Outcome == "routed_to_cfi") && len(r.Sources) == 0 {
+		return errors.New("classification requires an opened source")
+	}
+	if r.Outcome != "new_event" && r.Outcome != "existing_case" {
+		return nil
+	}
+	if r.Outcome == "existing_case" && (r.ExistingReport == "" || r.Slug != r.ExistingReport) {
+		return errors.New("existing-case update must preserve its slug")
+	}
+	date, err := time.Parse("2006-01-02", r.Date)
+	if err != nil || date.Year() < 2000 || date.After(time.Now().Add(24*time.Hour)) {
+		return errors.New("invalid incident date")
+	}
+	if !countries[r.Country] || !slug.MatchString(r.Slug) || len(r.Slug) > 100 {
+		return errors.New("invalid country or slug")
+	}
+	if !strings.Contains("|eradication|seizure|raid|arrest|prosecution|sentence|death|", "|"+r.Type+"|") {
+		return errors.New("type must be routed or reviewed")
+	}
+	if len(r.Title) == 0 || len(r.Title) > 120 || len(r.Summary) == 0 || len(r.Summary) > 400 || plain.MatchString(r.Title) || plain.MatchString(r.Summary) {
+		return errors.New("invalid title or summary")
+	}
+	if len(r.Sources) == 0 || len(r.Facts) == 0 {
+		return errors.New("missing evidence")
+	}
+	used := map[int]bool{}
+	for _, f := range r.Facts {
+		if f.Source < 1 || f.Source > len(r.Sources) || len(f.Text) < 10 || len(f.Text) > 2000 || len(f.Quote) < 20 || len(f.Quote) > 4000 || plain.MatchString(f.Text) {
+			return errors.New("invalid fact or source reference")
+		}
+		used[f.Source] = true
+	}
+	if len(used) != len(r.Sources) {
+		return errors.New("uncited source")
+	}
+	return nil
+}
+func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl.Evidence, error) {
+	out := []safeurl.Evidence{}
+	for i, s := range r.Sources {
+		u, err := safeurl.Normalize(s.URL)
+		if err != nil {
+			return nil, err
+		}
+		e := initial
+		if (u != initial.URL && u != initial.FinalURL) || initial.Content == "" {
+			e, err = safeurl.Fetch(ctx, u)
+			if err != nil {
+				return nil, err
+			}
+		}
+		for _, f := range r.Facts {
+			if f.Source == i+1 && !strings.Contains(e.Content, f.Quote) {
+				return nil, errors.New("supporting quotation missing from opened source")
+			}
+		}
+		out = append(out, e)
+	}
+	return out, nil
+}
+func (r Result) Markdown() string {
+	// JSON is valid YAML: quote every model-supplied value rather than interpolating YAML syntax.
+	var b strings.Builder
+	b.WriteString("---\n")
+	fields := []struct {
+		k string
+		v any
+	}{{"date", r.Date}, {"country", r.Country}, {"type", r.Type}, {"title", r.Title}, {"summary", r.Summary}, {"status", "reported"}, {"sources", r.Sources}}
+	for _, f := range fields {
+		fmt.Fprintf(&b, "%s: %s\n", f.k, store.JSON(f.v))
+	}
+	b.WriteString("---\n\n")
+	for _, f := range r.Facts {
+		fmt.Fprintf(&b, "%s [@%d]\n\n", f.Text, f.Source)
+	}
+	return b.String()
+}
+
+type Runner struct {
+	Config config.Config
+	Store  *store.Store
+}
+
+// Snapshot uses only trusted committed repository files. Model code never runs on the host.
+func (r Runner) Snapshot(ctx context.Context, cid string) (string, error) {
+	root, err := filepath.Abs(r.Config.Workspaces)
+	if err != nil {
+		return "", err
+	}
+	if err = os.MkdirAll(root, 0700); err != nil {
+		return "", err
+	}
+	dir, err := os.MkdirTemp(root, cid+"-")
+	if err != nil {
+		return "", err
+	}
+	repo, err := filepath.Abs(r.Config.RepoPath)
+	if err != nil {
+		return "", err
+	}
+	cmd := exec.CommandContext(ctx, "git", "clone", "--no-hardlinks", "--local", "--", repo, dir)
+	if err = cmd.Run(); err != nil {
+		return "", errors.New("isolated checkout failed")
+	}
+	// Private repository metadata never goes into the research container.
+	return dir, nil
+}
+
+type capped struct {
+	bytes.Buffer
+	Max int
+}
+
+func (b *capped) Write(p []byte) (int, error) {
+	if b.Len()+len(p) > b.Max {
+		return 0, errors.New("output limit")
+	}
+	return b.Buffer.Write(p)
+}
+func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidence, coverage []byte) (result Result, runErr error) {
+	var events *eventWriter
+	if err := r.Store.StartRun(ctx, run, r.Config.ResearchModel, r.Config.ResearchRunner); err != nil {
+		return Result{}, err
+	}
+	if err := r.Store.AddAIEvent(ctx, cid, run, "user", "request", "Investigate the submitted source, confirm the event and follow the tracker editorial rules."); err != nil {
+		return Result{}, err
+	}
+	defer func() {
+		endCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		status := "completed"
+		if runErr != nil {
+			status = "failed"
+			// say why, in words: the data is public, only credentials are redacted
+			why := runErr.Error()
+			if events != nil {
+				why = events.safe(why)
+			}
+			_ = r.Store.AddAIEvent(endCtx, cid, run, "system", "error", "The OpenCode run could not complete: "+why+". Processing will retry automatically within its limits.")
+		}
+		_ = r.Store.EndRun(endCtx, run, status, result.Outcome)
+	}()
+
+	_, err := r.Store.DB.ExecContext(ctx, "UPDATE research_runs SET workspace=? WHERE id=?", dir, run)
+	if err != nil {
+		return Result{}, err
+	}
+	// Bound model input independently of the larger private evidence archive.
+	if len(e.Content) > 100000 {
+		e.Content = e.Content[:100000]
+	}
+	input := filepath.Join(dir, ".research-input")
+	if err = os.Mkdir(input, 0755); err != nil {
+		return Result{}, err
+	}
+	// Mount an explicit allowlist, not the repository's .git, environment, or production DB.
+	var reportRows []json.RawMessage
+	if err = json.Unmarshal(coverage, &reportRows); err != nil {
+		return Result{}, err
+	}
+	var index strings.Builder
+	for _, row := range reportRows {
+		index.Write(row)
+		index.WriteByte('\n')
+	}
+	files := map[string][]byte{"request.json": []byte(store.JSON(map[string]any{"case_id": cid, "source": e, "existing_reports_index": "reports-index.jsonl", "initial_source_unavailable": e.Content == ""})), "reports-index.jsonl": []byte(index.String())}
+	for _, path := range []string{"docs/CFI.md", "docs/WRITING.md", ".claude/skills/add-report/SKILL.md", ".claude/skills/find-reports/SKILL.md", ".opencode/agents/enforcement-researcher.md", "src/data/countries.json"} {
+		b, err := os.ReadFile(filepath.Join(r.Config.RepoPath, path))
+		if err != nil {
+			return Result{}, err
+		}
+		if path == "src/data/countries.json" {
+			var countries []struct {
+				ID   string `json:"id"`
+				Name string `json:"name"`
+			}
+			if err = json.Unmarshal(b, &countries); err != nil {
+				return Result{}, err
+			}
+			b = []byte(store.JSON(countries))
+		}
+		if path == ".opencode/agents/enforcement-researcher.md" && r.Config.ResearchMaxSteps > 0 {
+			b = regexp.MustCompile(`(?m)^steps: \d+$`).ReplaceAll(b, []byte(fmt.Sprintf("steps: %d", r.Config.ResearchMaxSteps)))
+		}
+		files[path] = b
+	}
+	files["opencode.json"] = r.modelConfig()
+	for path, b := range files {
+		target := filepath.Join(input, path)
+		if err = os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+			return Result{}, err
+		}
+		if err = os.WriteFile(target, b, 0644); err != nil {
+			return Result{}, err
+		}
+	}
+	cmd, cleanup, err := r.command(ctx, input, run)
+	if err != nil {
+		return Result{}, err
+	}
+	defer cleanup()
+	out := &capped{Max: 4 * 1024 * 1024}
+	events = &eventWriter{ctx: ctx, store: r.Store, cid: cid, run: run, secret: r.Config.ResearchKey}
+	raw, err := os.OpenFile(filepath.Join(dir, "research-events.jsonl"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)
+	if err != nil {
+		return Result{}, err
+	}
+	defer raw.Close()
+	diagnostics, err := os.OpenFile(filepath.Join(dir, "research-stderr.log"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)
+	if err != nil {
+		return Result{}, err
+	}
+	defer diagnostics.Close()
+	stderr := &capped{Max: 256 * 1024}
+	cmd.Stdout = io.MultiWriter(out, raw, events)
+	cmd.Stderr = io.MultiWriter(stderr, diagnostics)
+	err = cmd.Run()
+	if err != nil {
+		return Result{}, runnerFailure(ctx, err, r.Config.ResearchTimeout, events.steps, stderr.String())
+	}
+	data, err := FinalText(out.Bytes())
+	if err != nil {
+		if err.Error() == "missing final result" {
+			return Result{}, fmt.Errorf("OpenCode stopped after %d model steps without a final answer (the limit is %d steps)", events.steps, r.Config.ResearchMaxSteps)
+		}
+		return Result{}, err
+	}
+	if !bytes.HasPrefix(bytes.TrimSpace(data), []byte("{")) {
+		return Result{}, fmt.Errorf("OpenCode ended after %d model steps with notes instead of the JSON answer the tracker needs (the limit is %d steps; it probably ran out of them)", events.steps, r.Config.ResearchMaxSteps)
+	}
+	result, err = Strict(data)
+	if err != nil {
+		return Result{}, fmt.Errorf("the final answer was rejected by the result check (%v)", err)
+	}
+	if result.Explanation != "" {
+		if err = r.Store.AddAIEvent(ctx, cid, run, "assistant", "result", events.safe(result.Explanation)); err != nil {
+			return Result{}, err
+		}
+	}
+	return result, nil
+}
+
+// Why the OpenCode process ended badly, for the public chat: a timeout, a stop, or its exit code
+// with the last line it printed.
+func runnerFailure(ctx context.Context, err error, timeout time.Duration, steps int, stderr string) error {
+	switch {
+	case errors.Is(ctx.Err(), context.DeadlineExceeded):
+		return fmt.Errorf("it ran out of time after %s and %d model steps", timeout.Round(time.Second), steps)
+	case ctx.Err() != nil:
+		return fmt.Errorf("it was stopped after %d model steps", steps)
+	}
+	msg := fmt.Sprintf("reading OpenCode's output failed after %d model steps (%v)", steps, err)
+	var exit *exec.ExitError
+	if errors.As(err, &exit) {
+		msg = fmt.Sprintf("OpenCode exited with code %d after %d model steps", exit.ExitCode(), steps)
+	}
+	lines := strings.Split(strings.TrimSpace(stderr), "\n")
+	if last := strings.TrimSpace(lines[len(lines)-1]); last != "" {
+		if r := []rune(last); len(r) > 300 {
+			last = string(r[len(r)-300:])
+		}
+		msg += ": " + last
+	}
+	return errors.New(msg)
+}
+
+// OpenCode's --format json emits events; it is not the result JSON itself.
+func FinalText(stream []byte) ([]byte, error) {
+	scanner := bufio.NewScanner(bytes.NewReader(stream))
+	scanner.Buffer(make([]byte, 4096), 4*1024*1024)
+	var final strings.Builder
+	var artifact []byte
+	for scanner.Scan() {
+		var e struct {
+			Type string `json:"type"`
+			Part struct {
+				Text string `json:"text"`
+			} `json:"part"`
+		}
+		if err := json.Unmarshal(scanner.Bytes(), &e); err != nil {
+			return nil, errors.New("invalid execution stream")
+		}
+		if e.Type == "error" {
+			var withError struct {
+				Error struct {
+					Name string `json:"name"`
+					Data struct {
+						Message string `json:"message"`
+					} `json:"data"`
+					Message string `json:"message"`
+				} `json:"error"`
+			}
+			_ = json.Unmarshal(scanner.Bytes(), &withError)
+			why := strings.TrimSpace(withError.Error.Data.Message + " " + withError.Error.Message)
+			if why == "" {
+				why = withError.Error.Name
+			}
+			if why == "" {
+				return nil, errors.New("OpenCode reported an error during the run")
+			}
+			return nil, fmt.Errorf("OpenCode reported an error: %s", why)
+		}
+		if e.Type == "text" {
+			final.WriteString(e.Part.Text)
+			candidate := []byte(strings.TrimSpace(e.Part.Text))
+			if json.Valid(candidate) && bytes.HasPrefix(candidate, []byte("{")) {
+				artifact = append([]byte(nil), candidate...)
+			}
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+	if len(artifact) > 0 {
+		return artifact, nil
+	}
+	text := strings.TrimSpace(final.String())
+	if text == "" {
+		return nil, errors.New("missing final result")
+	}
+	// the model sometimes writes a few words before its JSON answer: take the last complete object
+	if object := lastJSONObject(text); object != nil {
+		return object, nil
+	}
+	return []byte(text), nil // plain text (the startup probe's "OK"); a research run needs JSON
+}
+
+// The last complete JSON object in a text (the answer after any prose), or nil.
+func lastJSONObject(text string) []byte {
+	var found []byte
+	for i := 0; i < len(text); i++ {
+		if text[i] != '{' {
+			continue
+		}
+		dec := json.NewDecoder(strings.NewReader(text[i:]))
+		var raw json.RawMessage
+		if dec.Decode(&raw) == nil && bytes.HasPrefix(bytes.TrimSpace(raw), []byte("{")) {
+			found = append([]byte(nil), raw...)
+			i += int(dec.InputOffset()) - 1
+		}
+	}
+	return found
+}
+func SaveEvidence(dir string, values []safeurl.Evidence) error {
+	for i, e := range values {
+		b := []byte(store.JSON(e))
+		sum := sha256.Sum256(b)
+		name := fmt.Sprintf("evidence-%d-%s.json", i+1, hex.EncodeToString(sum[:8]))
+		if err := os.WriteFile(filepath.Join(dir, name), b, 0600); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type Draft struct{ Path, PreviousPath, Content string }
+
+// PrepareDraft changes only a proposed report in the disposable checkout. Existing-case
+// updates retain source numbering, original prose, assets and the report's stable slug.
+func PrepareDraft(dir string, r Result) (Draft, error) {
+	rel := filepath.ToSlash(filepath.Join("reports", r.Date[:4], r.Date[5:7], r.Slug+".md"))
+	d := Draft{Path: rel, Content: r.Markdown()}
+	var existing string
+	err := filepath.WalkDir(filepath.Join(dir, "reports"), func(path string, entry os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !entry.IsDir() && entry.Name() == r.Slug+".md" {
+			if existing != "" {
+				return errors.New("ambiguous existing slug")
+			}
+			existing = path
+		}
+		return nil
+	})
+	if err != nil {
+		return d, err
+	}
+	if r.Outcome == "existing_case" {
+		if existing == "" || r.ExistingReport != r.Slug {
+			return d, errors.New("existing report not found")
+		}
+		b, err := os.ReadFile(existing)
+		if err != nil {
+			return d, err
+		}
+		parts := strings.SplitN(string(b), "---", 3)
+		if len(parts) != 3 {
+			return d, errors.New("invalid existing report")
+		}
+		var header map[string]any
+		if err = yaml.Unmarshal([]byte(parts[1]), &header); err != nil {
+			return d, err
+		}
+		if header["country"] != r.Country {
+			return d, errors.New("existing report country differs")
+		}
+		var oldDate string
+		switch date := header["date"].(type) {
+		case time.Time:
+			oldDate = date.Format("2006-01-02")
+		case string:
+			oldDate = date
+		default:
+			return d, errors.New("invalid existing date")
+		}
+		if r.Date < oldDate {
+			return d, errors.New("earlier coverage requires editorial consolidation")
+		}
+		oldSources, ok := header["sources"].([]any)
+		if !ok || len(oldSources) == 0 {
+			return d, errors.New("invalid existing sources")
+		}
+		mapping := map[int]int{}
+		for i, source := range r.Sources {
+			normalized, err := safeurl.Normalize(source.URL)
+			if err != nil {
+				return d, err
+			}
+			for j, raw := range oldSources {
+				if old, ok := raw.(map[string]any); ok {
+					if oldURL, ok := old["url"].(string); ok {
+						known, _ := safeurl.Normalize(oldURL)
+						if known == normalized {
+							mapping[i+1] = j + 1
+							break
+						}
+					}
+				}
+			}
+			if mapping[i+1] == 0 {
+				oldSources = append(oldSources, source)
+				mapping[i+1] = len(oldSources)
+			}
+		}
+		oldType, _ := header["type"].(string)
+		if oldType != r.Type && oldType != "" {
+			also, _ := header["also"].([]any)
+			seen := map[string]bool{}
+			combined := []any{}
+			for _, raw := range append(also, oldType) {
+				v, ok := raw.(string)
+				if ok && v != r.Type && !seen[v] {
+					combined = append(combined, v)
+					seen[v] = true
+				}
+			}
+			header["also"] = combined
+		}
+		header["date"] = r.Date
+		header["title"] = r.Title
+		header["summary"] = r.Summary
+		header["type"] = r.Type
+		header["sources"] = oldSources
+		if header["status"] != "disputed" {
+			header["status"] = "reported"
+		}
+		var body strings.Builder
+		body.WriteString("---\n")
+		body.WriteString(store.JSON(header))
+		body.WriteString("\n---\n\n")
+		body.WriteString(strings.TrimSpace(parts[2]))
+		body.WriteString("\n\n## Update\n\n")
+		for _, f := range r.Facts {
+			fmt.Fprintf(&body, "%s [@%d]\n\n", f.Text, mapping[f.Source])
+		}
+		d.Content = body.String()
+		previous, err := filepath.Rel(dir, existing)
+		if err != nil {
+			return d, err
+		}
+		d.PreviousPath = filepath.ToSlash(previous)
+	} else if existing != "" {
+		return d, errors.New("slug already exists; case matching required")
+	}
+	return d, nil
+}
+func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
+	d, err := PrepareDraft(dir, r)
+	if err != nil {
+		return d, err
+	}
+	target := filepath.Join(dir, d.Path)
+	if err = os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+		return d, err
+	}
+	if err = os.WriteFile(target, []byte(d.Content), 0644); err != nil {
+		return d, err
+	}
+	if d.PreviousPath != "" && d.PreviousPath != d.Path {
+		if err = os.Remove(filepath.Join(dir, d.PreviousPath)); err != nil {
+			return d, err
+		}
+	}
+	for _, args := range [][]string{{"ci", "--ignore-scripts", "--no-audit", "--no-fund"}, {"run", "build"}} {
+		cmd := exec.CommandContext(ctx, "npm", args...)
+		cmd.Dir = dir
+		cmd.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + dir, "CI=true"}
+		out := &capped{Max: 2 * 1024 * 1024}
+		cmd.Stdout = out
+		cmd.Stderr = out
+		if err := cmd.Run(); err != nil {
+			_ = os.WriteFile(filepath.Join(dir, "validation.log"), out.Bytes(), 0600)
+			return d, errors.New("draft did not pass repository build")
+		}
+	}
+	return d, nil
+}

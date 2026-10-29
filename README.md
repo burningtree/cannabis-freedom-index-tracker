@@ -299,3 +299,18 @@ The site address and base path come from the Pages settings, so the build also w
 ## Licence
 
 Code: MIT. Report texts and data: CC BY 4.0. Pictures keep their own licences, stated with each.
+
+## Public submissions and Nostr service
+
+The optional Go service in `backend/` adds anonymous source intake, durable receipts, Nostr mentions
+and replies, sandboxed OpenCode research, live model/session activity, and automatic GitHub publication after validation. Astro and the public
+report JSON API remain static. New pages: `/submit/`, `/submission/?id=…`, and `/submissions/` (a live public
+request table, intentionally absent from the menu).
+
+See [docs/NOSTR-SUBMISSIONS.md](docs/NOSTR-SUBMISSIONS.md) for setup, HTTP contracts, deployment,
+privacy, backups, research isolation and rollout requirements. Use `backend/config.example.env`
+for private service configuration and `.env.example` for public-only Astro build settings.
+Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials with `RESEARCH_MODEL=opencode-go/deepseek-v4.1-flash`. Do not prefix secrets with `PUBLIC_`. The form
+stays unavailable in production until `PUBLIC_SUBMISSIONS_API_URL` is set. For local work, run
+`npm run backend-dev` and `npm run dev` in separate terminals; the frontend connects to localhost automatically. Never include service secrets in an
+Astro build. Backend checks: `cd backend && go test -race ./... && go vet ./...`.

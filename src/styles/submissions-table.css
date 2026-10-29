@@ -1,0 +1,46 @@
+.submission-register { max-width: 1500px; margin-inline: auto; }
+.register-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+.register-eyebrow { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--text-2); margin-bottom: 16px; }
+.register-connection { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; font: 12px var(--mono); color: var(--text-2); margin-top: 12px; }
+.register-connection span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.register-connection[data-state=live] span { background: var(--cite); box-shadow: 0 0 0 4px color-mix(in srgb, var(--cite) 12%, transparent); }
+.register-toolbar { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; padding-block: 18px; border-block: 1px solid var(--border); }
+.register-toolbar label { display: grid; gap: 6px; color: var(--text-2); font-size: 12px; }
+.submission-register button, .submission-register select { min-height: 40px; border: 1px solid var(--border); border-radius: var(--r); padding: 8px 12px; color: var(--text); background: var(--surface); font: inherit; cursor: pointer; }
+.submission-register select { min-width: 170px; font-size: 14px; }
+.submission-register button:disabled { opacity: .4; cursor: default; }
+.submission-register :is(a, button, select, .register-table-wrap):focus-visible { outline: 2px solid var(--cite); outline-offset: 3px; }
+.register-count { margin-left: auto; padding-block: 9px; font: 12px var(--mono); color: var(--text-2); }
+.register-message { margin-block: 16px; min-height: 1.5em; color: var(--text-2); font-size: 13px; }
+.register-table-wrap { overflow-x: auto; border: 1px solid var(--border); }
+.register-table { width: 100%; border-collapse: collapse; min-width: 860px; table-layout: fixed; text-align: left; }
+.register-table th { background: var(--surface-2); color: var(--text-2); font: 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; padding: 14px 16px; }
+.register-table td { vertical-align: top; border-top: 1px solid var(--border); padding: 16px; font-size: 13px; }
+.register-table th:nth-child(1) { width: 145px; }
+.register-table th:nth-child(2) { width: 29%; }
+.register-table th:nth-child(3) { width: 84px; }
+.register-table th:nth-child(4) { width: 145px; }
+.register-table th:nth-child(6) { width: 96px; }
+.register-table time { font: 11px/1.7 var(--mono); color: var(--text-2); }
+.register-table .register-source { display: block; color: var(--cite); overflow-wrap: anywhere; }
+.register-receipt-id { display: block; margin-top: 8px; font: 10px var(--mono); color: var(--muted); }
+.register-origin { font: 11px var(--mono); text-transform: uppercase; }
+.register-state { display: inline-block; border: 1px solid var(--border); padding: 3px 7px; background: var(--surface); font-size: 12px; }
+.register-state[data-status=published], .register-state[data-status=duplicate] { border-color: var(--cite); }
+.register-table button { font-size: 12px; }
+.register-table .register-empty { padding: 40px 20px; text-align: center; color: var(--text-2); }
+.register-expanded td { background: var(--surface); padding: 24px; }
+.register-details { max-width: 1050px; }
+.register-details h2 { margin-top: 0; font-size: 24px; }
+.register-details dl { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 10px 18px; margin: 18px 0 24px; }
+.register-details dt { color: var(--text-2); }
+.register-details dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.register-details a { color: var(--cite); text-decoration: underline; text-underline-offset: 3px; }
+.register-history { padding-left: 20px; }
+.register-history li { padding-bottom: 14px; }
+.register-history p { margin-block: 5px; }
+.register-pagination { display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin-block: 20px; }
+.register-pagination span { font: 12px var(--mono); color: var(--text-2); margin-inline: 6px; }
+.register-footnote { font-size: 12px; color: var(--text-2); }
+.register-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@media(max-width:700px) { .register-heading { display: block; } .register-connection { margin-block: 18px 0; } .register-toolbar { gap: 12px; } .register-toolbar label { flex: 1; } .submission-register select { width: 100%; min-width: 140px; } .register-count { flex-basis: 100%; margin: 0; } .register-pagination { justify-content: flex-start; } .register-details dl { grid-template-columns: 90px minmax(0,1fr); } }

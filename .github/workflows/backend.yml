@@ -1,0 +1,23 @@
+name: Backend checks
+on:
+  push:
+    paths: ['backend/**', '.opencode/**', '.github/workflows/backend.yml']
+  pull_request:
+    paths: ['backend/**', '.opencode/**', '.github/workflows/backend.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - run: go test -race ./...
+      - run: go vet ./...
+      - run: go build ./cmd/tracker

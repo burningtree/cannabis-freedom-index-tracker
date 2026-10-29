@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+test "$(opencode --version)" = "1.17.13" || exit 78
+exec opencode "$@"

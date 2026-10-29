@@ -1,0 +1,410 @@
+package store
+
+import (
+	"context"
+	"crypto/rand"
+	"database/sql"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/migrations"
+	_ "modernc.org/sqlite"
+	"os"
+	"path/filepath"
+	"time"
+)
+
+var ErrConfiguration = errors.New("processing configuration is incomplete")
+
+var ErrBudget = errors.New("daily research budget reached")
+
+type Store struct{ DB *sql.DB }
+
+func ID() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		panic(err)
+	}
+	return hex.EncodeToString(b)
+}
+func Open(path string) (*Store, error) {
+	if path != ":memory:" {
+		if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
+			return nil, err
+		}
+	}
+	db, err := sql.Open("sqlite", path)
+	if err != nil {
+		return nil, err
+	}
+	db.SetMaxOpenConns(1)
+	for _, q := range []string{"PRAGMA journal_mode=WAL", "PRAGMA busy_timeout=5000", "PRAGMA foreign_keys=ON"} {
+		if _, err = db.Exec(q); err != nil {
+			db.Close()
+			return nil, err
+		}
+	}
+	entries, err := migrations.Files.ReadDir(".")
+	if err != nil {
+		db.Close()
+		return nil, err
+	}
+	if _, err = db.Exec(`CREATE TABLE IF NOT EXISTS schema_migrations(name TEXT PRIMARY KEY)`); err != nil {
+		db.Close()
+		return nil, err
+	}
+	for _, e := range entries {
+		if filepath.Ext(e.Name()) != ".sql" {
+			continue
+		}
+		var n int
+		if err = db.QueryRow("SELECT count(*) FROM schema_migrations WHERE name=?", e.Name()).Scan(&n); err != nil {
+			return nil, err
+		}
+		if n > 0 {
+			continue
+		}
+		b, _ := migrations.Files.ReadFile(e.Name())
+		tx, err := db.Begin()
+		if err != nil {
+			return nil, err
+		}
+		if _, err = tx.Exec(string(b)); err == nil {
+			_, err = tx.Exec("INSERT INTO schema_migrations VALUES(?)", e.Name())
+		}
+		if err != nil {
+			tx.Rollback()
+			db.Close()
+			return nil, err
+		}
+		if err = tx.Commit(); err != nil {
+			return nil, err
+		}
+	}
+	if path != ":memory:" {
+		if err = os.Chmod(path, 0600); err != nil {
+			db.Close()
+			return nil, err
+		}
+	}
+	return &Store{db}, nil
+}
+
+type History struct {
+	Status      string `json:"status"`
+	Explanation string `json:"explanation"`
+	CreatedAt   int64  `json:"created_at"`
+}
+type Submission struct {
+	ID           string    `json:"id"`
+	Origin       string    `json:"origin"`
+	URL          string    `json:"url"`
+	Note         string    `json:"note"`
+	CaseID       string    `json:"case_id"`
+	Status       string    `json:"status"`
+	Explanation  string    `json:"explanation"`
+	ReportSlug   string    `json:"report_slug,omitempty"`
+	PRURL        string    `json:"pr_url,omitempty"`
+	NostrEventID string    `json:"nostr_event_id,omitempty"`
+	ReplyEventID string    `json:"reply_event_id,omitempty"`
+	CreatedAt    int64     `json:"created_at"`
+	History      []History `json:"history"`
+}
+type Intake struct {
+	Origin, URL, CanonicalURL, Note, Author, EventID, EventRaw, Provenance, IdempotencyKey string
+	Gateway                                                                                bool
+}
+
+func (s *Store) Accept(ctx context.Context, in Intake) (string, error) {
+	tx, err := s.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return "", err
+	}
+	defer tx.Rollback()
+	if in.EventID != "" {
+		var id string
+		err = tx.QueryRowContext(ctx, "SELECT id FROM submissions WHERE origin_event_id=?", in.EventID).Scan(&id)
+		if err == nil {
+			return id, nil
+		}
+		if !errors.Is(err, sql.ErrNoRows) {
+			return "", err
+		}
+	}
+	if in.IdempotencyKey != "" {
+		var id string
+		err = tx.QueryRowContext(ctx, "SELECT submission_id FROM ingest_keys WHERE key=?", in.IdempotencyKey).Scan(&id)
+		if err == nil {
+			return id, nil
+		}
+		if !errors.Is(err, sql.ErrNoRows) {
+			return "", err
+		}
+	}
+	now := time.Now().Unix()
+	cid := ID()
+	_, err = tx.ExecContext(ctx, `INSERT INTO cases(id,canonical_url,created_at,updated_at) VALUES(?,?,?,?) ON CONFLICT(canonical_url) DO NOTHING`, cid, in.CanonicalURL, now, now)
+	if err != nil {
+		return "", err
+	}
+	var status, explanation string
+	if err = tx.QueryRowContext(ctx, "SELECT id,status,explanation FROM cases WHERE canonical_url=?", in.CanonicalURL).Scan(&cid, &status, &explanation); err != nil {
+		return "", err
+	}
+	var depth int
+	if err = tx.QueryRowContext(ctx, "SELECT count(*) FROM jobs WHERE status IN ('queued','running')").Scan(&depth); err != nil {
+		return "", err
+	}
+	if depth >= 1000 {
+		return "", errors.New("queue full")
+	}
+	id := ID()
+	var event any
+	if in.EventID != "" {
+		event = in.EventID
+	}
+	_, err = tx.ExecContext(ctx, `INSERT INTO submissions(id,origin,original_url,canonical_url,note,author,origin_event_id,case_id,created_at) VALUES(?,?,?,?,?,?,?,?,?)`, id, in.Origin, in.URL, in.CanonicalURL, in.Note, in.Author, event, cid, now)
+	if err != nil {
+		return "", err
+	}
+	if in.IdempotencyKey != "" {
+		if _, err = tx.ExecContext(ctx, "INSERT INTO ingest_keys VALUES(?,?)", in.IdempotencyKey, id); err != nil {
+			return "", err
+		}
+	}
+	_, err = tx.ExecContext(ctx, "INSERT INTO submission_history(submission_id,status,explanation,actor,created_at) VALUES(?,?,?,?,?)", id, status, explanation, "intake", now)
+	if err != nil {
+		return "", err
+	}
+	if _, err = tx.ExecContext(ctx, "INSERT INTO source_urls(url,case_id) VALUES(?,?) ON CONFLICT DO NOTHING", in.CanonicalURL, cid); err != nil {
+		return "", err
+	}
+	if _, err = tx.ExecContext(ctx, "INSERT INTO jobs(id,kind,ref,payload,available_at) VALUES(?,?,?,?,?) ON CONFLICT DO NOTHING", ID(), "research", cid, in.Provenance, now); err != nil {
+		return "", err
+	}
+	if in.EventID != "" {
+		if _, err = tx.ExecContext(ctx, "INSERT INTO nostr_events VALUES(?,?,?,?,?) ON CONFLICT DO NOTHING", in.EventID, in.EventRaw, "in", "submission", now); err != nil {
+			return "", err
+		}
+	}
+	if in.Gateway {
+		if err = Enqueue(tx, "outbox", "gateway", id, "{}", now); err != nil {
+			return "", err
+		}
+	}
+	if Terminal(status) && (in.Origin == "nostr" || in.Gateway) {
+		if err = Enqueue(tx, "outbox", "resolution", id+":"+status, "{}", now); err != nil {
+			return "", err
+		}
+	}
+	return id, tx.Commit()
+}
+func Enqueue(tx *sql.Tx, table, kind, ref, payload string, now int64) error {
+	if table != "jobs" && table != "outbox" {
+		return errors.New("invalid queue")
+	}
+	_, err := tx.Exec("INSERT INTO "+table+"(id,kind,ref,payload,available_at) VALUES(?,?,?,?,?) ON CONFLICT(kind,ref) DO NOTHING", ID(), kind, ref, payload, now)
+	return err
+}
+func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
+	v := Submission{History: []History{}}
+	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt)
+	if err != nil {
+		return v, err
+	}
+	rows, err := s.DB.QueryContext(ctx, "SELECT status,explanation,created_at FROM submission_history WHERE submission_id=? ORDER BY id", id)
+	if err != nil {
+		return v, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var h History
+		if err = rows.Scan(&h.Status, &h.Explanation, &h.CreatedAt); err != nil {
+			return v, err
+		}
+		v.History = append(v.History, h)
+	}
+	return v, rows.Err()
+}
+
+var states = map[string]bool{"queued": true, "fetching": true, "classifying": true, "researching": true, "drafted": true, "awaiting_review": true, "publishing": true, "merged": true, "deploying": true, "published": true, "duplicate": true, "not_relevant": true, "insufficient_evidence": true, "routed_to_cfi": true, "needs_review": true, "failed": true}
+
+func Terminal(status string) bool {
+	return status == "published" || status == "duplicate" || status == "not_relevant" || status == "insufficient_evidence" || status == "routed_to_cfi" || status == "needs_review" || status == "failed"
+}
+
+// Transition and outgoing intent commit together. Published is only used by the reconciler.
+func (s *Store) Transition(ctx context.Context, cid, status, explanation, slug, pr string) error {
+	if !states[status] || len(explanation) > 2000 || explanation == "" {
+		return errors.New("invalid transition")
+	}
+	tx, err := s.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	now := time.Now().Unix()
+	var prev string
+	if err = tx.QueryRowContext(ctx, "SELECT status FROM cases WHERE id=?", cid).Scan(&prev); err != nil {
+		return err
+	}
+	if prev == status {
+		return nil
+	}
+	if status == "published" {
+		var report, proposal string
+		if err = tx.QueryRowContext(ctx, "SELECT report_slug,pr_url FROM cases WHERE id=?", cid).Scan(&report, &proposal); err != nil {
+			return err
+		}
+		if prev != "deploying" || report == "" || proposal == "" {
+			return errors.New("publication prerequisites missing")
+		}
+	}
+	if prev == "published" {
+		return errors.New("published case is immutable")
+	}
+	_, err = tx.ExecContext(ctx, "UPDATE cases SET status=?,explanation=?,report_slug=CASE WHEN ?='' THEN report_slug ELSE ? END,pr_url=CASE WHEN ?='' THEN pr_url ELSE ? END,updated_at=? WHERE id=?", status, explanation, slug, slug, pr, pr, now, cid)
+	if err != nil {
+		return err
+	}
+	_, err = tx.ExecContext(ctx, `INSERT INTO submission_history(submission_id,status,explanation,actor,created_at) SELECT id,?,?,?,? FROM submissions WHERE case_id=?`, status, explanation, "worker", now, cid)
+	if err != nil {
+		return err
+	}
+	if Terminal(status) {
+		rows, err := tx.Query("SELECT id FROM submissions WHERE case_id=? AND (origin='nostr' OR gateway_event_id<>'' OR id IN (SELECT ref FROM outbox WHERE kind='gateway'))", cid)
+		if err != nil {
+			return err
+		}
+		var ids []string
+		for rows.Next() {
+			var id string
+			if err = rows.Scan(&id); err != nil {
+				rows.Close()
+				return err
+			}
+			ids = append(ids, id)
+		}
+		err = rows.Err()
+		rows.Close()
+		if err != nil {
+			return err
+		}
+		for _, id := range ids {
+			if err = Enqueue(tx, "outbox", "resolution", id+":"+status, "{}", now); err != nil {
+				return err
+			}
+		}
+	}
+	return tx.Commit()
+}
+
+type Job struct {
+	ID, Kind, Ref, Payload, Token string
+	Attempts                      int
+}
+
+func (s *Store) Claim(ctx context.Context, table string, lease time.Duration) (Job, error) {
+	if table != "jobs" && table != "outbox" {
+		return Job{}, errors.New("invalid queue")
+	}
+	j := Job{Token: ID()}
+	now := time.Now().Unix()
+	err := s.DB.QueryRowContext(ctx, `UPDATE `+table+` SET status='running',lease_until=?,lease_token=?,attempts=attempts+1 WHERE id=(SELECT id FROM `+table+` WHERE (status='queued' AND available_at<=?) OR (status='running' AND lease_until<?) ORDER BY available_at,id LIMIT 1) RETURNING id,kind,ref,payload,attempts`, now+int64(lease.Seconds()), j.Token, now, now).Scan(&j.ID, &j.Kind, &j.Ref, &j.Payload, &j.Attempts)
+	return j, err
+}
+func (s *Store) Finish(ctx context.Context, table string, j Job, workErr error) error {
+	if table != "jobs" && table != "outbox" {
+		return errors.New("invalid queue")
+	}
+	status := "done"
+	code := ""
+	if workErr != nil {
+		status = "queued"
+		code = "delivery_or_processing_failed"
+		if j.Attempts >= 8 {
+			status = "dead"
+		}
+	}
+	delay := time.Duration(1<<min(j.Attempts, 10)) * time.Second
+	refunded := 0
+	if errors.Is(workErr, ErrBudget) {
+		status = "queued"
+		code = "daily_budget_wait"
+		delay = time.Until(time.Now().UTC().Truncate(24 * time.Hour).Add(24*time.Hour + time.Minute))
+		refunded = 1
+	}
+	if errors.Is(workErr, ErrConfiguration) {
+		status = "queued"
+		code = "waiting_for_configuration"
+		delay = 30 * time.Second
+		refunded = 1
+	}
+	res, err := s.DB.ExecContext(ctx, "UPDATE "+table+" SET status=?,error_code=?,available_at=?,lease_until=0,attempts=attempts-? WHERE id=? AND lease_token=? AND status='running'", status, code, time.Now().Add(delay).Unix(), refunded, j.ID, j.Token)
+	if err != nil {
+		return err
+	}
+	n, _ := res.RowsAffected()
+	if n != 1 {
+		return errors.New("lease lost")
+	}
+	return nil
+}
+func (s *Store) Heartbeat(ctx context.Context, table string, j Job, lease time.Duration) error {
+	if table != "jobs" && table != "outbox" {
+		return errors.New("invalid queue")
+	}
+	r, err := s.DB.ExecContext(ctx, "UPDATE "+table+" SET lease_until=? WHERE id=? AND lease_token=? AND status='running'", time.Now().Add(lease).Unix(), j.ID, j.Token)
+	if err != nil {
+		return err
+	}
+	n, _ := r.RowsAffected()
+	if n != 1 {
+		return errors.New("lease lost")
+	}
+	return nil
+}
+func (s *Store) Reserve(ctx context.Context, cid, workspace string, perRun, daily int) (string, error) {
+	tx, err := s.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return "", err
+	}
+	defer tx.Rollback()
+	var used int
+	err = tx.QueryRowContext(ctx, "SELECT coalesce(sum(reserved_cents),0) FROM research_runs WHERE created_at>=?", time.Now().UTC().Truncate(24*time.Hour).Unix()).Scan(&used)
+	if err != nil {
+		return "", err
+	}
+	if used+perRun > daily {
+		return "", ErrBudget
+	}
+	id := ID()
+	_, err = tx.ExecContext(ctx, "INSERT INTO research_runs(id,case_id,workspace,reserved_cents,created_at) VALUES(?,?,?,?,?)", id, cid, workspace, perRun, time.Now().Unix())
+	if err != nil {
+		return "", err
+	}
+	return id, tx.Commit()
+}
+func (s *Store) Backup(ctx context.Context, path string) error {
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		return errors.New("backup destination must be new and writable")
+	}
+	if err = f.Close(); err != nil {
+		_ = os.Remove(path)
+		return err
+	}
+	if _, err = s.DB.ExecContext(ctx, "VACUUM INTO ?", path); err != nil {
+		_ = os.Remove(path)
+		return err
+	}
+	return nil
+}
+func JSON(v any) string {
+	b, err := json.Marshal(v)
+	if err != nil {
+		panic(fmt.Sprint(err))
+	}
+	return string(b)
+}

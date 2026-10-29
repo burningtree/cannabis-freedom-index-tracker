@@ -74,6 +74,18 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   const since = () => (RANGES[range] ? new Date(Date.now() - RANGES[range] * 864e5).toISOString().slice(0, 10) : "");
   const showRange = () => document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.range === range)));
 
+  function showCustomSearch() {
+    const banner = document.getElementById("map-search");
+    if (!banner) return;
+    const active = fields.filter((f) => $(f).value.trim());
+    banner.hidden = active.length === 0;
+    const labels = active.map((f) => {
+      const field = $(f);
+      return field instanceof HTMLSelectElement ? field.selectedOptions[0].textContent!.trim() : `“${field.value.trim()}”`;
+    });
+    $("map-search-summary").textContent = labels.join(" · ");
+  }
+
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
   const fmtDate = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const flag = (id: string) => { const cc = id.split("/")[0].toUpperCase(); return /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map((ch) => 0x1f1a5 + ch.charCodeAt(0))) : ""; };
@@ -133,6 +145,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 
   function apply(resetLimit = true) {
     if (resetLimit) limit = PAGE;
+    showCustomSearch();
     shown = rows.filter((r) => matches(r));
     render();
     months();
@@ -169,6 +182,11 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       apply();
     });
     document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.addEventListener("click", () => { range = b.dataset.range!; showRange(); apply(); }));
+    document.getElementById("clear-map-search")?.addEventListener("click", () => {
+      for (const f of fields) $(f).value = "";
+      apply();
+      $("q").focus({ preventScroll: true });
+    });
     showRange();
     if (fields.some((f) => $(f).value) || range !== "all") apply();
     else { shown = rows; months(); }

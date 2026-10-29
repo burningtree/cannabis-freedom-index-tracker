@@ -19,3 +19,19 @@ Index (country ids are the CFI's).
 - Check with `npm run build` (runs `npm test` first) and read the HTML in `dist/`. Don't start dev
   servers unless needed.
 - Others may work here at the same time: check `git status` and commit only your own files.
+
+## Submission service
+
+`backend/` is the persistent Go intake, Nostr, OpenCode research and publishing service; Astro stays static.
+Read `docs/NOSTR-SUBMISSIONS.md` before changing it. Run `cd backend && go test -race ./...`
+and `go vet ./...` for service changes, plus the site's checks for UI changes.
+The user has requested automatic processing and publication without human approval gates.
+The publisher opens normal PRs and merges the exact validated head only after the required
+report validation and other commit checks succeed; it never bypasses repository protection.
+`published` requires merge, successful Pages deployment and the confirmed live report URL.
+Unresolved source conflicts and invalid evidence finish as unable to verify rather than awaiting approval.
+OpenCode is the actual research harness: a sandboxed local CLI for macOS development, or a
+read-only container for deployment. Give it only research-provider credentials, never Nostr
+keys, GitHub credentials or the operational database. Keep automated report status `reported`.
+Only deliberate public assistant/tool activity belongs in the live AI transcript; never expose
+raw sources, private reasoning, tool arguments/output, credentials or host filesystem paths.

@@ -67,6 +67,24 @@ function markdownCitations() {
 export default defineConfig({
   site: process.env.SITE || "https://tracker.cannabisfreedom.fyi",
   base,
+  vite: {
+    server: {
+      proxy: {
+        "/__submissions": {
+          target: "http://127.0.0.1:8080",
+          changeOrigin: true,
+          ws: true,
+          rewrite: (path) => path.replace(/^\/__submissions/, ""),
+          configure: (proxy) => {
+            // The dev server makes server-to-server requests. Do not forward its
+            // browser origin: Astro may select a different port when 4321 is busy.
+            proxy.on("proxyReq", (request) => request.removeHeader("origin"));
+            proxy.on("proxyReqWs", (request) => request.removeHeader("origin"));
+          },
+        },
+      },
+    },
+  },
   markdown: {
     processor: unified({ remarkPlugins: [markdownCitations], rehypePlugins: [markdownLinks] }),
   },
