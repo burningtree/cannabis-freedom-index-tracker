@@ -70,10 +70,16 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   border-bottom: 1px solid var(--border);
 }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 19px; }
+.brand:hover { text-decoration: none; }
 .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--r); background: var(--accent); color: var(--accent-ink); font-family: Inter, sans-serif; font-weight: 700; }
 .nav { display: flex; gap: 18px; margin-left: auto; flex-wrap: wrap; }
 .nav a { color: var(--text-2); font-weight: 500; }
 .nav a[aria-current] { color: var(--text); }
+.cfi-link { display: inline-flex; align-items: center; gap: 7px; padding: 4px 9px; margin-left: -8px; border: 1px solid var(--border); border-radius: var(--r); font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
+.cfi-link:hover { color: var(--text); background: var(--surface); text-decoration: none; }
+.cfi-link-icon { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.cfi-link-short { display: none; }
+@media (max-width: 1180px) { .cfi-link-long { display: none; } .cfi-link-short { display: inline; } }
 .theme-toggle { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: none; color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; }
 .theme-toggle:hover { color: var(--text); background: var(--surface); }
 .theme-toggle svg { width: 16px; height: 16px; }
@@ -288,3 +294,12 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .cfi-more { display: inline-block; margin-top: 4px; font-size: 14px; color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--muted); }
 .cfi.compact .cfi-num { font-size: 40px; }
 @media (max-width: 560px) { .cfi-segs li { grid-template-columns: 120px 1fr 22px; } }
+/* on a phone: the title, the CFI link and the theme switch on one row, the menu under them */
+@media (max-width: 640px) {
+  .topbar { gap: 10px 12px; }
+  .brand { font-size: 17px; }
+  .nav { order: 3; width: 100%; margin-left: 0; gap: 16px; }
+  .cfi-link { margin-left: 0; }
+  .theme-toggle { margin-left: auto; }
+  .brand-first { display: none; }
+}

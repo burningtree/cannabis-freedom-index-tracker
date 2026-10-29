@@ -34,7 +34,12 @@ const here = Astro.url.pathname.replace(base, "/");
   </head>
   <body class:list={{ "app-body": app }}>
     <header class="topbar">
-      <a class="brand" href={base}><span class="brand-mark" aria-hidden="true">✕</span>Cannabis Enforcement Tracker</a>
+      <a class="brand" href={base}><span class="brand-mark" aria-hidden="true">✕</span><span><span class="brand-first">Cannabis </span>Enforcement Tracker</span></a>
+      <a class="cfi-link" href="https://cannabisfreedom.fyi/" target="_blank" rel="noopener" title="The companion site: what each country's cannabis laws allow">
+        <!-- the Cannabis Freedom Index's own mark, its favicon (public/favicon.svg there), in the text colour -->
+        <svg class="cfi-link-icon" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 26.4) scale(2.12)"><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-97) scale(0.43)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(97) scale(0.43)"/></g></svg>
+        <span class="cfi-link-long">Cannabis Freedom Index</span><span class="cfi-link-short">CFI</span> ↗
+      </a>
       <nav class="nav">
         <a href={base} aria-current={here === "/" ? "page" : undefined}>Map</a>
         <a href={`${base}reports/`} aria-current={here.startsWith("/report") || /^\/\d{4}\//.test(here) ? "page" : undefined}>Reports</a>
