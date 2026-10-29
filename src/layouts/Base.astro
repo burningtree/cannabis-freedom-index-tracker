@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { reports } from "../lib/reports.js";
 import { submissionsAPI as api } from "../lib/submissions-config.js";
 const { title, description = "An open record of cannabis eradication, seizures, raids, arrests, prosecutions and sentences around the world.", wide = false, app = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
@@ -41,6 +42,10 @@ const here = Astro.url.pathname.replace(base, "/");
         <!-- the Cannabis Freedom Index's own mark, its favicon (public/favicon.svg there), in the text colour -->
         <svg class="cfi-link-icon" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 26.4) scale(2.12)"><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(31) scale(0.9)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(63) scale(0.7)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(-97) scale(0.43)"/><path d="M0 0C1.9-2.6 1.5-7 0-10C-1.5-7-1.9-2.6 0 0Z" transform="rotate(97) scale(0.43)"/></g></svg>
         <span class="cfi-link-long">Cannabis Freedom Index</span><span class="cfi-link-short">CFI</span> ↗
+      </a>
+      <a class="svc-total" href={`${base}reports/`} title={`${reports.length.toLocaleString("en-GB")} committed reports`} aria-label={`${reports.length.toLocaleString("en-GB")} committed reports`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M8 14l2.5 2.5L16 11"/></svg>
+        <span>{reports.length.toLocaleString("en-GB")}</span>
       </a>
       {/* the submissions service: a dot for whether it answers, and how many requests it is working on */}
       {api && <a class="svc-status" id="svc-status" href={`${base}submissions/`} data-api={api} data-state="checking" title="Checking the submissions service…" aria-label="Submissions service: checking"><svg class="svc-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span class="svc-count" hidden></span><span class="svc-queue" hidden><svg class="svc-queue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7.5 3v3.5L12 12l-4.5 5.5V21M16.5 3v3.5L12 12l4.5 5.5V21"/></svg><span class="svc-queue-count"></span></span></a>}

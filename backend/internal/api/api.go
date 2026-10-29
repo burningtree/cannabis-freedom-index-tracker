@@ -111,6 +111,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /v1/submissions/stream", s.submissionStream)
 	mux.HandleFunc("GET /v1/activity", s.activity)
 	mux.HandleFunc("GET /v1/status", s.status)
+	mux.HandleFunc("GET /v1/stats/ai", s.aiStats)
 	mux.HandleFunc("GET /internal/metrics", s.metrics)
 	mux.HandleFunc("POST /v1/ingest/candidate", s.ingest)
 	mux.HandleFunc("POST /v1/webhooks/github", s.webhook)

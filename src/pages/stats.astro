@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { submissionsAPI as api } from "../lib/submissions-config.js";
 import { reports, totals, countByType, countriesWithReports, monthSeries, monthName, years } from "../lib/reports.js";
 import { sourcesByDomain } from "../lib/source-domains.js";
 import { TYPES } from "../lib/types.js";
@@ -74,6 +75,25 @@ const yearRows = years.map((y) => { const list = reports.filter((r) => r.year ==
     </table>
   </div>
   <p><a href={`${base}country/`}>All countries →</a> · <a href={`${base}${years[0] ?? ""}/`}>Browse by month →</a></p>
+  <section data-ai-stats data-api={api} aria-labelledby="ai-stats-title">
+    <h2 id="ai-stats-title">AI research usage</h2>
+    <p>Recorded research runs, including retries and interrupted attempts. Usage updates while research is running.</p>
+    <label for="ai-stats-period">Period</label>{" "}
+    <select id="ai-stats-period" disabled={!api}>
+      <option value="all">All time</option><option value="30d">Last 30 days</option><option value="today">Today (UTC)</option>
+    </select>
+    <p id="ai-stats-status" role="status">{api ? "Loading AI usage…" : "Connect the submissions service to see AI usage."}</p>
+    <div id="ai-stats-content" hidden data-no-glossary>
+      <div class="tiles" id="ai-stats-tiles"></div>
+      <div class="table-wrap"><table class="table">
+        <thead><tr><th scope="col">Model</th><th scope="col" class="num">Runs</th><th scope="col" class="num">Input tokens</th><th scope="col" class="num">Output tokens</th><th scope="col" class="num">API cost</th><th scope="col" class="num" data-plan-cost hidden>Plan share</th></tr></thead>
+        <tbody id="ai-stats-models"></tbody>
+      </table></div>
+      <p class="muted" id="ai-stats-note"></p>
+    </div>
+    <noscript><p>Enable JavaScript to load recorded AI usage.</p></noscript>
+  </section>
+  <script>import "../scripts/ai-stats.js";</script>
   <section aria-labelledby="source-domains-title" class="source-domains">
     <h2 id="source-domains-title">Sources by domain</h2>
     <p>{fmt(domains.length)} domains, ranked by distinct source URLs. The report count shows how many tracker reports cite each domain. Addresses with and without <code>www.</code> are combined.</p>
@@ -104,6 +124,9 @@ const yearRows = years.map((y) => { const list = reports.filter((r) => r.year ==
 </Base>
 
 <style>
+  #ai-stats-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #ai-stats-period { padding: .4rem .65rem; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); }
+  @media (max-width: 600px) { #ai-stats-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .source-domains { margin-top: 2.5rem; }
   .source-domain-link { display: inline-flex; align-items: center; gap: .6rem; }
   .source-domain-link img { flex: none; object-fit: contain; }

@@ -207,6 +207,7 @@ history, AI runs and messages remain available. Daily AI budget reservations are
 | WebSocket | `/v1/submissions/stream` | `{type:"submissions_changed",revision:"…"}` invalidations after public changes |
 | GET | `/v1/activity?cursor=n` | Up to 25 terminal human-submission outcomes |
 | POST | `/v1/submissions/{id}/restart` | Local development only; requeue a failed shared case, preserving history |
+| GET | `/v1/stats/ai?period=all` (also `30d`, `today`) | Aggregate research runs and token/cost telemetry by model and pricing tier; no individual run identifiers |
 | GET | `/v1/config` | Public Nostr and AI processing configuration, never credentials |
 | GET | `/healthz` | Database liveness |
 
@@ -380,3 +381,19 @@ with the original source URL; the crawl date must not be used as the article's p
 Independently opened archive links are saved as `sources[].archived` on new reports and updates.
 Screenshots/evidence remain private as usual. Existing jobs need the backend restarted to use
 these access checks; already consumed tokens and past activity are retained.
+
+## AI usage statistics
+
+`/stats/` loads research usage from `/v1/stats/ai` and refreshes over the submission
+WebSocket with a 30-second fallback. All time, rolling 30 days and Today (UTC) use
+research start times, count retries once per run, and exclude unstarted reservations
+and startup probes. SQL aggregates research runs directly, without joining receipts.
+The endpoint returns only aggregate telemetry, grouped by model, peak/off-peak tier
+and reported-cost availability. It never exports prompts, sessions or source evidence.
+
+Input totals include cache reads/writes; output totals include reasoning. The frontend
+uses the same cost helper as submission details: reported OpenCode costs take precedence,
+otherwise known model pricing is estimated using the start-time tier. Unknown prices
+are explicitly excluded from cost totals. Plan share uses the current subscription
+configuration and is an allocation estimate, not additional billing. Interrupted/running
+usage may be incomplete. Backend restart is required to expose the new endpoint.
