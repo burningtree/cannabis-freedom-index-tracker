@@ -24,6 +24,21 @@ media:
     media_url: https://rri-portal-app-assets.obs.ap-southeast-4.myhuaweicloud.com/upload/berita/image/bandung/1793349157087462_6abe3f012d_berita_bandung.webp
     publisher: RRI.co.id
     caption: 'Police press conference on the 12 kg cannabis case at Mapolresta Bandung. Photo: Dok. Humas / RRI.co.id'
+  - kind: photo
+    url: https://www.detik.com/jabar/hukum-dan-kriminal/d-8731250/ganja-12-kg-asal-medan-gagal-beredar-di-bandung-1-orang-ditangkap
+    media_url: https://awsimages.detik.net.id/community/media/visual/2026/10/30/pria-inisial-ar-27-miliki-ganja-12-kilogram-siap-edar-saat-dibekuk-polisi-di-mapolresta-bandung-soreang-1793344836535_169.jpeg?w=650&q=90
+    publisher: detikJabar
+    caption: 'AR, 27, handcuffed and wearing a face mask and orange detainee uniform at Mapolresta Bandung on 30 October 2026. Photo: Yuga Hassani/detikJabar'
+  - kind: photo
+    url: https://www.detik.com/jabar/hukum-dan-kriminal/d-8731250/ganja-12-kg-asal-medan-gagal-beredar-di-bandung-1-orang-ditangkap
+    media_url: https://awsimages.detik.net.id/community/media/visual/2026/10/30/barang-bukti-peredaran-ganja-di-bandung-1793344681348_169.jpeg?w=620
+    publisher: detikJabar
+    caption: 'Dried cannabis evidence from the case, displayed in Bandung. Photo: Yuga Hassani/detikJabar'
+  - kind: video
+    url: https://www.detik.com/jabar/hukum-dan-kriminal/d-8731250/ganja-12-kg-asal-medan-gagal-beredar-di-bandung-1-orang-ditangkap
+    media_url: https://www.detik.com/jabar/video/261030061/video-polisi-gagalkan-peredaran-ganja-12-kg-dari-medan-ke-bandung
+    publisher: detikJabar
+    caption: 'DetikJabar video on the 12 kg cannabis shipment from Medan, showing the police announcement at Mapolresta Bandung. Video: Adhi Nauval Ilmi/detikJabar'
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 6f579684ca30d1b8a86a7815546da487
@@ -39,12 +54,21 @@ sources:
     publisher: RRI.co.id
     date: 2026-10-30
     language: id
+  - title: Ganja 12 Kg Asal Medan Gagal Beredar di Bandung, 1 Orang Ditangkap
+    url: https://www.detik.com/jabar/hukum-dan-kriminal/d-8731250/ganja-12-kg-asal-medan-gagal-beredar-di-bandung-1-orang-ditangkap
+    publisher: detikJabar
+    date: 2026-10-30
+    language: id
 open_questions:
   - IDN Times reported the payment as Rp2 million per kilogram, while RRI quoted police saying the Rp2 million was for the whole delivery.
   - RRI described the seizure as 'more than 12 kilograms'; this report uses the 12 kilograms given by police and IDN Times.
   - Neither report gives a court date, plea or sentence; police said the case was still under investigation.
   - AR's earlier delivery of about 6 kilograms is a separate shipment and is not included in this event's figures.
   - Both reports come from the same police press conference; no independent witness account was found.
+  - DetikJabar quotes police saying AR received Rp2 million for each kilogram he distributed, while RRI reported that the Rp2 million covered the whole delivery.
+  - DetikJabar describes AR as consuming the cannabis brewed as tea, while RRI reported that he had not yet drunk the brew when officers arrived.
+  - DetikJabar describes a public tip as the starting point, while the existing report says the case began with a transaction detected at Kiaracondong terminal.
+  - DetikJabar does not give the date of AR's arrest; the 28 October date in the report comes from IDN Times and RRI.
 ---
 
 Police in Kabupaten Bandung arrested a man they identified as AR, 27, on
@@ -66,6 +90,7 @@ kilograms of cannabis. [@2] Police said he also consumed cannabis, brewing it as
 a tea. [@2] He told them he had not drunk the brew before officers arrived. [@2]
 
 Police charged AR under Articles 114(2) and 111(2) of the 2009 Narcotics Law.
-[@1] The offences carry up to 20 years in prison and a maximum fine of Rp10
+[@1,3] The offences carry up to 20 years in prison and a maximum fine of Rp10
 billion. [@1]
 
+Police in Kabupaten Bandung arrested a man they identified as AR, 27, on suspicion of dealing cannabis. [@3] Officers seized 12 kilograms of cannabis that police said had been sent from Medan and secured in the Kiaracondong area. [@3] He said AR was suspected of planning to send the cannabis to someone inside a prison, known in Indonesia as a lapas. [@3] Police said they were still investigating the distribution route and others involved. [@3] Police said he also consumed cannabis, brewing it as a tea. [@3] The offences carry up to 20 years in prison and a maximum fine of Rp10 billion. [@3]
