@@ -18,6 +18,11 @@ media:
     media_url: https://www.atlanticohoy.com/uploads/s1/38/30/67/3/foto1-2-jpg_4_1000x563.webp
     publisher: Atlántico Hoy
     caption: 'Cannabis buds seized in the operation. Photo: AH (Atlántico Hoy).'
+  - kind: photo
+    url: https://elsurdigitalgc.es/art/24391/tres-detenidos-por-vender-droga-en-un-local-que-funcionaba-como-asociacion-cannabica-en-las-palmas-de-gran-canaria
+    media_url: https://elsurdigitalgc.es/upload/images/10_2026/6486_foto-3jpg.png
+    publisher: El Sur Digital Gran Canaria
+    caption: Packages of hashish on a scale, in an image carrying the National Police's 200th-anniversary logo.
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 2b2a5b0d1e7428f24187416773e3b139
@@ -33,6 +38,11 @@ sources:
     publisher: Canarias en Pleno
     date: 2026-10-30
     language: es
+  - title: Tres detenidos por vender droga en un local que funcionaba como asociación cannábica en Las Palmas de Gran Canaria
+    url: https://elsurdigitalgc.es/art/24391/tres-detenidos-por-vender-droga-en-un-local-que-funcionaba-como-asociacion-cannabica-en-las-palmas-de-gran-canaria
+    publisher: El Sur Digital Gran Canaria
+    date: 2026-10-30
+    language: es
 open_questions:
   - The reports do not say whether the three detainees were charged or what a court decided; they were handed over to the competent court.
   - The reports do not name the association, its street or the detainees, giving the location only as the centre of Las Palmas de Gran Canaria.
@@ -42,19 +52,20 @@ open_questions:
 Three people were arrested when Spain's National Police and the Customs
 Surveillance Service (Servicio de Vigilancia Aduanera) dismantled a drug sales
 point operating under the appearance of a cannabis association in central Las
-Palmas de Gran Canaria. [@1] Officers carried out two searches in the city on 21
+Palmas de Gran Canaria. [@1,3] Officers carried out two searches in the city on 21
 October 2026. [@1] Police alleged that the premises were being used as a point
-of sale and distribution of drugs. [@1] The searches turned up 437 grams of
-marijuana and 1,126 grams of hashish, part of it already prepared for sale. [@1]
+of sale and distribution of drugs. [@1,3] The searches turned up 437 grams of
+marijuana and 1,126 grams of hashish, part of it already prepared for sale. [@1,3]
 In total, officers seized 1,563 grams, more than a kilo and a half. [@1] They
 also found more than €5,600 in cash. [@1]
 
 At the investigators' request, the establishment was placed under judicial seal,
-ending the activity carried out inside. [@1] The three detainees were handed
-over to the competent court. [@1] The investigation, named Operación Quito,
+ending the activity carried out inside. [@1,3] The three detainees were handed
+over to the competent court. [@1,3] The investigation, named Operación Quito,
 began in the summer after the Customs Surveillance Service learned of possible
 sales of marijuana, hashish and other cannabis derivatives at the premises. [@1]
 Neighbours had complained about the constant stream of people arriving to buy
-drugs. [@2] The National Police said citizen cooperation is essential to
+drugs. [@2,3] The National Police said citizen cooperation is essential to
 detecting and fighting drug trafficking. [@1]
 
+Group III of the National Police's drugs and organised crime unit (UDYCO), part of the provincial judicial police brigade, and Customs Surveillance officers ran the joint inquiry, and investigators also examined the economic activity linked to the premises. [@3]
