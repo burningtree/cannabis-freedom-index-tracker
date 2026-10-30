@@ -2,7 +2,8 @@
 date: 2026-02-12
 country: ph
 place: Masjid Punjungan and Pitogo, Kalingalan Caluang, Sulu
-coordinates: [5.889, 121.3095]
+# Geographic reference: https://photon.komoot.io/api/?q=Pitogo%2C%20Sulu%2C%20Philippines&limit=3
+coordinates: [5.8893, 121.3107]
 precision: locality
 type: eradication
 also: [seizure]
@@ -18,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [sulu, eradication, firearms]
 open_questions:
+  - The map marks Pitogo; Masjid Punjungan was also named and neither plantation site has published coordinates.
   - The operation's date is given as Thursday 12 February in the detailed account and as 13 February in a later roundup; no arrests were made and the suspects were not identified beyond an alias.
   - The value of the three sacks of dried leaves within the P18.23 million total was not broken out.
 sources:

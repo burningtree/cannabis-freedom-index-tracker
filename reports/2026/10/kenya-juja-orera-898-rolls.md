@@ -2,6 +2,7 @@
 date: 2026-10-22
 country: ke
 place: Juja Matatu Stage, Kiambu and Orera, Homa Bay
+# Geographic reference: https://photon.komoot.io/api/?q=Juja%2C%20Kiambu%2C%20Kenya&limit=3
 coordinates: [-1.1055, 37.0127]
 precision: locality
 type: seizure
@@ -18,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [kiambu, homa-bay, dci, nanib, trafficking]
 open_questions:
+  - The map marks Juja; Orera in Homa Bay County is a second distant site and was not given a separate pin.
   - Whether the two suspects have been arraigned and what pleas or charges followed was not reported.
 sources:
   - title: DCI arrests two suspects, seizes 898 rolls of bhang in Juja and Homa Bay

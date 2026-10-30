@@ -2,7 +2,8 @@
 date: 2026-08-01
 country: ph
 place: Loccong and Buscalan, Tinglayan, Kalinga
-coordinates: [17.2649, 121.1489]
+# Geographic reference: https://photon.komoot.io/api/?q=Buscalan%2C%20Philippines&limit=3
+coordinates: [17.2301, 121.0858]
 precision: district
 type: eradication
 title: 94,500 marijuana plants destroyed in Tinglayan weekend operation
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [tinglayan, kalinga, eradication]
 open_questions:
+  - The map marks Buscalan barangay; Loccong was also named and the sources give no exact plantation coordinates.
   - The exact day of the eradication within the weekend was not stated; the PNP reported it on 2–3 August.
   - No cultivators were apprehended; the Lanao del Sur shabu buy-bust announced in the same PNP release is a separate event and is left out.
 sources:

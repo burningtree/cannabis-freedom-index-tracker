@@ -2,8 +2,9 @@
 date: 2026-08-20
 country: id
 place: Darussalam, Panyabungan Timur, Mandailing Natal
-coordinates: [0.8613, 99.5612]
-precision: district
+# Geographic reference: https://id.wikipedia.org/wiki/Darussalam,_Panyabungan,_Mandailing_Natal
+coordinates: [0.858, 99.585]
+precision: locality
 type: death
 also: [arrest, seizure]
 title: Suspected cannabis courier dies after chase in Mandailing Natal
@@ -22,7 +23,7 @@ tags: [bnn, madina, panyabungan]
 open_questions:
   - Full names of ZI and MAL were withheld; only initials were published.
   - Kumparan said officers fired two warning shots before the fatal wound; Berita Merdeka did not describe warning shots.
-  - The exact location of the shooting was reported as Darussalam village after the pair fell into a ditch; surveillance began in Padang Laru.
+  - The map marks Darussalam village; the shooting was after the pair fell into a ditch there, and surveillance began in Padang Laru.
 sources:
   - title: "BNNP Sumut Bongkar Peredaran Ganja di Madina, Satu Terduga Pelaku Meninggal Setelah Ditembak"
     url: https://beritamerdeka.net/news/bnnp-sumut-bongkar-peredaran-ganja-di-madina-satu-terduga-pelaku-meninggal-setelah-ditembak/index.html

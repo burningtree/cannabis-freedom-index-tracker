@@ -2,6 +2,7 @@
 date: 2026-10-04
 country: in
 place: Anjani and Kalikankar, Poshina taluka, Sabarkantha
+# Geographic reference: https://photon.komoot.io/api/?q=Poshina%2C%20Gujarat%2C%20India&limit=3
 coordinates: [24.3731, 73.0325]
 precision: locality
 type: eradication
@@ -21,6 +22,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [sabarkantha, gujarat, cultivation]
 open_questions:
+  - The map marks Poshina town; Anjani and Kalikankar were not resolved as separate mapped localities in the geographic sources checked.
   - Whether the absconding accused Manabhai Gamar was later arrested, and whether the two sites shared a supply network, was not reported.
 sources:
   - title: Ganja worth over Rs 2.37 crore found cultivated among cotton crops in Gujarat; four held

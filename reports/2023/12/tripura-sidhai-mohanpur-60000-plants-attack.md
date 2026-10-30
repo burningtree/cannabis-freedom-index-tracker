@@ -2,8 +2,9 @@
 date: 2023-12-14
 country: in
 place: Panchabati, Sidhai Mohanpur village, West Tripura district, Tripura
-coordinates: [23.8315, 91.2868]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Mohanpur%2C%20West%20Tripura%2C%20India&limit=3
+coordinates: [23.9429, 91.3347]
+precision: locality
 type: eradication
 also: [raid]
 title: Five police injured after 60,000 cannabis plants destroyed in West Tripura
@@ -37,7 +38,7 @@ open_questions:
   - Northeast Live said thousands of cannabis plants were destroyed; the Indian Express and Hindustan Times reported around 60,000, the figure used here.
   - The Indian Express dates the operation and attack to Thursday afternoon; Hindustan Times says Thursday evening. Both place it on 14 December 2023.
   - No arrests or court outcome were reported in the sources opened.
-  - Coordinates are for Agartala, the West Tripura district headquarters, at district precision; the sources name only the Panchabati area of Sidhai Mohanpur village.
+  - The map marks Mohanpur locality (Sidhai Mohanpur area); the sources name only the Panchabati area of Sidhai Mohanpur village, not an exact plot.
   - 'Left out, as its quotation was not found in The Indian Express: The injured were treated and discharged from hospital, and an officer said their injuries were not severe.'
   - 'Left out, as its quotation was not found in The Indian Express: A state police official said a sustained drive to destroy illegal cannabis plantations was under way across Tripura, with at least 2.8 million plants destroyed in the year to that point.'
 ---

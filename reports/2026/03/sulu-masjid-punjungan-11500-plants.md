@@ -2,7 +2,8 @@
 date: 2026-03-03
 country: ph
 place: Barangay Masjid Punjungan, Kalingalan Caluang, Sulu
-coordinates: [5.889, 121.3095]
+# Geographic reference: https://photon.komoot.io/api/?q=Masjid%20Punjungan%2C%20Sulu%2C%20Philippines&limit=3
+coordinates: [5.9212, 121.2823]
 precision: locality
 type: eradication
 title: 11,500 marijuana plants uprooted in second Sulu operation of the year
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [sulu, eradication]
 open_questions:
+  - The map marks Masjid Punjungan barangay; the sources do not publish the plantation coordinates.
   - The Inquirer account of this operation could not be opened, so every fact above comes from the PNA wire text; the Inquirer headline confirms the same P10.3M figure.
   - No arrests were reported; the owners have not been identified.
 sources:

@@ -2,6 +2,7 @@
 date: 2026-10-24
 country: in
 place: Vapi and Dadra
+# Geographic reference: https://photon.komoot.io/api/?q=Vapi%2C%20Gujarat%2C%20India&limit=3
 coordinates: [20.3735, 72.9084]
 precision: locality
 type: seizure
@@ -24,6 +25,7 @@ media:
     publisher: IANS
     caption: "The two arrested men with barrels of seized tablets at the Dadra shop (police)."
 open_questions:
+  - The map marks Vapi; a second raid site was in Dadra (near Silvassa), and neither address was published in the accounts opened.
   - Anurag Gupta of Kanpur and Salman Iqbal Siddiqui of Mumbai remain wanted.
 sources:
   - title: "Gujarat: 2.5 tonnes of cannabis-laced tablets worth Rs 12.67 crore seized; two arrested"

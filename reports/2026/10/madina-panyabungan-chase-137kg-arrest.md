@@ -2,8 +2,9 @@
 date: 2026-10-26
 country: id
 place: Pidoli Lombang, Panyabungan, Mandailing Natal
-coordinates: [0.861, 99.561]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Pidoli%20Lombang%2C%20Panyabungan%2C%20Mandailing%20Natal%2C%20Indonesia&limit=3
+coordinates: [0.8419, 99.5611]
+precision: locality
 type: arrest
 also: [seizure]
 title: Rider caught after chase as accomplice flees with ganja
@@ -18,6 +19,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [motorbike, chase, manhunt]
+open_questions:
+  - The map marks Pidoli Lombang; the chase began near the Darussalam sluice gate in East Panyabungan and the exact catch point was not mapped in the account opened.
 sources:
   - title: Polres Madina dan BNNK sita 13,7 Kg ganja, seorang pelaku ditangkap
     url: https://sumut.antaranews.com/berita/672897/polres-madina-dan-bnnk-sita-137-kg-ganja-seorang-pelaku-ditangkap

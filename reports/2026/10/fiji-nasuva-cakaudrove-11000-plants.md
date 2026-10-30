@@ -2,7 +2,8 @@
 date: 2026-10-02
 country: fj
 place: Nasuva farming area, Cakaudrove
-coordinates: [-16.778, 179.333]
+# Geographic reference: https://mapcarta.com/36428956
+coordinates: [-16.7307, 179.4385]
 precision: district
 type: eradication
 also: [seizure]
@@ -45,7 +46,7 @@ sources:
     publisher: Fijivillage
     date: 2026-10-08
 open_questions:
-  - The first report placed the farm in Bua; on 8 October the same outlet reported it in the Nasuva area of Cakaudrove, and the other reports name only the Nasuva farming area. The exact site is not given, so coordinates are for the Cakaudrove district centre, Savusavu.
+  - The first report placed the farm in Bua; on 8 October the same outlet reported it in the Nasuva area of Cakaudrove, and the other reports name only the Nasuva farming area. The map marks the Nasavusavu locality in Cakaudrove, not the exact farm.
   - The plants were described as 'believed to be marijuana' and sent for analysis; the count is 'more than 11,000', not a final figure.
   - No arrests or charges have been reported in connection with the farm; police said the owner had not been identified.
 ---

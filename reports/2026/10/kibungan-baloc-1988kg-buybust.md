@@ -19,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [kibungan, benguet, pdea, buy-bust]
 open_questions:
+  - The map marks Kibungan town; Sitio Baloc in Poblacion was not separately geolocated in the geographic sources checked.
   - No second outlet could be opened for this operation; the account below is the only one verified.
   - The suspect was unnamed and the filing of charges was still pending.
 sources:

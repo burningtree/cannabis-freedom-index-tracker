@@ -2,7 +2,8 @@
 date: 2023-12-18
 country: in
 place: Tripura
-coordinates: [23.8315, 91.2868]
+# Geographic reference: https://photon.komoot.io/api/?q=Tripura%2C%20India&limit=3
+coordinates: [23.7751, 91.7025]
 precision: region
 type: eradication
 title: Over 80,000 cannabis plants destroyed in three Tripura operations
@@ -29,6 +30,7 @@ sources:
     date: 2023-12-18
 open_questions:
   - No arrests, suspects or court proceedings were reported for any of the three operations.
+  - The map uses a Tripura state reference point; the three drives were in Unakoti and Sepahijala (sources also differ on West Tripura for one site), not a single town.
   - ANI placed the Gajeria and Ganiyamara operation in West Tripura district, while NorthEast Now and Tripura Chronicle put it under Bishalgarh police station in Sepahijala district; the report follows the two local accounts.
   - No area was published for the Ramdula para forest reserve plots, so the 13.4 hectares cover only the two BSF-led sites.
   - Tripura Chronicle reports an earlier December drive that destroyed about 18,000 mature plants under Pecharthal police station; that is a separate event, left out here.

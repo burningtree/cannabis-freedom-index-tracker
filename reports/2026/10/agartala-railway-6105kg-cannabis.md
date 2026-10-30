@@ -2,8 +2,9 @@
 date: 2026-10-28
 country: in
 place: Agartala Railway Station, platform no. 1, Agartala, Tripura
+# Geographic reference: https://photon.komoot.io/api/?q=Agartala%20Railway%20Station%2C%20Tripura%2C%20India&limit=3
 coordinates: [23.7917, 91.2791]
-precision: exact
+precision: locality
 type: seizure
 also: [arrest]
 title: Railway Police seize 6.105 kg of cannabis and arrest peddler at Agartala station
@@ -19,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [agartala, railway, trafficking, ndps]
 open_questions:
+  - The map marks Agartala Railway Station; platform no. 1 is named in the sources but was not separately geolocated.
   - A second report describes a combined 16.275 kg seized by GRP in two operations that day worth Rs 8 lakh; whether the other operation involved a separate suspect is unclear from the opened sources.
   - The intended destination of the consignment was not stated.
 sources:

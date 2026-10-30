@@ -2,7 +2,8 @@
 date: 2026-04-22
 country: in
 place: Agartala Railway Station, Agartala, Tripura
-coordinates: [23.8315, 91.2868]
+# Geographic reference: https://photon.komoot.io/api/?q=Agartala%20Railway%20Station%2C%20Tripura%2C%20India&limit=3
+coordinates: [23.7917, 91.2791]
 precision: locality
 type: seizure
 also: [arrest, raid]
@@ -39,7 +40,7 @@ open_questions:
   - The drive ran from 20 to 22 April 2026; the report is dated to its last day, when the third person was held.
   - The RPF valued the 6 kg seized at Agartala on 22 April at close to Rs 3 lakh, while a local report on the same seizure gave a police estimate of about Rs 50,000.
   - The sources do not say whether the two people held on 21 April were formally arrested or charged; only the man held on 22 April is reported to face a case under the NDPS Act.
-  - The drive covered two states, West Bengal and Tripura; the place and coordinates given are Agartala's, where all three people were held.
+  - The drive covered two states, West Bengal and Tripura; the place and coordinates mark Agartala Railway Station, where the three people were held.
   - No court dates or outcomes are reported.
 ---
 

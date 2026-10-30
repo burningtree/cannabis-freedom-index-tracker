@@ -2,8 +2,9 @@
 date: 2026-10-08
 country: jo
 place: Aqaba, Madaba and Balqa, Jordan
-coordinates: [31.9539, 35.9106]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Madaba%2C%20Jordan&limit=3
+coordinates: [31.6185, 35.706]
+precision: region
 type: raid
 also: [arrest]
 title: Anti-Narcotics Department arrests 31 in 13 cases across the Kingdom
@@ -18,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [jordan, aqaba, madaba, hashish]
 open_questions:
+  - The map marks Madaba Governorate as a regional reference among the named areas; cases also ran in Aqaba and Balqa and no single site covers all 13.
   - Individual identities, the marijuana quantity in the Aqaba vehicle case and judicial outcomes were not reported.
 sources:
   - title: Anti-Narcotics Department arrests 31 in 13 drug cases across Kingdom

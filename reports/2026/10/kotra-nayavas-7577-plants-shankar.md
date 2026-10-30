@@ -1,8 +1,9 @@
 ---
 date: 2026-10-07
 country: in
-place: Nayavas, Kotda tehsil, Udaipur
-coordinates: [24.3656, 73.1768]
+place: Nayavas, Kotra tehsil, Udaipur
+# Geographic reference: https://www.voiceofvillage.com/india/rajasthan/udaipur/kotra/naya-was
+coordinates: [24.3937, 73.126]
 precision: locality
 type: eradication
 also: [seizure]
@@ -19,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [kotra, udaipur, ncb, cultivation]
 open_questions:
+  - The map marks Naya Was / Nayavas in Kotra tehsil; the sources spell the tehsil Kotda and do not give the exact field.
   - No second outlet account was found; 2,273 kg is the projected yield stated by NCB rather than seized weight, and whether any cultivator was booked was not reported.
 sources:
   - title: 10 बीघा में लगाए गांजे के 7577 पौधे, 12 करोड़ होती आमदनी, NCB–ANTF ने इरादों पर फेरा पानी

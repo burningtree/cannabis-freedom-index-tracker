@@ -2,8 +2,9 @@
 date: 2026-03-12
 country: sn
 place: Kadialock, North Sindian, Bignona
-coordinates: [12.9, -16.1]
-precision: district
+# Geographic reference: https://fr.wikipedia.org/wiki/Kadialouck
+coordinates: [13.1575, -16.2125]
+precision: locality
 type: death
 also: [eradication]
 title: Soldier killed, six wounded in clash during Kadialock cannabis clearing
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [casamance, mfdc, military]
 open_questions:
+  - The map marks Kadialouck village (also spelled Kadialock); the sources do not give the exact field where the clash began.
   - The identities of the dead and wounded and the number of attackers neutralized were not reported.
 sources:
   - title: Senegalese Troops Clash With Armed Groups

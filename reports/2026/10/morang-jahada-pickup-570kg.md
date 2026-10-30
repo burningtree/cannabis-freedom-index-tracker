@@ -2,7 +2,8 @@
 date: 2026-10-26
 country: np
 place: Ramchowk, Jahada-4, Morang
-coordinates: [26.41, 87.333]
+# Geographic reference: Jahada Gaunpalika ward 4 office area (approx. 26.4523, 87.3481)
+coordinates: [26.4523, 87.3481]
 precision: locality
 type: seizure
 title: 570 kg in vegetables seized at Jahada, driver fled
@@ -16,6 +17,8 @@ figures:
   kg_seized: 570
 created_by_model: unknown
 status: verified
+open_questions:
+  - The map marks Jahada ward 4; Ramchowk itself was not separately geolocated in the geographic sources checked.
 sources:
   - title: 570 kg of marijuana seized from vegetable-laden vehicle in Morang
     url: https://english.onlinekhabar.com/570-kg-of-marijuana-seized.html

@@ -3,8 +3,9 @@ code: NTNX9G
 date: 2026-10-21
 country: gy
 place: Wiruni and Sandhills, Upper Berbice River
-coordinates: [5.698, -57.838]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Upper%20Demerara-Berbice%2C%20Guyana&limit=3
+coordinates: [5.5613, -58.1542]
+precision: region
 type: eradication
 title: Police burn 310,500 cannabis plants on 28 acres in the Upper Berbice River
 summary: >-
@@ -19,6 +20,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [berbice-river, savannah]
+open_questions:
+  - The map uses an Upper Demerara-Berbice / Region 10 reference; Wiruni and Sandhills are both named and neither savannah plot was geolocated in the accounts opened.
 sources:
   - title: $165M worth of ganja destroyed in Upper Berbice River
     url: https://inewsguyana.com/165m-worth-of-ganja-destroyed-in-upper-berbice-river/

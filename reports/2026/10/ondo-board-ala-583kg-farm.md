@@ -2,7 +2,8 @@
 date: 2026-10-20
 country: ng
 place: Board-Ala, Akure South, Ondo State
-coordinates: [7.253, 5.193]
+# Geographic reference: https://photon.komoot.io/api/?q=Akure%2C%20Ondo%2C%20Nigeria&limit=3
+coordinates: [7.2526, 5.1933]
 precision: district
 type: seizure
 title: 583 kg of abandoned cannabis recovered from Ondo farm
@@ -15,6 +16,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [ndlea, farm]
+open_questions:
+  - The map marks Akure / Akure South; Board-Ala was not separately geolocated in the geographic sources checked.
 sources:
   - title: NDLEA Arrests US-Based Grandma With 9.45kg Cannabis At Lagos Airport, Physically Challenged Woman In Delta
     url: https://platformtimes.com.ng/ndlea-arrests-us-based-grandma-with-9-45kg-cannabis-at-lagos-airport-physically-challenged-woman-in-delta/

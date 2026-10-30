@@ -2,7 +2,8 @@
 date: 2026-10-01
 country: in
 place: Kotda Gadhi, Magra Falia, Poshina taluka, Sabarkantha
-coordinates: [24.3731, 73.0325]
+# Geographic reference: https://photon.komoot.io/api/?q=Kotda%2C%20Poshina%2C%20Gujarat&limit=3
+coordinates: [24.3569, 73.1797]
 precision: locality
 type: eradication
 also: [seizure, arrest]
@@ -21,6 +22,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [sabarkantha, gujarat, cultivation]
 open_questions:
+  - The map marks Kotda in Poshina taluka; Magra Falia within Kotda Gadhi is not separately geolocated in the sources opened.
   - Whether the two wanted family members were later arrested, and whether the seized soil and control samples linked the crop to the accused, were not reported.
 sources:
   - title: 967 cannabis plants worth Rs 1.72 cr found near Gujarat-Rajasthan border

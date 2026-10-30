@@ -2,8 +2,9 @@
 date: 2026-01-13
 country: ph
 place: Tinglayan, Kalinga and Kibungan/Kapangan, Benguet
-coordinates: [17.2649, 121.1489]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Cordillera%20Administrative%20Region%2C%20Philippines&limit=3
+coordinates: [17.3462, 121.0493]
+precision: region
 type: eradication
 title: 143,000 marijuana plants destroyed across Kalinga and Benguet
 summary: >-
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [cordillera, kalinga, benguet, eradication]
 open_questions:
+  - The map uses a Cordillera Administrative Region reference; the operations covered Tinglayan in Kalinga and Kibungan/Kapangan in Benguet, not a single barangay.
   - No arrests were reported and the growers were not identified; investigations into additional plantations continue.
 sources:
   - title: Authorities Destroy P16.3 Million Worth of Marijuana Plants in Tinglayan Operations

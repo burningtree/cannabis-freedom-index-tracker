@@ -2,7 +2,8 @@
 date: 2026-10-25
 country: in
 place: Charwada Road, Vapi
-coordinates: [20.3735, 72.9084]
+# Geographic reference: Charwada / Chharwada Road area, Vapi (approx. 20.3840, 72.9220)
+coordinates: [20.384, 72.922]
 precision: locality
 type: seizure
 also: [arrest]
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [vapi, valsad, flat, odisha-supply]
 open_questions:
+  - The map marks the Charwada Road / Chharwada area of Vapi; the sources do not identify the exact flat.
   - Nation Press valued the haul at Rs 1.46 crore while hi INDiA gave the police figure of Rs 1,21,83,500 plus a Rs 5,000 phone.
   - Banmali Patra, who allegedly rented the room and arranged the Odisha-sourced supply, remains wanted.
 sources:

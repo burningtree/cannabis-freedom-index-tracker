@@ -2,8 +2,9 @@
 date: 2026-10-14
 country: in
 place: Mandwa village, Kotra tehsil, Udaipur
-coordinates: [24.366, 73.177]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Mandwa%2C%20Kotra%2C%20Udaipur%2C%20India&limit=3
+coordinates: [24.5297, 73.1029]
+precision: locality
 type: eradication
 title: 1.33 lakh plants destroyed on 57 hectares in Udaipur raid
 summary: >-
@@ -18,6 +19,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [ncb, antf, operation-ganjagaveshana]
+open_questions:
+  - The map marks Mandwa village; the sources do not publish coordinates for the 56 land-record plots.
 sources:
   - title: "Operation Ganjagaveshana: 1.33 Lakh Cannabis Plants Destroyed in Udaipur"
     url: https://firstindia.co.in/news/india/operation-ganjagaveshana-133-lakh-cannabis-plants-destroyed-in-udaipur-1791987529

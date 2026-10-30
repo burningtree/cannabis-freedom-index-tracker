@@ -2,7 +2,8 @@
 date: 2026-10-29
 country: in
 place: Bengaluru
-coordinates: [12.8772, 77.4402]
+# Geographic reference: https://photon.komoot.io/api/?q=Bengaluru%2C%20India&limit=3
+coordinates: [12.9768, 77.5901]
 precision: district
 type: arrest
 also: [seizure]
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [bengaluru, students, mdma, ndps]
 open_questions:
+  - The map marks Bengaluru city; the arrests were by R T Nagar, Electronic City and Banaswadi police in separate operations without a single shared address.
   - The suppliers in and outside Karnataka whom the accused named have not been traced or identified in the reports.
 sources:
   - title: Bengaluru police arrest six in drug bust, seize ganja and MDMA worth Rs 6.52 lakh

@@ -2,8 +2,9 @@
 date: 2026-07-27
 country: sg
 place: Ang Mo Kio, Pasir Ris and Jalan Bukit Ho Swee, Singapore
-coordinates: [1.369, 103.845]
-precision: locality
+# Geographic reference: https://photon.komoot.io/api/?q=Singapore&limit=3
+coordinates: [1.3571, 103.8195]
+precision: region
 type: raid
 also: [seizure, arrest]
 title: CNB seizes 5.5 kg of cannabis in three raids, three men held
@@ -21,6 +22,7 @@ created_by_model: cursor/composer-2.5
 status: verified
 tags: [cnb, ang-mo-kio, pasir-ris]
 open_questions:
+  - The raids covered three separate localities; the map uses a Singapore-wide reference point, not a single flat.
   - The bureau named no suspects and gave no charging or bail outcome; investigations were still open when the releases were published on 29 July.
   - Ice, ketamine and LSD seized in the same operations were reported only in aggregate totals, not split by address in the accounts opened.
 sources:

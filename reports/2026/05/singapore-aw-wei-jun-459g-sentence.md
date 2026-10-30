@@ -2,7 +2,8 @@
 date: 2026-05-26
 country: sg
 place: Ang Mo Kio
-coordinates: [1.369, 103.845]
+# Geographic reference: https://photon.komoot.io/api/?q=Ang%20Mo%20Kio%2C%20Singapore&limit=3
+coordinates: [1.3801, 103.8421]
 precision: locality
 type: sentence
 also: [arrest, seizure]

@@ -3,7 +3,8 @@ code: 9FR2B2
 date: 2026-10-17
 country: ng
 place: Okemoro, Isinbode camp forest, Ondo State
-coordinates: [7.25, 5.197]
+# Geographic reference: https://photon.komoot.io/api/?q=Ondo%2C%20Nigeria&limit=3
+coordinates: [7.021, 5.0567]
 precision: region
 type: eradication
 also: [arrest]
@@ -19,6 +20,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [ndlea, skunk]
+open_questions:
+  - The map uses an Ondo State reference; Okemoro / Isinbode camp forest was not geolocated in the geographic sources checked.
 sources:
   - title: "Ondo: NDLEA arrests five suspects, destroys 7,500kg of skunk"
     url: https://justnews.ng/ondo-ndlea-arrests-five-suspects-destroys-7500kg-of-skunk/

@@ -2,7 +2,8 @@
 date: 2026-03-17
 country: sn
 place: Gambia border, Casamance
-coordinates: [12.9, -16.1]
+# Geographic reference: https://photon.komoot.io/api/?q=Sindian%2C%20Senegal&limit=3
+coordinates: [12.9981, -16.1329]
 precision: district
 type: death
 also: [eradication]
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [casamance, military]
 open_questions:
+  - The map marks the Sindian arrondissement near the Gambian border; the Armed Forces statement did not name a village for the explosion.
   - No second outlet account of the explosion was found; the cause and the soldiers' identities were not reported.
 sources:
   - title: Three Senegalese Soldiers killed in 'Accidental Explosion'

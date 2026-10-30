@@ -274,9 +274,12 @@ fields keep their meaning while `version` is 1.
 ## Coordinate audit
 
 `npm run coordinates:check` flags explicit coordinates outside their mapped country, identifies
-other mapped territories, and suggests sign/order mistakes to verify. It is an offline review
-aid, with no automatic report changes or rejection. See [coordinate checks](docs/COORDINATES.md)
-for JSON output, individual-report checks, offshore cases and dataset limitations.
+other mapped territories, and suggests sign/order mistakes to verify. It also documents reviewed
+offshore and locality references. `npm run coordinates:duplicates` clusters identical or
+near-identical pins reused across reports so unrelated localities can be reviewed; it does not
+move pins. Both are offline review aids, with no automatic report changes or rejection. See
+[coordinate checks](docs/COORDINATES.md) for JSON output, individual-report checks, offshore
+cases and dataset limitations.
 
 ## Evidence archive
 

@@ -2,7 +2,8 @@
 date: 2026-10-05
 country: np
 place: Naya Basti, Jahada-1, Morang
-coordinates: [26.4096, 87.3327]
+# Geographic reference: https://photon.komoot.io/api/?q=Jahada%2C%20Morang%2C%20Nepal&limit=3
+coordinates: [26.3776, 87.3077]
 precision: locality
 type: seizure
 title: 210 kg of ganja found hidden in Jahada paddy field
@@ -18,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [morang, jahada, apf, trafficking]
 open_questions:
+  - The map marks Jahada ward 1; Naya Basti was not separately geolocated in the geographic sources checked.
   - No second outlet account was found; whom the hidden consignment belonged to and whether it was bound for India was not reported.
 sources:
   - title: धानबारीमा लुकाइएको २१० किलो गाँजा बरामद

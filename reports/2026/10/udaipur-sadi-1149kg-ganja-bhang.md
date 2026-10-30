@@ -2,6 +2,7 @@
 date: 2026-10-06
 country: in
 place: Nadi Fala Sadi, Mandwa, Kotra Tehsil, Udaipur, Rajasthan
+# Geographic reference: https://photon.komoot.io/api/?q=Mandwa%2C%20Kotra%2C%20Udaipur%2C%20India&limit=3
 coordinates: [24.5297, 73.1029]
 precision: district
 type: eradication
@@ -35,6 +36,7 @@ sources:
     date: 2026-10-06
     language: hi
 open_questions:
+  - The map marks Mandwa village; Nadi Fala / Sadi in the hills was not separately geolocated in the geographic sources checked.
   - The reports do not give the date of the raid; 6 October 2026 is their publication date, and the operation is described as beginning at dawn.
   - No plant count is given; police reported the uprooted green plants by weight only.
   - No arrests or court proceedings are reported; police said the accused were absconding and searches were continuing.

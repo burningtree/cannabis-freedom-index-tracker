@@ -2,8 +2,9 @@
 date: 2026-10-16
 country: in
 place: Dhanirampur forest areas, Sonamura, Sepahijala
-coordinates: [23.476, 91.265]
-precision: district
+# Geographic reference: Dhanirampur village / health sub-centre area, Sonamura (approx. 23.5347, 91.2394)
+coordinates: [23.5347, 91.2394]
+precision: locality
 type: eradication
 title: 7,000 mature plants destroyed on five plots near Sonamura
 summary: >-
@@ -17,6 +18,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [bsf, tsr, drones]
+open_questions:
+  - The map marks Dhanirampur locality; the sources do not give coordinates for the five forest plots.
 sources:
   - title: Sonamura PS, 81st BN BSF & 11th BN TSR Jointly Destroyed 5 Nos. Ganja Plots & Eliminating Nearly 7 Thousand Ganja Trees
     url: https://www.tripurastarnews.com/sonamura-ps-81st-bn-bsf-11th-bn-tsr-jointly-destroyed-5-nos-ganja-plots-eliminating-nearly-7-thousand-ganja-trees/

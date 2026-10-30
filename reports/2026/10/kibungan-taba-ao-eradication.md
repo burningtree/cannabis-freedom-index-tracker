@@ -2,6 +2,7 @@
 date: 2026-10-26
 country: ph
 place: Sitio Taba-ao, Poblacion, Kibungan
+# Geographic reference: https://photon.komoot.io/api/?q=Kibungan%2C%20Benguet%2C%20Philippines&limit=3
 coordinates: [16.69, 120.65]
 precision: locality
 type: eradication
@@ -16,6 +17,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [benguet]
+open_questions:
+  - The map marks Kibungan poblacion; Sitio Taba-ao was not separately geolocated in the geographic sources checked.
 sources:
   - title: Oplan Grass Cutter clips marijuana volume in Benguet
     url: https://www.manilatimes.net/2026/10/28/regions/oplan-grass-cutter-clips-marijuana-volume-in-benguet/2455211

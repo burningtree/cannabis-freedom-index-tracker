@@ -2,7 +2,8 @@
 date: 2026-10-09
 country: jo
 place: Jordan
-coordinates: [31.9539, 35.9106]
+# Geographic reference: https://photon.komoot.io/api/?q=Amman%2C%20Jordan&limit=3
+coordinates: [31.9516, 35.924]
 precision: country
 type: seizure
 title: Customs foil hashish and marijuana smuggling bid with 296 slabs seized
@@ -14,7 +15,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [jordan, customs, smuggling]
 open_questions:
-  - The entry point, concealment method and whether arrests were made were not reported.
+  - The map uses a Jordan / Amman country reference; the entry point, concealment method and whether arrests were made were not reported.
 sources:
   - title: Customs Departmentr Foils Attempt to Smuggle Hashish, Marijuana
     url: https://www.fananews.com/language/en/customs-departmentr-foils-attempt-to-smuggle-hashish-marijuana/

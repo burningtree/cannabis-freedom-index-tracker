@@ -3,7 +3,8 @@ code: YA1M57
 date: 2026-10-21
 country: ke
 place: Juja, Kiambu and Embu counties
-coordinates: [-1.108, 37.013]
+# Geographic reference: midpoint of Juja (Kiambu) and Embu town references
+coordinates: [-0.8207, 37.339]
 precision: region
 type: arrest
 also: [seizure]
@@ -17,6 +18,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [bhang, peddling]
+open_questions:
+  - The map uses a regional midpoint between Juja (Kiambu) and Embu; the two arrests were in separate counties and neither site was mapped precisely.
 sources:
   - title: 2 drug traffickers arrested in Kiambu, Embu as police recover 1,087 bhang rolls
     url: https://peopledaily.digital/news/2-drug-traffickers-arrested-in-kiambu-embu-as-police-recover-1087-bhang-rolls

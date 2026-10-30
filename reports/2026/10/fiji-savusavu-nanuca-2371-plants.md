@@ -2,8 +2,9 @@
 date: 2026-10-19
 country: fj
 place: Nanuca, Savusavu
-coordinates: [-16.78, 179.333]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Savusavu%2C%20Fiji&limit=3
+coordinates: [-16.7802, 179.3329]
+precision: locality
 type: eradication
 also: [arrest]
 title: Farmer held as 2,371 plants uprooted on two Savusavu farms
@@ -17,6 +18,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [savusavu]
+open_questions:
+  - The map marks Savusavu town; Nanuca was not separately geolocated in the geographic sources checked.
 sources:
   - title: 38-year-old farmer arrested after 2,371 suspected marijuana plants uprooted in Savusavu
     url: https://www.fijivillage.com/fashion/38-year-old-farmer-arrested-after-2-371-suspected-marijuana-plants-uprooted-in-savusavu-bf1610/

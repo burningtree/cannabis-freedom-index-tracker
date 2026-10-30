@@ -2,7 +2,8 @@
 date: 2025-07-13
 country: ke
 place: Voi-Mombasa Highway
-coordinates: [-3.5593, 38.8035]
+# Geographic reference: https://photon.komoot.io/api/?q=Voi-Mombasa%20Road%2C%20Kenya&limit=3
+coordinates: [-3.4085, 38.5611]
 precision: locality
 type: seizure
 also: [arrest]
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [mombasa-highway, skank, trafficking]
 open_questions:
+  - The map marks the Mombasa Road corridor near Voi; the sources do not give an exact kilometre or bus stop for the vehicle stop.
   - No second outlet account was found; whether Chacha was arraigned and the Mombasa cartel recipients identified was not reported.
 sources:
   - title: Police nab notorious drug trafficker carrying bhang on Mombasa highway

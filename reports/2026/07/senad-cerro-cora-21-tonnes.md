@@ -2,9 +2,9 @@
 date: 2026-07-17
 country: py
 place: Cerro Corá district, Amambay
-# Geographic reference: https://nominatim.openstreetmap.org/search?q=Amambay%2C+Paraguay&format=jsonv2&limit=3
-coordinates: [-23, -56]
-precision: region
+# Geographic reference: https://photon.komoot.io/api/?q=Cerro%20Cor%C3%A1%20District%2C%20Amambay%2C%20Paraguay&limit=3
+coordinates: [-22.6551, -55.9636]
+precision: district
 type: eradication
 also: [seizure]
 title: SENAD destroys seven hectares and 21 tonnes of cannabis at Cerro Corá
@@ -23,7 +23,7 @@ created_by_model: cursor/composer-2.5
 status: verified
 tags: [senad, amambay, cerro-cora]
 open_questions:
-  - The map uses a district reference near Cerro Corá in Amambay, not the exact rural property searched.
+  - The map marks Cerro Corá-i near Pedro Juan Caballero as a district reference; the sources do not give the exact rural property searched.
   - The 21-tonne figure includes the agency's estimate of potential harvest from the seven hectares, not only the 350 kg destroyed on site.
   - ABC Color reported four drying racks destroyed in addition to three camps; the SENAD release counted three camps only.
   - No plant count per hectare was published.

@@ -2,8 +2,9 @@
 date: 2026-10-15
 country: in
 place: Kamalnagar Krishnadola, Sonamura, Sepahijala
-coordinates: [23.476, 91.265]
-precision: district
+# Geographic reference: https://photon.komoot.io/api/?q=Kamalnagar%2C%20Sonamura&limit=3
+coordinates: [23.5574, 91.2133]
+precision: locality
 type: seizure
 title: 327.7 kg of ganja found in seven drums near Sonamura
 summary: >-
@@ -17,6 +18,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [bsf, tsr, drums]
+open_questions:
+  - The map marks Kamalnagar near Sonamura; Krishnadola is not separately geolocated in the sources opened.
 sources:
   - title: >-
       Tripura: 327.7 Kg of Ganja Worth Rs 1.64 Crore Seized in Sepahijala

@@ -2,6 +2,7 @@
 date: 2026-10-28
 country: ke
 place: KK Towers, Juja Town and Kamukuywa Market, Kimilili
+# Geographic reference: https://photon.komoot.io/api/?q=Juja%2C%20Kiambu%2C%20Kenya&limit=3
 coordinates: [-1.1055, 37.0127]
 precision: locality
 type: seizure
@@ -21,6 +22,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [juja, kimilili, nps, trafficking]
 open_questions:
+  - The map marks Juja (KK Towers); Kamukuywa Market in Kimilili, Bungoma County, is a second distant site and was not given a separate pin.
   - Neither suspect was named and the Kimilili quantity was unspecified; whether both were arraigned was not reported.
 sources:
   - title: Police Seize Over 25kg of Bhang in Juja and Kimilili, Arrest Two Suspects

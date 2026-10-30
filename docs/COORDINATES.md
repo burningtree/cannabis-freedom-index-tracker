@@ -9,6 +9,18 @@ mkdir -p .cache
 node scripts/check-coordinates.mjs --json > .cache/coordinate-audit.json
 ```
 
+Find identical or near-identical pins reused across reports (advisory triage):
+
+```sh
+npm run coordinates:duplicates
+node scripts/check-duplicate-coordinates.mjs --meters=150
+node scripts/check-duplicate-coordinates.mjs --json --strict
+```
+
+`review` groups are unrelated place labels on the same pin and should be checked first.
+`related`, `shared_facility` and `same_place` are often expected (multi-site ops, airports, same village).
+The checker never moves coordinates or gates publication.
+
 The checker reads explicit `[latitude, longitude]` coordinates from report front matter and uses
 Natural Earth's 1:10m country land polygons, bundled in `world-atlas/countries-10m.json`.
 It uses spherical containment, including polygons crossing ±180°, and checks every feature
@@ -78,6 +90,7 @@ This is a proposed extension, not a check the current command performs.
    pin matching a country/regional fallback, and a location described only as a broad area but
    labelled `exact`. These signals prioritize review and must not automatically move pins or
    reject publication. Repeated pins at a genuine shared port or airport are expected.
+   The identical/near-pin signal is implemented offline as `npm run coordinates:duplicates`.
 
 Suggested output categories are **administrative mismatch**, **far from named place**,
 **ambiguous place**, **precision unsupported**, and **unverified reference**. Always show
