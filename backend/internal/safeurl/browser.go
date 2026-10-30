@@ -51,11 +51,11 @@ func FetchRendered(parent context.Context, raw, dir, script string) (Evidence, e
 	}
 	ctx, cancel := context.WithTimeout(parent, 65*time.Second)
 	defer cancel()
-	bridge, token, closeBridge, err := browserBridge(ctx)
+	proxy, token, closeProxy, err := browserProxy(ctx)
 	if err != nil {
 		return Evidence{}, err
 	}
-	defer closeBridge()
+	defer closeProxy()
 	home, err := os.MkdirTemp(dir, ".browser-session-")
 	if err != nil {
 		return Evidence{}, err
@@ -74,7 +74,7 @@ func FetchRendered(parent context.Context, raw, dir, script string) (Evidence, e
 		}
 	}
 	command := exec.CommandContext(ctx, "node", script, normalized, dir)
-	command.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + home, "TMPDIR=" + home, "PLAYWRIGHT_BROWSERS_PATH=" + cache, "SOURCE_FETCH_BRIDGE=" + bridge, "SOURCE_FETCH_TOKEN=" + token}
+	command.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + home, "TMPDIR=" + home, "PLAYWRIGHT_BROWSERS_PATH=" + cache, "SOURCE_PROXY=" + proxy, "SOURCE_PROXY_TOKEN=" + token}
 	// the ad and cookie-notice blocker's switch and engine cache (scripts/source-browser.mjs)
 	for _, key := range []string{"SOURCE_ADBLOCK", "SOURCE_BLOCKER_CACHE", "SOURCE_BLOCKER_DEBUG"} {
 		if value := os.Getenv(key); value != "" {

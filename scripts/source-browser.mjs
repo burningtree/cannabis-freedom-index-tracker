@@ -1,5 +1,7 @@
-// Invoked by the Go source loader. Browser traffic is fulfilled only through its
-// public-IP-checked fetch bridge; no account, saved cookies or provider keys load.
+// Invoked by the Go source loader. The browser's only way out is the loader's proxy, which lets it
+// reach public hosts only (port 443, and 80 for plain HTTP); Chromium makes its own connections
+// through it, so a site sees a browser's TLS, HTTP/2 and headers. No account, saved cookies or
+// provider keys load.
 import { chromium } from "playwright";
 import { PlaywrightBlocker, fromPlaywrightDetails } from "@ghostery/adblocker-playwright";
 import fs from "node:fs/promises";
@@ -154,17 +156,21 @@ async function captureImages(page, dir) {
   return images;
 }
 
-export async function captureSource({ url, dir, bridge, token }) {
-  if (!bridge || !token || !/^http:\/\/127\.0\.0\.1:\d+$/.test(bridge)) throw new Error("Source fetch bridge is unavailable.");
+export async function captureSource({ url, dir, proxy, token }) {
+  if (!proxy || !token || !/^http:\/\/127\.0\.0\.1:\d+$/.test(proxy)) throw new Error("Source proxy is unavailable.");
   const blocker = await loadBlocker();
   let blocked = 0, page;
   const browser = await chromium.launch({ channel: "chromium", headless: true, timeout: 12000, chromiumSandbox: true,
-    proxy: { server: "http://127.0.0.1:1" },
+    // everything, loopback included (<-loopback>), goes through the checking proxy, with this
+    // capture's password
+    proxy: { server: proxy, username: "capture", password: token },
     args: ["--proxy-bypass-list=<-loopback>", "--disable-background-networking", "--disable-quic", "--force-webrtc-ip-handling-policy=disable_non_proxied_udp"],
     env: { PATH: process.env.PATH || "", HOME: process.env.HOME || "", TMPDIR: process.env.TMPDIR || "" },
   });
   try {
-    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, serviceWorkers: "block", acceptDownloads: false, ignoreHTTPSErrors: false });
+    // a browser's own user agent, without the "HeadlessChrome" that headless mode announces
+    const userAgent = `Mozilla/5.0 (${process.platform === "darwin" ? "Macintosh; Intel Mac OS X 10_15_7" : "X11; Linux x86_64"}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${browser.version().split(".")[0]}.0.0.0 Safari/537.36`;
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, userAgent, serviceWorkers: "block", acceptDownloads: false, ignoreHTTPSErrors: false });
     await context.routeWebSocket("**/*", socket => socket.close());
     await context.route("**/*", async route => {
       const request = route.request();
@@ -173,14 +179,8 @@ export async function captureSource({ url, dir, bridge, token }) {
       if (blocker && !(request.isNavigationRequest() && request.frame() === page?.mainFrame())) {
         try { if (blocker.match(fromPlaywrightDetails(request)).match) { blocked++; if (process.env.SOURCE_BLOCKER_DEBUG) console.error("blocked", request.resourceType(), request.url()); await route.abort("blockedbyclient"); return; } } catch { /* a request without a frame: let it through */ }
       }
-      try {
-        const response = await fetch(`${bridge}/fetch`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ url: request.url(), method: request.method(), headers: await request.allHeaders(), body: request.postDataBuffer()?.toString("base64") || "" }), signal: AbortSignal.timeout(30000),
-        });
-        if (!response.ok) { await route.abort(); return; }
-        const result = await response.json();
-        await route.fulfill({ status: result.status, headers: result.headers, body: Buffer.from(result.body || "", "base64") });
-      } catch { await route.abort().catch(() => {}); }
+      // the rest goes out from Chromium itself, through the proxy
+      await route.continue().catch(() => {});
     });
     page = await context.newPage();
     page.on("dialog", dialog => dialog.dismiss());
@@ -244,7 +244,7 @@ export async function captureSource({ url, dir, bridge, token }) {
 
 async function main() {
   const [url, dir] = process.argv.slice(2);
-  try { const result = await captureSource({ url, dir, bridge: process.env.SOURCE_FETCH_BRIDGE, token: process.env.SOURCE_FETCH_TOKEN }); process.stdout.write(JSON.stringify(result)); }
+  try { const result = await captureSource({ url, dir, proxy: process.env.SOURCE_PROXY, token: process.env.SOURCE_PROXY_TOKEN }); process.stdout.write(JSON.stringify(result)); }
   catch (error) {
     const missing = /Executable doesn't exist|browserType.launch|playwright install/.test(String(error));
     process.stdout.write(JSON.stringify({ error: missing ? "Playwright Chromium is unavailable. Run npm run browser-install." : String(error.message).split("\n")[0].slice(0, 300), unavailable: missing })); process.exitCode = 1;

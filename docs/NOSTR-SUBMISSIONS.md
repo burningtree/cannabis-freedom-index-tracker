@@ -136,10 +136,13 @@ No GitHub App or API key is needed for this step.
 Install the matching Chromium once with `npm run browser-install` (Playwright is a pinned runtime
 dependency). `SOURCE_BROWSER=true` is the default. Initial and corroborating sources load in fresh,
 anonymous Chromium contexts; no saved browser profile, cookies, service keys or account is loaded.
-JavaScript and public API requests are supported. Scripts/images/API traffic is fulfilled through
-a token-protected Go fetch bridge using the existing public-IP-pinned HTTP transport. Chromium has
-a dead proxy as a backstop; service workers, WebSockets, downloads and media streaming are blocked.
-Redirects re-enter the same destination checks. Captures have request, byte and time limits.
+JavaScript and public API requests are supported. Chromium makes its own connections (its own TLS,
+HTTP/2 and headers, with a normal Chrome user agent, so sites behind bot checks see a browser rather
+than a Go client) through a per-capture, password-protected loopback proxy: HTTPS tunnels to port
+443 and plain HTTP to port 80 only, to hosts whose every address is public, dialled at the checked
+address (no DNS rebinding). Loopback is not exempt from the proxy. Ads and trackers are still blocked
+by the filter lists; service workers, WebSockets, downloads and media streaming are blocked.
+Redirects re-enter the same destination checks. Captures have connection, byte and time limits.
 
 The archive under `WORKSPACE_PATH/sources/<case>/<capture>/` contains `page.html` (rendered markup),
 `page.txt` (visible text), `page.png` and `metadata.json`, mode 0600 inside private directories.
