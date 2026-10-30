@@ -27,11 +27,16 @@ export function changelogDev({ interval = 1000 } = {}) {
           const next = await revision();
           if (closed || !next || next === previous) return;
           previous = next;
-          // Use Astro's content-change signal to clear getStaticPaths caches in
-          // every dev rendering environment, as its content collection loader does.
+          // Reports and their indexes are computed once when their module loads.
+          // Clearing only getStaticPaths leaves those snapshots (and already open
+          // map/list pages) alive. Invalidate each environment and use Vite's full
+          // reload so its module runner and every browser load fresh report data.
           for (const environment of Object.values(server.environments)) {
+            environment.moduleGraph.invalidateAll();
             environment.hot.send("astro:content-changed", {});
+            environment.hot.send({ type: "full-reload", path: "*" });
           }
+          // Retain the event for existing dev clients; current pages use full-reload.
           server.ws.send({ type: "custom", event: "tracker:git-changed", data: {} });
         } finally { busy = false; }
       };

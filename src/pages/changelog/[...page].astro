@@ -74,13 +74,6 @@ const dateLabel = (value) => new Date(value).toLocaleString("en-GB", { dateStyle
   </nav>}
 </Base>
 
-<script>
-  // The server has cleared its static-path cache before sending this event.
-  if (import.meta.hot) {
-    import.meta.hot.on("tracker:git-changed", () => window.location.reload());
-  }
-</script>
-
 <style>
   .change-totals, .commits {
     --added: #78cba0;
