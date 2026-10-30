@@ -747,7 +747,11 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 	}
 	defer cleanup()
 	out := &capped{Max: 4 * 1024 * 1024}
-	events = &eventWriter{ctx: ctx, store: r.Store, cid: cid, run: run, secret: r.Config.ResearchKey}
+	key := r.Config.ResearchKey
+	if localKey := selectedProviderKey(cmd); localKey != "" {
+		key = localKey
+	}
+	events = &eventWriter{ctx: ctx, store: r.Store, cid: cid, run: run, secret: key}
 	raw, err := os.OpenFile(filepath.Join(dir, "research-events.jsonl"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)
 	if err != nil {
 		return Result{}, err

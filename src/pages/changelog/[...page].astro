@@ -1,0 +1,130 @@
+---
+import ChangelogTimeline from "../../components/ChangelogTimeline.astro";
+import { countryName, flagOf } from "../../lib/countries.js";
+import { TYPES } from "../../lib/types.js";
+import Base from "../../layouts/Base.astro";
+import { reports } from "../../lib/reports.js";
+import { readChangelog, paginateChangelog, changelogTimeline, repositoryURL } from "../../lib/changelog.js";
+
+export function getStaticPaths() {
+  const { commits, shallow } = readChangelog();
+  const pages = paginateChangelog(commits);
+  const timeline = changelogTimeline(commits);
+  const commitPages = {};
+  pages.forEach((page, index) => page.forEach((commit) => { commitPages[commit.hash] ??= index + 1; }));
+  const totals = { added: 0, edited: 0, deleted: 0, renamed: 0 };
+  for (const commit of commits) for (const change of commit.changes) totals[change.kind]++;
+  return pages.map((entries, i) => ({
+    params: { page: i === 0 ? undefined : String(i + 1) },
+    props: { entries, number: i + 1, count: pages.length, commitCount: commits.length, totals, shallow, timeline, commitPages },
+  }));
+}
+const { entries, number, count, commitCount, totals, shallow, timeline, commitPages } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const current = new Set(reports.map((r) => r.id));
+const pageURL = (n) => `${base}changelog/${n === 1 ? "" : `${n}/`}`;
+const labels = { added: "Added", edited: "Edited", deleted: "Deleted", renamed: "Renamed" };
+const symbols = { added: "+", edited: "~", deleted: "−", renamed: "→" };
+const dateLabel = (value) => new Date(value).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short", timeZone: "UTC" });
+---
+<Base title={number === 1 ? "Changelog" : `Changelog · Page ${number}`} description="Commit history of the tracker: reports added, edited, deleted and renamed, with descriptions of the changes.">
+  <h1>Changelog</h1>
+  <p class="lead">Report additions, edits and other changes to the tracker. Newest first.</p>
+  <p class="history-note">Updated each build · Commit times in UTC · Counts include repeated changes to a report.</p>
+  {shallow && <p class="history-warning">This build has partial Git history. Older changes are unavailable.</p>}
+  <div class="change-totals" aria-label="History totals">
+    <span class="total-commits"><strong>{commitCount.toLocaleString("en-GB")}</strong><span>Commits</span></span>
+    {Object.entries(totals).map(([kind, total]) => <span class={`total-change ${kind}`}><strong>{total.toLocaleString("en-GB")}</strong><span>{labels[kind]}</span></span>)}
+  </div>
+  <ChangelogTimeline timeline={timeline} commitPages={commitPages} />
+  <nav class="history-pages" aria-label="Changelog pagination">
+    {number > 1 ? <a href={pageURL(number - 1)}>← Newer</a> : <span>← Newer</span>}
+    <span>Page {number} of {count}</span>
+    {number < count ? <a href={pageURL(number + 1)}>Older →</a> : <span>Older →</span>}
+  </nav>
+  <div class="commits">
+    {entries.map((commit) => <article class="commit" id={`commit-${commit.hash}`}>
+      <div class="commit-meta"><time datetime={commit.date}>{dateLabel(commit.date)} UTC</time><a href={`${repositoryURL}/commit/${commit.hash}`} class="commit-hash" aria-label={`View commit ${commit.hash.slice(0, 7)} on GitHub`}>{commit.hash.slice(0, 7)} ↗</a></div>
+      <h2>{commit.subject}{commit.continued && <small> (continued)</small>}</h2>
+      {commit.changes.length > 0 && <ul class="report-changes">
+        {commit.changes.map((change) => <li>
+          <span class={`change-kind ${change.kind}`}><span aria-hidden="true">{symbols[change.kind]}</span>{labels[change.kind]}</span>
+          <div class="change-detail">
+            <h3>{change.kind !== "deleted" && current.has(change.slug)
+              ? <a href={`${base}report/${change.slug}/`}>{change.title}</a>
+              : <span>{change.title}</span>}</h3>
+            <div class="report-meta">
+              {change.categories.filter((category) => TYPES[category]).map((category) => <span class="type" style={`--c:${TYPES[category].color}`}>{TYPES[category].label}</span>)}
+              {change.date && <time datetime={change.date}>{new Date(`${change.date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</time>}
+              {change.country && <a href={`${base}country/${change.country}/`}>{flagOf(change.country)} {countryName(change.country)}</a>}
+            </div>
+            {change.fields.length > 0 && <p class="changed-fields">Changed: {change.fields.join(", ")}.</p>}
+            {change.kind === "renamed" && <p class="changed-fields">{change.oldPath} → {change.path}</p>}
+          </div>
+        </li>)}
+      </ul>}
+      {commit.otherFiles > 0 && <p class="other-files"><a href={`${repositoryURL}/commit/${commit.hash}`}>{commit.otherFiles} other {commit.otherFiles === 1 ? "file" : "files"} changed ↗</a></p>}
+    </article>)}
+  </div>
+  {entries.length === 0 && <p>No commits available.</p>}
+  {count > 1 && <nav class="history-pages" aria-label="More changelog pages">
+    {number > 1 ? <a href={pageURL(number - 1)}>← Newer</a> : <span>← Newer</span>}
+    <span>Page {number} of {count}</span>
+    {number < count ? <a href={pageURL(number + 1)}>Older →</a> : <span>Older →</span>}
+  </nav>}
+</Base>
+
+<style>
+  .change-totals, .commits {
+    --added: #78cba0;
+    --edited: #e5bb65;
+    --deleted: #ee939d;
+    --renamed: #9cb5f5;
+  }
+  :global([data-theme="light"]) .change-totals,
+  :global([data-theme="light"]) .commits {
+    --added: #246d4b;
+    --edited: #835c13;
+    --deleted: #aa3548;
+    --renamed: #465eb0;
+  }
+  .added { --change-color: var(--added); }
+  .edited { --change-color: var(--edited); }
+  .deleted { --change-color: var(--deleted); }
+  .renamed { --change-color: var(--renamed); }
+  .history-note, .other-files, .changed-fields { color: var(--muted); font-size: 12px; }
+  .history-note { line-height: 1.6; }
+  .history-warning { padding: 12px 0; border-block: 1px solid var(--border); }
+  .change-totals { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 22px 0 24px; }
+  .change-totals > span { display: inline-flex; align-items: baseline; gap: 6px; }
+  .change-totals strong { color: var(--change-color, var(--text)); font: 500 14px var(--mono); }
+  .change-totals span > span { color: var(--text-2); font-size: 12px; }
+  .history-pages { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; font-size: 12px; }
+  .history-pages > span { color: var(--muted); }
+  .history-pages a { padding: 6px 0; }
+  .commits { margin: 0 0 8px; }
+  .commit { padding: 20px 0 0; border-top: 2px solid var(--border); scroll-margin-top: 180px; }
+  .commit + .commit { margin-top: 28px; }
+  .commit-meta { padding-left: 10px; border-left: 2px solid var(--muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: 12px; }
+  .commit-hash { font: 11px var(--mono); color: var(--muted); }
+  .commit h2 { font: 400 22px/1.3 var(--display); margin: 8px 0 4px; overflow-wrap: anywhere; }
+  .commit h2 small { color: var(--muted); font-size: 14px; }
+  .report-changes { list-style: none; padding: 0; margin: 0; }
+  .report-changes li { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 16px; padding: 16px 0; }
+  .report-changes li + li { border-top: 1px solid var(--border); }
+  .change-kind { margin-top: 2px; display: inline-flex; align-items: center; gap: 4px; font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--change-color); }
+  .change-kind > span { font-size: 13px; }
+  .change-detail { min-width: 0; overflow-wrap: anywhere; }
+  .report-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .change-detail h3 { font: 400 19px/1.3 var(--display); letter-spacing: -.02em; margin: 0 0 4px; }
+  .changed-fields { margin: 8px 0 0; line-height: 1.6; }
+  .other-files { margin: 8px 0 14px; }
+  .other-files a { color: var(--text-2); }
+  @media (max-width: 600px) {
+    .change-totals { gap: 8px 18px; }
+    .commit { padding-top: 18px; }
+    .commit h2 { font-size: 20px; }
+    .report-changes li { grid-template-columns: 58px minmax(0, 1fr); gap: 10px; }
+    .change-kind { font-size: 10px; letter-spacing: 0; }
+  }
+</style>

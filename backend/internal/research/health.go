@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -141,14 +142,14 @@ func (r Runner) probeAttempt(ctx context.Context) (diagnostics ProbeDiagnostics,
 		diagnostics.ExitCode = &code
 	}
 	if runErr != nil {
-		return diagnostics, probeFailure(out.Bytes())
+		return diagnostics, probeFailure(out.Bytes(), r.Config.ResearchModel)
 	}
 	text, err := FinalText(out.Bytes())
 	if err != nil {
 		if err.Error() == "missing final result" {
 			return diagnostics, errEmptyProbeReply
 		}
-		return diagnostics, probeFailure(out.Bytes())
+		return diagnostics, probeFailure(out.Bytes(), r.Config.ResearchModel)
 	}
 	diagnostics.Response = string(text)
 	if !probeReplyUsable(text) {
@@ -160,7 +161,7 @@ func (r Runner) probeAttempt(ctx context.Context) (diagnostics ProbeDiagnostics,
 // Readiness checks a completed model call, not exact wording. Provider/harness
 // preambles and summaries must not turn a working model into a startup failure.
 func probeReplyUsable(text []byte) bool { return strings.TrimSpace(string(text)) != "" }
-func probeFailure(data []byte) error {
+func probeFailure(data []byte, model string) error {
 	// Never expose provider response bodies or credentials from the execution stream.
 	for _, line := range strings.Split(string(data), "\n") {
 		var event struct {
@@ -178,7 +179,7 @@ func probeFailure(data []byte) error {
 			}
 		}
 	}
-	return errors.New("OpenCode model test failed; verify opencode run --model opencode-go/deepseek-v4.1-flash in your terminal, then restart the backend")
+	return fmt.Errorf("OpenCode model test failed; verify opencode run --model %q in your terminal, then restart the backend", model)
 }
 func (r Runner) Check(ctx context.Context, h *Health) {
 	check, cancel := context.WithTimeout(ctx, 60*time.Second)

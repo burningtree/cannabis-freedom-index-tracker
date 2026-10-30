@@ -24,7 +24,7 @@ func (r Runner) modelConfig() []byte {
 		if r.Config.ResearchRunner != "local" {
 			options["apiKey"] = "{env:RESEARCH_API_KEY}"
 		}
-		cfg["provider"] = map[string]any{"opencode-go": map[string]any{"npm": "@ai-sdk/openai-compatible", "name": "OpenCode Go", "options": options, "models": map[string]any{parts[1]: map[string]string{"name": "DeepSeek V4.1 Flash"}}}}
+		cfg["provider"] = map[string]any{"opencode-go": map[string]any{"npm": "@ai-sdk/openai-compatible", "name": "OpenCode Go", "options": options, "models": map[string]any{parts[1]: map[string]string{"name": parts[1]}}}}
 	}
 	cfg["agent"] = map[string]any{"enforcement-probe": map[string]any{"description": "Short model connectivity check", "mode": "primary", "steps": 2, "permission": map[string]string{"*": "deny"}, "prompt": probeInstruction}}
 	b, _ := json.Marshal(cfg)
@@ -92,6 +92,10 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 			return nil, nil, err
 		}
 	}
+	providerKey, err := r.copyLocalProvider(home)
+	if err != nil {
+		return nil, nil, err
+	}
 	toolOutput := filepath.Join(home, "data", "opencode", "tool-output")
 	if isV2 {
 		if err = configureOpenCode2(input, r.Config.ResearchMaxSteps, toolOutput); err != nil {
@@ -122,9 +126,14 @@ func (r Runner) commandArgs(ctx context.Context, input, run string, args []strin
 	cmd := exec.CommandContext(ctx, "/usr/bin/sandbox-exec", append([]string{"-f", profilePath, binary}, args...)...)
 	cmd.Dir = input
 	cmd.Env = []string{"PATH=" + filepath.Dir(binary) + ":/usr/bin:/bin:/usr/sbin:/sbin", "HOME=" + home, "TMPDIR=" + filepath.Join(home, "tmp"), "XDG_CONFIG_HOME=" + filepath.Join(home, "config"), "XDG_DATA_HOME=" + filepath.Join(home, "data"), "XDG_CACHE_HOME=" + filepath.Join(home, "cache"), "XDG_STATE_HOME=" + filepath.Join(home, "state"), "CI=true", "NO_COLOR=1"}
+	if providerKey != "" {
+		cmd.Env = append(cmd.Env, providerKeyEnv+"="+providerKey)
+	}
 	if isV2 {
-		if err = r.importOpenCode2Auth(ctx, binary, cmd); err != nil {
-			return nil, nil, err
+		if providerKey == "" {
+			if err = r.importOpenCode2Auth(ctx, binary, cmd); err != nil {
+				return nil, nil, err
+			}
 		}
 		db := filepath.Join(home, "data", "opencode", "opencode.db")
 		if _, statErr := os.Stat(db); statErr != nil {

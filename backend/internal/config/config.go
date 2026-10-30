@@ -16,7 +16,7 @@ type Config struct {
 	Origins, Relays, RSSFeeds, GDELTQueries, TrustedProxies                     []string
 	GatewaySecret, BotSecret                                                    string
 	ResearchImage, ResearchNetwork, ResearchModel, ResearchKey                  string
-	ResearchRunner, OpenCodeBinary, OpenCodeAuthFile                            string
+	ResearchRunner, OpenCodeBinary, OpenCodeAuthFile, OpenCodeConfigFile        string
 	AutoPublish                                                                 bool
 	AutoPush                                                                    bool // push the report repository after each report commit
 	WorkerConcurrency                                                           int  // requests worked on at the same time
@@ -46,6 +46,7 @@ func Load() (Config, error) {
 	c.ResearchRunner = env("RESEARCH_RUNNER", "docker")
 	c.OpenCodeBinary = env("OPENCODE_BIN", "opencode")
 	c.OpenCodeAuthFile = os.Getenv("OPENCODE_AUTH_FILE")
+	c.OpenCodeConfigFile = os.Getenv("OPENCODE_CONFIG")
 	var boolErr error
 	c.AutoPublish, boolErr = strconv.ParseBool(env("AUTO_PUBLISH", "true"))
 	if boolErr != nil {
@@ -62,9 +63,6 @@ func Load() (Config, error) {
 	}
 	if c.ResearchRunner != "docker" && c.ResearchRunner != "local" {
 		return c, errors.New("RESEARCH_RUNNER must be docker or local")
-	}
-	if c.ResearchRunner == "local" && c.ResearchModel == "" {
-		c.ResearchModel = "opencode-go/deepseek-v4.1-flash"
 	}
 	if raw := os.Getenv("TRUSTED_PROXY_CIDRS"); raw != "" {
 		for _, v := range strings.Split(raw, ",") {

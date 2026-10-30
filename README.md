@@ -24,6 +24,7 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
 | `/country/` | All countries with reports |
 | `/stats/` | Totals, reports per month since the first report, by type, region and year, top countries |
+| `/changelog/` | Paginated commit history: reports added, edited, deleted and renamed, report descriptions, countries, categories and changed fields, plus a timeline of report changes; refreshed at build time |
 | `/feed.xml` | RSS feed of the 50 newest reports |
 | `/about/` | What a report is, the types and statuses |
 | `/api/…` | JSON, see below |
@@ -165,7 +166,7 @@ npm run build
 ```
 
 `npm run build` runs the tests first and writes the site to `dist/`. Set `SITE` and `BASE_PATH` to
-build for another address. `npm run dev` starts a local dev server.
+build for another address. The changelog requires a Git checkout with full history (`git fetch --unshallow` for a shallow clone); partial history is labeled on the page. `npm run dev` starts a local dev server.
 
 ## JSON API
 
@@ -315,7 +316,7 @@ privacy, backups, research isolation and rollout requirements. Use `backend/conf
 for private service configuration and `.env.example` for public-only Astro build settings.
 For JavaScript-rendered sources and archived screenshots/SEO metadata, install Chromium once with
 `npm run browser-install` (`SOURCE_BROWSER=true` by default).
-Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials with `RESEARCH_MODEL=opencode-go/deepseek-v4.1-flash`. Do not prefix secrets with `PUBLIC_`. The form
+Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials and the `RESEARCH_MODEL` set in `.env` or the process environment (`provider/model`, optionally `#variant`). There is no built-in model default. Do not prefix secrets with `PUBLIC_`. The form
 stays unavailable in production until `PUBLIC_SUBMISSIONS_API_URL` is set. For local work, run
 `npm run backend-dev` and `npm run dev` in separate terminals; the frontend connects to localhost automatically. Never include service secrets in an
 Astro build. Backend checks: `cd backend && go test -race ./... && go vet ./...`.

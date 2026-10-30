@@ -102,3 +102,24 @@ func TestLocalSandboxProtectsHostFilesAndRunsOpenCode(t *testing.T) {
 		}
 	}
 }
+
+func TestModelConfigUsesSelectedModelName(t *testing.T) {
+	r := Runner{Config: config.Config{ResearchRunner: "docker", ResearchModel: "opencode-go/another-model"}}
+	var cfg struct {
+		Provider map[string]struct {
+			Models map[string]struct {
+				Name string `json:"name"`
+			} `json:"models"`
+		} `json:"provider"`
+	}
+	if err := json.Unmarshal(r.modelConfig(), &cfg); err != nil {
+		t.Fatal(err)
+	}
+	if name := cfg.Provider["opencode-go"].Models["another-model"].Name; name != "another-model" {
+		t.Fatalf("configured model has wrong name: %q", name)
+	}
+	message := probeFailure(nil, "other-provider/selected-model#high").Error()
+	if !strings.Contains(message, "other-provider/selected-model#high") || strings.Contains(message, "deepseek") {
+		t.Fatalf("probe failure must identify selected model: %s", message)
+	}
+}

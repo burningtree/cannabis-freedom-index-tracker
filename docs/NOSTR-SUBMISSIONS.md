@@ -20,8 +20,10 @@ npm run dev
 ```
 
 `backend-dev` loads the ignored root `.env` and starts Go on `127.0.0.1:8080`. It defaults to
-the locally installed OpenCode CLI, `opencode-go/deepseek-v4.1-flash`, automatic publication,
-and private state under `backend/data/`. Astro proxies HTTP and WebSocket traffic through
+the locally installed OpenCode CLI, automatic publication, and private state under
+`backend/data/`. Set `RESEARCH_MODEL` in `.env` (or the process environment) to choose the
+provider/model, including an optional `#variant`. There is no built-in model default;
+processing stays paused until a model is configured. Astro proxies HTTP and WebSocket traffic through
 `/__submissions`, so the frontend also works when port 4321 is occupied and Astro selects 4322.
 Production builds require an explicit `PUBLIC_SUBMISSIONS_API_URL`.
 
@@ -34,7 +36,14 @@ AUTO_PUBLISH=true
 ```
 
 Keep `.env` mode 0600 and out of Git. Never prefix a secret with `PUBLIC_`.
-The local runner uses OpenCode’s saved credentials. OpenCode 2 uses its native scoped
+The local runner uses OpenCode’s saved credentials. It also loads the selected provider’s
+endpoint, model definitions and options from `~/.opencode/opencode.json` (JSON), or the file
+named by `OPENCODE_CONFIG`. Only that provider is imported into the isolated session; home
+agents, plugins, permissions and unrelated provider credentials are not imported. An inline
+`options.apiKey` or `{env:NAME}` key is passed privately to the harness and redacted from
+startup diagnostics and public activity. The provider config stays outside the evidence input.
+`RESEARCH_MODEL` still selects the provider/model; restart the backend after changing either.
+OpenCode 2 uses its native scoped
 `auth export`/`auth import` commands to initialize a private standalone session; credential
 contents never enter logs or `.env`. OpenCode 1 copies only the selected provider from its
 legacy auth file (`OPENCODE_AUTH_FILE` can override that file). Local mode does not require

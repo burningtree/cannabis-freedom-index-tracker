@@ -47,3 +47,24 @@ func TestDailyBudgetZeroIsUnlimitedButOtherBoundsRemain(t *testing.T) {
 		})
 	}
 }
+
+func TestResearchModelComesFromEnvironment(t *testing.T) {
+	for _, runner := range []string{"local", "docker"} {
+		t.Run(runner, func(t *testing.T) {
+			defaults(t)
+			t.Setenv("RESEARCH_RUNNER", runner)
+			c, err := Load()
+			if err != nil || c.ResearchModel != "" || c.ResearchEnabled() {
+				t.Fatalf("missing model should disable research: model=%q err=%v", c.ResearchModel, err)
+			}
+			t.Setenv("RESEARCH_MODEL", "other-provider/selected-model#high")
+			c, err = Load()
+			if err != nil || c.ResearchModel != "other-provider/selected-model#high" {
+				t.Fatalf("configured model was not preserved: model=%q err=%v", c.ResearchModel, err)
+			}
+			if runner == "local" && !c.ResearchEnabled() {
+				t.Fatal("configured local model should enable research")
+			}
+		})
+	}
+}
