@@ -42,17 +42,23 @@ sources:
     publisher: Dinamalar
     date: 2026-10-30
     language: ta
+  - title: தருமபுரியில் கஞ்சா போதையில் தாயைக் கொன்ற மகன் கைது
+    url: https://tamil.getlokalapp.com/tamilnadu-news/son-arrested-for-killing-mother-under-the-influence-of-ganja-in-dharmapuri-17369926
+    publisher: Lokal Tamil
+    date: 2026-10-30
+    language: ta
 open_questions:
   - 'The accounts differ on the date and time: Thanthi TV placed the killing on the morning of 30 October, The Hindu and Dinakaran late on 29 October, and Dinamalar on the night of 28 October; this report uses the night of 29 October.'
   - Chinnapappa's age is given as 42 by Thanthi TV and 45 by The Hindu, Dinakaran and Dinamalar; Devaraj's age is given as 19 by Thanthi TV, The Hindu and Dinakaran and 20 by Dinamalar.
   - Thanthi TV and Dinakaran said Devaraj was under the influence of cannabis; Dinamalar said he was drunk, and The Hindu did not identify the substance involved in the killing.
   - The weapon is given as a knife by Thanthi TV, an iron rod by The Hindu, and an iron rod and a knife by Dinakaran.
   - No charge, court appearance or sentence was reported, and no police statement was opened.
+  - Lokal Tamil described the earlier case as threatening police with a knife and his release on bail as 'a few days' before the killing, where the report, citing The Hindu, describes a sword and a bail on 28 October.
 ---
 
 Police in Indur, in Tamil Nadu's Dharmapuri district, arrested 19-year-old
 Devaraj after he allegedly killed his mother at their home in Pazhaya Indur.
-[@1] Thanthi TV reported that he stabbed Chinnapappa, 42, with a knife while
+[@1,5] Thanthi TV reported that he stabbed Chinnapappa, 42, with a knife while
 under the influence of cannabis, known locally as ganja, and that she died at
 the scene. [@1] The Hindu said he attacked her with an iron rod around 11:30
 p.m. on Thursday, 29 October, after she refused him money. [@2] The Hindu gave
@@ -74,4 +80,3 @@ Dinamalar, which gave his age as 20 and his mother's as 45, said he was drunk.
 [@4] The Hindu described him as inebriated at the earlier arrest. [@2] Indur
 police sent Chinnapappa's body to Dharmapuri government hospital for
 post-mortem, Dinakaran reported. [@3]
-
