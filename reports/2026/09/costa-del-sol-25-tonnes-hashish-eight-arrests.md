@@ -18,11 +18,6 @@ media:
     media_url: https://s2.ppllstatics.com/surinenglish/www/multimedia/sucesos/2026/10/30/droga-kRqH--1200x840@Diario%20Sur.jpg
     publisher: Sur in English
     caption: 'Seized drugs from the National Police operation. Photo: Policía Nacional'
-  - kind: photo
-    url: https://www.europapress.es/andalucia/malaga-00356/noticia-intervenidas-25-toneladas-hachis-detener-ocho-personas-malaga-valencia-girona-20261030101648.html
-    media_url: https://img.europapress.es/fotoweb/fotonoticia_20261030101648_690.jpg
-    publisher: Europa Press
-    caption: 'Drugs seized in the police operation. Photo: Policía Nacional'
 status: reported
 created_by_model: xai/grok-4.7#low
 submission: 53fc23aca5a8e595c134a45894de6b9e

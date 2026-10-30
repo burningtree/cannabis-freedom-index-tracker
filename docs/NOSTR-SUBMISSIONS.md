@@ -449,6 +449,11 @@ by a report being updated do not count as overlap with another case. All changed
 site build and are committed together, each refused if the report changed since research began.
 The request page lists the existing reports a run changes (or would have changed).
 
+Before the build, photos are compared by a perceptual fingerprint (a 64-bit difference hash):
+a photo that repeats an earlier one in the answer, or one the updated report already shows, is left
+out, so an agency handout republished by several outlets appears once. Photos that cannot be
+downloaded are kept.
+
 A failed report build shows the failing lines of the build log on the request page, without
 workspace paths or stack traces; the full log stays private in the workspace's `validation.log`.
 

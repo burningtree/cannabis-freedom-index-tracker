@@ -103,7 +103,9 @@ copied** to this site.
   extract it from the opened page's image markup, `srcset`, metadata, or captured
   `source_images[].src`. For videos, use the published file/stream URL or dedicated video-host page. Keep `url` as the
   article/source page; keep it separate from the media address. Use one entry per photo or video, even
-  when several are on the same page, and preserve meaningful media query parameters. Never
+  when several are on the same page, and preserve meaningful media query parameters. List each
+  picture once: an agency handout republished by several outlets is the same photo (prefer the
+  agency's page or the first outlet); `node scripts/duplicate-media.mjs` finds repeats. Never
   guess an address or substitute a news article URL. If no address can be recovered, explain the
   missing media in `open_questions` instead of inventing a media entry. A media URL does not grant
   permission to copy the asset: it is never downloaded into the site. Old entries without `media_url`

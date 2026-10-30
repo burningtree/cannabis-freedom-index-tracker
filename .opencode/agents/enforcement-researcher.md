@@ -100,7 +100,10 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
 - media: the photos and videos of this event on the pages you cite, as links (docs/WRITING.md §7:
   a newspaper's or an agency's picture is never copied, only linked). request.json lists the
   submitted page's photos (source_images) with direct image addresses (src), captions and credits.
-  Add one entry per photo or video (including several from the same page)
+  Outlets often republish the same agency or police handout: list each picture once, preferably
+  from the agency's own page or the first outlet, never the same picture again from another outlet
+  (the service also leaves out near-identical photos automatically).
+  Add one entry per distinct photo or video (including several from the same page)
   that shows the event itself (the field, the plants, the seizure, the raid, the court), with kind
   "photo" or "video", url the cited page it is on, the publisher, and a caption saying what the
   asset shows, with the credit when there is one ("Police photos of the 52 plants and the grow
