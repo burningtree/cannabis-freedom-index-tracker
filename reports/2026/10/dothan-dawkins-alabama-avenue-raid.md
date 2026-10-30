@@ -37,6 +37,10 @@ sources:
     url: https://www.wtvy.com/2026/10/30/dothan-man-facing-drug-weapon-charges-after-raid-yields-19-firearms/
     publisher: WTVY
     date: 2026-10-30
+  - title: Dothan Man Arrested After Police Seize 19 Guns and Drugs
+    url: https://wiregrassdailynews.com/featured-news/2026-10-30/dothan-man-arrested-after-police-seize-19-guns-and-drugs/
+    publisher: Wiregrass Daily News
+    date: 2026-10-30
 open_questions:
   - No bond amount, court date or defence lawyer for Dawkins was reported.
   - The sources do not say which drug the possession-with-intent-to-distribute charge concerns.
@@ -47,18 +51,17 @@ open_questions:
 Dothan police arrested Cedric Ladon Dawkins after searching two homes in the 600
 block of Alabama Avenue. [@2] The searches took place on 29 October 2026, when
 narcotics investigators executed two search warrants at separate residences.
-[@1] The department said the investigation showed that Dawkins, 56, of Dothan,
+[@1,3] The department said the investigation showed that Dawkins, 56, of Dothan,
 was involved in the unlawful possession of firearms and in the possession and
-distribution of narcotics in the Dothan area. [@1]
+distribution of narcotics in the Dothan area. [@1,3]
 
-Investigators seized 19 firearms, including handguns and long guns. [@1] Two of
-the firearms had been reported stolen. [@1] Officers also seized 25 grams of
-cocaine, eight grams of marijuana and more than $7,000 in cash. [@1]
+Investigators seized 19 firearms, including handguns and long guns. [@1,3] Two of
+the firearms had been reported stolen. [@1,3] Officers also seized 25 grams of
+cocaine, eight grams of marijuana and more than $7,000 in cash. [@1,3]
 
 Dawkins was charged with unlawful possession with intent to distribute and
-second-degree receiving stolen property. [@1] He was also charged with
+second-degree receiving stolen property. [@1,3] He was also charged with
 second-degree possession of marijuana and unlawful possession of drug
-paraphernalia. [@1] He was booked into the Houston County Jail. [@1] Police said
+paraphernalia. [@1,3] He was booked into the Houston County Jail. [@1,3] Police said
 the investigation remains open and that additional charges and arrests are
-possible. [@2]
-
+possible. [@2,3]
