@@ -1,0 +1,71 @@
+---
+date: 2026-10-29
+country: bd
+place: Rani Ganj brothel area, Jamalpur municipality, Jamalpur District
+coordinates: [24.925, 89.943]
+precision: locality
+type: arrest
+also: [raid, seizure]
+title: Two arrested with 6.5 kg of cannabis in Jamalpur brothel raid
+summary: >-
+  Undercover police arrested Israfil, 20, and Sufia Begum, 40, and seized 6.5 kg of cannabis from a room in the Rani Ganj brothel area of Jamalpur on the evening of 29 October 2026. A case was filed against both under the Narcotics Control Act and they were sent to jail the next day; police valued the cannabis at 195,000 taka.
+figures:
+  arrested: 2
+  kg_seized: 6.5
+  value:
+    amount: 195000
+    currency: BDT
+media:
+  - kind: photo
+    url: https://banglaralonews.com/5551814/%E0%A6%93%E0%A6%B8%E0%A6%BF%E0%A6%B0-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A6%E0%A7%87%E0%A6%B6%E0%A6%A8%E0%A6%BE%E0%A7%9F-%E0%A6%9B%E0%A6%A6%E0%A7%8D%E0%A6%AE%E0%A6%AC%E0%A7%87%E0%A6%B6%E0%A7%87-%E0%A6%95%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A4%E0%A6%BE-%E0%A6%B8%E0%A7%87%E0%A6%9C%E0%A7%87-%E0%A6%AF%E0%A7%8C'%E0%A6%A8'%E0%A6%AA'%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A7%80'%E0%A6%A4%E0%A7%87-%E0%A6%8F%E0%A6%B8%E0%A6%86%E0%A6%87,%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A6%AA%E0%A7%81%E0%A6%B0%E0%A7%87-%E0%A6%B8%E0%A6%BE%E0%A7%9C%E0%A7%87-%E0%A7%AC-%E0%A6%95%E0%A7%87%E0%A6%9C%E0%A6%BF-%E0%A6%97%E0%A6%BE%E0%A6%81'%E0%A6%9C%E0%A6%BE'%E0%A6%B8'%E0%A6%B9-%E0%A6%A8%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B8%E0%A6%B9-%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A7%87'%E0%A6%AB'%E0%A6%A4%E0%A6%BE'%E0%A6%B0-%E0%A7%A8
+    media_url: https://banglaralonews.com/public/postimages/6ae47dd494850.jpg
+    publisher: Banglar Alo News
+    caption: A woman in a yellow headscarf and several men, some in police uniform, with the seized cannabis in a red bucket and a blue bag and a digital scale on a table, in the photo published with the Banglar Alo News report. No photo credit was given.
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: 550dc68c135144b0c63f971879c88823
+tags: [jamalpur, brothel, undercover-operation, ganja, bangladesh]
+sources:
+  - title: ওসির নির্দেশনায় ছদ্মবেশে ক্রেতা সেজে যৌ'ন'প'ল্লী'তে এসআই,জামালপুরে সাড়ে ৬ কেজি গাঁ'জা'স'হ নারীসহ গ্রে'ফ'তা'র ২
+    url: https://banglaralonews.com/5551814/%E0%A6%93%E0%A6%B8%E0%A6%BF%E0%A6%B0-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A6%E0%A7%87%E0%A6%B6%E0%A6%A8%E0%A6%BE%E0%A7%9F-%E0%A6%9B%E0%A6%A6%E0%A7%8D%E0%A6%AE%E0%A6%AC%E0%A7%87%E0%A6%B6%E0%A7%87-%E0%A6%95%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A4%E0%A6%BE-%E0%A6%B8%E0%A7%87%E0%A6%9C%E0%A7%87-%E0%A6%AF%E0%A7%8C'%E0%A6%A8'%E0%A6%AA'%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A7%80'%E0%A6%A4%E0%A7%87-%E0%A6%8F%E0%A6%B8%E0%A6%86%E0%A6%87,%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A6%AA%E0%A7%81%E0%A6%B0%E0%A7%87-%E0%A6%B8%E0%A6%BE%E0%A7%9C%E0%A7%87-%E0%A7%AC-%E0%A6%95%E0%A7%87%E0%A6%9C%E0%A6%BF-%E0%A6%97%E0%A6%BE%E0%A6%81'%E0%A6%9C%E0%A6%BE'%E0%A6%B8'%E0%A6%B9-%E0%A6%A8%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B8%E0%A6%B9-%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A7%87'%E0%A6%AB'%E0%A6%A4%E0%A6%BE'%E0%A6%B0-%E0%A7%A8
+    publisher: Banglar Alo News
+    date: 2026-10-30
+    language: bn
+  - title: ‘মাল নাকি নারী লাগবে’, এ প্রশ্নে পুলিশের উত্তরের পর যা ঘটল
+    url: https://www.jagobangla.com/national/33427
+    publisher: Jago Bangla
+    date: 2026-10-30
+    language: bn
+open_questions:
+  - Jago Bangla's opening paragraph describes the raid as taking place at night, while its police account and Banglar Alo News give the time as 5:35 pm.
+  - Banglar Alo News says the pair were taken to jail at about 10 am on 30 October; Jago Bangla says noon.
+  - No charge sheet, trial date or court outcome was reported; the case had just been filed when the reports were published.
+  - Only two Bengali-language reports were found, both carrying the police account; no separate police statement or national outlet report was available.
+  - Jago Bangla gives no separate caption or credit for its lead photograph, so only the Banglar Alo News photo is linked.
+---
+
+Police in Jamalpur arrested Israfil, 20, and Sufia Begum, 40, and seized 6.5 kg
+of cannabis in an undercover operation in the Rani Ganj brothel area of Jamalpur
+municipality. [@1] The operation took place at about 5:35 pm on Thursday 29
+October 2026. [@1] Israfil is the son of Dudu Mia of Pathalia Uttarpara in
+Jamalpur Sadar upazila, a sub-district, and Sufia Begum the daughter of Lal Mia
+of Malancha in Melandah upazila. [@1] Police put the market value of the seized
+cannabis at about 195,000 taka (1 lakh 95 thousand). [@1] A case was filed
+against both under the Narcotics Control Act. [@2] They were sent to jail
+through court on 30 October. [@2]
+
+Jamalpur Sadar police said they had acted on a tip-off that cannabis was being
+sold in the brothel area. [@1] Sub-inspector Asaduzzaman entered the area by
+rickshaw posing as a buyer, the officer said. [@2] A man asked him whether he
+wanted 'product or a woman', he said. [@1] He said he wanted cannabis, paid, and
+was handed a packet of it; he then signalled officers already in position, who
+detained the man. [@1] In the search, officers found 2 kg of cannabis in a blue
+polythene bag and 4.5 kg wrapped in poster paper in 740 small packets (puriya)
+in a red plastic bucket. [@2] They also seized a digital scale used for weighing
+cannabis and 2,050 taka in cash from drug sales. [@2]
+
+Officer-in-charge Nazmus Sakib said nobody linked to drugs would be spared and
+asked Jamalpur residents to help police with information. [@2] Additional
+superintendent of police (crime and operations) Yahia Al Mamun said the district
+police were taking a hard line against drugs. [@1]
+
