@@ -382,17 +382,31 @@ Google News discovery is enabled by default. It runs shortly after backend start
 HARVEST_GOOGLE_NEWS_ENABLED=true
 HARVEST_GOOGLE_NEWS_INTERVAL=15m
 HARVEST_GOOGLE_NEWS_MAX_ARTICLES=25
-# Optional pipe-separated Google News queries; blank uses the default below.
-HARVEST_GOOGLE_NEWS_QUERIES=
+HARVEST_GOOGLE_NEWS_QUERIES_PER_SCAN=12
+# Optional pipe-separated queries; blank uses the built-in multilingual set. Prefix a query
+# with its Google News edition (ceid, country:language); without one, US English is used.
+HARVEST_GOOGLE_NEWS_QUERIES=[IN:hi] (गांजा OR चरस) (जब्त OR गिरफ्तार) when:1d|[CZ:cs] konopí policie when:1d
 LOG_LEVEL=debug
 ```
 
-The default search is `(cannabis OR marijuana OR hashish) (seizure OR arrest OR raid OR eradication OR sentenced) when:1d`
-in Google News's English/US RSS search edition. Custom queries can use other language terms and
-a lookback such as `when:7d`. This is candidate discovery, not exhaustive worldwide coverage or
-a relevance verdict: the normal source and AI checks decide which articles become reports.
-The interval accepts Go durations from `1m` to `24h`; each scan admits at most 1–100 new URLs
-(default 25), with at most ten queries. Restart the backend after configuration changes.
+The built-in set (`DefaultGoogleNewsQueries` in `backend/internal/harvest/google_news.go`) searches
+the countries with the most enforcement reports in their own languages and local editions: India
+in English, Hindi, Bengali, Marathi, Tamil, Telugu and Malayalam; Bangladesh; Kenya, Nigeria,
+Morocco and French; Arabic in the Lebanese, Egyptian and Saudi editions (Syria, Lebanon, Palestine,
+Libya, Algeria, Bahrain); Indonesia, the Philippines, Thailand, Singapore, Malaysia, Vietnam,
+Chinese and the Pacific; Czech, Spanish, Russian, Turkish, Brazilian Portuguese and Latin American
+Spanish. Google News has no Nepali, Sinhala, Swahili, Khmer, Persian or Pashto edition, so Nepal,
+Sri Lanka and Afghanistan are searched through English (and Nepali terms in the Hindi edition, best
+effort). Local terms only work in the edition of their language.
+
+Each scan runs the next `HARVEST_GOOGLE_NEWS_QUERIES_PER_SCAN` queries in rotation (1–50), paced a
+second apart; with the default set and interval every query runs about every 45 minutes, inside
+its one-day lookback. New candidates are taken round-robin across that scan's queries, so a busy
+edition cannot use up the per-scan budget of 1–100 new URLs (default 25). At most 50 queries;
+each is at most 1000 characters. This is candidate discovery, not exhaustive worldwide coverage
+or a relevance verdict: the source check uses a multilingual vocabulary and the AI research decides
+from the opened article which ones become reports. Each queued candidate records its edition and
+query in its provenance. Restart the backend after configuration changes.
 
 Google wrapper URLs are resolved to publisher article URLs before intake, using Google's public
 article-page redirect RPC. That RPC is undocumented and may change. Unresolved candidates are

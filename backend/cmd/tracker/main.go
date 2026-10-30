@@ -179,12 +179,12 @@ func run() error {
 			if c.GoogleNewsEnabled {
 				queries := c.GoogleNewsQueries
 				if len(queries) == 0 {
-					queries = []string{harvest.DefaultGoogleNewsQuery}
+					queries = harvest.DefaultGoogleNewsQueries
 				}
 				collectors.Add(1)
 				go func() {
 					defer collectors.Done()
-					(harvest.GoogleNews{Store: s, Queries: queries, Interval: c.GoogleNewsInterval, MaxArticles: c.GoogleNewsMaxArticles}).Run(ctx)
+					(harvest.GoogleNews{Store: s, Queries: queries, Interval: c.GoogleNewsInterval, MaxArticles: c.GoogleNewsMaxArticles, QueriesPerScan: c.GoogleNewsQueriesPerScan}).Run(ctx)
 				}()
 			}
 			collectors.Wait()
