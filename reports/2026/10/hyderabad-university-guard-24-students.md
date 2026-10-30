@@ -40,6 +40,10 @@ sources:
     publisher: NTV Telugu
     date: 2026-10-30
     language: te
+  - title: Hyderabad EAGLE Force urges central university vice-chancellor to hold parent-student meet after 24 identified as ganja users
+    url: https://timesofindia.indiatimes.com/city/hyderabad/hyderabad-eagle-force-urges-central-university-vice-chancellor-to-hold-parent-student-meet-after-24-identified-as-ganja-users/articleshow/135373131.cms
+    publisher: The Times of India
+    date: 2026-10-30
 open_questions:
   - The two students questioned on 29 October were described as picked up or apprehended for enquiry, not arrested, and their legal status after screening is not reported.
   - The reports do not say whether the 24 students identified as alleged consumers face charges, and no court appearance or charge sheet was reported for Singh.
@@ -49,6 +53,9 @@ open_questions:
   - The Telugu page calls Sandesh a student, while The Hindu describes him as a former student.
   - The same page reports a separate GITAM University case, in which a 22-year-old student was caught buying cannabis near Nanakramguda and a case was registered at Patancheru police station, and says the role of 17 NALSAR University students is under investigation; neither enquiry is part of this report.
   - The page also mentions a student killed in a road accident near the university, with a cannabis packet found on him and another student on the motorcycle testing positive; it gives no date and does not connect the death to this case.
+  - This account says the peddler was caught near the campus on Friday, 30 October, and gives his alias as Jang, while the report and The Hindu date his arrest to 29 October and give Jung.
+  - The article does not say whether the case against the two students will go ahead or be closed once they attend the de-addiction programme.
+  - The Times of India page's only image is an uncaptioned illustrative picture titled 'students drug use', so it was not added to the report's media.
 ---
 
 A security guard accused of supplying marijuana to University of Hyderabad
@@ -72,9 +79,9 @@ also reportedly named 23 people, including seven students, who he said had
 bought marijuana from him. [@1] The force said the disclosures were being
 verified. [@1] Across this inquiry and an earlier one in August, EAGLE Force
 said 24 University of Hyderabad students had been identified as alleged
-consumers. [@2] The force plans to write to the Vice-Chancellor seeking meetings
+consumers. [@2,5] The force plans to write to the Vice-Chancellor seeking meetings
 with parents to counsel them and arrange de-addiction treatment where needed.
-[@1]
+[@1,5]
 
 The earlier case began on 7 August 2026, when the force apprehended Sandesh, 24,
 a former student whose urine test reportedly returned positive for THC. [@2]
@@ -84,3 +91,5 @@ Kalita reportedly told investigators he bought 200 to 300 grams on visits to
 Assam and sold four- to five-gram packets for about ₹500. [@1]
 
 A security guard accused of supplying marijuana to University of Hyderabad students was arrested by the Telangana EAGLE Force. [@4] The force seized 150 grams of ganja packed in 24 small sachets. [@4] The accused, Bikash Singh alias Jung, 30, a Nepali native living in Gowlidoddi, Gachibowli, was apprehended on 29 October after information through the EAGLE Force toll-free number. [@4] The inquiry began after two University of Hyderabad students, Bharadwaj, 27, and Anand, 26, were picked up for questioning. [@4] Both reportedly tested positive for cannabis in screening tests. [@4] Across this inquiry and an earlier one in August, EAGLE Force said 24 University of Hyderabad students had been identified as alleged consumers. [@4] The force plans to write to the Vice-Chancellor seeking meetings with parents to counsel them and arrange de-addiction treatment where needed. [@4]
+
+The two students and the peddler were booked under the NDPS Act. [@5] The two students were directed to attend a de-addiction programme. [@5]
