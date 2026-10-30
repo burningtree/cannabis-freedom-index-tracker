@@ -105,9 +105,13 @@ copied** to this site.
   article/source page; keep it separate from the media address. Use one entry per photo or video, even
   when several are on the same page, and preserve meaningful media query parameters. Never
   guess an address or substitute a news article URL. If no address can be recovered, explain the
-  missing media in `open_questions` instead of inventing a media entry. Media URLs do not grant
-  permission to copy or embed the asset. Old entries without `media_url` remain valid.
-  Media is listed under the text as "Photos and video".
+  missing media in `open_questions` instead of inventing a media entry. A media URL does not grant
+  permission to copy the asset: it is never downloaded into the site. Old entries without `media_url`
+  remain valid.
+  Under the text, "Photos and video" shows each photo with a `media_url` in a grid, loaded from the
+  publisher's own server (click to enlarge), plays a direct video file or a YouTube/Vimeo video in
+  place, each with its caption and source; a photo the publisher no longer serves, and any other
+  entry, stays a link (`src/lib/media.js`).
 - Never publish a newspaper's photo, a stock photo, or a picture of a different event or of a building
   sign. A photo must show *this* event.
 - **Archive everything.** Pages and pictures disappear, and they are the evidence. After writing a
