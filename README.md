@@ -132,6 +132,7 @@ media:                           # optional; photos or video of the event that c
     publisher: La Nación (Paraguay)
     caption: Agents pull up plants in a cleared forest plot
 created_by_model: unknown         # REQUIRED: provider/model#effort when known; unknown only if creator is unavailable
+submission: 0123456789abcdef0123456789abcdef  # optional: the submission the service created it from
 status: verified                 # verified (checked against opened sources) | reported | disputed
 tags: [ndlea, farmers]           # optional, lower-case-with-hyphens
 sources:                         # at least one
@@ -338,7 +339,7 @@ Code: MIT. Report texts and data: CC BY 4.0. Pictures keep their own licences, s
 The optional Go service in `backend/` adds anonymous source intake, durable receipts, Nostr mentions
 and replies, sandboxed OpenCode research, live model/session activity, and automatic local report commits after validation. Astro and the public
 report JSON API remain static. Pages: `/submission/?id=…` for request details, and `/submissions/` for the source form and
-live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` as `provider/model#effort` when available, shown on the report detail page. For example, `alibaba-token-plan/qwen3.8-flash#xhigh` records `xhigh` as the reasoning effort setting. Include the actual effort whenever known; omit only the suffix if effort is unavailable, and never guess it.
+live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` as `provider/model#effort` when available, shown on the report detail page. Reports the submission service creates also record `submission`, the id of the submission they came from; the report page links it and, when the submissions API is configured, adds when it was submitted, how long the research took and its AI cost. Agents writing reports by hand leave it out, and updates keep the original. For example, `alibaba-token-plan/qwen3.8-flash#xhigh` records `xhigh` as the reasoning effort setting. Include the actual effort whenever known; omit only the suffix if effort is unavailable, and never guess it.
 Updates preserve the original creator. Open questions are saved in report front matter
 and shown beneath its sources. Local failed submissions have a restart control; no GitHub App is needed.
 

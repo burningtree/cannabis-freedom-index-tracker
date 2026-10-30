@@ -414,6 +414,11 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if err = w.Store.Transition(ctx, j.Ref, "drafted", "A cited draft is being checked against the repository rules.", "", ""); err != nil {
 		return err
 	}
+	// a new report keeps the submission it came from (the first one for this case), for reference;
+	// updates of existing reports keep theirs
+	if err = w.Store.DB.QueryRowContext(ctx, "SELECT id FROM submissions WHERE case_id=? ORDER BY created_at, id LIMIT 1", j.Ref).Scan(&result.Submission); err != nil {
+		return err
+	}
 	draft, err := research.ValidateBuild(ctx, dir, result)
 	if ctx.Err() != nil {
 		return ctx.Err()

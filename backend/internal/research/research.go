@@ -72,6 +72,7 @@ type Figures struct {
 type Result struct {
 	// Set by the service after execution, never accepted from model-generated JSON.
 	CreatedByModel string    `json:"-"`
+	Submission     string    `json:"-"` // the submission that created the report, set by the service
 	Outcome        string    `json:"outcome"`
 	Country        string    `json:"country"`
 	Date           string    `json:"incident_date"`
@@ -101,6 +102,7 @@ var plain = regexp.MustCompile("[<>\\[\\]`*\\x00-\\x08]")
 var tag = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 var currency = regexp.MustCompile(`^[A-Z]{3}$`)
 var language = regexp.MustCompile(`^[a-z]{2}$`)
+var submissionID = regexp.MustCompile(`^[0-9a-f]{32}$`)
 var types = "|eradication|seizure|raid|arrest|prosecution|sentence|death|"
 var precisions = "|exact|locality|district|region|country|"
 
@@ -526,6 +528,9 @@ func (r Result) Markdown() string {
 	add("status", str("reported"))
 	if r.CreatedByModel != "" {
 		add("created_by_model", str(r.CreatedByModel))
+	}
+	if submissionID.MatchString(r.Submission) {
+		add("submission", str(r.Submission))
 	}
 	if len(r.Tags) > 0 {
 		add("tags", flow(strs(r.Tags)...))
