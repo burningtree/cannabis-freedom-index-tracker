@@ -54,3 +54,37 @@ func TestOverlapReasonKeepsModelAssessmentAndPublicLinks(t *testing.T) {
 		t.Fatal(got, validation)
 	}
 }
+
+func TestSourceOfACaseWithoutAReportPassesOn(t *testing.T) {
+	s, err := store.Open(filepath.Join(t.TempDir(), "claims.sqlite"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.DB.Close()
+	ctx := context.Background()
+	ids := []string{}
+	for _, u := range []string{"https://news.example/a", "https://news.example/b", "https://news.example/c"} {
+		id, err := s.Accept(ctx, store.Intake{Origin: "web", URL: u, CanonicalURL: u})
+		if err != nil {
+			t.Fatal(err)
+		}
+		v, _ := s.Get(ctx, id)
+		ids = append(ids, v.CaseID)
+	}
+	w := Worker{Store: s}
+	shared := "https://news.example/shared"
+	// a queued case recorded the source first: it holds nothing, so the next case takes the source
+	if owner, err := w.claimSource(ctx, ids[0], shared, shared, "d"); err != nil || owner != ids[0] {
+		t.Fatal(owner, err)
+	}
+	if owner, err := w.claimSource(ctx, ids[1], shared, shared, "d"); err != nil || owner != ids[1] {
+		t.Fatal("a queued case blocked the source", owner, err)
+	}
+	// a case that made a report from it keeps it
+	if _, err = s.DB.Exec("UPDATE cases SET status='committed',report_slug='a-report' WHERE id=?", ids[1]); err != nil {
+		t.Fatal(err)
+	}
+	if owner, err := w.claimSource(ctx, ids[2], shared, shared, "d"); err != nil || owner != ids[1] {
+		t.Fatal("a committed case lost its source", owner, err)
+	}
+}

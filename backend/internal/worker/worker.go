@@ -394,12 +394,8 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	}
 	for _, e := range evidence {
 		sum := sha256.Sum256([]byte(e.Content))
-		_, err = w.Store.DB.ExecContext(ctx, "INSERT INTO source_urls(url,case_id,final_url,digest,fetched_at) VALUES(?,?,?,?,?) ON CONFLICT(url) DO UPDATE SET final_url=excluded.final_url,digest=excluded.digest,fetched_at=excluded.fetched_at", e.URL, j.Ref, e.FinalURL, hex.EncodeToString(sum[:]), time.Now().Unix())
+		sourceCase, err := w.claimSource(ctx, j.Ref, e.URL, e.FinalURL, hex.EncodeToString(sum[:]))
 		if err != nil {
-			return err
-		}
-		var sourceCase string
-		if err = w.Store.DB.QueryRowContext(ctx, "SELECT case_id FROM source_urls WHERE url=?", e.URL).Scan(&sourceCase); err != nil {
 			return err
 		}
 		if sourceCase != j.Ref && !known[e.URL] && !known[e.FinalURL] {
@@ -584,3 +580,32 @@ func (w *Worker) publish(ctx context.Context, j store.Job) error {
 }
 
 func (w *Worker) uncertainOutcome() string { return "insufficient_evidence" }
+
+// holdsSources: the case statuses that keep their sources, as they make or made a report from them.
+// A case that is only queued, still researching, stopped or rejected holds none.
+var holdsSources = map[string]bool{"verifying": true, "drafted": true, "publishing": true, "committed": true, "published": true}
+
+// claimSource records that this case uses a source and returns the case that holds it: this one, or
+// another case that holds it (holdsSources). A source recorded by a case that does not hold it
+// (queued, failed, rejected) passes to this case rather than blocking it.
+func (w *Worker) claimSource(ctx context.Context, cid, url, finalURL, digest string) (string, error) {
+	tx, err := w.Store.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return "", err
+	}
+	defer tx.Rollback()
+	if _, err = tx.ExecContext(ctx, "INSERT INTO source_urls(url,case_id,final_url,digest,fetched_at) VALUES(?,?,?,?,?) ON CONFLICT(url) DO UPDATE SET final_url=excluded.final_url,digest=excluded.digest,fetched_at=excluded.fetched_at", url, cid, finalURL, digest, time.Now().Unix()); err != nil {
+		return "", err
+	}
+	var owner, status string
+	if err = tx.QueryRowContext(ctx, "SELECT s.case_id,coalesce(c.status,'') FROM source_urls s LEFT JOIN cases c ON c.id=s.case_id WHERE s.url=?", url).Scan(&owner, &status); err != nil {
+		return "", err
+	}
+	if owner != cid && !holdsSources[status] {
+		if _, err = tx.ExecContext(ctx, "UPDATE source_urls SET case_id=? WHERE url=? AND case_id=?", cid, url, owner); err != nil {
+			return "", err
+		}
+		owner = cid
+	}
+	return owner, tx.Commit()
+}

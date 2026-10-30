@@ -175,7 +175,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       addReports();
       addAccuracy();
       addLandrace();
-      addMask();
+      await addMask();
     }
 
     // a country page: everything but the country greyed out and its border highlighted, under the
@@ -267,7 +267,18 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       const pre: Set<string> | undefined = (window as any).__reportsShown; // filters that ran before the map
       shown = pre ? rows.filter((r) => pre.has(r.i)) : rows;
       await build();
-      if (country && rows.some((r) => r.ll)) {
+      // a country: the whole country in view (its outline's bounds), or, without one (a state),
+      // all its report markers
+      if (maskData?.properties?.bbox) {
+        // with the markers too (Kiribati's reports are on Tarawa, far from its largest island), across
+        // the 180° meridian when that is narrower
+        const [w, s, e, n] = maskData.properties.bbox;
+        const pts: [number, number][] = [[w, s], [e, n], ...rows.filter((r) => r.ll).map((r) => r.ll!)];
+        const span = (shift: boolean) => { const xs = pts.map(([x]) => (shift && x < 0 ? x + 360 : x)); return [Math.min(...xs), Math.max(...xs)]; };
+        const [a, b] = span(false), [c, d] = span(true);
+        const [west, east] = d - c < b - a ? [c, d] : [a, b];
+        map.fitBounds([[west, Math.min(...pts.map((p) => p[1]))], [east, Math.max(...pts.map((p) => p[1]))]], { padding: 30, maxZoom: 9, duration: 0 });
+      } else if (country && rows.some((r) => r.ll)) {
         const b = new maplibregl.LngLatBounds();
         rows.forEach((r) => r.ll && b.extend(r.ll));
         map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
