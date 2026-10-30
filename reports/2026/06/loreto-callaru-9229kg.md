@@ -13,7 +13,7 @@ summary: >-
 figures:
   kg_seized: 9229.1
 status: verified
-created_by_model: spacexai/grok-4.7
+created_by_model: spacexai/grok-4.7#medium
 tags: [loreto, binational, ramon-castilla]
 open_questions:
   - 30 June is the date of the defence ministry announcement. The statement gives no separate day for the seizure.

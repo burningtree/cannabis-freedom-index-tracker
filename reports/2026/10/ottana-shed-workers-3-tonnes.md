@@ -15,7 +15,7 @@ summary: >-
 figures:
   kg_seized: 3000
 status: verified
-created_by_model: spacexai/grok-4.7
+created_by_model: spacexai/grok-4.7#medium
 tags: [ottana, nuoro, labour]
 open_questions:
   - The reports place the searches on the previous weekend and give no single day; 25 October is the Sunday of that weekend.

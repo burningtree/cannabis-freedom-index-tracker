@@ -15,7 +15,7 @@ figures:
   kg_seized: 1100
   prison: 15 years 6 months
 status: verified
-created_by_model: spacexai/grok-4.7
+created_by_model: spacexai/grok-4.7#medium
 tags: [moabit, smuggling, canada]
 open_questions:
   - The judgment is not final; an appeal to the Federal Court of Justice was still open when these accounts were published.

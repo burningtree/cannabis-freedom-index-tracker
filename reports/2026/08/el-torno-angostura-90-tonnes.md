@@ -12,7 +12,7 @@ summary: >-
   tonnes. The published accounts name no arrests and give no separate date
   for the operation.
 status: verified
-created_by_model: spacexai/grok-4.7
+created_by_model: spacexai/grok-4.7#medium
 tags: [felcn, el-torno, santa-cruz]
 open_questions:
   - 14 August is the publication date. The accounts give no separate day for the operation.

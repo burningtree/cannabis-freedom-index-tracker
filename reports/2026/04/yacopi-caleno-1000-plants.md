@@ -17,7 +17,7 @@ figures:
   kg_seized: 22
   hectares: 2
 status: verified
-created_by_model: spacexai/grok-4.7
+created_by_model: spacexai/grok-4.7#medium
 tags: [yacopi, army, cundinamarca]
 open_questions:
   - Neither account gives a day for the operation. 7 April is the date of the first report.
