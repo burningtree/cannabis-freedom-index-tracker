@@ -27,6 +27,8 @@ type Worker struct {
 	Config config.Config
 	Nostr  *nostr.Service
 	Health *research.Health
+	// FetchImage downloads a photo for the duplicate check; tests replace it
+	FetchImage func(context.Context, string) ([]byte, error)
 }
 
 func (w *Worker) Run(parent context.Context) {
@@ -418,6 +420,25 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	// updates of existing reports keep theirs
 	if err = w.Store.DB.QueryRowContext(ctx, "SELECT id FROM submissions WHERE case_id=? ORDER BY created_at, id LIMIT 1", j.Ref).Scan(&result.Submission); err != nil {
 		return err
+	}
+	// the same photo republished by several outlets is shown once
+	if len(result.Media) > 0 {
+		fetch := w.FetchImage
+		if fetch == nil {
+			fetch = research.FetchImage
+		}
+		var existing []string
+		if result.Outcome != "new_event" {
+			existing = research.ReportMedia(dir, result.ExistingReport)
+		}
+		var dropped []string
+		result.Media, dropped = research.DedupeMedia(ctx, result.Media, existing, fetch)
+		if ctx.Err() != nil {
+			return ctx.Err()
+		}
+		if len(dropped) > 0 {
+			slog.Info("duplicate photos left out", "case", j.Ref, "count", len(dropped))
+		}
 	}
 	draft, err := research.ValidateBuild(ctx, dir, result)
 	if ctx.Err() != nil {
