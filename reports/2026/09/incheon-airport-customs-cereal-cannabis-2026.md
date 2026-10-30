@@ -23,6 +23,11 @@ media:
     media_url: https://img.seoul.co.kr//img/upload/2026/10/30/SSC_20261030105013_O2.jpg.webp
     publisher: 서울신문
     caption: 'A customs officer sorts cannabis mixed with cereal from the parcel. Photo: Incheon Airport Customs'
+  - kind: photo
+    url: https://news.sbs.co.kr/english/article.do?news_id=N1008823551
+    media_url: https://img.sbsnews.co.kr/newimg/news/20261030/202236420_500.jpg
+    publisher: SBS News
+    caption: 'Cannabis mixed into cereal in the parcel mailed from the United States. Photo: Incheon Airport Customs / Yonhap News'
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: c863ff9bd433df69a958dbe8744cde25
@@ -47,11 +52,16 @@ sources:
     publisher: 한국일보
     date: 2026-10-30
     language: ko
+  - title: 'Green Clump Found in Cereal: Identity of Mail Sent from the U.S.'
+    url: https://news.sbs.co.kr/english/article.do?news_id=N1008823551
+    publisher: SBS News
+    date: 2026-10-30
 open_questions:
   - Korean reports date the arrest to 4 September 2026 and the transfer to prosecutors to September; the Chosun Daily's English translation says he was arrested on 4 October.
   - No indictment, trial or sentence has been reported.
   - Only A was arrested; customs said it was still tracing accomplices and an upstream supplier who have not been named.
   - No street value was given for the 226 grams of cannabis.
+  - The SBS page is an AI translation of a Korean report and warns that it may contain errors.
 ---
 
 Incheon Airport Customs arrested a 68-year-old man, identified only as A, on
@@ -59,7 +69,7 @@ suspicion of drug smuggling and sent him in custody to the Incheon District
 Prosecutors' Office in September, the agency said on 30 October. [@3] Customs
 accused him of receiving an international mail package from the United States in
 August that contained a cereal bag mixed with 226 grams of cannabis, and of
-trying to distribute it in the country. [@1] The cannabis was sealed in a
+trying to distribute it in the country. [@1,5] The cannabis was sealed in a
 plastic bag with cereal and hidden among other foods in the parcel, which he
 tried to bring into the country in late August. [@2] Instead of seizing the
 parcel, investigators attached a GPS tracker and let the delivery go ahead. [@2]
@@ -74,5 +84,6 @@ and a note about past smuggling. [@2] A told investigators he had only been
 delivering the parcel on the instructions of an upstream supplier, but customs
 concluded from the CCTV footage and the seized items that he had conspired with
 that supplier in advance. [@3] Customs said it would continue investigating
-accomplices. [@1]
+accomplices. [@1,5]
 
+Customs accused A of violating the Narcotics Control Act for attempting to smuggle and distribute the cannabis. [@5]
