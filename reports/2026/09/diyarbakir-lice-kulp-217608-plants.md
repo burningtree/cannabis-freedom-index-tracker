@@ -28,16 +28,21 @@ sources:
     archived: https://web.archive.org/web/20260921134807/https://english.news.cn/20260921/ed321d63c3d84efb96fe6b6145fd8cc9/c.html
     publisher: Xinhua
     date: 2026-09-21
+  - title: Over 217,608 cannabis plants destroyed in southeastern Türkiye anti-drug drive
+    url: https://www.tbsnews.net/world/over-217608-cannabis-plants-destroyed-southeastern-turkiye-anti-drug-drive-1549811
+    publisher: The Business Standard
+    date: 2026-09-21
 open_questions:
   - The statement gives no separate day for the fieldwork. 21 September 2026 is the date of the ministry announcement.
   - The five tonnes is the ministry's estimate of cannabis powder the plants could have yielded, not a weight that was seized. The 15 kg is a separate seizure stated by the ministry. Xinhua does not mention the 15 kg.
   - No one was reported arrested.
   - The map marks Lice. Kulp is the other district named and is not given a separate point.
   - The ministry page opened here carried no photograph of the plots.
+  - The Business Standard's page carries one photograph of uniformed officers in a cannabis field, credited only "Collected"; the page does not establish that it shows the Lice and Kulp plots, so no media link was added.
 ---
 
-Turkey's Interior Ministry said on 21 September 2026 that gendarmerie teams had destroyed 217,608 cannabis and skunk plants in Diyarbakır. [@1,2] The work covered 99 illegal plots in the districts of Lice and Kulp, found with remote sensing under a plan against illegal cannabis cultivation. [@1,2]
+Turkey's Interior Ministry said on 21 September 2026 that gendarmerie teams had destroyed 217,608 cannabis and skunk plants in Diyarbakır. [@1,2,3] The work covered 99 illegal plots in the districts of Lice and Kulp, found with remote sensing under a plan against illegal cannabis cultivation. [@1,2,3]
 
-Sixty-four teams and 570 personnel took part, coordinated by the Gendarmerie General Command's narcotics department and the chief public prosecutors of Lice and Kulp. [@1,2] The ministry said the plants could have yielded about five tonnes of cannabis powder, and that 15 kilograms of cannabis were also seized. [@1] Xinhua reported the same plant count and the five-tonne estimate. [@2]
+Sixty-four teams and 570 personnel took part, coordinated by the Gendarmerie General Command's narcotics department and the chief public prosecutors of Lice and Kulp. [@1,2,3] The ministry said the plants could have yielded about five tonnes of cannabis powder, and that 15 kilograms of cannabis were also seized. [@1] Xinhua reported the same plant count and the five-tonne estimate. [@2]
 
 The statement names no one arrested. [@1,2]
