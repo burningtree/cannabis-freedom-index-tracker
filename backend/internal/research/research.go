@@ -2,6 +2,8 @@
 package research
 
 import (
+	"unicode"
+
 	"bufio"
 	"bytes"
 	"context"
@@ -13,6 +15,9 @@ import (
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/config"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/safeurl"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
+	"golang.org/x/text/runes"
+	"golang.org/x/text/transform"
+	"golang.org/x/text/unicode/norm"
 	"gopkg.in/yaml.v3"
 	"io"
 	"os"
@@ -118,6 +123,43 @@ func Strict(data []byte) (Result, error) {
 	}
 	return r, nil
 }
+
+// CleanTags turns the model's tags into the form reports use (lower-case letters, digits and hyphens,
+// at most 40 characters, at most 8): "Hong Kong" becomes hong-kong, accents are dropped, and a tag
+// with nothing left (one in another script, such as 香港) is left out. Tags only help search, so a
+// badly written one is never a reason to refuse a report.
+func CleanTags(tags []string) []string {
+	out, seen := []string{}, map[string]bool{}
+	for _, t := range tags {
+		folded, _, err := transform.String(transform.Chain(norm.NFD, runes.Remove(runes.In(unicode.Mn)), norm.NFC), strings.ToLower(strings.TrimSpace(t)))
+		if err != nil {
+			continue
+		}
+		var b strings.Builder
+		for _, r := range folded {
+			switch {
+			case r >= 'a' && r <= 'z', r >= '0' && r <= '9':
+				b.WriteRune(r)
+			case r == '-' || r == ' ' || r == '_' || r == '/' || r == '.':
+				b.WriteRune('-')
+			}
+		}
+		clean := strings.Trim(regexp.MustCompile(`-+`).ReplaceAllString(b.String(), "-"), "-")
+		if len(clean) > 40 {
+			clean = strings.Trim(clean[:40], "-")
+		}
+		if clean == "" || seen[clean] {
+			continue
+		}
+		seen[clean] = true
+		out = append(out, clean)
+		if len(out) == 8 {
+			break
+		}
+	}
+	return out
+}
+
 func (r Result) Validate(countries map[string]bool) error {
 	switch r.Outcome {
 	case "new_event", "existing_case", "additional_source", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review":
@@ -223,7 +265,7 @@ func (r Result) Validate(countries map[string]bool) error {
 	}
 	for _, t := range r.Tags {
 		if !tag.MatchString(t) || len(t) > 40 {
-			return errors.New("invalid tag")
+			return fmt.Errorf("invalid tag %q", t)
 		}
 	}
 	if err := r.Figures.validate(); err != nil {
