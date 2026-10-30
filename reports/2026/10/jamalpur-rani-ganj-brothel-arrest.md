@@ -36,17 +36,24 @@ sources:
     publisher: Jago Bangla
     date: 2026-10-30
     language: bn
+  - title: ছদ্মবেশে পুলিশের অভিযান, সাড়ে ৬ কেজি গাঁজাসহ গ্রেপ্তার ২
+    url: https://barta24.com/details/national/345329
+    publisher: Barta 24
+    date: 2026-10-30
+    language: bn
 open_questions:
   - Jago Bangla's opening paragraph describes the raid as taking place at night, while its police account and Banglar Alo News give the time as 5:35 pm.
   - Banglar Alo News says the pair were taken to jail at about 10 am on 30 October; Jago Bangla says noon.
   - No charge sheet, trial date or court outcome was reported; the case had just been filed when the reports were published.
   - Only two Bengali-language reports were found, both carrying the police account; no separate police statement or national outlet report was available.
   - Jago Bangla gives no separate caption or credit for its lead photograph, so only the Banglar Alo News photo is linked.
+  - Barta24 places Israfil's home in Pathalia Pashchimpara in Jamalpur city, while the report, following Banglar Alo News, says Pathalia Uttarpara in Jamalpur Sadar upazila.
+  - Barta24's lead photograph is credited only to Barta24 and captioned with the headline; it appears to be the same police photograph of the seized cannabis already linked from Banglar Alo News, so it is not listed again.
 ---
 
 Police in Jamalpur arrested Israfil, 20, and Sufia Begum, 40, and seized 6.5 kg
 of cannabis in an undercover operation in the Rani Ganj brothel area of Jamalpur
-municipality. [@1] The operation took place at about 5:35 pm on Thursday 29
+municipality. [@1,3] The operation took place at about 5:35 pm on Thursday 29
 October 2026. [@1] Israfil is the son of Dudu Mia of Pathalia Uttarpara in
 Jamalpur Sadar upazila, a sub-district, and Sufia Begum the daughter of Lal Mia
 of Malancha in Melandah upazila. [@1] Police put the market value of the seized
@@ -69,3 +76,4 @@ asked Jamalpur residents to help police with information. [@2] Additional
 superintendent of police (crime and operations) Yahia Al Mamun said the district
 police were taking a hard line against drugs. [@1]
 
+The raid took place in a room of house No. 6 in the brothel area. [@3]
