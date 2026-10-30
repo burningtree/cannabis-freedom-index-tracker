@@ -197,3 +197,22 @@ func TestWorkingIncludesOldRestartOutsideHistoryPageAndFilter(t *testing.T) {
 		t.Fatal(page)
 	}
 }
+
+func TestRunningCountsOnlyJobsActuallyRunning(t *testing.T) {
+	s := openTest(t)
+	ctx := context.Background()
+	stale, _ := s.Accept(ctx, Intake{Origin: "web", URL: "https://news.example/stale", CanonicalURL: "https://news.example/stale"})
+	live, _ := s.Accept(ctx, Intake{Origin: "web", URL: "https://news.example/live", CanonicalURL: "https://news.example/live"})
+	a, _ := s.Get(ctx, stale)
+	b, _ := s.Get(ctx, live)
+	// a request left "researching" after a restart: its job is queued again, nothing runs it
+	s.DB.Exec("UPDATE cases SET status='researching' WHERE id IN (?,?)", a.CaseID, b.CaseID)
+	s.DB.Exec("UPDATE jobs SET status='running',lease_until=?,lease_token='x' WHERE ref=?", time.Now().Add(time.Minute).Unix(), b.CaseID)
+	page, err := s.ListSubmissions(ctx, "", "", "", "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if page.Summary.Running != 1 || page.Summary.Queued != 1 || len(page.Working) != 1 || page.Working[0].ID != live {
+		t.Fatal("a request with no running job counted as running", page.Summary, len(page.Working))
+	}
+}

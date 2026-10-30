@@ -110,12 +110,15 @@ function initialize(root) {
       const working = (data.working || []).filter(v => ID_PATTERN.test(v.id));
       $("working").replaceChildren(...working.map(v => row(v)));
       if (!working.length) $("working").append(el("li", "No submissions are running right now.", "sx-empty"));
-      $("working-count").textContent = Number.isFinite(data.summary?.running) ? `· ${data.summary.running.toLocaleString()}` : "";
+      const limit = data.processing?.max_running > 0 ? `/${data.processing.max_running}` : "";
+      $("working-count").textContent = Number.isFinite(data.summary?.running) ? `· ${data.summary.running.toLocaleString()}${limit}` : "";
       rows = data.submissions.filter((v) => ID_PATTERN.test(v.id));
       nextCursor = data.next_cursor; revision = data.revision; render();
       for (const key of ["total", "running", "queued"]) {
         $(key).textContent = Number.isFinite(data.summary?.[key]) ? data.summary[key].toLocaleString() : "—";
       }
+      // running against the worker's limit: "1/2"
+      if (Number.isFinite(data.summary?.running) && limit) $("running").textContent = `${data.summary.running}${limit}`;
       const running = rows.filter((v) => isRunning(v.status)).length;
       $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}`;
       $("message").textContent = cursors.length > 1 ? "Showing a later page. Choose First to return to the start." : "";

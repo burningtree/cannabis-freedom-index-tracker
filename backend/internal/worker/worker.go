@@ -101,6 +101,9 @@ func (w *Worker) jobs(ctx context.Context, kind string) {
 			}
 			finishCtx, finishCancel := context.WithTimeout(context.Background(), 5*time.Second)
 			finishErr := w.Store.Finish(finishCtx, "jobs", j, err)
+			if finishErr == nil && err != nil {
+				w.waitingToRetry(finishCtx, j, err)
+			}
 			finishCancel()
 			if finishErr != nil {
 				slog.Error("job completion failed", "job", j.ID)
@@ -608,4 +611,29 @@ func (w *Worker) claimSource(ctx context.Context, cid, url, finalURL, digest str
 		owner = cid
 	}
 	return owner, tx.Commit()
+}
+
+// waitingToRetry shows a request whose attempt failed or was interrupted, and whose job waits to run
+// again, as queued: it is not researching while nothing works on it. Budget and configuration
+// waits keep their own status, and a finished request (failed for good, rejected) is left as it is.
+func (w *Worker) waitingToRetry(ctx context.Context, j store.Job, cause error) {
+	if errors.Is(cause, store.ErrBudget) || errors.Is(cause, store.ErrConfiguration) {
+		return
+	}
+	var status, jobStatus string
+	var at int64
+	if w.Store.DB.QueryRowContext(ctx, "SELECT c.status,j.status,j.available_at FROM cases c JOIN jobs j ON j.ref=c.id WHERE c.id=? AND j.id=?", j.Ref, j.ID).Scan(&status, &jobStatus, &at) != nil {
+		return
+	}
+	if jobStatus != "queued" || !map[string]bool{"fetching": true, "classifying": true, "researching": true, "verifying": true, "drafted": true, "publishing": true}[status] {
+		return
+	}
+	why := "The last attempt did not finish; it will be retried automatically"
+	if errors.Is(cause, store.ErrInterrupted) {
+		why = "Processing was interrupted (the service restarted); it will resume automatically"
+	}
+	if at > time.Now().Unix() {
+		why += " around " + time.Unix(at, 0).UTC().Format("15:04") + " UTC"
+	}
+	_ = w.Store.Transition(ctx, j.Ref, "queued", why+".", "", "")
 }
