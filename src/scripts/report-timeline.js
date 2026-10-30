@@ -41,3 +41,35 @@ export function timelineSelection(key, { year = "", month = "", date = "" } = {}
   const same = year === y && month === m;
   return { year: same ? "" : y, month: same ? "" : m, date: "" };
 }
+
+// The x axis labels of a timeline: which bars get one and what it says, as many as fit the width
+// (about 56 px apart), at round steps aligned to the calendar. keys: "2026", "2026-03" or
+// "2026-03-14"; scale: "year", "month" or "day". Returns [{ index, label }].
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export function axisTicks(keys, scale, width, gap = 56) {
+  const n = keys.length;
+  if (!n) return [];
+  const per = width / n; // pixels per bar
+  const steps = { year: [1, 2, 5, 10, 20, 50, 100], month: [1, 2, 3, 6, 12, 24, 60, 120], day: [1, 2, 7, 14, 31] }[scale];
+  const step = steps.find((s) => s * per >= gap) ?? steps.at(-1);
+  const ticks = [];
+  keys.forEach((key, index) => {
+    const year = Number(key.slice(0, 4)), month = Number(key.slice(5, 7)) - 1, day = Number(key.slice(8, 10));
+    if (scale === "year") {
+      if (year % step === 0) ticks.push({ index, label: String(year) });
+    } else if (scale === "month") {
+      if (step >= 12) { if (month === 0 && year % (step / 12) === 0) ticks.push({ index, label: String(year) }); }
+      else if (month % step === 0) ticks.push({ index, label: month === 0 ? String(year) : MONTH_NAMES[month] });
+    } else if (step >= 31) {
+      if (day === 1) ticks.push({ index, label: MONTH_NAMES[month] });
+    } else if (day === 1 || (step === 14 ? day === 15 : step === 7 ? [8, 15, 22].includes(day) : (day - 1) % step === 0 && day < 30)) {
+      ticks.push({ index, label: day === 1 ? `${day} ${MONTH_NAMES[month]}` : String(day) });
+    }
+  });
+  // too few round ticks (a short range): label the ends instead
+  if (ticks.length < 2 && n > 1) {
+    const label = (k) => scale === "year" ? k : scale === "month" ? `${MONTH_NAMES[Number(k.slice(5, 7)) - 1]} ${k.slice(0, 4)}` : `${Number(k.slice(8, 10))} ${MONTH_NAMES[Number(k.slice(5, 7)) - 1]}`;
+    return [{ index: 0, label: label(keys[0]) }, { index: n - 1, label: label(keys[n - 1]) }];
+  }
+  return ticks;
+}

@@ -3,10 +3,12 @@
 import Base from "../../layouts/Base.astro";
 import WorldMap from "../../components/WorldMap.astro";
 import CfiWidget from "../../components/CfiWidget.astro";
-import ReportYears from "../../components/ReportYears.astro";
+import ReportBrowser from "../../components/ReportBrowser.astro";
 import { reportsOf, totals, countByType } from "../../lib/reports.js";
 import { countries, countryName, countryOf, flagOf } from "../../lib/countries.js";
 import { TYPES, typeIcon } from "../../lib/types.js";
+import { compact } from "../../lib/stats.js";
+import { cfiOf } from "../../lib/cfi.js";
 
 export function getStaticPaths() {
   return countries.filter((c) => reportsOf(c.id).length).map((c) => ({ params: { id: c.id } }));
@@ -20,25 +22,33 @@ const byType = Object.entries(countByType(list)).filter(([, n]) => n);
 const states = countries.filter((s) => s.parent === id && reportsOf(s.id).length);
 const base = import.meta.env.BASE_URL;
 const fmt = (n) => n.toLocaleString("en-GB");
+// the figures the reports state, in short form (5.2M) with the exact number on hover
+const figures = [
+  ["People arrested", t.arrested], ["Plants destroyed", t.plants_destroyed], ["Hectares destroyed", t.hectares],
+  ["kg of cannabis seized", t.kg_seized], ["Deaths", t.deaths],
+].filter(([, v]) => v > 0);
+const hasCfi = Boolean(cfiOf(id));
 ---
 <Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`} wide>
   <nav class="crumbs"><a href={`${base}country/`}>Countries</a>{c.parent && <> / <a href={`${base}country/${c.parent}/`}>{countryName(c.parent)}</a></>}</nav>
   <h1>{flagOf(id)} {name}</h1>
   <p class="lead">{list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.</p>
-  <CfiWidget id={id} />
 
-  <div class="tiles">
-    <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>
-    {t.arrested > 0 && <div class="tile"><div class="big">{fmt(t.arrested)}</div><div class="label">People arrested</div></div>}
-    {t.plants_destroyed > 0 && <div class="tile"><div class="big">{fmt(t.plants_destroyed)}</div><div class="label">Plants destroyed</div></div>}
-    {t.hectares > 0 && <div class="tile"><div class="big">{fmt(t.hectares)}</div><div class="label">Hectares destroyed</div></div>}
-    {t.kg_seized > 0 && <div class="tile"><div class="big">{fmt(t.kg_seized)}</div><div class="label">kg of cannabis</div></div>}
-    {t.deaths > 0 && <div class="tile"><div class="big">{fmt(t.deaths)}</div><div class="label">Deaths</div></div>}
+  <div class:list={["country-top", { "no-cfi": !hasCfi }]}>
+    <div class="country-map">
+      <WorldMap country={id} label={`Map of reports in ${name}`} />
+      <ul class="legend">{byType.map(([tid, n]) => <li class="type"><Fragment set:html={typeIcon(tid, 16)} />{TYPES[tid].label} · {n}</li>)}</ul>
+    </div>
+    <div class="country-side">
+      {figures.length > 0 && (
+        <dl class="country-figures">
+          {figures.map(([label, v]) => <div><dt>{label}</dt><dd title={v.toLocaleString("en-GB")}>{compact(v)}</dd></div>)}
+        </dl>
+      )}
+      {figures.length > 0 && <p class="note">Only what the reports state; most operations are never reported in numbers.</p>}
+      <CfiWidget id={id} />
+    </div>
   </div>
-  <p class="note">Totals add up only what the reports state; most operations are never reported in numbers.</p>
-
-  <WorldMap country={id} label={`Map of reports in ${name}`} />
-  <ul class="legend">{byType.map(([tid, n]) => <li class="type"><Fragment set:html={typeIcon(tid, 16)} />{TYPES[tid].label} · {n}</li>)}</ul>
 
   {states.length > 0 && (
     <>
@@ -47,7 +57,24 @@ const fmt = (n) => n.toLocaleString("en-GB");
     </>
   )}
 
-  <h2>Reports</h2>
-  <ReportYears reports={list} />
+  <h2 id="reports">Reports</h2>
+  <ReportBrowser country={id} />
   <p class="note">This country's reports as data: <a href={`${base}api/country/${id}.json`}>{`/api/country/${id}.json`}</a></p>
 </Base>
+
+<style>
+  .country-top { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: 24px; align-items: stretch; margin: 20px 0 8px; }
+  /* the map fills its column down to the bottom of the figures and the CFI beside it */
+  .country-map { display: flex; flex-direction: column; min-width: 0; }
+  .country-map :global(.map) { flex: 1; height: auto; min-height: clamp(320px, 52vw, 480px); }
+  .country-top.no-cfi { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+  .country-side :global(.cfi) { margin: 0; }
+  .country-side :global(.cfi-segs li) { grid-template-columns: minmax(0, 1fr) 1fr 22px; }
+  .country-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  .country-figures div { padding: 12px 14px; background: var(--surface); }
+  .country-figures div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .country-figures dt { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .country-figures dd { margin: 4px 0 0; font: 400 30px/1.1 var(--display); }
+  .country-side .note { margin: 8px 0 16px; }
+  @media (max-width: 860px) { .country-top, .country-top.no-cfi { grid-template-columns: 1fr; } .country-map :global(.map) { flex: none; height: clamp(300px, 70vw, 440px); } }
+</style>
