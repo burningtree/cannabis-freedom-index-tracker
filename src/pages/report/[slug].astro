@@ -11,6 +11,8 @@ import { flagOf } from "../../lib/countries.js";
 import { landraceAt } from "../../lib/landrace.js";
 import { relative } from "node:path";
 import { readReportHistory } from "../../lib/report-history.js";
+import { submissionsAPI } from "../../lib/submissions-config.js";
+import { shortSubmission } from "../../lib/report-submission.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("reports");
@@ -118,7 +120,10 @@ const updatedLabel = source && new Intl.DateTimeFormat("en-GB", {
       <ul>{r.open_questions.map(question => <li>{question}</li>)}</ul>
     </section>}
     <footer class="report-provenance" aria-label="Report provenance">
-      {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
+      <div>
+        {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
+        {r.submission && <p class="report-model" data-report-submission={r.submission} data-api={submissionsAPI}><span>From submission <a href={`${base}submission/?id=${r.submission}`}><code>{shortSubmission(r.submission)}</code></a><span data-facts></span></span></p>}
+      </div>
       {source && <a class="report-updated" href={source.url} target="_blank" rel="noopener noreferrer" title="View this report’s source at its latest Git update on GitHub">Last updated <time datetime={source.date}>{updatedLabel} UTC</time> ↗</a>}
     </footer>
   </article>
@@ -171,6 +176,8 @@ const updatedLabel = source && new Intl.DateTimeFormat("en-GB", {
     </section>
   )}
 </Base>
+
+{r.submission && <script>import "../../scripts/report-submission.js";</script>}
 
 <style>
 .report-provenance { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 24px; margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
