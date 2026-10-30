@@ -26,6 +26,10 @@ sources:
     url: https://kimskashmir.com/six-drug-peddlers-arrested-in-anantnag-awantipora-contraband-recovered/
     publisher: KIMS Kashmir
     date: 2026-10-30
+  - title: Five Alleged Drug Peddlers Arrested in Separate Operations in Anantnag
+    url: https://kashmirlife.net/five-alleged-drug-peddlers-arrested-in-separate-operations-in-anantnag-458940/
+    publisher: Kashmir Life
+    date: 2026-10-30
 open_questions:
   - The police post and the news reports give no separate date for the four operations; 30 October 2026 is the date of the Anantnag Police statement and the reports.
   - The 1.577 kg cannabis figure is the sum of 1.570 kg of charas powder and seven grams of charas; no combined total was published.
@@ -41,12 +45,13 @@ open_questions:
 ---
 
 At Srigufwara, a police team arrested Shabir Ahmad Deedad of Lehandajan,
-Pahalgam. [@1] He was carrying 1.570 kg of charas powder. [@1] FIR No. 109/2026
-was registered. [@2] FIR No. 125/2026 was registered. [@2]
+Pahalgam. [@1,3] He was carrying 1.570 kg of charas powder. [@1,3] FIR No. 109/2026
+was registered. [@2,3] FIR No. 125/2026 was registered. [@2,3]
 
 At Malakhnag, police arrested Fardin Ahmad Khan, alias Sameer Khan, of Qazi
-Mohalla, Anantnag, with 13 grams of heroin. [@2] A police post team at Sangam
+Mohalla, Anantnag, with 13 grams of heroin. [@2,3] A police post team at Sangam
 arrested Owais Hassan Allaie of Niana, GB Khalil, with seven grams of charas.
-[@2] Cases were registered at the respective police stations and investigations
+[@2,3] Cases were registered at the respective police stations and investigations
 were under way, police said. [@2]
 
+At Mattan, police arrested Imtiyaz Ahmad Bhat and Sabgatullah Ganie, both of Ganipora, Mattan, and recovered 30.4 grams of brown sugar from them. [@3] Police said their operations against drug trafficking would continue and reiterated their commitment to dismantling the network involved in the illegal trade across the district. [@3]
