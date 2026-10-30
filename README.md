@@ -22,7 +22,7 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 | `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
 | `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports; semantic article markup and Article metadata support native browser reader views; availability is decided by the browser |
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
-| `/country/` | All countries with reports |
+| `/country/` | All 220 CFI countries and territories, including places with no reports; states and provinces listed separately |
 | `/stats/` | Totals, reports per month since the first report, by type, region and year, top countries |
 | `/changelog/` | Paginated commit history: reports added, edited, deleted and renamed, report descriptions, countries, categories and changed fields, plus a timeline of report changes; refreshed at build time |
 | `/feed.xml` | RSS feed of the 50 newest reports |

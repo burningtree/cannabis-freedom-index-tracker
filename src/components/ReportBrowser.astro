@@ -15,10 +15,10 @@ import { TYPES } from "../lib/types.js";
 const { page: PAGE = 30, compact = false, country = null } = Astro.props;
 const all = country ? reportsOf(country) : reports;
 const allYears = country ? [...new Set(all.map((r) => r.year))].sort((a, b) => b - a) : years;
-// the country filter: every country with reports, its own or its states', and those states under it
-const places = countries.filter((c) => !c.parent && reportsOf(c.id).length).sort((a, b) => a.name.localeCompare(b.name))
+// All CFI countries and territories, with their states underneath, including zero counts.
+const places = countries.filter((c) => !c.parent).sort((a, b) => a.name.localeCompare(b.name))
   .flatMap((c) => [{ id: c.id, name: c.name, count: reportsOf(c.id).length },
-    ...countries.filter((s) => s.parent === c.id && reportsOf(s.id).length).map((s) => ({ id: s.id, name: `\u2003${s.name}`, count: reportsOf(s.id).length }))]);
+    ...countries.filter((s) => s.parent === c.id).map((s) => ({ id: s.id, name: `\u2003${s.name}`, count: reportsOf(s.id).length }))]);
 const usedTypes = Object.entries(TYPES).filter(([t]) => all.some((r) => r.type === t || r.also?.includes(t)));
 const fmt = (n) => n.toLocaleString("en-GB");
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -77,7 +77,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     : <div class="ry-all" id="list" data-years data-base={base} data-types={JSON.stringify(types)} data-page={PAGE}>
         <ReportYears reports={all.slice(0, PAGE)} />
       </div>}
-  <p class="empty" id="empty" hidden>No report matches these filters.</p>
+  <p class="empty" id="empty" hidden={all.length > 0}>No report matches these filters.</p>
   {!compact && <>
     <div id="report-scroll-sentinel" aria-hidden="true" hidden></div>
     <p class="count" id="scroll-status" role="status" aria-live="polite"></p>

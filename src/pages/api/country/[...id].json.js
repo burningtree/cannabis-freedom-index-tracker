@@ -14,7 +14,7 @@ export function GET({ params, site }) {
     version: 1,
     id: params.id,
     name: countryName(params.id),
-    url: list.length ? new URL(`country/${params.id}/`, site).href : null,
+    url: new URL(`country/${params.id}/`, site).href,
     count: list.length,
     totals: totals(list),
     by_type: countByType(list),

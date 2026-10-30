@@ -1,12 +1,11 @@
 // The country outline for a country page's map, which greys out everything else around it,
 // highlights the border and zooms to the country (the grey world with the country cut out is made in
-// the browser). One small file per country with reports, from Natural Earth's 1:50m borders
+// the browser). One small file per mapped country or territory, from Natural Earth's 1:50m borders
 // (world-atlas, public domain; 1:10m for small countries), matched by ISO 3166-1 numeric code. States have none.
 import { feature } from "topojson-client";
 import atlas from "world-atlas/countries-50m.json" with { type: "json" };
 import detailed from "world-atlas/countries-10m.json" with { type: "json" };
 import { countries } from "../../../lib/countries.js";
-import { reportsOf } from "../../../lib/reports.js";
 
 const shapes = new Map(feature(atlas, atlas.objects.countries).features.map((f) => [Number(f.id), f.geometry]));
 // small countries (Malta, Singapore, Luxembourg) are drawn from the 1:10m borders: at their zoom the
@@ -26,7 +25,7 @@ const wrappedBbox = (rings) => {
 };
 
 export function getStaticPaths() {
-  return countries.filter((c) => !c.parent && c.iso_numeric && shapes.has(c.iso_numeric) && reportsOf(c.id).length).map((c) => ({ params: { id: c.id }, props: { geometry: shapes.get(c.iso_numeric), id: c.iso_numeric } }));
+  return countries.filter((c) => !c.parent && c.iso_numeric && (shapes.has(c.iso_numeric) || fine.has(c.iso_numeric))).map((c) => ({ params: { id: c.id }, props: { geometry: shapes.get(c.iso_numeric) ?? fine.get(c.iso_numeric), id: c.iso_numeric } }));
 }
 
 const partsOf = (g) => (g.type === "Polygon" ? [g.coordinates] : g.coordinates);

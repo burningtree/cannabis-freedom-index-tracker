@@ -1,20 +1,26 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { countriesWithReports, reportsOf, totals } from "../../lib/reports.js";
-import { countryOf, flagOf } from "../../lib/countries.js";
+import { reportsOf, totals } from "../../lib/reports.js";
+import { countries, countryName, flagOf } from "../../lib/countries.js";
 const base = import.meta.env.BASE_URL;
-const list = countriesWithReports().map((c) => ({ ...c, region: countryOf(c.id).region, t: totals(reportsOf(c.id)) }))
+const list = countries.map((c) => ({ ...c, name: countryName(c.id), count: reportsOf(c.id).length, t: totals(reportsOf(c.id)) }))
   .sort((a, b) => a.name.localeCompare(b.name));
+const groups = [
+  { title: null, list: list.filter((c) => !c.parent) },
+  { title: "States and provinces", list: list.filter((c) => c.parent) },
+];
 const fmt = (n) => (n ? n.toLocaleString("en-GB") : "–");
 ---
-<Base title="Countries" description="Cannabis enforcement reports by country.">
-  <h1>Countries</h1>
-  <p class="lead">Every country and state with at least one report. Ids are those of the Cannabis Freedom Index.</p>
+<Base title="Countries and territories" description="Cannabis enforcement reports across all countries and territories covered by the Cannabis Freedom Index.">
+  <h1>Countries and territories</h1>
+  <p class="lead">All {groups[0].list.length} countries and territories covered by the Cannabis Freedom Index, including places with no reports yet. States and provinces are listed separately below.</p>
+  {groups.map((group) => <>
+  {group.title && <h2>{group.title}</h2>}
   <div class="table-wrap">
     <table class="table">
       <thead><tr><th>Country</th><th>Region</th><th class="num">Reports</th><th class="num">Arrested</th><th class="num">Plants</th><th class="num">Hectares</th></tr></thead>
       <tbody>
-        {list.map((c) => (
+        {group.list.map((c) => (
           <tr>
             <td><a href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a></td>
             <td class="muted">{c.region}</td>
@@ -27,4 +33,5 @@ const fmt = (n) => (n ? n.toLocaleString("en-GB") : "–");
       </tbody>
     </table>
   </div>
+  </>)}
 </Base>

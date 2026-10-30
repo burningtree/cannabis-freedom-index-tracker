@@ -1,5 +1,5 @@
 ---
-// One page per country (or state) that has reports: its reports, totals and map.
+// One page per CFI country, territory or state, including places with no reports yet.
 import Base from "../../layouts/Base.astro";
 import WorldMap from "../../components/WorldMap.astro";
 import CfiWidget from "../../components/CfiWidget.astro";
@@ -11,7 +11,7 @@ import { compact } from "../../lib/stats.js";
 import { cfiOf } from "../../lib/cfi.js";
 
 export function getStaticPaths() {
-  return countries.filter((c) => reportsOf(c.id).length).map((c) => ({ params: { id: c.id } }));
+  return countries.map((c) => ({ params: { id: c.id } }));
 }
 const { id } = Astro.params;
 const c = countryOf(id);
@@ -19,7 +19,7 @@ const name = countryName(id);
 const list = reportsOf(id);
 const t = totals(list);
 const byType = Object.entries(countByType(list)).filter(([, n]) => n);
-const states = countries.filter((s) => s.parent === id && reportsOf(s.id).length);
+const states = countries.filter((s) => s.parent === id);
 const base = import.meta.env.BASE_URL;
 const fmt = (n) => n.toLocaleString("en-GB");
 // the figures the reports state, in short form (5.2M) with the exact number on hover
@@ -39,7 +39,7 @@ const hasCfi = Boolean(cfiOf(id));
       RSS
     </a>
   </div>
-  <p class="lead">{list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.</p>
+  <p class="lead">{list.length ? `${list.length} ${list.length === 1 ? "report" : "reports"} of cannabis enforcement.` : "No enforcement reports recorded here yet."}</p>
 
   {figures.length > 0 && (
     <>
@@ -60,7 +60,7 @@ const hasCfi = Boolean(cfiOf(id));
 
   {states.length > 0 && (
     <>
-      <h2>By state</h2>
+      <h2>States and provinces</h2>
       <ul class="cards">{states.map((s) => <li><a href={`${base}country/${s.id}/`}>{s.name} <span class="muted">· {reportsOf(s.id).length}</span></a></li>)}</ul>
     </>
   )}
