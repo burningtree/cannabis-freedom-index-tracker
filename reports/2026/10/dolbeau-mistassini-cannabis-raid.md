@@ -32,6 +32,11 @@ sources:
     publisher: Le Quotidien
     date: 2026-10-29
     language: fr
+  - title: Une perquisition de stupéfiants à Dolbeau-Mistassini
+    url: https://alma.planeteradio.ca/nouvelles/812118/une-perquisition-de-stupefiants-a-dolbeau-mistassini
+    publisher: Planète 104.5 Alma
+    date: 2026-10-29
+    language: fr
 open_questions:
   - 'No photograph of the search was published: the three reports carry archive images credited Archives/CKAJ and Archives La Voix de l''Est and an Adobe Stock picture of a Sûreté du Québec vehicle, so no media is linked.'
   - Police gave only minimum quantities, 'more than 100 grams' each of illicit and edible cannabis, and no total weight or market value; the 0.2 kg figure is therefore a minimum.
@@ -42,16 +47,16 @@ open_questions:
 ---
 
 Sûreté du Québec officers from the Maria-Chapdelaine detachment searched a home
-on rue Renaud in Dolbeau-Mistassini on 29 October 2026. [@1] The 52-year-old
+on rue Renaud in Dolbeau-Mistassini on 29 October 2026. [@1,4] The 52-year-old
 woman who lived there was arrested and questioned, then released pending further
-proceedings. [@1] The operation was carried out with police from the
-Mashteuiatsh public security service. [@2]
+proceedings. [@1,4] The operation was carried out with police from the
+Mashteuiatsh public security service. [@2,4]
 
 Officers seized more than 100 grams of illicit cannabis and more than 100 grams
-of edible cannabis. [@1] They also seized cocaine, more than 100 methamphetamine
-tablets, magic mushrooms and nearly C$3,000 in cash. [@1] No charge had been
+of edible cannabis. [@1,4] They also seized cocaine, more than 100 methamphetamine
+tablets, magic mushrooms and nearly C$3,000 in cash. [@1,4] No charge had been
 filed; police said charges related to drug trafficking could be laid against the
-woman. [@3]
+woman. [@3,4]
 
 The Sûreté du Québec said the search was carried out under ACCES-Cannabis, a
 programme to reduce the availability of illicit cannabis on the Quebec market,
@@ -59,4 +64,3 @@ especially among young people, and to reduce the unfair competition that illegal
 producers and traffickers pose to the SQDC, Quebec's provincially owned cannabis
 retailer. [@1] The force asked anyone with information about drug trafficking or
 production to contact its criminal information centre confidentially. [@1]
-
