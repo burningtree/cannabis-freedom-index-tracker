@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
+import { changelogDev } from "./scripts/lib/changelog-dev.mjs";
 import { markdownGlossary } from "./src/lib/glossary.js";
 import { unified } from "@astrojs/markdown-remark";
 
@@ -73,6 +74,7 @@ export default defineConfig({
   site: process.env.SITE || "https://tracker.cannabisfreedom.fyi",
   base,
   vite: {
+    plugins: [changelogDev()],
     server: {
       // the Go backend's code and its job storage (thousands of files changing while research runs:
       // repository copies, builds, logs) are nothing the site needs to reload for

@@ -16,7 +16,7 @@ figures:
   kg_seized: 20
   arrested: 2
   charged: 2
-created_by_model: alibaba-token-plan/qwen3.8-flash
+created_by_model: alibaba-token-plan/qwen3.8-max#xhigh
 status: verified
 tags: [thc-liquid, customs, vietnam-route, international-post, minors]
 open_questions:

@@ -22,7 +22,7 @@ npm run dev
 `backend-dev` loads the ignored root `.env` and starts Go on `127.0.0.1:8080`. It defaults to
 the locally installed OpenCode CLI, automatic publication, and private state under
 `backend/data/`. Set `RESEARCH_MODEL` in `.env` (or the process environment) to choose the
-provider/model, including an optional `#variant`. There is no built-in model default;
+provider/model, including `#effort` when the reasoning effort is known (for example `#xhigh`). There is no built-in model default;
 processing stays paused until a model is configured. Astro proxies HTTP and WebSocket traffic through
 `/__submissions`, so the frontend also works when port 4321 is occupied and Astro selects 4322.
 Production builds require an explicit `PUBLIC_SUBMISSIONS_API_URL`.
@@ -177,9 +177,15 @@ untrustworthy (`insufficient_evidence`), routed to CFI (`routed_to_cfi`), inacce
 vegetable type or a missing court outcome belong in `open_questions`, not a failed outcome.
 Every factual claim still needs a quotation independently confirmed in an opened source.
 Automated report status remains `reported`, never automatically `verified`.
-The service writes `created_by_model` from the actual configured run model, including provider
-and variant (for example `opencode-go/deepseek-v4.1-flash#max`). It is not a model-authored field.
-Existing-case updates retain the original creator and append distinct models to `updated_by_models`.
+The service must write `created_by_model` from the actual run configuration, including the provider,
+model and reasoning effort whenever available: `provider/model#effort`, for example
+`alibaba-token-plan/qwen3.8-flash#xhigh`. The `xhigh` suffix is the effort setting, also called
+a reasoning variant. Include the actual effort even when it is configured separately from the
+model identifier; never infer it from current defaults or silently omit a known setting.
+If effort is unavailable, keep the known `provider/model` without a suffix. It is not a
+model-authored field.
+Existing-case updates retain the original creator and append distinct model/effort identifiers
+using the same format to `updated_by_models`.
 Both appear on the report detail page and in the report JSON API. `created_by_model` is required on every report. Historical reports without a known creator use
 `unknown` and display "not recorded"; never infer their model from today's configuration.
 

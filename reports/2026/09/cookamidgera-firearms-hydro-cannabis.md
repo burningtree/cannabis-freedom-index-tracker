@@ -15,7 +15,7 @@ summary: >-
 figures:
   arrested: 1
   charged: 1
-created_by_model: alibaba-token-plan/qwen3.8-flash
+created_by_model: alibaba-token-plan/qwen3.8-max#xhigh
 status: verified
 tags: [nsw-police, rural-crime, firearms, hydroponic, weapon-prohibition]
 open_questions:

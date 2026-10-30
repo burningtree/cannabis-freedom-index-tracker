@@ -27,7 +27,7 @@ media:
     archived: https://web.archive.org/web/20261009114655/https://x.com/mossos/status/2108443780323930326
     publisher: Mossos d'Esquadra (X)
     caption: The Catalan police's own post on dismantling the drug storage point in Alt Empordà
-created_by_model: alibaba-token-plan/qwen3.8-flash
+created_by_model: alibaba-token-plan/qwen3.8-max#xhigh
 status: verified
 tags: [mossos-desquadra, hashish, rubber-granules, warehouse, criminal-organisation]
 open_questions:

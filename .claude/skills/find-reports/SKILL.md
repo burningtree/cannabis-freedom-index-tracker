@@ -102,10 +102,13 @@ adds the Wayback Machine's snapshot of each source and media page as `archived:`
 copy of are listed; `--save` asks it to save them (only when the user has agreed to submit pages).
 
 Every new report must include `created_by_model` with your actual runtime model identifier
-(provider/model and variant when available). Do not omit the field or copy a sample model.
+as `provider/model#effort` when available (for example `alibaba-token-plan/qwen3.8-flash#xhigh`,
+where `xhigh` is the reasoning effort setting). Include a known effort even if configured
+separately from the model; omit only the suffix when effort is unavailable. Do not omit the
+field, guess an effort or copy a sample model.
 Use `unknown` only if the runtime does not disclose its identity or a historical creator was
 not recorded, and state that limitation. Updates retain the original creator and record your
-model in `updated_by_models`. See `docs/WRITING.md` for the provenance rules.
+model and effort in `updated_by_models` using the same format. See `docs/WRITING.md` for the provenance rules.
 
 ## 6. Check and commit
 

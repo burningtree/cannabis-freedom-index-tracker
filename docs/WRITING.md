@@ -138,7 +138,20 @@ answers it, the answer goes in the text with its citation.
 ## 10. Required model provenance
 
 Every report's front matter must contain `created_by_model`, naming the exact model that wrote
-it (including provider and variant when known, such as `opencode-go/deepseek-v4.1-flash#max`).
+it, including the provider and the actual reasoning effort setting whenever available. Use
+`provider/model#effort`, for example:
+
+```yaml
+created_by_model: alibaba-token-plan/qwen3.8-flash#xhigh
+```
+
+Here `alibaba-token-plan` is the provider, `qwen3.8-flash` is the model, and `xhigh` is the
+reasoning effort setting (also called a reasoning variant). Preserve the exact effort used
+by the writing run, including when it is configured separately from the model identifier;
+do not drop it from the attribution. If the model is known but its effort is not available,
+record `provider/model` without a suffix. Never guess an effort or infer it for older work.
+Use the same `provider/model#effort` format for entries in `updated_by_models` when known.
+
 Agents writing Markdown fill this in themselves; the submission service assigns it from the
 actual OpenCode run configuration. It is required by both the schema and the report tests.
 Never claim another model, copy an example's attribution, or infer an old model from today's
@@ -149,7 +162,7 @@ Preserve the original creator when updating a report, and add the current model 
 
 ## Checklist
 
-- [ ] Required `created_by_model` recorded accurately; update provenance preserved.
+- [ ] Required `created_by_model` records the actual provider, model and effort when available; update provenance preserved.
 - [ ] One event; every source is about it.
 - [ ] Every source opened; its own publication date checked.
 - [ ] Every factual sentence cited; every source cited.

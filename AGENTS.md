@@ -12,7 +12,10 @@ Index (country ids are the CFI's).
 - **How a report is written** (one event, sources, figures, pictures): `docs/WRITING.md`.
   Data format and JSON API: `README.md`.
 - Every report file **must** include `created_by_model`: the exact model identifier used by the
-  writing agent, including provider/variant when known. Agents writing Markdown set it themselves;
+  writing agent, including provider and reasoning effort when known, as `provider/model#effort`
+  (for example `alibaba-token-plan/qwen3.8-flash#xhigh`, where `xhigh` is the effort setting).
+  Never omit an available effort setting or guess an unavailable one. Use the same format for
+  `updated_by_models`. Agents writing Markdown set it themselves;
   the submission service injects it from the OpenCode run configuration. Never omit it or copy a
   sample/current model onto older work. Use `unknown` only when the actual creator model is not
   available (notably historical imports), and make that limitation clear. Preserve the original

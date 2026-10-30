@@ -66,10 +66,13 @@ reported; if they truly contradict, `status: disputed`.
   (save it to `src/assets/reports/`, look at it first: it must show this event); every other photo
   or video of the event as a `media` link.
 - **Required `created_by_model`:** your actual runtime model identifier, including provider and
-  variant when available. Set this in every new Markdown report. Never copy the example's model
+  reasoning effort when available, as `provider/model#effort` (for example
+  `alibaba-token-plan/qwen3.8-flash#xhigh`; `xhigh` is the effort setting). Include the actual
+  effort even if configured separately; omit the suffix only when effort is unavailable.
+  Set this in every new Markdown report. Never copy the example's model
   or guess a historical creator. If the runtime does not disclose the identifier, use `unknown`
   and say that attribution was unavailable. On updates, preserve the original `created_by_model`
-  and add your model once to `updated_by_models`. The submission service assigns these fields
+  and add your model once to `updated_by_models` using the same effort-inclusive format. The submission service assigns these fields
   itself when consuming an OpenCode JSON result; do not add them to that result contract.
 - `status: verified` when every fact was read in an opened source.
 - `open_questions` (docs/WRITING.md §9): what the sources leave open, one plain sentence each, such

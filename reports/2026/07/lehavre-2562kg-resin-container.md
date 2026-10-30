@@ -19,7 +19,7 @@ media:
     url: http://www.douane.gouv.fr/actualites/saisie-de-25-tonnes-de-resine-de-cannabis-scellees-dans-des-caissons-metalliques
     publisher: Douane française
     caption: Photo published with the customs announcement of the Le Havre resin seizure
-created_by_model: alibaba-token-plan/qwen3.8-flash
+created_by_model: alibaba-token-plan/qwen3.8-max#xhigh
 status: verified
 tags: [douane, port, container, machine-tools, senegal-libya-route]
 open_questions:

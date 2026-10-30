@@ -18,9 +18,9 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 | Address | What it shows |
 |---|---|
 | `/` | **Map**: a full-screen map of all reports (the view is kept in the address, `#map=zoom/lat/lon`, so it can be shared) (a diamond marker per type; grouping crowded markers into clusters is an option in the Layers panel) with a pane on the right: the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
-| `/reports/` | **Reports**: the same filterable list as a page of its own |
+| `/reports/` | **Reports**: the same filterable list as a page of its own, with an RSS subscription button |
 | `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
-| `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports |
+| `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports; semantic article markup and Article metadata support native browser reader views; availability is decided by the browser |
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
 | `/country/` | All countries with reports |
 | `/stats/` | Totals, reports per month since the first report, by type, region and year, top countries |
@@ -107,7 +107,7 @@ media:                           # optional; photos or video of the event that c
     url: https://…               # the page they are on
     publisher: La Nación (Paraguay)
     caption: Agents pull up plants in a cleared forest plot
-created_by_model: unknown         # REQUIRED: actual creator model; unknown only if attribution is unavailable
+created_by_model: unknown         # REQUIRED: provider/model#effort when known; unknown only if creator is unavailable
 status: verified                 # verified (checked against opened sources) | reported | disputed
 tags: [ndlea, farmers]           # optional, lower-case-with-hyphens
 sources:                         # at least one
@@ -166,7 +166,7 @@ npm run build
 ```
 
 `npm run build` runs the tests first and writes the site to `dist/`. Set `SITE` and `BASE_PATH` to
-build for another address. The changelog requires a Git checkout with full history (`git fetch --unshallow` for a shallow clone); partial history is labeled on the page. `npm run dev` starts a local dev server.
+build for another address. The changelog requires a Git checkout with full history (`git fetch --unshallow` for a shallow clone); partial history is labeled on the page. In development, the changelog checks Git HEAD once per second, clears cached history and refreshes an open changelog after a commit or branch switch. Restart an already-running dev server once after installing this change. `npm run dev` starts a local dev server.
 
 ## JSON API
 
@@ -307,8 +307,8 @@ Code: MIT. Report texts and data: CC BY 4.0. Pictures keep their own licences, s
 The optional Go service in `backend/` adds anonymous source intake, durable receipts, Nostr mentions
 and replies, sandboxed OpenCode research, live model/session activity, and automatic local report commits after validation. Astro and the public
 report JSON API remain static. Pages: `/submission/?id=…` for request details, and `/submissions/` for the source form and
-live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` (provider/model and variant), shown on the report detail page.
-Later update models are kept in `updated_by_models`. Open questions are saved in report front matter
+live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` as `provider/model#effort` when available, shown on the report detail page. For example, `alibaba-token-plan/qwen3.8-flash#xhigh` records `xhigh` as the reasoning effort setting. Include the actual effort whenever known; omit only the suffix if effort is unavailable, and never guess it.
+Later update models are kept in `updated_by_models` using the same format. Open questions are saved in report front matter
 and shown beneath its sources. Local failed submissions have a restart control; no GitHub App is needed.
 
 See [docs/NOSTR-SUBMISSIONS.md](docs/NOSTR-SUBMISSIONS.md) for setup, HTTP contracts, deployment,
@@ -316,7 +316,7 @@ privacy, backups, research isolation and rollout requirements. Use `backend/conf
 for private service configuration and `.env.example` for public-only Astro build settings.
 For JavaScript-rendered sources and archived screenshots/SEO metadata, install Chromium once with
 `npm run browser-install` (`SOURCE_BROWSER=true` by default).
-Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials and the `RESEARCH_MODEL` set in `.env` or the process environment (`provider/model`, optionally `#variant`). There is no built-in model default. Do not prefix secrets with `PUBLIC_`. The form
+Local `backend-dev` loads the ignored root `.env`; it uses OpenCode’s saved credentials and the `RESEARCH_MODEL` set in `.env` or the process environment (`provider/model#effort` when the effort setting is known). There is no built-in model default. Do not prefix secrets with `PUBLIC_`. The form
 stays unavailable in production until `PUBLIC_SUBMISSIONS_API_URL` is set. For local work, run
 `npm run backend-dev` and `npm run dev` in separate terminals; the frontend connects to localhost automatically. Never include service secrets in an
 Astro build. Backend checks: `cd backend && go test -race ./... && go vet ./...`.

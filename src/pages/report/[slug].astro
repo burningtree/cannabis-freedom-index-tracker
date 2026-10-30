@@ -37,11 +37,21 @@ const mapLinks = r.coordinates ? [
 // the place and its country, the country left out when the place already ends with it
 const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryName].filter(Boolean).join(" · ");
 ---
-<Base title={r.title} description={r.summary} wide>
-  <nav class="crumbs"><a href={`${base}reports/`}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
+<Base title={r.title} description={r.summary} ogType="article" wide>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: r.title,
+    description: r.summary,
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    inLanguage: "en",
+    articleSection: [r.typeLabel, ...(r.also ?? []).map((type) => TYPES[type].label)],
+    publisher: { "@type": "Organization", name: "Cannabis Enforcement Tracker" },
+  }).replace(/</g, "\\u003c")} />
+  <nav class="crumbs" aria-label="Breadcrumb"><a href={`${base}reports/`}>Reports</a> / <a href={`${base}country/${r.country}/`}>{r.countryName}</a></nav>
   {/* on a wide screen the map and the law sit in a column beside the text; narrower, under it */}
   <div class="report-layout">
-  <article>
+  <article id="report-article" class="report-article h-entry" itemscope itemtype="https://schema.org/Article">
     <header class="report-head">
       <div class="meta">
         <span class="type" style={`--c:${r.color}`}>{r.typeLabel}</span>
@@ -50,8 +60,8 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
         <span class:list={["status", r.status]} title={STATUS[r.status]}>{r.status}</span>
         <a class="code" href={`${base}r/${r.code}/`} title="The report's permanent short id and link">CET-{r.code}</a>
       </div>
-      <h1>{r.title}</h1>
-      <p class="lead">{r.summary}</p>
+      <h1 class="p-name" itemprop="headline">{r.title}</h1>
+      <p class="lead p-summary" itemprop="description">{r.summary}</p>
       <p class="muted">{flagOf(r.country)} {where}</p>
       {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
       {r.updated_by_models?.length > 0 && <p class="report-model"><span>Updated with</span> {r.updated_by_models.map(model => <code>{model}</code>)}</p>}
@@ -70,7 +80,7 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
       </dl>
     )}
 
-    <div class="prose"><Content /></div>
+    <div class="prose article-body e-content" itemprop="articleBody"><Content /></div>
 
     {r.media?.length > 0 && (
       <>
@@ -145,7 +155,7 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
   </div>
 
   {more.length > 0 && (
-    <section>
+    <section class="related-reports">
       <h2>Related reports</h2>
       <ul class="reports">{more.map((x) => <ReportItem r={x} search={false} />)}</ul>
     </section>

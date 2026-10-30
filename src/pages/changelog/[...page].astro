@@ -74,6 +74,13 @@ const dateLabel = (value) => new Date(value).toLocaleString("en-GB", { dateStyle
   </nav>}
 </Base>
 
+<script>
+  // The server has cleared its static-path cache before sending this event.
+  if (import.meta.hot) {
+    import.meta.hot.on("tracker:git-changed", () => window.location.reload());
+  }
+</script>
+
 <style>
   .change-totals, .commits {
     --added: #78cba0;
@@ -107,7 +114,7 @@ const dateLabel = (value) => new Date(value).toLocaleString("en-GB", { dateStyle
   .commit + .commit { margin-top: 28px; }
   .commit-meta { padding-left: 10px; border-left: 2px solid var(--muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: 12px; }
   .commit-hash { font: 11px var(--mono); color: var(--muted); }
-  .commit h2 { font: 400 22px/1.3 var(--display); margin: 8px 0 4px; overflow-wrap: anywhere; }
+  .commit h2 { font-family: inherit; font-size: 15px; font-weight: 500; line-height: 1.5; letter-spacing: normal; margin: 8px 0 4px; overflow-wrap: anywhere; }
   .commit h2 small { color: var(--muted); font-size: 14px; }
   .report-changes { list-style: none; padding: 0; margin: 0; }
   .report-changes li { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 16px; padding: 16px 0; }
@@ -123,7 +130,6 @@ const dateLabel = (value) => new Date(value).toLocaleString("en-GB", { dateStyle
   @media (max-width: 600px) {
     .change-totals { gap: 8px 18px; }
     .commit { padding-top: 18px; }
-    .commit h2 { font-size: 20px; }
     .report-changes li { grid-template-columns: 58px minmax(0, 1fr); gap: 10px; }
     .change-kind { font-size: 10px; letter-spacing: 0; }
   }

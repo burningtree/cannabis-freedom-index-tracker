@@ -21,7 +21,7 @@ media:
     url: https://mediosdelestado.gov.py/ip/2026-10-03/senad-saca-de-circulacion-casi-50-kilos-de-marihuana-gta-fem-en-hernandarias/
     publisher: Agencia IP
     caption: Photo published with Agencia IP's report on the SENAD operation in Hernandarias
-created_by_model: alibaba-token-plan/qwen3.8-flash
+created_by_model: alibaba-token-plan/qwen3.8-max#xhigh
 status: verified
 tags: [senad, premium-cannabis, secret-compartment, brazil-market, alto-parana]
 open_questions:
