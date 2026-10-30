@@ -1,70 +1,63 @@
 ---
-date: 2026-10-19
+date: 2026-10-23
 country: py
-place: Amambay (Cerro Cora'i and the Capitán Bado district)
-# Geographic reference: https://nominatim.openstreetmap.org/search?q=Amambay%2C+Paraguay&format=jsonv2&limit=3
+place: Amambay (Pedro Juan Caballero and Capitán Bado districts)
 coordinates: [-23, -56]
 precision: region
 type: eradication
 also: [seizure]
-title: Paraguay and Brazil destroy 66 hectares and 92 tonnes of cannabis in Amambay
+title: "Nueva Alianza 58: 93 hectares destroyed and 423 tonnes of cannabis removed in Amambay"
 summary: >-
-  In the first six days of Operation Nueva Alianza 58 in Paraguay's Amambay department, the SENAD
-  anti-drug secretariat and Brazil's Federal Police dismantled 103 production and storage camps,
-  eradicated 66 hectares of cannabis and destroyed 92,217 kg of processed marijuana, losses the
-  agencies put above USD 45.5 million.
+  From 12 to 23 October 2026 Paraguay's SENAD and Brazil's Federal Police finished phase 58 of
+  Operation Nueva Alianza in Amambay, dismantling 149 camps, eradicating 93 hectares of cannabis and
+  destroying 143,850 kg of processed marijuana, which the agencies estimated at 422,867 kg kept from
+  the illicit market and more than USD 63 million in losses to traffickers.
 figures:
-  hectares: 66
-  kg_seized: 92217
+  hectares: 93
+  kg_seized: 422867
   value:
-    amount: 45500000
+    amount: 63000000
     currency: USD
 created_by_model: alibaba-token-plan/qwen3.8-flash#xhigh
 status: verified
 tags: [amambay, senad, nueva-alianza, border]
 media:
   - kind: photo
-    url: https://radiooasisfm.com/senad-y-policia-federal-del-brasil-destruyen-mas-de-290-toneladas-de-marihuana-y-causan-perdidas-de-usd-455-millones-al-narcotrafico-en-amambay.html
-    archived: https://web.archive.org/web/20261023142756/https://radiooasisfm.com/senad-y-policia-federal-del-brasil-destruyen-mas-de-290-toneladas-de-marihuana-y-causan-perdidas-de-usd-455-millones-al-narcotrafico-en-amambay.html
-    publisher: Radio Oasis 94.3 FM (Pedro Juan Caballero)
-    caption: Agents burn harvested cannabis plants on a hillside camp during the operation in Amambay.
+    url: https://www.adndigital.com.py/operativo-entre-paraguay-y-brasil-destruye-93-hectareas-de-marihuana/
+    media_url: https://adnpy.nyc3.digitaloceanspaces.com/wp-content/uploads/2026/10/whatsapp-image-2026-10-24-at-074746.jpeg
+    publisher: ADN Digital
+    caption: Paraguayan and Brazilian agents at a marijuana production camp in Amambay during Nueva Alianza 58.
 open_questions:
-  - "The operations covered several rural locations in Amambay. The map uses a department reference point, not a single plantation or the border town of Capitán Bado."
-  - No arrests were reported in these accounts of the operation.
-  - The accounts give no start date for the operation, only the results of its first six days, and say it continued afterwards.
-  - The figure of more than 290 tonnes is the agencies' estimate of the processed drug plus the potential harvest of the fields eradicated.
-  - No count of the plants in the 66 hectares was published.
-  - Both accounts below reproduce the SENAD release; the agency's own page could not be opened.
+  - Operations covered many rural colonias; the map uses an Amambay department reference, not one plantation.
+  - No arrests were reported in these accounts of the phase.
+  - The 422,867 kg total combines harvested marijuana destroyed in camps with the agencies' estimate of the yield of eradicated fields.
+  - Mid-operation bulletins had lower totals for the first six days; this report uses the closing balance published on 23 October.
 sources:
-  - title: Operativo antidrogas destruye más de 92 toneladas de marihuana en Amambay
-    url: https://1000noticias.com.py/2026/10/19/operativo-antidrogas-destruye-mas-de-92-toneladas-de-marihuana-en-amambay/
-    publisher: 1000 Noticias (Paraguay)
-    date: 2026-10-19
-    language: es
-  - title: SENAD y Policía Federal del Brasil destruyen más de 290 toneladas de marihuana y causan pérdidas de USD 45,5 millones al narcotráfico en Amambay
-    url: https://radiooasisfm.com/senad-y-policia-federal-del-brasil-destruyen-mas-de-290-toneladas-de-marihuana-y-causan-perdidas-de-usd-455-millones-al-narcotrafico-en-amambay.html
-    archived: https://web.archive.org/web/20261023142756/https://radiooasisfm.com/senad-y-policia-federal-del-brasil-destruyen-mas-de-290-toneladas-de-marihuana-y-causan-perdidas-de-usd-455-millones-al-narcotrafico-en-amambay.html
-    publisher: Radio Oasis 94.3 FM (Pedro Juan Caballero)
-    date: 2026-10-19
+  - title: PF e SENAD concluem 58ª fase da Operação Nova Aliança no Paraguai
+    url: https://www.gov.br/pf/pt-br/assuntos/noticias/2026/10/pf-e-senad-concluem-58a-fase-da-operacao-nova-alianca-no-paraguai
+    publisher: Polícia Federal (Brazil)
+    date: 2026-10-23
+    language: pt
+  - title: Operativo entre Paraguay y Brasil destruye 93 hectáreas de marihuana
+    url: https://www.adndigital.com.py/operativo-entre-paraguay-y-brasil-destruye-93-hectareas-de-marihuana/
+    publisher: ADN Digital
+    date: 2026-10-25
     language: es
 ---
 
-Paraguay's National Anti-Drug Secretariat (SENAD) and Brazil's Federal Police dismantled 103 camps
-used to produce and store cannabis and eradicated 66 hectares of crops in the department of Amambay
-during the first six days of Operation Nueva Alianza 58. [@1,2] Officers also located and destroyed
-92,217 kg of processed marijuana, packed in bags and ready for distribution. [@1,2]
+From 12 to 23 October 2026 Paraguay's National Anti-Drug Secretariat (SENAD) and Brazil's Federal
+Police completed the 58th phase of Operation Nueva Alianza in the department of Amambay. [@1,2]
+Ground and air teams worked around Pedro Juan Caballero and Capitán Bado, including colonias such
+as Raúl Ocampos Rojas, Cumbre, Cerro Kuatiá, Cerro Cora'i, Umbú, Piray and Jaguarundi. [@2]
 
-The air and ground incursions were concentrated around Cerro Cora'i in the Pedro Juan Caballero
-district and the hamlets of Cerro Kuatiá, Umbú, Piray and Yaguarundí in the Capitán Bado district.
-[@1,2] The operation involved SENAD special agents, troops of the internal defence command (CODI)
-and helicopters of the Paraguayan air force and the Brazilian Federal Police, with the public
-prosecutor's office also taking part. [@1,2]
+SENAD said officers destroyed 149 production and storage camps, eradicated 93 hectares of cannabis
+mostly near harvest stage and burned 143,850 kg of chopped marijuana found in the camps. [@1,2]
+Counting that processed drug and the potential yield of the cleared fields, the agencies put about
+422,867 kg of cannabis out of circulation and estimated the traffickers' loss at more than USD 63
+million. [@1,2]
 
-The agencies estimated the processed drug destroyed and the potential harvest of the eradicated
-fields at more than 290 tonnes of cannabis, and the loss to the criminal organisations at over USD
-45.5 million. [@1,2] Neither account reported an arrest. [@1,2]
+The operation also involved Paraguay's air force, the internal defence command (CODI) and the
+public prosecutor's office. [@1,2] Neither account reported an arrest. [@1,2]
 
-Nueva Alianza is a standing Paraguay–Brazil operation aimed at the production, storage and
-distribution centres of cannabis grown on Paraguayan soil, with Brazil one of the main markets for
-it; the SENAD said the incursions would continue in Amambay's rural sectors in the following
-days. [@1,2]
+Nueva Alianza is a long-running Paraguay–Brazil campaign against cannabis grown in Amambay for
+export, chiefly to Brazil. [@1]
