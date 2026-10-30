@@ -1,0 +1,73 @@
+---
+date: 2026-10-30
+country: cy
+place: Engomi, Nicosia
+coordinates: [35.163, 33.316]
+precision: locality
+type: arrest
+also: [seizure]
+title: 22-year-old remanded for eight days after 6.4kg cannabis seizure
+summary: >-
+  The Nicosia district court remanded a 22-year-old man in custody for eight days on 30 October 2026 after police seized about 6.4kg of cannabis, including 2.56kg found in a parcel from abroad. The parcel had been declared as Lego toys and was addressed to a recipient in Engomi; a taxi driver who collected it was arrested and later released when no evidence was found against him.
+figures:
+  arrested: 2
+  kg_seized: 6.4
+media:
+  - kind: photo
+    url: https://cyprus-mail.com/2026/10/30/22-year-old-arrested-after-6-4kg-of-cannabis-seized
+    media_url: https://cyprus-mail.com/image/s1100x774/fill/webp/path/wp-content/uploads/2026/10/Drugs_Lego_26102026.jpg
+    publisher: Cyprus Mail
+    caption: The parcel declared as Lego toys in which customs found 2.56kg of cannabis, with Cyprus customs tape on the packaging.
+status: reported
+created_by_model: opencode-go/deepseek-v4.1-flash#max
+submission: ef247ec8b3ea11d310e839e5aa9ce8db
+tags: [cyprus, nicosia, engomi, parcel, customs]
+sources:
+  - title: 22-year-old remanded for eight days over 6.4kg cannabis seizure
+    url: https://cyprus-mail.com/2026/10/30/22-year-old-arrested-after-6-4kg-of-cannabis-seized
+    publisher: Cyprus Mail
+    date: 2026-10-30
+  - title: Υπόθεση 6,4 κιλών κάνναβης - Χειροπέδες σε 22χρονο
+    url: https://www.kathimerini.com.cy/gr/kypros/ypothesi-6-4-kilwn-kannabis-xeiropedes-se-22xrono
+    publisher: Kathimerini.com.cy
+    date: 2026-10-30
+    language: el
+  - title: Αντί για lego είχε κάνναβη - Πώς η ΥΚΑΝ παγίδευσε πακέτο από τις ΗΠΑ και τσάκωσε τον 22χρονο
+    url: https://www.politis.com.cy/astynomiko/1060529/anti-ghia-lego-ikhe-kannavi-pws-i-ykan-paghidefse-paketo-apo-tis-hpa-kai-tsakose-ton-22khrono
+    publisher: Politis
+    date: 2026-10-30
+    language: el
+open_questions:
+  - The parcel's weight is given as 2.56kg in the police statement and by Cyprus Mail, but Politis reported 2kg 660g; with Politis's vehicle figures that would total about 6.5kg. The report uses the police statement's 2.56kg and its total of about 6.4kg.
+  - No charges or trial date were reported; the investigation was at an early stage.
+  - No estimate of the cannabis's street value was published.
+---
+
+A 22-year-old man was remanded in custody for eight days on Friday after police
+seized about 6.4kg of cannabis. [@1] The Nicosia district court issued the
+remand order after his arrest in Engomi the previous day. [@1] He is being
+investigated for illegal importation and possession of controlled drugs,
+possession with intent to supply, conspiracy to commit a felony and offences
+related to the proceeds of illegal activity. [@3]
+
+The investigation concerned a parcel containing 2.56kg of cannabis that arrived
+in Cyprus from abroad on 26 October. [@1] Police investigated the case with the
+customs department. [@1] The parcel had been declared as Lego toys. [@3] It
+carried the details of a sender company in the United States and a recipient
+address in Engomi. [@3] Anti-drug police replaced the cannabis with dummies and
+mounted a controlled delivery. [@3] On 29 October the parcel was left at a
+parking area in Engomi under police surveillance. [@3] A 62-year-old taxi driver
+then collected it and was arrested. [@2] He told police a customer had
+instructed him to collect it and that he did not know what it contained. [@1] He
+was released after questioning when no evidence emerged against him. [@1]
+
+Further inquiries led police to the 22-year-old, and officers stopped his car
+for a check. [@2] In the car they found three packets holding about 100g of
+cannabis and further packages weighing about 3.84kg, police said. [@1] They also
+seized €4,330 and five mobile phones. [@1]
+
+The investigation was at an early stage. [@3] Investigators planned to take
+statements and examine phone data and transactions, and asked the taxi platform
+and courier companies for information. [@3] Police are also looking into
+possible accomplices and earlier shipments. [@3]
+
