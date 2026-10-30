@@ -35,11 +35,30 @@ sources:
     publisher: TN.cz
     date: 2026-10-28
     language: cs
+  - title: 'VIDEO: Řidič ujížděl policistům rychlostí až 200 kilometrů v hodině. Skončil na kolejích'
+    url: https://www.novinykraje.cz/jihomoravsky/2026/10/29/video-ridic-ujizdel-policistum-rychlosti-az-200-kilometru-v-hodine/
+    publisher: Noviny kraje
+    date: 2026-10-29
+    language: cs
 open_questions:
   - No weight or plant count was given; police described a larger quantity of cannabis and sent the plants for expert examination.
   - No charges or court date have been announced; Hodonín police said they were still investigating.
   - The exact crash site is not named; the chase started at a petrol station in Mutěnice and headed toward Hodonín before ending on railway tracks.
   - The chase began shortly before midnight on 24–25 October 2026, so the overnight date may be recorded as 25 October.
+  - No figure for the number of plants or their weight was published; both accounts say only 'a larger quantity of cannabis'.
+  - The article gives no calendar date for the chase, only 'the night from Saturday to Sunday'; 24 October 2026 follows from its 29 October publication date.
+  - The Noviny kraje page reproduces the police statement almost verbatim and adds no independent reporting or new figures.
+media:
+  - kind: photo
+    url: https://www.novinykraje.cz/jihomoravsky/2026/10/29/video-ridic-ujizdel-policistum-rychlosti-az-200-kilometru-v-hodine/
+    media_url: https://www.novinykraje.cz/wp-content/uploads/2026/10/policie-ujizdel-konopi-765x510.jpg
+    publisher: Noviny kraje
+    caption: 'A still from the police video showing the cannabis found in the car, published as the article''s lead photo. Photo: Police of the Czech Republic video.'
+  - kind: video
+    url: https://www.novinykraje.cz/jihomoravsky/2026/10/29/video-ridic-ujizdel-policistum-rychlosti-az-200-kilometru-v-hodine/
+    media_url: https://www.youtube.com/embed/HOLIPnmx7w4?feature=oembed
+    publisher: Noviny kraje
+    caption: 'Police video of the pursuit, embedded in the article. Video: Police of the Czech Republic.'
 ---
 
 Police detained two men after a car chase ended on railway tracks and found
@@ -64,3 +83,4 @@ Rail traffic was stopped for more than an hour while firefighters winched the
 car off the tracks; the track was undamaged and nobody was injured. [@2] Hodonín
 police said they were still investigating the circumstances. [@2]
 
+Shortly before midnight, a patrol from Dubňany spotted a suspicious car near a petrol station in Mutěnice and the driver fled towards Hodonín. [@5] Police detained the driver and his passenger after the pursuit. [@5] Hodonín detectives seized a larger quantity of cannabis found in the boot and cabin of the car and sent the plants for expert examination. [@5] The driver had never held a driving licence and a roadside test was positive for amphetamine and methamphetamine. [@2]
