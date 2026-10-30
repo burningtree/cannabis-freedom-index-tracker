@@ -120,6 +120,7 @@ type Submission struct {
 	Result        json.RawMessage `json:"result,omitempty"`
 	DraftPath     string          `json:"draft_path,omitempty"`
 	DraftMarkdown string          `json:"draft_markdown,omitempty"`
+	Resumable     bool            `json:"resumable,omitempty"` // finished AI research is saved, so a retry can resume after it
 }
 type Intake struct {
 	Origin, URL, CanonicalURL, Note, Author, EventID, EventRaw, Provenance, IdempotencyKey string
@@ -236,7 +237,7 @@ func Enqueue(tx *sql.Tx, table, kind, ref, payload string, now int64) error {
 func (s *Store) Get(ctx context.Context, id string) (Submission, error) {
 	v := Submission{History: []History{}}
 	var sourceCheck, result, validation string
-	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.source_check,c.ai_result,c.validation,c.draft_path,c.draft_markdown,coalesce((SELECT commit_sha FROM local_publications WHERE case_id=c.id),''),coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0) FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &sourceCheck, &result, &validation, &v.DraftPath, &v.DraftMarkdown, &v.CommitSHA, &v.ResumeAt)
+	err := s.DB.QueryRowContext(ctx, `SELECT s.id,s.origin,s.original_url,s.note,s.case_id,c.status,c.explanation,c.report_slug,c.pr_url,coalesce(s.origin_event_id,nullif(s.gateway_event_id,''),''),s.reply_event_id,s.created_at,c.source_check,c.ai_result,c.validation,c.draft_path,c.draft_markdown,coalesce((SELECT commit_sha FROM local_publications WHERE case_id=c.id),''),coalesce((SELECT available_at FROM jobs WHERE ref=c.id AND kind='research' AND error_code='daily_budget_wait' AND status='queued'),0),EXISTS(SELECT 1 FROM research_checkpoints WHERE case_id=c.id) FROM submissions s JOIN cases c ON c.id=s.case_id WHERE s.id=?`, id).Scan(&v.ID, &v.Origin, &v.URL, &v.Note, &v.CaseID, &v.Status, &v.Explanation, &v.ReportSlug, &v.PRURL, &v.NostrEventID, &v.ReplyEventID, &v.CreatedAt, &sourceCheck, &result, &validation, &v.DraftPath, &v.DraftMarkdown, &v.CommitSHA, &v.ResumeAt, &v.Resumable)
 	if sourceCheck != "" && json.Valid([]byte(sourceCheck)) {
 		v.SourceCheck = json.RawMessage(sourceCheck)
 	}

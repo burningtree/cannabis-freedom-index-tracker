@@ -204,7 +204,11 @@ Creator attribution appears on the report detail page and in the report JSON API
 Repeated normalized URLs return the first existing submission ID, including across website,
 Nostr and discovery intake and after terminal outcomes. Tracking parameters and fragments removed
 by URL normalization do not create another receipt. Resubmitting a failed URL does not restart it;
-use the existing loopback restart control. Historical duplicate receipts remain readable, with
+use the existing loopback restart control. When the AI research finished before the failure, the
+page also offers "Retry from last step" (`POST /v1/submissions/{id}/restart` with `{"resume": true}`):
+it keeps the saved research and redoes the source checks, build and commit without a new AI run.
+"Restart from scratch" drops the saved research. A draft that fails the build is built again without
+the draft; when the repository fails too, the request says so instead of blaming the draft. Historical duplicate receipts remain readable, with
 all their notes/history intact; future submissions reuse the earliest one. Existing-case
 updates preserve the stable slug, earlier prose/citations and existing open questions, adding
 new questions without duplication. Unsupported event identity or ambiguous duplicate matches

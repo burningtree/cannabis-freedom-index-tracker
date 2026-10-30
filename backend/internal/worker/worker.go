@@ -428,12 +428,19 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	}
 	if err != nil {
 		var build *research.BuildError
+		if errors.As(err, &build) && build.Repository {
+			why := "The repository itself does not pass the report build right now, with or without this draft, so the draft is not at fault (" + build.Step + ")."
+			if build.Detail != "" {
+				why += " The build reported:\n\n" + build.Detail
+			}
+			return w.Store.Transition(ctx, j.Ref, "failed", why+"\n\nRetry once the repository is fixed: the AI's research is kept.", "", "")
+		}
 		if errors.As(err, &build) {
 			why := "The AI's draft did not pass the report build (" + build.Step + ")."
 			if build.Detail != "" {
 				why += " The build reported:\n\n" + build.Detail
 			}
-			return w.Store.Transition(ctx, j.Ref, "failed", why+"\n\nRestart to research and draft it again.", "", "")
+			return w.Store.Transition(ctx, j.Ref, "failed", why+"\n\nRestart to research and draft it again, or retry to rebuild the same draft.", "", "")
 		}
 		return w.Store.Transition(ctx, j.Ref, "failed", "The draft could not be prepared for the report build ("+err.Error()+"). Restart to try again.", "", "")
 	}
