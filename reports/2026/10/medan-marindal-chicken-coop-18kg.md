@@ -1,0 +1,74 @@
+---
+date: 2026-10-28
+country: id
+place: Desa Marindal I, Patumbak, Deli Serdang
+coordinates: [3.5112, 98.6985]
+precision: locality
+type: raid
+also: [seizure, arrest]
+title: Two friends arrested as police find 18 kg of cannabis in chicken-coop warehouse
+summary: >-
+  Narcotics detectives at Medan city police raided a warehouse disguised as a chicken coop in Desa Marindal I, Patumbak, Deli Serdang, on the night of 28 October 2026, seizing 18 kg of dried cannabis. Two close friends, aged 28 and 19, were arrested and police are hunting a third man they describe as the suspected controller.
+figures:
+  arrested: 2
+  kg_seized: 18
+media:
+  - kind: photo
+    url: https://sumut.akurat.co/hukum-kriminal/902847/satresnarkoba-polrestabes-medan-gerebek-gudang-penyimpanan-narkoba-berkedok-kandang-ayam-18-kg-ganja-disita
+    media_url: https://akurat.sgp1.cdn.digitaloceanspaces.com/images/11988379702-0-1000066324_1200_630.jpg
+    publisher: Akurat Sumut
+    caption: Two arrested men in orange detainee shirts with the packaged cannabis seized in the case at a police press conference in Medan.
+  - kind: photo
+    url: https://www.metrotvnews.com/read/bw6CAPVW-polisi-bongkar-gudang-narkoba-berkedok-kandang-ayam-18-kg-ganja-disita
+    media_url: https://cdn25.metrotvnews.com/dynamic/content/2026/10/30/bw6CAPVW/a_6ae40f0eef191.jpeg?w=720
+    publisher: Metro TV
+    caption: 'The dried cannabis seized in the Deli Serdang case, displayed by police. Photo: Metro TV'
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: a91d23f548df4a7ac85a9132b06e4459
+tags: [medan, deli-serdang, north-sumatra, ganja, aceh]
+sources:
+  - title: Satresnarkoba Polrestabes Medan Gerebek Gudang Penyimpanan Narkoba Berkedok Kandang Ayam, 18 Kg Ganja Disita
+    url: https://sumut.akurat.co/hukum-kriminal/902847/satresnarkoba-polrestabes-medan-gerebek-gudang-penyimpanan-narkoba-berkedok-kandang-ayam-18-kg-ganja-disita
+    publisher: Akurat Sumut
+    date: 2026-10-30
+    language: id
+  - title: Kandang Ayam Terpencil di Marindal Jadi Gudang Ganja, Polrestabes Medan Sita 18 Kg dari Dua Sahabat
+    url: https://medan.tribunnews.com/polda-sumut/1817652/kandang-ayam-terpencil-di-marindal-jadi-gudang-ganja-polrestabes-medan-sita-18-kg-dari-dua-sahabat
+    publisher: Tribun Medan
+    date: 2026-10-31
+    language: id
+  - title: Kandang Ayam Jadi Gudang Narkoba, Polisi Ringkus Dua Pelaku dan Sita 18 Kg Ganja
+    url: https://sumutpos.jawapos.com/hukum-kriminal/2610300019/kandang-ayam-jadi-gudang-narkoba-polisi-ringkus-dua-pelaku-dan-sita-18-kg-ganja
+    publisher: Sumut Pos
+    date: 2026-10-30
+    language: id
+  - title: Polisi Bongkar Gudang Narkoba Berkedok Kandang Ayam, 18 Kg Ganja Disita
+    url: https://www.metrotvnews.com/read/bw6CAPVW-polisi-bongkar-gudang-narkoba-berkedok-kandang-ayam-18-kg-ganja-disita
+    publisher: Metro TV
+    date: 2026-10-30
+    language: id
+open_questions:
+  - No court date or formal charge was reported; the two arrested men are described as suspects.
+  - No estimate of the cannabis's street value was published.
+  - Metro TV describes all 18 kg as stored in the safety box, while the other reports say 17 kg was in the box and the total was 18 kg; the individual amounts (2 ons, 1 kg and 17 kg) add up to 18.2 kg.
+---
+
+Narcotics detectives at Medan city police raided a warehouse disguised as a
+chicken coop in Deli Serdang on the night of Wednesday 28 October 2026. [@1] The
+coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3] Police arrested two
+close friends and seized 18 kg of dried cannabis. [@1] Police identified the two
+as MF, 28, of Jalan Cinta Karya in Medan Polonia, and DS, 19, of Jalan Bajak V
+in Medan. [@3] MF was caught in the parking area of a fast-food restaurant on
+Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1] DS
+was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1] Officers found
+another 17 kg of dried cannabis in a safety box inside the coop. [@3]
+
+The coop was remote and far from houses. [@2] Police said the building did not
+look suspicious from outside because it resembled an ordinary house. [@2] Police
+said the cannabis came from Aceh and the operation had run for about three
+months, supplying Medan and the surrounding area. [@2] Police named a third man,
+FS, as the suspected controller of MF and DS. [@1] FS was placed on a wanted
+list and was being hunted, police said. [@1] The two detained men face more than
+five years in prison over the trafficking allegation, Metro TV reported. [@4]
+
