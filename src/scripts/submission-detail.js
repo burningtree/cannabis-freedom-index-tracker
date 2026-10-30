@@ -2,6 +2,7 @@
 // the AI run with its live chat, the history grouped by attempt, and the details of the request.
 // Called by submissions.js on every refresh; the parts are redrawn in place except the AI panel,
 // which updates itself (src/lib/ai-activity.js) so its chat keeps its place.
+import { submissionDecision } from "../lib/submission-decision.js";
 import { restartControl } from "../lib/submission-restart.js";
 import { renderAIActivity } from "../lib/ai-activity.js";
 import { renderDraft, readResult } from "./draft-report.js";
@@ -54,8 +55,23 @@ function hero(box, v, run) {
   box.append(h1);
   if (url) box.append(link(`${v.url} ↗`, url, "sx-hero-url"));
   const why = el("div", undefined, "sx-why-box");
-  why.append(withCommit("p", v.explanation, v, "sx-why-main"));
-  if (!running && OUTCOME_HELP[v.status]) why.append(el("p", OUTCOME_HELP[v.status], "sx-why-help"));
+  const decision = submissionDecision(v, base);
+  if (decision) {
+    why.append(el("h2", decision.title, "sx-why-main"));
+    for (const paragraph of decision.details.split(/\n\s*\n/).filter(Boolean)) why.append(el("p", paragraph, "sx-why-detail"));
+    if (decision.modelAssessment) {
+      why.append(el("h3", "Model assessment", "sx-why-label"));
+      for (const paragraph of decision.modelAssessment.split(/\n\s*\n/).filter(Boolean)) why.append(el("p", paragraph, "sx-why-detail"));
+    }
+    if (decision.links.length) {
+      const list = el("ul", undefined, "sx-why-links");
+      for (const item of decision.links) { const row = el("li"); row.append(link(item.label, item.url)); list.append(row); }
+      why.append(list);
+    }
+  } else {
+    why.append(withCommit("p", v.explanation, v, "sx-why-main"));
+    if (!running && OUTCOME_HELP[v.status]) why.append(el("p", OUTCOME_HELP[v.status], "sx-why-help"));
+  }
   if (v.status === "budget_wait" && v.resume_at) why.append(el("p", `Scheduled to resume ${fullTime(v.resume_at)}. The budget counts run reservations, not the lower estimated cost shown below.`, "sx-why-help"));
   box.append(why);
   if (v.note) box.append(el("blockquote", v.note, "sx-quote"));

@@ -376,7 +376,7 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 			return err
 		}
 		if sourceCase != j.Ref {
-			return w.Store.Transition(ctx, j.Ref, w.uncertainOutcome(), "Source overlap with another case could not be resolved automatically.", "", "")
+			return w.rejectSourceOverlap(ctx, j.Ref, sourceCase, e.URL, check)
 		}
 	}
 	if result.Outcome != "new_event" && result.Outcome != "existing_case" {

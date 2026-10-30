@@ -90,6 +90,7 @@ type Result struct {
 	Summary        string    `json:"summary"`
 	ExistingReport string    `json:"existing_report"`
 	Explanation    string    `json:"explanation"`
+	DecisionTitle  string    `json:"decision_title,omitempty"`
 	Uncertainties  []string  `json:"uncertainties"`
 }
 
@@ -118,6 +119,9 @@ func (r Result) Validate(countries map[string]bool) error {
 	case "new_event", "existing_case", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review":
 	default:
 		return errors.New("invalid outcome")
+	}
+	if len(r.DecisionTitle) > 120 || plain.MatchString(r.DecisionTitle) {
+		return errors.New("invalid decision title")
 	}
 	if len(r.Explanation) < 10 || len(r.Explanation) > 1500 || plain.MatchString(r.Explanation) {
 		return errors.New("invalid explanation")

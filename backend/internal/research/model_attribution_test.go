@@ -64,3 +64,21 @@ func TestUpdatesPreserveCreatorAndRemoveLegacyUpdateModels(t *testing.T) {
 		})
 	}
 }
+
+func TestPublicDecisionTitleIsBoundedAndOptional(t *testing.T) {
+	r := valid()
+	r.DecisionTitle = "Evidence does not identify the incident"
+	if err := r.Validate(map[string]bool{"th": true}); err != nil {
+		t.Fatal(err)
+	}
+	for _, title := range []string{strings.Repeat("x", 121), "<script>bad</script>"} {
+		r.DecisionTitle = title
+		if err := r.Validate(map[string]bool{"th": true}); err == nil {
+			t.Fatal("unsafe or oversized decision title accepted")
+		}
+	}
+	r.DecisionTitle = ""
+	if err := r.Validate(map[string]bool{"th": true}); err != nil {
+		t.Fatal("legacy result rejected", err)
+	}
+}

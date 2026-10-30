@@ -97,6 +97,10 @@
 .sx-hero-url { display: inline-block; margin-top: 8px; font-size: 12.5px; color: var(--text-2); overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
 .sx-why-box { margin-top: 16px; padding: 12px 14px; border-radius: 8px; background: color-mix(in srgb, var(--tone) 9%, transparent); }
 .sx-why-main { margin: 0; font-size: 15px; font-weight: 500; }
+.sx-why-detail { margin: 8px 0 0; font-size: 14px; line-height: 1.65; overflow-wrap: anywhere; white-space: pre-line; }
+.sx-why-label { margin: 16px 0 0; font: 600 12px/1.5 Inter, system-ui, sans-serif; color: var(--text-2); }
+.sx-why-links { margin: 12px 0 0; padding-left: 20px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.sx-why-main { font-family: inherit; line-height: 1.45; }
 .sx-why-help { margin: 4px 0 0; font-size: 13.5px; color: var(--text-2); }
 .sx-quote { margin: 14px 0 0; padding-left: 12px; border-left: 2px solid var(--border); color: var(--text-2); font-style: italic; font-size: 14px; }
 .sx-stages { display: grid; grid-template-columns: repeat(6, 1fr); list-style: none; margin: 14px 0 18px; padding: 0; }
