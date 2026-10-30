@@ -3,7 +3,9 @@ package worker
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"log/slog"
 	"os"
 	"path/filepath"
@@ -14,70 +16,148 @@ import (
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
 )
 
-// a job workspace is named after its case: <case id>-<random>
+// Only case workspaces are disposable. In particular, never descend into sources/.
 var workspaceName = regexp.MustCompile(`^([0-9a-f]{32})-[0-9]+$`)
 
-// cleanWorkspaces keeps the job storage small. A workspace whose request has finished (committed,
-// published, declined or failed) is emptied down to its logs and evidence; one whose request no
-// longer exists is removed; one with a job running, or touched in the last ten minutes, is left
-// alone, as are the source captures (sources/) the request pages show.
-func (w *Worker) cleanWorkspaces(ctx context.Context) {
-	root := w.Config.Workspaces
-	entries, err := os.ReadDir(root)
+const defaultJobLogRetention = 14 * 24 * time.Hour
+
+// CleanWorkspaces is also the online maintenance command. It leaves active cases,
+// recent directories and queued publication inputs alone, and never changes the DB.
+func (w *Worker) CleanWorkspaces(ctx context.Context) error {
+	return w.cleanWorkspaces(ctx, "")
+}
+
+func (w *Worker) cleanWorkspaces(ctx context.Context, completedCase string) error {
+	root, err := filepath.Abs(w.Config.Workspaces)
 	if err != nil {
-		return
+		return err
 	}
+	entries, err := os.ReadDir(root)
+	if os.IsNotExist(err) {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	retention := w.Config.JobLogRetention
+	if retention <= 0 {
+		retention = defaultJobLogRetention
+	}
+	now := time.Now()
 	pruned, removed := 0, 0
+	var failures []error
 	for _, e := range entries {
+		if err := ctx.Err(); err != nil {
+			return errors.Join(append(failures, err)...)
+		}
 		m := workspaceName.FindStringSubmatch(e.Name())
-		if !e.IsDir() || m == nil || ctx.Err() != nil {
+		if !e.IsDir() || m == nil || (completedCase != "" && completedCase != m[1]) {
+			continue
+		}
+		info, err := e.Info()
+		if err != nil {
+			failures = append(failures, err)
+			continue
+		}
+		// A periodic/online sweep must not race a just-created snapshot. The completion
+		// hook can clean its own case immediately after its job lease has been finished.
+		if completedCase == "" && now.Sub(info.ModTime()) < 10*time.Minute {
 			continue
 		}
 		dir := filepath.Join(root, e.Name())
-		if info, err := e.Info(); err != nil || time.Since(info.ModTime()) < 10*time.Minute {
+		var status string
+		var updated int64
+		var running bool
+		err = w.Store.DB.QueryRowContext(ctx, `SELECT status,updated_at,
+    EXISTS(SELECT 1 FROM jobs WHERE ref=cases.id AND status='running')
+    FROM cases WHERE id=?`, m[1]).Scan(&status, &updated, &running)
+		if errors.Is(err, sql.ErrNoRows) {
+			if err = os.RemoveAll(dir); err == nil {
+				removed++
+			} else {
+				failures = append(failures, err)
+			}
 			continue
 		}
-		var status string
-		var running bool
-		err := w.Store.DB.QueryRowContext(ctx, "SELECT status, EXISTS(SELECT 1 FROM jobs WHERE ref=cases.id AND status='running' AND lease_until>unixepoch()) FROM cases WHERE id=?", m[1]).Scan(&status, &running)
-		switch {
-		case errors.Is(err, sql.ErrNoRows):
-			if os.RemoveAll(dir) == nil {
-				removed++
-			}
-		case err != nil || running:
+		if err != nil {
+			failures = append(failures, err)
 			continue
-		case store.Terminal(status):
-			if pruneIfNeeded(dir) {
-				pruned++
+		}
+		if running {
+			continue
+		}
+		// A validated draft is the only checkout a later stage reuses. Research retries
+		// rebuild from durable checkpoints in a fresh snapshot, not an old checkout.
+		var payload string
+		err = w.Store.DB.QueryRowContext(ctx, `SELECT payload FROM jobs WHERE ref=? AND kind='publish' AND status IN ('queued','running')`, m[1]).Scan(&payload)
+		if err != nil && !errors.Is(err, sql.ErrNoRows) {
+			failures = append(failures, err)
+			continue
+		}
+		if err == nil {
+			var draft draftJob
+			if err = json.Unmarshal([]byte(payload), &draft); err != nil || draft.Dir == "" {
+				failures = append(failures, errors.New("invalid publication workspace; cleanup skipped"))
+				continue
 			}
-		default:
-			// still on its way (drafted, waiting to commit): only the build leftovers go
-			research.PruneBuild(dir)
+			pending, err := filepath.Abs(draft.Dir)
+			if err != nil {
+				failures = append(failures, err)
+				continue
+			}
+			if pending == dir {
+				research.PruneBuild(dir)
+				continue
+			}
+		}
+		// The receipts, public activity, usage and retry checkpoints remain in SQLite.
+		// Retention applies only to finished cases' private logs/evidence in job folders.
+		if store.Terminal(status) && now.Sub(time.Unix(updated, 0)) >= retention && now.Sub(info.ModTime()) >= retention {
+			if err = os.RemoveAll(dir); err == nil {
+				removed++
+			} else {
+				failures = append(failures, err)
+			}
+			continue
+		}
+		changed, err := pruneIfNeeded(dir)
+		if err != nil {
+			failures = append(failures, err)
+		} else if changed {
+			pruned++
 		}
 	}
 	if pruned+removed > 0 {
 		slog.Info("job workspaces cleaned", "pruned", pruned, "removed", removed)
 	}
+	return errors.Join(failures...)
 }
 
-// pruneIfNeeded empties a workspace unless it is already down to its logs; true when it did.
-func pruneIfNeeded(dir string) bool {
+// pruneIfNeeded keeps raw logs and evidence, removing the checkout and caches.
+func pruneIfNeeded(dir string) (bool, error) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
-		return false
+		return false, err
 	}
 	for _, e := range entries {
 		if !e.Type().IsRegular() || !research.KeptFile(e.Name()) {
-			return research.PruneWorkspace(dir) == nil
+			if err := research.PruneWorkspace(dir); err != nil {
+				return false, fmt.Errorf("prune job workspace: %w", err)
+			}
+			return true, nil
 		}
 	}
-	return false
+	return false, nil
 }
 
-// janitor cleans the job storage at start and then every half hour.
+// janitor also catches workspaces left behind by crashes or interrupted cleanup.
 func (w *Worker) janitor(ctx context.Context) {
-	w.cleanWorkspaces(ctx)
+	clean := func() {
+		if err := w.CleanWorkspaces(ctx); err != nil && ctx.Err() == nil {
+			slog.Warn("job workspace cleanup incomplete", "error", err)
+		}
+	}
+	clean()
 	ticker := time.NewTicker(30 * time.Minute)
 	defer ticker.Stop()
 	for {
@@ -85,7 +165,7 @@ func (w *Worker) janitor(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case <-ticker.C:
-			w.cleanWorkspaces(ctx)
+			clean()
 		}
 	}
 }

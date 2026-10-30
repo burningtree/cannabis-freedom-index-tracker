@@ -39,6 +39,7 @@ func run() error {
 	reportSlug := flag.String("report-slug", "", "Existing report slug for a duplicate resolution")
 	backup := flag.String("backup", "", "Write an online SQLite backup to a new file, then exit")
 	retry := flag.String("retry", "", "Retry dead jobs/outbox for a submission ID, then exit")
+	pruneJobs := flag.Bool("prune-jobs", false, "Clean disposable job workspaces and expired job logs, preserving sources and active jobs, then exit")
 	flag.Parse()
 	if *keygen != "" {
 		f, err := os.OpenFile(*keygen, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
@@ -71,6 +72,17 @@ func run() error {
 			return errors.New(snapshot.Message)
 		}
 		return nil
+	}
+
+	if *pruneJobs {
+		s, err := store.Open(c.Database)
+		if err != nil {
+			return err
+		}
+		defer s.DB.Close()
+		ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer cancel()
+		return (&worker.Worker{Store: s, Config: c}).CleanWorkspaces(ctx)
 	}
 
 	// Repair commands also take this lock: they must not mutate leases under a live worker.

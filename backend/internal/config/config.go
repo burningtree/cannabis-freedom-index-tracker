@@ -31,6 +31,7 @@ type Config struct {
 	DevControls                                                                 bool
 	RawAILogs                                                                   bool
 	ResearchTimeout                                                             time.Duration
+	JobLogRetention                                                             time.Duration
 	ResearchMaxSteps                                                            int     // model steps a research run may take before it must answer
 	ResearchWebSearch                                                           string  // the search service OpenCode 2 uses: exa, parallel, firecrawl, tavily, tinyfish or random
 	PlanUSD, PlanAllowanceUSD                                                   float64 // a subscription: its monthly price and the model usage it includes, at API prices
@@ -82,6 +83,10 @@ func Load() (Config, error) {
 	c.SourceBrowser = env("SOURCE_BROWSER", "true") == "true"
 	c.DevControls = env("DEV_CONTROLS", "false") == "true"
 	c.RawAILogs = env("RAW_AI_LOGS", "false") == "true"
+	c.JobLogRetention, discoveryErr = time.ParseDuration(env("JOB_LOG_RETENTION", "336h"))
+	if discoveryErr != nil || c.JobLogRetention < time.Hour || c.JobLogRetention > 365*24*time.Hour {
+		return c, errors.New("JOB_LOG_RETENTION must be between 1h and 8760h")
+	}
 	c.ResearchRunner = env("RESEARCH_RUNNER", "docker")
 	c.OpenCodeBinary = env("OPENCODE_BIN", "opencode")
 	c.OpenCodeAuthFile = os.Getenv("OPENCODE_AUTH_FILE")

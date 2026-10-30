@@ -3,6 +3,7 @@ package config
 import (
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/harvest"
 )
@@ -89,6 +90,25 @@ func TestGoogleNewsConfiguration(t *testing.T) {
 			t.Setenv(key, value)
 			if _, err := Load(); err == nil {
 				t.Fatal("invalid value accepted")
+			}
+		})
+	}
+}
+
+func TestJobLogRetention(t *testing.T) {
+	for _, value := range []struct {
+		raw   string
+		valid bool
+	}{{"", true}, {"1h", true}, {"336h", true}, {"8760h", true}, {"0", false}, {"-1h", false}, {"30m", false}, {"8761h", false}, {"forever", false}} {
+		t.Run(value.raw, func(t *testing.T) {
+			defaults(t)
+			t.Setenv("JOB_LOG_RETENTION", value.raw)
+			c, err := Load()
+			if (err == nil) != value.valid {
+				t.Fatal(c.JobLogRetention, err)
+			}
+			if value.raw == "" && c.JobLogRetention != 14*24*time.Hour {
+				t.Fatal("wrong default", c.JobLogRetention)
 			}
 		})
 	}

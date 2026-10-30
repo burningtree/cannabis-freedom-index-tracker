@@ -104,6 +104,11 @@ func (w *Worker) jobs(ctx context.Context, kind string) {
 			if finishErr == nil && err != nil {
 				w.waitingToRetry(finishCtx, j, err)
 			}
+			if finishErr == nil {
+				if cleanupErr := w.cleanWorkspaces(finishCtx, j.Ref); cleanupErr != nil && finishCtx.Err() == nil {
+					slog.Warn("completed job workspace cleanup incomplete", "error", cleanupErr)
+				}
+			}
 			finishCancel()
 			if finishErr != nil {
 				slog.Error("job completion failed", "job", j.ID)

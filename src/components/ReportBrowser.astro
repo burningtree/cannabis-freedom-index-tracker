@@ -1,5 +1,5 @@
 ---
-// The filterable list of reports: free text, type, country, year, month and day, a strip of reports per
+// The filterable list of reports: free text, tag, type, country, year, month and day, a strip of reports per
 // month, and "Show more". The newest reports are in the page itself (for readers without scripts and
 // for search engines); filtering and paging work on the shared index of all reports
 // (/api/index.json). Used by the map's side pane (compact) and by the Reports page. The filters also
@@ -11,9 +11,11 @@ import ReportYears from "./ReportYears.astro";
 import { reports, reportsOf, years } from "../lib/reports.js";
 import { countries } from "../lib/countries.js";
 import { TYPES } from "../lib/types.js";
+import { rankedTags } from "../lib/report-tags.js";
 
 const { page: PAGE = 30, compact = false, country = null } = Astro.props;
 const all = country ? reportsOf(country) : reports;
+const popularTags = rankedTags(all).slice(0, 6);
 const allYears = country ? [...new Set(all.map((r) => r.year))].sort((a, b) => b - a) : years;
 // All CFI countries and territories, with their states underneath, including zero counts.
 const places = countries.filter((c) => !c.parent).sort((a, b) => a.name.localeCompare(b.name))
@@ -60,6 +62,20 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         </select>
       </div>
     </div>
+    <input type="hidden" id="tag" value="" />
+    <div class="tag-filter" id="tag-filter" hidden={popularTags.length === 0}>
+      <span class="tag-filter-label">Tags</span>
+      <div class="tag-options" data-tag-common role="group" aria-label="Common tags">
+        {popularTags.map(({ tag, count }) => <button type="button" class="tag-choice" data-tag={tag} aria-pressed="false"><span>#{tag}</span><small>{fmt(count)}</small></button>)}
+      </div>
+      <button class="tag-toggle" type="button" data-tag-toggle aria-expanded="false" aria-controls="tag-panel">Show more</button>
+      <div class="tag-panel" id="tag-panel" data-tag-panel hidden>
+        <input type="search" data-tag-search placeholder="Find a tag…" aria-label="Find a tag" />
+        <div class="tag-options" data-tag-extra role="group" aria-label="More tags"></div>
+        <p class="muted" data-tag-empty hidden>No other tags match.</p>
+        <button class="tag-toggle" type="button" data-tag-more hidden>More tags</button>
+      </div>
+    </div>
     <button class="clear-filters" id="clear-filters" type="button" hidden>Clear all filters ×</button>
   </form>
   {/* drawn by the script; its height is kept from the start so the page does not jump when it loads */}
@@ -89,7 +105,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 </div>
 
 <script>
-  // Filters: free text, type, country, year, month and exact day. They narrow the list and map and
+  // Filters: free text, tag, type, country, year, month and exact day. They narrow the list and map and
   // are kept in the address (?type=raid&country=ng&year=2026), so a filtered view can be shared.
   import { loadIndex, inCountry, type Row } from "../scripts/report-index";
   import { yearsHTML, appendYears } from "../scripts/report-years.js";
@@ -97,6 +113,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   import { readPeriod, changePeriod } from "../scripts/report-period.js";
   import { timelineTooltip } from "../scripts/report-timeline-tooltip.js";
   import { imageProxy } from "../lib/media.js";
+  import { hasTag } from "../lib/report-tags.js";
+  import { initTagPicker } from "../scripts/report-tag-picker.js";
 
   const $ = <T extends HTMLElement = HTMLInputElement>(id: string) => document.getElementById(id) as T;
   const list = $<HTMLElement>("list");
@@ -104,11 +122,13 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   const base = list.dataset.base!, PAGE = Number(list.dataset.page), types = JSON.parse(list.dataset.types!);
   // a country page lists one country's reports: the country is fixed, never a filter or in the address
   const fixedCountry = $("country").dataset.fixed != null ? $("country").value : "";
-  const fields = ["q", "type", ...(fixedCountry ? [] : ["country"]), "year", "month"];
+  const fields = ["q", "type", ...(fixedCountry ? [] : ["country"]), "year", "month", "tag"];
   const params = new URLSearchParams(location.search);
   let day = "";
   const hideTimelineTooltip = timelineTooltip($("months"), types);
   for (const f of fields) if (params.get(f)) $(f).value = params.get(f)!;
+  $("tag").value = $("tag").value.trim().toLowerCase();
+  let updateTags: ((rows: Row[]) => void) | undefined;
   // One Time control owns both rolling periods and calendar selections.
   const RANGES: Record<string, number> = { "7d": 7, "30d": 30, "1y": 365, all: 0 };
   const DEFAULT_RANGE = list.closest(".compact") ? "30d" : "all";
@@ -133,6 +153,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     banner.hidden = active.length === 0 && !day;
     const labels = active.map((f) => {
       const field = $(f);
+      if (f === "tag") return `#${field.value}`;
       return field instanceof HTMLSelectElement ? field.selectedOptions[0].textContent!.trim() : `“${field.value.trim()}”`;
     });
     if (day) labels.push(fmtDate(day));
@@ -158,7 +179,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     ${r.f.length ? `<div class="figs-inline">${r.f.map(([l, v]) => `<span>${esc(l)} <b>${esc(v)}</b></span>`).join("")}</div>` : ""}
   </li>`;
 
-  function matches(r: Row, skipDay = false) {
+  function matches(r: Row, skipDay = false, skipTag = false) {
     const q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const type = $("type").value, country = $("country").value, year = $("year").value, month = $("month").value;
     return (!type || r.t === type || r.a.includes(type))
@@ -166,6 +187,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       && (!year || r.d.startsWith(year)) && (!month || r.d.slice(5, 7) === month)
       && (!since() || (r.d >= since() && r.d <= new Date().toISOString().slice(0, 10)))
       && (skipDay || !day || r.d === day)
+      && (skipTag || hasTag(r, $("tag").value))
       && q.every((w) => haystack.get(r)!.includes(w));
   }
 
@@ -262,6 +284,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     if (resetLimit) limit = PAGE;
     showCustomSearch();
     shown = rows.filter((r) => matches(r));
+    updateTags?.(rows.filter(r => matches(r, false, true)));
     render();
     months();
     (window as any).__reportsShown = new Set(shown.map((r) => r.i)); // for a map that loads later
@@ -298,6 +321,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 
   loadIndex(base).then((idx) => {
     rows = fixedCountry ? idx.reports.filter((r) => inCountry(r, fixedCountry)) : idx.reports; countries = idx.countries;
+    updateTags = initTagPicker($("tag-filter"), { selected: () => $("tag").value, onSelect: (tag: string) => { $("tag").value = tag; apply(); } });
     haystack = new Map(rows.map((r) => [r, [r.ti, r.s, r.p, countries[r.c], types[r.t].label, r.k].join(" ").toLowerCase()]));
     for (const f of fields) $(f).addEventListener("input", () => {
       if (f === "year" || f === "month") setPeriod({ mode: "calendar", range: "all", year: $("year").value, month: $("month").value, date: "" });
@@ -349,6 +373,6 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     $("clear-filters").addEventListener("click", clearFilters);
     document.getElementById("clear-map-search")?.addEventListener("click", clearFilters);
     if (fields.some((f) => $(f).value) || day || period.mode === "calendar" || params.has("range") || range !== "all") apply();
-    else { shown = rows; if (byYear) render(); months(); } // by year: the counts and months of all reports
+    else { shown = rows; updateTags(rows); if (byYear) render(); months(); } // by year: the counts and months of all reports
   });
 </script>

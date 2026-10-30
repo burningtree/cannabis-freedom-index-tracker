@@ -6,8 +6,8 @@
 //   focus: a report to centre on and ring (the report page): a shaded circle around it as large as
 //   its location is uncertain, every Landrace layer on but faded to 30%, as are the other reports;
 //   no layer switch, no globe and no hover boxes
-//   (the home page takes ?focus=<id> too: it flies to that report and rings it)
-//   country: show only this country's reports (its states included) and zoom to them
+//   (the home page takes ?focus=<id> too: it jumps to that report and rings it)
+//   country: show its reports (states included), with the whole country framed before first paint
 //   hash: keep the view in the address (#map=zoom/lat/lon), so a view can be shared (the Map page)
 //   otherwise all reports and the whole world; the home page's filters narrow it through the
 //   "reports:filter" event, and pointing at a report in its list rings it ("reports:hover").
@@ -15,8 +15,11 @@
 // (CC BY-SA 4.0, snapshots in public/layers/, each loaded only when its layer is switched on): where
 // cannabis has been grown for generations, next to where it is destroyed.
 import { MAP_STYLES } from "../lib/map.js";
+import { countryOf } from "../lib/countries.js";
+import { countryMask } from "../lib/country-mask.js";
 import { TYPES, typeIcon } from "../lib/types.js";
 const { focus = null, country = null, hash = false, label = "Map of reports" } = Astro.props;
+const countryBounds = country && !country.includes("/") ? countryMask(countryOf(country)?.iso_numeric)?.properties.bbox : null;
 const ZOOM = { exact: 9, locality: 8, district: 7, region: 5, country: 4 };
 const view = focus?.coordinates ? { center: [focus.coordinates[1], focus.coordinates[0]], zoom: ZOOM[focus.precision] ?? 5 } : null;
 // how far from the dot it may have happened, by how precisely the sources name the place (km); a
@@ -28,8 +31,21 @@ const LOTS = [["Urgent", "#c92a2a"], ["At risk", "#e67700"], ["Secure", "#0ca678
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color, icon: typeIcon(k, 64) }]));
 ---
 <div class="map" data-map data-styles={JSON.stringify(MAP_STYLES)} data-base={import.meta.env.BASE_URL}
-  data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined} data-hash={hash ? "" : undefined}
+  data-loading aria-busy="true" data-country-bounds={countryBounds ? JSON.stringify(countryBounds) : undefined} data-view={view ? JSON.stringify(view) : undefined} data-focus={focus?.id} data-country={country ?? undefined} data-hash={hash ? "" : undefined}
   data-accuracy={accuracy ? JSON.stringify(accuracy) : undefined} data-types={JSON.stringify(types)} role="region" aria-label={label}>
+  <div class="map-loading" role="status" aria-live="polite">
+    <div class="map-loader-plot" aria-hidden="true">
+      <svg viewBox="0 0 180 100" fill="none">
+        <path class="map-loader-contour" d="M12 38 30 22 55 28 73 13 96 25 116 17 143 31 166 25M8 60 31 47 52 54 78 39 101 49 121 40 147 53 172 45M16 83 37 69 61 76 84 61 109 72 130 61 156 77 174 66" />
+        <path class="map-loader-route" d="M32 56 70 34 111 64 150 39" />
+        <g class="map-loader-pin" style="--pin:0"><path d="m32 49 7 7-7 7-7-7Z" /><circle cx="32" cy="56" r="1.5" /></g>
+        <g class="map-loader-pin" style="--pin:1"><path d="m70 27 7 7-7 7-7-7Z" /><circle cx="70" cy="34" r="1.5" /></g>
+        <g class="map-loader-pin" style="--pin:2"><path d="m111 57 7 7-7 7-7-7Z" /><circle cx="111" cy="64" r="1.5" /></g>
+        <g class="map-loader-pin" style="--pin:3"><path d="m150 32 7 7-7 7-7-7Z" /><circle cx="150" cy="39" r="1.5" /></g>
+      </svg>
+    </div>
+    <span class="map-loading-label">Preparing your map</span>
+  </div>
   {!focus && <details class="map-layers">
     <summary>Layers</summary>
     <label><input type="checkbox" data-option="cluster" /> <span class="swatch cluster">3</span> Group nearby reports</label>
@@ -47,6 +63,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   import * as maplibregl from "maplibre-gl";
   import "../scripts/maplibre-worker.js";
   import "maplibre-gl/dist/maplibre-gl.css";
+  import { pointBounds } from "../lib/map-view.js";
   import { loadIndex, inCountry, type Row } from "../scripts/report-index";
 
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
@@ -68,16 +85,34 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const accuracy = box.dataset.accuracy ? JSON.parse(box.dataset.accuracy) : null;
     const types = JSON.parse(box.dataset.types!);
     const styles = JSON.parse(box.dataset.styles!);
-    const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] };
+    const countryBounds: number[] | null = box.dataset.countryBounds ? JSON.parse(box.dataset.countryBounds) : null;
+    const view = box.dataset.view ? JSON.parse(box.dataset.view)
+      : countryBounds ? { bounds: [[countryBounds[0], countryBounds[1]], [countryBounds[2], countryBounds[3]]], fitBoundsOptions: { padding: 30, maxZoom: 9 } }
+      : { bounds: [[-168, -50], [178, 72]] };
     const map = new maplibregl.Map({
       container: box, style: styles[theme()], ...view,
       // Report pins near ±180° need wrapping; otherwise the camera is clamped
       // inward by half the viewport width and the report pin appears off-centre.
-      minZoom: -1, maxZoom: 14, renderWorldCopies: single, hash: box.dataset.hash != null ? "map" : false,
+      minZoom: -1, maxZoom: 14, fadeDuration: 0, renderWorldCopies: single || !!country || !!focus, hash: box.dataset.hash != null ? "map" : false,
       // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
       attributionControl: { compact: true, customAttribution: '<a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a> (CC BY-SA)' },
     });
+    const ready = () => {
+      if (!box.hasAttribute("data-loading")) return;
+      delete box.dataset.loading;
+      const loader = box.querySelector(".map-loading");
+      const finish = () => { loader?.remove(); box.setAttribute("aria-busy", "false"); };
+      if (!loader || matchMedia("(prefers-reduced-motion: reduce)").matches) { finish(); return; }
+      loader.classList.add("map-loading-ready");
+      loader.addEventListener("transitionend", event => { if (event.target === loader) finish(); }, { once: true });
+      setTimeout(finish, 200);
+    };
+    const slow = setTimeout(() => {
+      const label = box.querySelector(".map-loading-label");
+      if (label) label.textContent = "Map is taking longer to load…";
+    }, 15000);
+    const reveal = () => { clearTimeout(slow); ready(); };
     // zoom, the compass (it turns as the map is rotated with the right button; a click turns it back
     // to north and flat) and the switch between the flat map and the globe
     map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), "top-right");
@@ -109,6 +144,16 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         chosen.globe = previous.globe ?? chosen.globe;
       }
     } catch {}
+
+    if (country) chosen.globe = false; // country framing is flat, independent of the world-map preference
+
+    // Fetch the initial overlays together while the basemap loads, so the loader
+    // reveals the complete map rather than letting extra layers pop in later.
+    const initialFiles = new Set(Object.keys(NEEDS).filter(kind => chosen[kind]).flatMap(kind => NEEDS[kind]));
+    const initialLayers = Promise.allSettled([...initialFiles].map(async key => {
+      const response = await fetch(`${base}layers/${FILES[key]}`, { signal: AbortSignal.timeout(15000) });
+      if (response.ok) loaded[key] = await response.json();
+    }));
 
     const geojson = (list: Row[]) => ({
       type: "FeatureCollection" as const,
@@ -170,7 +215,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     // everything drawn on the basemap; runs again after the basemap changes with the theme, which
     // drops all added sources and layers
     async function build() {
-      if (chosen.globe && !single) map.setProjection({ type: "globe" }); // a new basemap starts flat
+      if (country) map.setProjection({ type: "mercator" });
+      else if (chosen.globe && !single) map.setProjection({ type: "globe" }); // a new basemap starts flat
       await icons();
       addReports();
       addAccuracy();
@@ -186,12 +232,9 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       if (!maskData) maskData = await fetch(`${base}api/mask/${country}.json`).then((r) => (r.ok ? r.json() : false)).catch(() => false);
       if (!maskData || map.getSource("mask")) return;
       const c = INK[theme()];
-      // the world with each part of the country cut out as a hole (lakes and enclaves stay grey), and
-      // the country's outline for its border
-      const world = [[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]];
       map.addSource("mask", { type: "geojson", data: { type: "FeatureCollection", features: [
-        { type: "Feature", properties: { kind: "mask" }, geometry: { type: "Polygon", coordinates: [world, ...maskData.geometry.coordinates.map((p: number[][][]) => p[0])] } },
-        { ...maskData, properties: { kind: "border" } },
+        { type: "Feature", properties: { kind: "mask" }, geometry: maskData.mask },
+        { type: "Feature", properties: { kind: "border" }, geometry: { type: "MultiLineString", coordinates: maskData.geometry.coordinates.flat() } },
       ] } as any });
       const below = map.getLayer("accuracy-fill") ? "accuracy-fill" : LAYERS.area.find((id) => map.getLayer(id)) ?? "clusters";
       map.addLayer({ id: "mask", type: "fill", source: "mask", filter: ["==", ["get", "kind"], "mask"], paint: { "fill-color": c.bg, "fill-opacity": theme() === "dark" ? 0.6 : 0.62 } }, below);
@@ -261,28 +304,28 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       for (const id of LAYERS[kind]) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", chosen[kind] ? "visible" : "none");
     };
 
-    Promise.all([loadIndex(base), new Promise((ok) => map.once("load", ok))]).then(async ([idx]) => {
+    const basemapReady = new Promise<void>((resolve, reject) => {
+      const failed = (event: any) => {
+        if (!map.getStyle()) { map.off("error", failed); reject(event.error); }
+      };
+      map.on("error", failed);
+      map.once("load", () => { map.off("error", failed); resolve(); });
+    });
+    Promise.all([loadIndex(base), basemapReady]).then(async ([idx]) => {
       index = idx;
       rows = country ? idx.reports.filter((r) => inCountry(r, country)) : idx.reports;
       const pre: Set<string> | undefined = (window as any).__reportsShown; // filters that ran before the map
       shown = pre ? rows.filter((r) => pre.has(r.i)) : rows;
+      await initialLayers;
       await build();
-      // a country: the whole country in view (its outline's bounds), or, without one (a state),
-      // all its report markers
-      if (maskData?.properties?.bbox) {
-        // with the markers too (Kiribati's reports are on Tarawa, far from its largest island), across
-        // the 180° meridian when that is narrower
-        const [w, s, e, n] = maskData.properties.bbox;
-        const pts: [number, number][] = [[w, s], [e, n], ...rows.filter((r) => r.ll).map((r) => r.ll!)];
-        const span = (shift: boolean) => { const xs = pts.map(([x]) => (shift && x < 0 ? x + 360 : x)); return [Math.min(...xs), Math.max(...xs)]; };
-        const [a, b] = span(false), [c, d] = span(true);
-        const [west, east] = d - c < b - a ? [c, d] : [a, b];
-        map.fitBounds([[west, Math.min(...pts.map((p) => p[1]))], [east, Math.max(...pts.map((p) => p[1]))]], { padding: 30, maxZoom: 9, duration: 0 });
-      } else if (country && rows.some((r) => r.ll)) {
-        const b = new maplibregl.LngLatBounds();
-        rows.forEach((r) => r.ll && b.extend(r.ll));
-        map.fitBounds(b, { padding: 60, maxZoom: 5, duration: 0 });
+      // Country bounds are supplied in the HTML so the first camera is already
+      // final. Subdivisions without an outline use their report points instead.
+      if (country && !countryBounds) {
+        const extent = pointBounds(rows.filter(r => r.ll).map(r => r.ll!));
+        if (extent) map.fitBounds([[extent[0], extent[1]], [extent[2], extent[3]]], { padding: 40, maxZoom: 6, duration: 0 });
       }
+      map.once("idle", reveal);
+      if (map.loaded()) reveal();
 
       // remember the reader's choice of flat map or globe
       box.querySelector(".maplibregl-ctrl-globe, .maplibregl-ctrl-globe-enabled")?.addEventListener("click", () => setTimeout(() => {
@@ -375,7 +418,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         if (layer === "reports") location.href = `${base}report/${p.id}/`;
         else if (layer === "clusters") {
           const zoom = await (map.getSource("reports") as maplibregl.GeoJSONSource).getClusterExpansionZoom(p.cluster_id);
-          map.easeTo({ center: (f.geometry as any).coordinates, zoom });
+          map.jumpTo({ center: (f.geometry as any).coordinates, zoom });
         } else if (p.url) window.open(p.url, "_blank", "noopener");
       });
 
@@ -384,7 +427,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         shown = rows.filter((r) => e.detail.has(r.i));
         (map.getSource("reports") as maplibregl.GeoJSONSource | undefined)?.setData(geojson(shown));
       }) as EventListener);
-      // the zoom icon in the list: fly to the report, ring it and show its hover box
+      // the zoom icon in the list: jump to the report, ring it and show its hover box
       document.addEventListener("reports:zoom", ((e: CustomEvent<string>) => {
         const r = rows.find((x) => x.i === e.detail);
         if (!r?.ll) return;
@@ -392,24 +435,27 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         if (map.getLayer("hover")) map.setFilter("hover", ["==", ["get", "id"], hovered]);
         // close in as far as the place is known: a spot, a town, a district, a region or only the country
         const zoom = ({ exact: 11, locality: 9, district: 8, region: 6, country: 4 } as Record<string, number>)[r.pr ?? "country"] ?? 6;
-        map.flyTo({ center: r.ll, zoom, duration: 1200, essential: true });
-        map.once("moveend", () => {
-          popup.setLngLat(r.ll!).setHTML(`<span class="type" style="--c:${esc(types[r.t].color)}">${esc(types[r.t].label)}</span><strong>${esc(r.ti)}</strong><span class="muted">${esc([r.p, index.countries[r.c]].filter(Boolean).join(" · "))}<br>${esc(fmtDate(r.d))}</span>`).addTo(map);
-          current = `reports:${r.i}`;
-        });
-        if (matchMedia("(max-width: 860px)").matches) box.scrollIntoView({ behavior: "smooth", block: "start" });
+        map.jumpTo({ center: r.ll, zoom });
+        popup.setLngLat(r.ll!).setHTML(`<span class="type" style="--c:${esc(types[r.t].color)}">${esc(types[r.t].label)}</span><strong>${esc(r.ti)}</strong><span class="muted">${esc([r.p, index.countries[r.c]].filter(Boolean).join(" · "))}<br>${esc(fmtDate(r.d))}</span>`).addTo(map);
+        current = `reports:${r.i}`;
+        if (matchMedia("(max-width: 860px)").matches) box.scrollIntoView({ behavior: "instant", block: "start" });
       }) as EventListener);
       document.addEventListener("reports:hover", ((e: CustomEvent<string | null>) => {
         hovered = e.detail ?? "";
         if (map.getLayer("hover")) map.setFilter("hover", ["==", ["get", "id"], hovered]);
       }) as EventListener);
-      // the home page opened from a report's "big map" link: fly there, ring it, show its hover box
+      // the home page opened from a report's "big map" link: jump there, ring it, show its hover box
       if (focus && !single) document.dispatchEvent(new CustomEvent("reports:zoom", { detail: focus }));
       // the site's theme switch: the other basemap, then everything drawn on it again
       document.addEventListener("theme:change", () => {
         map.setStyle(styles[theme()], { diff: false });
         map.once("style.load", build);
       });
+    }).catch(() => {
+      clearTimeout(slow);
+      const label = box.querySelector(".map-loading-label");
+      if (label) label.textContent = "Map could not be loaded. Please reload to try again.";
+      box.setAttribute("aria-busy", "false");
     });
   }
 </script>

@@ -137,6 +137,23 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* ── Map (MapLibre) ─────────────────────────────────── */
 .map { position: relative; height: clamp(320px, 52vw, 520px); border: 1px solid var(--border); border-radius: var(--r); background: var(--sea); overflow: hidden; }
 .pin-map .map { height: 300px; }
+.map-loading { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; background: var(--sea); color: var(--text-2); font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.map-loading::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, color-mix(in srgb, var(--text) 9%, transparent), transparent 75%), linear-gradient(90deg, color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1px), linear-gradient(color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1px); background-size: 100% 100%, 48px 48px, 48px 48px; box-shadow: inset 0 0 60px color-mix(in srgb, var(--text) 7%, transparent); animation: map-breathe 1.35s ease-in-out infinite; }
+.map-loading > * { position: relative; }
+.map-loading-ready { opacity: 0; pointer-events: none; transition: opacity 160ms ease-out; }
+.map-loading-ready::before, .map[aria-busy="false"] .map-loading::before { animation: none; opacity: .2; }
+.map-loader-plot { width: 180px; height: 100px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: linear-gradient(90deg, transparent 49%, var(--border) 50%, transparent 51%), linear-gradient(transparent 49%, var(--border) 50%, transparent 51%); background-size: 30px 30px; }
+.map-loader-plot svg { display: block; width: 100%; height: 100%; }
+.map-loader-contour { stroke: var(--text-2); stroke-width: 1; opacity: .16; }
+.map-loader-route { stroke: var(--text); stroke-width: 1; stroke-dasharray: 160; stroke-dashoffset: 160; animation: map-trace 3.2s ease-in-out infinite; }
+.map-loader-pin { transform-box: fill-box; transform-origin: center; animation: map-pin 3.2s ease-in-out infinite; animation-delay: calc(var(--pin) * .25s); }
+.map-loader-pin path { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+.map-loader-pin circle { fill: var(--text); }
+@keyframes map-trace { 15% { stroke-dashoffset: 160; opacity: .3; } 65%, 85% { stroke-dashoffset: 0; opacity: .65; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes map-pin { 0%, 15%, 100% { opacity: .25; transform: translateY(3px) scale(.8); } 35%, 80% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes map-breathe { 0%, 100% { opacity: .15; } 50% { opacity: .8; } }
+@media (prefers-reduced-motion: reduce) { .map-loading::before, .map-loader-route, .map-loader-pin { animation: none; } .map-loading::before { opacity: .2; } .map-loading-ready { transition: none; } .map-loader-route { stroke-dashoffset: 0; opacity: .5; } }
+.map[data-loading] > .maplibregl-canvas-container, .map[data-loading] > .maplibregl-control-container { visibility: hidden; }
 .maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--border); border-radius: var(--r) !important; box-shadow: none !important; }
 .maplibregl-ctrl-group button + button { border-top-color: var(--border) !important; }
 :root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1) hue-rotate(180deg); } /* light icons, colours kept (the active globe, the compass needle) */
@@ -165,6 +182,22 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── Filters and list ───────────────────────────────── */
 .filters { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin: 28px 0 8px; }
+.tag-filter { grid-column: 1 / -1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px 10px; padding: 4px 0; }
+.tag-filter[hidden], .tag-panel[hidden] { display: none; }
+.tag-filter-label { color: var(--text-2); font: 11px var(--mono); }
+.tag-options { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
+.tag-choice { display: inline-flex; align-items: center; gap: 7px; max-width: 100%; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--text-2); font: 11px/1.4 var(--mono); cursor: pointer; }
+.tag-choice span { min-width: 0; overflow-wrap: anywhere; }
+.tag-choice small { font: inherit; opacity: .6; }
+.tag-choice:hover { border-color: var(--text-2); color: var(--text); }
+.tag-choice[aria-pressed="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.tag-toggle { padding: 4px 0; border: 0; background: none; color: var(--text-2); font: 11px var(--mono); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; white-space: nowrap; }
+.tag-choice:focus-visible, .tag-toggle:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.tag-panel { flex-basis: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); }
+.tag-panel input { width: min(100%, 320px); margin-bottom: 10px; font-size: 13px; }
+.tag-panel .tag-options { max-height: 180px; overflow-y: auto; align-content: start; }
+.tag-panel > .tag-toggle { margin-top: 8px; }
+.tag-panel p { margin: 6px 0; font-size: 12px; }
 @media (max-width: 800px) { .filters { grid-template-columns: 1fr 1fr; } .filters input { grid-column: 1 / -1; } }
 .time-filter { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(160px, 240px) minmax(0, 1fr); align-items: center; gap: 8px 12px; }
 .time-filter > label { color: var(--text-2); font: 12px var(--mono); }

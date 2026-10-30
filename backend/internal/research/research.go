@@ -740,6 +740,12 @@ func (r Runner) Snapshot(ctx context.Context, cid string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	prepared := false
+	defer func() {
+		if !prepared {
+			_ = os.RemoveAll(dir)
+		}
+	}()
 	repo, err := filepath.Abs(r.Config.RepoPath)
 	if err != nil {
 		return "", err
@@ -752,6 +758,7 @@ func (r Runner) Snapshot(ctx context.Context, cid string) (string, error) {
 		return "", err
 	}
 	// Only the explicit evidence input is exposed to OpenCode, never this checkout.
+	prepared = true
 	return dir, nil
 }
 

@@ -24,7 +24,7 @@ test("dev commits refresh changelog, report indexes and cached report routes", {
   try {
     mkdirSync(join(root, "src/pages/changelog"), { recursive: true });
     for (const dir of ["src/lib", "src/data", "src/pages/api/country", "src/pages/report", "src/pages/r", "reports"]) mkdirSync(join(root, dir), { recursive: true });
-    for (const name of ["reports", "types", "countries", "map", "code", "figures"]) copyFileSync(resolve(`src/lib/${name}.js`), join(root, `src/lib/${name}.js`));
+    for (const name of ["reports", "types", "countries", "map", "code", "figures", "atlas-countries"]) copyFileSync(resolve(`src/lib/${name}.js`), join(root, `src/lib/${name}.js`));
     copyFileSync(resolve("src/data/countries.json"), join(root, "src/data/countries.json"));
     copyFileSync(resolve("src/pages/api/index.json.js"), join(root, "src/pages/api/index.json.js"));
     copyFileSync(resolve("src/pages/api/country/[...id].json.js"), join(root, "src/pages/api/country/[...id].json.js"));
@@ -55,6 +55,9 @@ export function getStaticPaths() {
 {reports.map(r => <a href={'/' + r.url}>{r.title}</a>)}`);
     git("init"); git("config", "user.name", "Test"); git("config", "user.email", "test@example.org");
     git("add", "package.json", "reports"); git("commit", "-m", "Initial history");
+    // Seed the content store before exercising route caches. Otherwise a request
+    // racing the initial dev sync can cache an empty collection for the whole test.
+    execFileSync(process.execPath, [resolve("node_modules/astro/bin/astro.mjs"), "sync", "--root", root], { cwd: root, env: { ...process.env, ASTRO_TELEMETRY_DISABLED: "1", NO_COLOR: "1" }, stdio: "pipe" });
     child = spawn(process.execPath, [resolve("node_modules/astro/bin/astro.mjs"), "dev", "--ignore-lock", "--root", root, "--host", "127.0.0.1", "--port", "0"], { cwd: root, env: { ...process.env, ASTRO_TELEMETRY_DISABLED: "1", NO_COLOR: "1" }, stdio: ["ignore", "pipe", "pipe"] });
     const record = (chunk) => { logs += chunk.toString(); };
     child.stdout.on("data", record); child.stderr.on("data", record);

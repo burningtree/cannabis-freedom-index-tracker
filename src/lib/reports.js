@@ -104,6 +104,7 @@ export function indexRow(r) {
     pr: r.precision ?? null, // how precise ll is (types.js PRECISION)
     f: r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => [f.label, f.value]),
     k: [`cet-${r.code}`, r.code, ...(r.tags ?? [])].join(" ").toLowerCase(),
+    ...(r.tags?.length ? { g: r.tags } : {}), // exact tags for selection, separate from search text
     ...(r.cover || r.photo ? { im: r.cover?.image.src ?? r.photo } : {}), // the list thumbnail
   };
 }

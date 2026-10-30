@@ -540,3 +540,34 @@ otherwise known model pricing is estimated using the start-time tier. Unknown pr
 are explicitly excluded from cost totals. Plan share uses the current subscription
 configuration and is an allocation estimate, not additional billing. Interrupted/running
 usage may be incomplete. Backend restart is required to expose the new endpoint.
+
+## Job workspace cleanup
+
+`WORKSPACE_PATH` (normally `backend/data/jobs`) contains disposable case checkouts alongside
+private source captures. Cleanup **never descends into `sources/`** and does not remove source
+captures, receipts, public AI activity, usage totals or research checkpoints in SQLite.
+
+After each job finishes, the worker removes its unused repository copies, dependencies,
+research inputs and build caches. Research retries rebuild from the saved checkpoint in a fresh
+checkout. A checkout referenced by a queued publication is preserved until publication finishes;
+all workspaces of a case with a running job are left alone, even if its lease has expired.
+Partially created snapshots are removed when checkout preparation fails.
+
+A janitor also runs at startup and every 30 minutes. It skips directories touched in the last
+ten minutes, removes orphaned case workspaces, and prunes unused checkouts of unfinished cases.
+Raw research logs, validation logs and job-local evidence are retained for **14 days** after a
+case finishes (and at least that long after its directory was last touched), then the finished
+workspace is removed. Unfinished cases retain their logs. Set `JOB_LOG_RETENTION=336h` to change
+the retention period; accepted values range from `1h` to `8760h`. Restart the backend after changing
+this setting or updating the worker. The public activity history stays available after raw logs expire.
+
+To run the same sweep immediately, including while the worker is running:
+
+```sh
+cd backend
+# Uses DATABASE_PATH and WORKSPACE_PATH, or their standard data/ defaults.
+go run ./cmd/tracker -prune-jobs
+```
+
+This command starts no server, research or publication jobs and does not alter job leases.
+It observes the same active-job, pending-publication and recent-directory protections.
