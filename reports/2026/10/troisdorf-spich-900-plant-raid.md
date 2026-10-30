@@ -12,7 +12,7 @@ summary: >-
   about 900 early-stage cannabis plants in three converted cellar rooms of a house in Troisdorf-Spich.
   Three suspects aged 42 to 49 were photographed and released while inquiries continued.
 figures:
-  plants: 900
+  plants_destroyed: 900
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [troisdorf, indoor, rhein-sieg]

@@ -14,7 +14,6 @@ summary: >-
 figures:
   charged: 1
   prison: 8 months
-  kg_seized: 0.002
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [driving, recidivism, alpes-de-haute-provence]
