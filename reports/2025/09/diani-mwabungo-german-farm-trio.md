@@ -2,7 +2,8 @@
 date: 2025-09-01
 country: ke
 place: Romika, Mwabungo village, Ukunda, Kwale
-coordinates: [-4.3125, 39.5794]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Mwabungo%2C+Kenya&format=jsonv2&limit=3
+coordinates: [-4.356015, 39.53705]
 precision: locality
 type: eradication
 also: [arrest]
@@ -19,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [diani, kwale, cultivation, foreigners]
 open_questions:
+  - "The map marks Mwabungo village; the exact Romika residence was not geolocated."
   - No second outlet account was found; the plant count and whether the three were arraigned was not reported.
 sources:
   - title: Two German tourists, Kenyan woman arrested for running cannabis farm in Diani

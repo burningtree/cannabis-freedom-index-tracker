@@ -27,6 +27,7 @@ sources:
     date: 2026-09-29
     language: fr
 open_questions:
+  - "The map marks the Tanger Med port area; the source does not identify the exact inspection point."
   - No charges, court date or outcome for the driver were reported; both accounts end at the judicial investigation stage.
   - The van's country of registration and its intended destination were not stated.
   - Le Soir's headline says 'près de 240 kg' while its text gives 238 kg, the figure used here.

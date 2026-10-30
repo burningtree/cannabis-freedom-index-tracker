@@ -20,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [zamal, trafficking, mauritius-route, appeal]
 open_questions:
+  - "The map marks Saint-Denis city, not a precise courthouse location."
   - Only Le Quotidien has published this hearing in text form; a second outlet account has not been found.
   - A landrace summary of an unopened Zinfos974 piece gives six years rather than seven for De Boisvilliers; Le Quotidien's seven-year figure is used here.
   - The quantities of zamal moved over the July 2023 to April 2025 period were not stated.

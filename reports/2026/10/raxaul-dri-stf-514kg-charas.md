@@ -20,6 +20,8 @@ figures:
 created_by_model: unknown
 status: verified
 tags: [charas, nepal-route, hideout, surveillance]
+open_questions:
+  - "The map marks Raxaul town; the source does not give the exact interception point."
 sources:
   - title: DRI Busts Major Nepal-Origin Charas Smuggling Ring In Raxaul
     url: https://www.rediff.com/news/report/dri-bihar-stf-bust-charas-smuggling-network-seize-rs-514-crore/20261010.htm

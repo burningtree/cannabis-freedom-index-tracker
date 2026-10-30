@@ -71,7 +71,9 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     const view = box.dataset.view ? JSON.parse(box.dataset.view) : { bounds: [[-168, -50], [178, 72]] };
     const map = new maplibregl.Map({
       container: box, style: styles[theme()], ...view,
-      minZoom: -1, maxZoom: 14, renderWorldCopies: false, hash: box.dataset.hash != null ? "map" : false,
+      // Report pins near ±180° need wrapping; otherwise the camera is clamped
+      // inward by half the viewport width and the report pin appears off-centre.
+      minZoom: -1, maxZoom: 14, renderWorldCopies: single, hash: box.dataset.hash != null ? "map" : false,
       // on a phone, or a small map inside a page, one finger or the wheel scrolls the page
       cooperativeGestures: box.dataset.view != null || matchMedia("(pointer: coarse)").matches,
       attributionControl: { compact: true, customAttribution: '<a href="https://landrace.wiki/" target="_blank" rel="noopener">Landrace.wiki</a> (CC BY-SA)' },

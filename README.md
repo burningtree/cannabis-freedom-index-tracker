@@ -268,6 +268,13 @@ reports (`us.json` lists `us/ca`'s).
 none. `figures` holds only the keys a report states. Fields may be added in later versions; existing
 fields keep their meaning while `version` is 1.
 
+## Coordinate audit
+
+`npm run coordinates:check` flags explicit coordinates outside their mapped country, identifies
+other mapped territories, and suggests sign/order mistakes to verify. It is an offline review
+aid, with no automatic report changes or rejection. See [coordinate checks](docs/COORDINATES.md)
+for JSON output, individual-report checks, offshore cases and dataset limitations.
+
 ## Evidence archive
 
 `node scripts/archive-media.mjs [slug …]` saves every picture on each report's source and media pages
@@ -330,7 +337,7 @@ The optional Go service in `backend/` adds anonymous source intake, durable rece
 and replies, sandboxed OpenCode research, live model/session activity, and automatic local report commits after validation. Astro and the public
 report JSON API remain static. Pages: `/submission/?id=…` for request details, and `/submissions/` for the source form and
 live request table. `/submit/` redirects to `/submissions/`. AI-created reports record `created_by_model` as `provider/model#effort` when available, shown on the report detail page. For example, `alibaba-token-plan/qwen3.8-flash#xhigh` records `xhigh` as the reasoning effort setting. Include the actual effort whenever known; omit only the suffix if effort is unavailable, and never guess it.
-Later update models are kept in `updated_by_models` using the same format. Open questions are saved in report front matter
+Updates preserve the original creator. Open questions are saved in report front matter
 and shown beneath its sources. Local failed submissions have a restart control; no GitHub App is needed.
 
 See [docs/NOSTR-SUBMISSIONS.md](docs/NOSTR-SUBMISSIONS.md) for setup, HTTP contracts, deployment,

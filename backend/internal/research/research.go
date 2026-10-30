@@ -1054,28 +1054,7 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 		if creator, ok := header["created_by_model"].(string); !ok || strings.TrimSpace(creator) == "" {
 			header["created_by_model"] = "unknown"
 		}
-		// Retain original authorship when another model appends an update.
-		if r.CreatedByModel != "" {
-			models := []string{}
-			if old, ok := header["updated_by_models"].([]any); ok {
-				for _, item := range old {
-					if model, ok := item.(string); ok {
-						models = append(models, model)
-					}
-				}
-			}
-			seen := false
-			for _, model := range models {
-				if model == r.CreatedByModel {
-					seen = true
-					break
-				}
-			}
-			if !seen {
-				models = append(models, r.CreatedByModel)
-			}
-			header["updated_by_models"] = models
-		}
+		delete(header, "updated_by_models") // Retired metadata; preserve the original creator.
 		questions := []string{}
 		if old, ok := header["open_questions"].([]any); ok {
 			for _, q := range old {

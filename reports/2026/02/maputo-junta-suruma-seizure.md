@@ -2,7 +2,8 @@
 date: 2026-02-25
 country: mz
 place: Junta Bus Terminal, Maputo
-coordinates: [-25.9662, 32.5675]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Junta%2C+Maputo%2C+Mozambique&format=jsonv2&limit=3
+coordinates: [-25.935393, 32.550999]
 precision: locality
 type: seizure
 also: [arrest]

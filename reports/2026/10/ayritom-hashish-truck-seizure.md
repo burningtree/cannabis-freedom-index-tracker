@@ -2,8 +2,9 @@
 date: 2026-10-01
 country: uz
 place: Ayritom border post, Surxondaryo region, Uzbek-Afghan border
-coordinates: [37.2221, 67.4249]
-precision: locality
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Surxondaryo%2C+Uzbekistan&format=jsonv2&limit=3
+coordinates: [37.952084, 67.1266]
+precision: region
 type: seizure
 title: 42.3 kg of hashish found under trailer floor of Afghan truck at Ayritom crossing
 summary: >-
@@ -17,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [ayritom, border, trafficking, hashish]
 open_questions:
+  - "The old point was on the Afghan side of the border. The exact Ayritom inspection site was not established; the map uses a Surxondaryo regional reference point."
   - The two sources differ slightly on the driver's age (born in 1993 per Zamon, 34 per Tawazon); neither states whether he was arrested or charged.
   - The opium seized alongside the hashish is noted here for context; only the hashish is counted in the figures.
 sources:

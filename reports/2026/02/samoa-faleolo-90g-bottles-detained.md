@@ -18,6 +18,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [samoa, faleolo, airport, trafficking]
 open_questions:
+  - "The map marks Faleolo airport; the source does not give the precise inspection location."
   - The man's identity and whether charges followed the detention were not reported.
 sources:
   - title: Samoa authorities detain NZ passport holder following marijuana seizure at Faleolo International Airport

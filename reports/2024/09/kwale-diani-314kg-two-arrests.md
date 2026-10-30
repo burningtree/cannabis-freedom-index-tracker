@@ -20,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [diani, kwale, anu, trafficking]
 open_questions:
+  - "The map uses a Diani locality reference point, not the precise site within the chief’s area."
   - No second outlet account was found; whether the two were charged, and the details of the related Kiembeni 16-sack seizure, were not reported.
 sources:
   - title: Authorities arrest two suspects, seize bhang worth Sh9 million in Kwale

@@ -19,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [hidden-compartment, honda-civic, pond-escape]
 open_questions:
+  - "The map marks Changrabandha locality; the exact bypass checkpoint location was not established."
   - Only Uttarbanga Sambad has published this seizure in text form; no second outlet account was found.
   - Whether others were involved, as police were investigating, is unreported.
   - The court outcome is unreported.

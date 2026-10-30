@@ -2,7 +2,8 @@
 date: 2026-10-19
 country: py
 place: Amambay (Cerro Cora'i and the Capitán Bado district)
-coordinates: [-23.2653, -55.5373]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Amambay%2C+Paraguay&format=jsonv2&limit=3
+coordinates: [-23, -56]
 precision: region
 type: eradication
 also: [seizure]
@@ -28,6 +29,7 @@ media:
     publisher: Radio Oasis 94.3 FM (Pedro Juan Caballero)
     caption: Agents burn harvested cannabis plants on a hillside camp during the operation in Amambay.
 open_questions:
+  - "The operations covered several rural locations in Amambay. The map uses a department reference point, not a single plantation or the border town of Capitán Bado."
   - No arrests were reported in these accounts of the operation.
   - The accounts give no start date for the operation, only the results of its first six days, and say it continued afterwards.
   - The figure of more than 290 tonnes is the agencies' estimate of the processed drug plus the potential harvest of the fields eradicated.

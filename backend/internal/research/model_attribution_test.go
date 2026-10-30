@@ -23,7 +23,7 @@ func TestReportRecordsServiceSuppliedCreatorModel(t *testing.T) {
 		t.Fatal("model output can spoof service attribution")
 	}
 }
-func TestUpdatesPreserveCreatorAndRecordDistinctUpdateModels(t *testing.T) {
+func TestUpdatesPreserveCreatorAndRemoveLegacyUpdateModels(t *testing.T) {
 	for _, creator := range []string{"original/provider-model", ""} {
 		t.Run(creator, func(t *testing.T) {
 			dir := t.TempDir()
@@ -54,8 +54,8 @@ func TestUpdatesPreserveCreatorAndRecordDistinctUpdateModels(t *testing.T) {
 				if expectedCreator == "" {
 					expectedCreator = "unknown"
 				}
-				if metadata.Creator != expectedCreator || len(metadata.Updated) != 2 || metadata.Updated[1] != r.CreatedByModel {
-					t.Fatal("creator replaced or update models duplicated", metadata)
+				if metadata.Creator != expectedCreator || len(metadata.Updated) != 0 {
+					t.Fatal("creator replaced or retired update metadata retained", metadata)
 				}
 				if err = os.WriteFile(path, []byte(d.Content), 0644); err != nil {
 					t.Fatal(err)

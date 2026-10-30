@@ -45,7 +45,12 @@ const reports = defineCollection({
   // reports/<year>/<month>/<slug>.md; the slug alone is the report's id and address. REPORTS_DIR
   // builds from another folder (scripts/load-test.mjs)
   loader: glob({ pattern: "**/*.md", base: process.env.REPORTS_DIR || "./reports", generateId: ({ entry }) => entry.split("/").pop()!.replace(/\.md$/, "") }),
-  schema: ({ image }) => z.object({
+  schema: ({ image }) => z.preprocess((value) => {
+    // Older writers may still send this retired field; never expose it in report data.
+    if (!value || typeof value !== "object" || Array.isArray(value)) return value;
+    const { updated_by_models, ...report } = value as Record<string, unknown>;
+    return report;
+  }, z.object({
     code: z.string().regex(/^[0-9A-HJKMNP-TV-Z]{6}$/, { message: "six characters of Crockford base32; npm run codes writes it" }).optional(), // the permanent short id, CET-XXXXXX (scripts/codes.mjs)
     date: day, // when it happened (or, for a campaign, when it ended or was announced)
     country: z.enum(COUNTRY_IDS), // a country file of the Cannabis Freedom Index: "de", "us/ca"
@@ -77,12 +82,11 @@ const reports = defineCollection({
     cfi_id: z.string().regex(/^[a-z0-9-]+$/).optional(), // the Cannabis Freedom Index history entry it was moved from
     tags: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
     created_by_model: z.string().trim().min(1).max(300), // required; "unknown" only when attribution was not recorded
-    updated_by_models: z.array(z.string().trim().min(1).max(300)).optional(),
     open_questions: z.array(z.string().trim().min(1).max(4000)).max(30).optional(),
     sources: z.array(source).min(1, { message: "a report needs at least one source" }),
   }).strict()
     .refine((r) => !r.coordinates || r.precision, { message: "coordinates need a precision" })
-    .refine((r) => !r.also?.includes(r.type), { message: "`also` repeats the main type" }),
+    .refine((r) => !r.also?.includes(r.type), { message: "`also` repeats the main type" })),
 });
 
 export const collections = { reports };

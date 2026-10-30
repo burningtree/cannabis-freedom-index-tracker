@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "countries:sync": "node scripts/sync-countries.mjs",
     "codes": "node scripts/codes.mjs",
-    "browser-install": "playwright install chromium --no-shell"
+    "browser-install": "playwright install chromium --no-shell",
+    "coordinates:check": "node scripts/check-coordinates.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",

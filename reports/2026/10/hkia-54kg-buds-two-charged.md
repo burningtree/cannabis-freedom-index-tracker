@@ -2,8 +2,9 @@
 date: 2026-10-23
 country: hk
 place: Hong Kong International Airport
-coordinates: [22.308, 113.915]
-precision: exact
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Hong+Kong+International+Airport&format=jsonv2&limit=3
+coordinates: [22.312599, 113.9173]
+precision: locality
 type: seizure
 also: [arrest]
 title: Two mainland men charged over 5.4 kg of cannabis buds at HK airport
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [airport, phu-quoc, bangkok, trafficking-charge]
 open_questions:
+  - "The map marks the airport, not the precise passenger inspection location."
   - The West Kowloon Magistrates' Courts mention on 24 October was the next step reported; no outcome was given.
 sources:
   - title: Hong Kong Customs seizes 5.4 kilograms of cannabis buds from air passengers and charge two men

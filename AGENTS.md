@@ -14,12 +14,12 @@ Index (country ids are the CFI's).
 - Every report file **must** include `created_by_model`: the exact model identifier used by the
   writing agent, including provider and reasoning effort when known, as `provider/model#effort`
   (for example `alibaba-token-plan/qwen3.8-flash#xhigh`, where `xhigh` is the effort setting).
-  Never omit an available effort setting or guess an unavailable one. Use the same format for
-  `updated_by_models`. Agents writing Markdown set it themselves;
+  Never omit an available effort setting or guess an unavailable one. Agents writing Markdown
+  set it themselves;
   the submission service injects it from the OpenCode run configuration. Never omit it or copy a
   sample/current model onto older work. Use `unknown` only when the actual creator model is not
   available (notably historical imports), and make that limitation clear. Preserve the original
-  creator on updates; record the updating model in `updated_by_models`.
+  creator on updates. Do not add update-model metadata.
 - Every sentence cites a source that was opened (`[@n]`); every source must be about the same event.
 - Photos: copy one into `src/assets/reports/` only with an open licence or a no-copyright government
   work; link all others as `media`, and keep local evidence copies with `node scripts/archive-media.mjs`.

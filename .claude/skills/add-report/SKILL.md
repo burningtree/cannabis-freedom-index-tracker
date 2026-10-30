@@ -72,7 +72,7 @@ reported; if they truly contradict, `status: disputed`.
   Set this in every new Markdown report. Never copy the example's model
   or guess a historical creator. If the runtime does not disclose the identifier, use `unknown`
   and say that attribution was unavailable. On updates, preserve the original `created_by_model`
-  and add your model once to `updated_by_models` using the same effort-inclusive format. The submission service assigns these fields
+  and do not add update-model metadata. The submission service assigns creator attribution
   itself when consuming an OpenCode JSON result; do not add them to that result contract.
 - `status: verified` when every fact was read in an opened source.
 - `open_questions` (docs/WRITING.md §9): what the sources leave open, one plain sentence each, such
@@ -90,6 +90,8 @@ node scripts/archive-sources.mjs <slug>
 ```
 
 ```bash
+# Audit coordinates on the new/updated files; review flags against the source.
+node scripts/check-coordinates.mjs "reports/<year>/<month>/<slug>.md"
 npm run build
 ```
 

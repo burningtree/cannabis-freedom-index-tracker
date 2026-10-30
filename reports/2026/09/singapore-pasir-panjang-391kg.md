@@ -3,7 +3,8 @@ code: MWTR6K
 date: 2026-09-24
 country: sg
 place: Pasir Panjang Scanning Station, Singapore
-coordinates: [1.264, 103.762]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Pasir+Panjang+Scanning+Station%2C+Singapore&format=jsonv2&limit=3
+coordinates: [1.281998, 103.77893]
 precision: locality
 type: seizure
 title: 391 kg of cannabis found in glove boxes at Pasir Panjang port

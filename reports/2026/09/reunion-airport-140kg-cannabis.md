@@ -1,8 +1,9 @@
 ---
 date: 2026-09-10
 country: re
-place: Saint-Denis Aéroport, La Réunion
-coordinates: [-20.882, 55.45]
+place: Roland Garros Airport, Sainte-Marie
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Roland+Garros+Airport%2C+Reunion&format=jsonv2&limit=3
+coordinates: [-20.890223, 55.517318]
 precision: locality
 type: seizure
 also: [arrest]

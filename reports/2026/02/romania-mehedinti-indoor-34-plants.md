@@ -1,9 +1,10 @@
 ---
 date: 2026-02-23
 country: ro
-place: Mehedinți County (Drobeta-Turnu Severin area)
-coordinates: [44.628, 22.653]
-precision: district
+place: Mehedinți County
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Mehedinti%2C+Romania&format=jsonv2&limit=3
+coordinates: [44.603491, 23.058042]
+precision: region
 type: raid
 also: [arrest]
 title: Two detained after indoor cannabis grow found in nine Mehedinți searches
@@ -19,6 +20,7 @@ created_by_model: cursor/composer-2.5
 status: verified
 tags: [diicot, mehedinti, indoor, trafficking]
 open_questions:
+  - "The map uses a Mehedinți County reference point. The communiqué does not locate the indoor grow within the county."
   - The suspects were not named in the police communiqué.
   - Whether the court granted the requested 30-day preventive arrest on 24 February was not reported here.
   - The release does not say if the 34 plants were destroyed or kept as evidence.

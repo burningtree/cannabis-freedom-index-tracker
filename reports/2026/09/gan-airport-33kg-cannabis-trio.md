@@ -19,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [smuggling, airport, controlled-delivery, india-route]
 open_questions:
+  - "The map marks Gan airport; the source does not give the precise inspection location."
   - One outlet dates the arrival "Tuesday, October 22", but 22 October 2026 is a Thursday; both outlets agree it was a Tuesday, matching 22 September 2026.
   - The Indian city the two passengers arrived from has not been disclosed.
   - No court or remand outcome has been reported for the three suspects.

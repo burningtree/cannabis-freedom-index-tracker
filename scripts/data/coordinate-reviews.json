@@ -1,0 +1,463 @@
+[
+  {
+    "file": "reports/2022/09/sri-lanka-kudiramalai-434kg-kerala-cannabis-2022.md",
+    "country": "lk",
+    "place": "Waters off Kudiramalai Point, Puttalam",
+    "coordinates": [
+      8.536678,
+      79.871485
+    ],
+    "precision": "region",
+    "reviewed_on": "2026-10-30",
+    "kind": "coastal-reference",
+    "reason": "Coast Guard reports an interception 37 nautical miles offshore. The pin intentionally references Kudiramale on the coast, not the vessel location, with region precision and an explicit open question.",
+    "evidence": [
+      "https://news.coastguard.gov.lk/news/2022/09/13/202209141526/",
+      "https://www.thehindu.com/news/cities/Madurai/five-indian-fishermen-nabbed-with-ganja-worth-13-crore/article65890642.ece",
+      "https://nominatim.openstreetmap.org/search?q=Kudiramale&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2024/06/oropouche-dow-village-177m-seizure.md",
+    "country": "tt",
+    "place": "Dow Village, Siparia",
+    "coordinates": [
+      10.21486,
+      -61.55288
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "http://i955fm.com/18-million-dollar-high-grade-marijuana-find-in-south-trinidad/",
+      "https://nominatim.openstreetmap.org/search?q=Dow+Village%2C+Siparia&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2024/09/kwale-diani-314kg-two-arrests.md",
+    "country": "ke",
+    "place": "Chief's area, Diani, Kwale",
+    "coordinates": [
+      -4.3125,
+      39.5794
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map uses a Diani locality reference point, not the precise site within the chief’s area.",
+    "evidence": [
+      "https://eastleighvoice.co.ke/headlines/77440/authorities-arrest-two-suspects-seize-bhang-worth-sh9-million-in-kwale",
+      "https://nominatim.openstreetmap.org/search?q=Diani%2C+Kwale%2C+Kenya&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2025/08/kwale-mwabungo-italian-grow-house.md",
+    "country": "ke",
+    "place": "Mwabungo village, Ukunda, Kwale",
+    "coordinates": [
+      -4.356015,
+      39.53705
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://eastleighvoice.co.ke/coast%20drug%20cartels-drug%20trafficking%20kenya-kwale%20county%20drug%20trafficking-mombasa%20drug%20trafficking/190808/italian-national-accomplice-arrested-after-police-uncover-cannabis-farm-lab-in-kwale-county",
+      "https://nominatim.openstreetmap.org/search?q=Mwabungo%2C+Kenya&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2025/09/diani-mwabungo-german-farm-trio.md",
+    "country": "ke",
+    "place": "Romika, Mwabungo village, Ukunda, Kwale",
+    "coordinates": [
+      -4.356015,
+      39.53705
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://eastleighvoice.co.ke/coast/203906/two-german-tourists-kenyan-woman-arrested-for-running-cannabis-farm-in-diani",
+      "https://nominatim.openstreetmap.org/search?q=Mwabungo%2C+Kenya&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/02/maputo-junta-suruma-seizure.md",
+    "country": "mz",
+    "place": "Junta Bus Terminal, Maputo",
+    "coordinates": [
+      -25.935393,
+      32.550999
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.africa-press.net/mozambique/all-news/suspect-arrested-after-120-bundles-of-suruma-seized",
+      "https://nominatim.openstreetmap.org/search?q=Junta%2C+Maputo%2C+Mozambique&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/02/romania-mehedinti-indoor-34-plants.md",
+    "country": "ro",
+    "place": "Mehedinți County",
+    "coordinates": [
+      44.603491,
+      23.058042
+    ],
+    "precision": "region",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://agerpres.ro/comunicate/2026/02/24/comunicat-de-presa---inspectoratul-general-al-politiei-romane--1531215",
+      "https://nominatim.openstreetmap.org/search?q=Mehedinti%2C+Romania&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/02/samoa-faleolo-90g-bottles-detained.md",
+    "country": "ws",
+    "place": "Faleolo International Airport, Upolu",
+    "coordinates": [
+      -13.8296,
+      -172.0083
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Faleolo airport; the source does not give the precise inspection location.",
+    "evidence": [
+      "https://www.rnz.co.nz/news/pacific/586643/samoa-authorities-detain-nz-passport-holder-following-marijuana-seizure-at-faleolo-international-airport",
+      "https://fijiglobalnews.com/samoa-foils-marijuana-haul-on-fiji-airways-passenger/",
+      "https://nominatim.openstreetmap.org/search?q=Faleolo+International+Airport%2C+Samoa&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/03/fiji-natewa-qaranibali-7000-plants.md",
+    "country": "fj",
+    "place": "Qaranibali farming area, Vusasivo, Natewa, Northern Division",
+    "coordinates": [
+      -16.5728,
+      179.7614
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Vusasivo village, not the Qaranibali farm; the sources do not publish the farm coordinates.",
+    "evidence": [
+      "https://www.fbcnews.com.fj/news/drones-uncover-a-massive-marijuana-farm-in-the-north-2/",
+      "https://www.fijivillage.com/news/operation-sasamaki-team-uproots-more-than-7-000-plants-believed-to-be-marijuana-in-natewa-4b5a79/",
+      "https://fijisun.com.fj/news/nation/more-than-7000-marijuana-plants-seized-in-north-raid",
+      "https://fijisun.com.fj/news/nation/no-arrests-made-three-months-after-major-marijuana-farm-discovery",
+      "https://nominatim.openstreetmap.org/search?q=Vusasivo%2C+Fiji&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/06/india-changrabandha-pond-escape.md",
+    "country": "in",
+    "place": "Changrabandha bypass checkpost, Cooch Behar",
+    "coordinates": [
+      26.41,
+      88.92
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Changrabandha locality; the exact bypass checkpoint location was not established.",
+    "evidence": [
+      "https://uttarbangasambad.com/chanrabandha-naka-ganja-seized-mekhliganj/",
+      "https://nominatim.openstreetmap.org/search?q=Changrabandha%2C+India&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/07/bras-panon-156kg-cannabis-seizure.md",
+    "country": "re",
+    "place": "Bras-Panon seafront, near the Rivière du Mât, Réunion",
+    "coordinates": [
+      -20.9953,
+      55.6761
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map uses a Bras-Panon locality reference; the exact seafront transfer site near Rivière du Mât was not geolocated.",
+    "evidence": [
+      "https://freedom.fr/coup-de-filet-a-bras-panon-156-kg-de-cannabis-saisis-sur-le-littoral-grace-a-la-vigilance-citoyenne/",
+      "https://imazpress.com/toute-l-actu/saisie-de-156-kilos-de-zamal-la-gendarmerie-remercie-les-temoins-pour-leur-aide-dans-la-mise-a-jour-d-un-trafic-vers-maurice",
+      "https://nominatim.openstreetmap.org/search?q=Bras+Panon%2C+Reunion&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/07/lamu-tchundwa-issa-250g-sentence.md",
+    "country": "ke",
+    "place": "Tchundwa Village, Lamu East",
+    "coordinates": [
+      -1.870612,
+      41.217881
+    ],
+    "precision": "district",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://eastleighvoice.co.ke/headlines/384357/lamu-court-jails-man-for-10-years-or-sh50-million-fine-over-drug-trafficking-conviction",
+      "http://nairobinews.co.ke/lamu-man-fined-sh50-million-or-face-10-years-in-jail-for-trafficking-narcotics/",
+      "https://nominatim.openstreetmap.org/search?q=Lamu+East%2C+Kenya&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/08/bangladesh-kasba-cannabis-microbus-pond.md",
+    "country": "bd",
+    "place": "Khidirpur, Binauti union, Kasba upazila, Brahmanbaria",
+    "coordinates": [
+      23.790404,
+      91.158099
+    ],
+    "precision": "district",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.tbsnews.net/bangladesh/microbus-carrying-cannabis-plunges-brahmanbaria-pond-during-police-chase-1527071",
+      "https://unb.com.bd/category/Bangladesh/police-recover-9-sacks-of-cannabis-after-microbus-crashes-into-pond-in-brahmanbaria/194082",
+      "https://nominatim.openstreetmap.org/search?q=Binauti%2C+Bangladesh&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/09/gabon-mabanda-70kg-five-held.md",
+    "country": "ga",
+    "place": "Mabanda, Nyanga Province",
+    "coordinates": [
+      -2.827,
+      11.53
+    ],
+    "precision": "district",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Mabanda town; the source does not give the precise arrest location.",
+    "evidence": [
+      "https://fr.apanews.net/society/nyanga-cinq-gabonais-arretes-avec-du-cannabis-et-du-tramadol/",
+      "https://imnews.imnet.online/2026/09/16/donnevy-massande-drug-trafficking-nyanga-gabon/",
+      "https://nominatim.openstreetmap.org/search?q=Mabanda%2C+Gabon&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/09/gan-airport-33kg-cannabis-trio.md",
+    "country": "mv",
+    "place": "Gan International Airport, Addu City",
+    "coordinates": [
+      -0.691,
+      73.156
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Gan airport; the source does not give the precise inspection location.",
+    "evidence": [
+      "https://atolltimes.mv/post/news/17250",
+      "https://www.aviatorsmaldives.com/post/20709",
+      "https://nominatim.openstreetmap.org/search?q=Gan+International+Airport%2C+Maldives&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/09/morocco-tanger-med-238kg.md",
+    "country": "ma",
+    "place": "Port of Tanger Med, Tangier",
+    "coordinates": [
+      35.886,
+      -5.501
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks the Tanger Med port area; the source does not identify the exact inspection point.",
+    "evidence": [
+      "https://barlamane.com/fr/la-surete-nationale-et-les-douanes-saisissent-238-kilogrammes-de-resine-de-cannabis-dans-la-remorque-dun-utilitaire-immatricule-a-letranger-a-tanger-med/",
+      "https://nominatim.openstreetmap.org/reverse?lat=35.886&lon=-5.501&format=jsonv2&zoom=16"
+    ]
+  },
+  {
+    "file": "reports/2026/09/reunion-airport-140kg-cannabis.md",
+    "country": "re",
+    "place": "Roland Garros Airport, Sainte-Marie",
+    "coordinates": [
+      -20.890223,
+      55.517318
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.douane.gouv.fr/actualites/la-reunion-plus-de-200-kg-de-stupefiants-saisis-en-quelques-jours",
+      "https://imazpress.com/faits-divers/semaine-memorable-pour-les-douaniers-de-la-reunion-plus-de-200-kg-de-stupefiants-saisis-en-quelques-jours-dont-140-kg-de-cannabis-en-provenance-de-thailande",
+      "https://www.lequotidien.re/article/faits-divers/2026/09/17/drogues-a-la-reunion-quand-les-saisies-semballent",
+      "https://imazpress.com/faits-divers/une-mule-interceptee-a-l-aeroport-roland-garros-avec-17-kilos-d-herbe-de-cannabis",
+      "https://imazpress.com/toute-l-actu/saisie-record-effectuee-sur-une-mule-a-l-aeroport-de-roland-garros-15kg-de-coke-et-37-kg",
+      "https://nominatim.openstreetmap.org/search?q=Roland+Garros+Airport%2C+Reunion&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/09/singapore-pasir-panjang-391kg.md",
+    "country": "sg",
+    "place": "Pasir Panjang Scanning Station, Singapore",
+    "coordinates": [
+      1.281998,
+      103.77893
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.cnb.gov.sg/mediaroom/news/joint-news-release--more-than-391kg-of-cannabis-detected-at-pasir-panjang-scanning-station/",
+      "https://goodyfeed.com/more-than-391kg-of-cannabis-found-hidden-in-glove-boxes-at-pasir-panjang-scanning-station/",
+      "https://nominatim.openstreetmap.org/search?q=Pasir+Panjang+Scanning+Station%2C+Singapore&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/09/tt-pirogue-231kg-venezuelans.md",
+    "country": "tt",
+    "place": "Gulf of Paria",
+    "coordinates": [
+      10.35,
+      -61.55
+    ],
+    "precision": "region",
+    "reviewed_on": "2026-10-30",
+    "kind": "offshore",
+    "reason": "The exact interception coordinates were not published. The map uses a broad Gulf of Paria reference point.",
+    "evidence": [
+      "http://youthere1news.blogspot.com/2026/09/coast-guard-intercepts-pirogue-with.html"
+    ]
+  },
+  {
+    "file": "reports/2026/10/ayritom-hashish-truck-seizure.md",
+    "country": "uz",
+    "place": "Ayritom border post, Surxondaryo region, Uzbek-Afghan border",
+    "coordinates": [
+      37.952084,
+      67.1266
+    ],
+    "precision": "region",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://zamon.uz/uz/2026/10/03/afgonistondan-kelgan-yuk-mashinasi-tekshirildi-525-kg-narkotik-topildi",
+      "https://tawazon.media/archives/11237",
+      "https://nominatim.openstreetmap.org/search?q=Surxondaryo%2C+Uzbekistan&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/fiji-narain-jetty-four-arrests.md",
+    "country": "fj",
+    "place": "Narain Jetty, Walu Bay, Suva",
+    "coordinates": [
+      -18.125929,
+      178.428397
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.fijivillage.com/news/four-men-arrested-with-suspected-marijuana-at-narain-jetty-d13822/",
+      "https://conven.org/fiji/news/four-men-arrested-in-drug-bust-at-narain-jetty/",
+      "https://nominatim.openstreetmap.org/search?q=Narain+Jetty%2C+Suva%2C+Fiji&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/grimsby-docks-gardener-sentenced.md",
+    "country": "gb",
+    "place": "Hutton Road, Grimsby Docks",
+    "coordinates": [
+      53.5792,
+      -0.0688
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Hutton Road; the source does not identify the precise property.",
+    "evidence": [
+      "https://www.grimsbytelegraph.co.uk/news/grimsby-news/cannabis-grow-found-after-electricity-11185783",
+      "https://nominatim.openstreetmap.org/search?q=Hutton+Road%2C+Grimsby%2C+UK&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/hkia-54kg-buds-two-charged.md",
+    "country": "hk",
+    "place": "Hong Kong International Airport",
+    "coordinates": [
+      22.312599,
+      113.9173
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://www.dimsumdaily.hk/hong-kong-customs-seizes-5-4-kilograms-of-cannabis-buds-from-air-passengers-and-charge-two-men/",
+      "http://www.government-world.com/hong-kong-customs-detects-drug-trafficking-case-involving-incoming-passengers-at-airport-with-photos/",
+      "https://nominatim.openstreetmap.org/search?q=Hong+Kong+International+Airport&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/paraguay-nueva-alianza-58-amambay.md",
+    "country": "py",
+    "place": "Amambay (Cerro Cora'i and the Capitán Bado district)",
+    "coordinates": [
+      -23,
+      -56
+    ],
+    "precision": "region",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "Updated to a sourced geographic reference point; see the report’s geographic reference comment and open questions.",
+    "evidence": [
+      "https://1000noticias.com.py/2026/10/19/operativo-antidrogas-destruye-mas-de-92-toneladas-de-marihuana-en-amambay/",
+      "https://radiooasisfm.com/senad-y-policia-federal-del-brasil-destruyen-mas-de-290-toneladas-de-marihuana-y-causan-perdidas-de-usd-455-millones-al-narcotrafico-en-amambay.html",
+      "https://nominatim.openstreetmap.org/search?q=Amambay%2C+Paraguay&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/raxaul-dri-stf-514kg-charas.md",
+    "country": "in",
+    "place": "Raxaul, East Champaran, Bihar",
+    "coordinates": [
+      26.987,
+      84.845
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Raxaul town; the source does not give the exact interception point.",
+    "evidence": [
+      "https://www.rediff.com/news/report/dri-bihar-stf-bust-charas-smuggling-network-seize-rs-514-crore/20261010.htm",
+      "https://www.7globe.in/a-decade-after-liquor-ban-bihar-faces-a-new-drug-question-what-the-numbers-reveal-india-news/",
+      "https://nominatim.openstreetmap.org/search?q=Raxaul%2C+India&format=jsonv2&limit=3"
+    ]
+  },
+  {
+    "file": "reports/2026/10/reunion-zamal-appeal-sentences.md",
+    "country": "re",
+    "place": "Saint-Denis, Réunion",
+    "coordinates": [
+      -20.88,
+      55.45
+    ],
+    "precision": "locality",
+    "reviewed_on": "2026-10-30",
+    "kind": "locality-reference",
+    "reason": "The map marks Saint-Denis city, not a precise courthouse location.",
+    "evidence": [
+      "https://www.lequotidien.re/article/faits-divers/2026/10/14/trafic-de-zamal-vers-maurice-les-peines-alourdies-par-la-cour-dappel",
+      "https://nominatim.openstreetmap.org/search?q=Saint+Denis%2C+Reunion&format=jsonv2&limit=3"
+    ]
+  }
+]

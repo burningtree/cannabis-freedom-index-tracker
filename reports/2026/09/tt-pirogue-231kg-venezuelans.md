@@ -3,7 +3,7 @@ date: 2026-09-28
 country: tt
 place: Gulf of Paria
 coordinates: [10.35, -61.55]
-precision: district
+precision: region
 type: seizure
 also: [arrest]
 title: Coast Guard takes 231kg of marijuana off pirogue with three Venezuelans
@@ -20,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [coast-guard, pirogue, venezuela-route]
 open_questions:
+  - "The exact interception coordinates were not published. The map uses a broad Gulf of Paria reference point."
   - Charges and judicial outcomes for the three Venezuelans were not reported.
 sources:
   - title: Coast Guard Intercepts Pirogue With Marijuana Valued At Over TT $25 Million; 3 Venezuelans Held

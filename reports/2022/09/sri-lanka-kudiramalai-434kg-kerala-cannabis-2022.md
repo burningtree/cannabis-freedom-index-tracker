@@ -1,9 +1,10 @@
 ---
 date: 2022-09-13
 country: lk
-place: Kudiramalai Point, Puttalam
-coordinates: [8.533, 79.867]
-precision: locality
+place: Waters off Kudiramalai Point, Puttalam
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Kudiramale&format=jsonv2&limit=3
+coordinates: [8.536678, 79.871485]
+precision: region
 type: seizure
 also: [arrest]
 title: Ten arrested as Sri Lanka seizes 434 kg of Kerala cannabis at sea
@@ -37,6 +38,7 @@ sources:
     publisher: The Hindu
     date: 2022-09-14
 open_questions:
+  - "The Coast Guard places the interception 37 nautical miles off Kudiramalai Point but gives no coordinates. The map marks the coastal locality as a regional reference, not the interception position."
   - No source reported charges, a court appearance or the outcome of the case against the ten arrested men.
   - The Coast Guard gave the weight as 434.8 kg; News First and The Hindu reported about 434 kg.
   - News First reported a street value of over Rs 130 million in Sri Lankan rupees, while The Hindu gave ₹13 crore in Indian rupees; the currencies differ, so no single value is recorded.

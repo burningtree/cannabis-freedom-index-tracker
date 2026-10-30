@@ -2,7 +2,8 @@
 date: 2025-08-04
 country: ke
 place: Mwabungo village, Ukunda, Kwale
-coordinates: [-4.3125, 39.5794]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Mwabungo%2C+Kenya&format=jsonv2&limit=3
+coordinates: [-4.356015, 39.53705]
 precision: locality
 type: eradication
 also: [arrest]
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [kwale, grow-house, foreigners, anu]
 open_questions:
+  - "The map marks Mwabungo village, not the unidentified grow-house compound."
   - No second outlet account was found; no plant or weight figure was given, and whether formal charges followed was not reported.
 sources:
   - title: Italian national, accomplice arrested after police uncover cannabis farm, lab in Kwale County

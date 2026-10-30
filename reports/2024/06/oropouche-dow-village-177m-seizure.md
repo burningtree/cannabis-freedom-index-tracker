@@ -1,9 +1,10 @@
 ---
 date: 2024-06-04
 country: tt
-place: Dow Village apartment, South Oropouche
-coordinates: [10.067, -61.55]
-precision: district
+place: Dow Village, Siparia
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Dow+Village%2C+Siparia&format=jsonv2&limit=3
+coordinates: [10.21486, -61.55288]
+precision: locality
 type: seizure
 also: [arrest]
 title: TT$17.7M high-grade marijuana seized in South Oropouche apartment
@@ -19,6 +20,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [trafficking, us-grown, colombian, high-grade]
 open_questions:
+  - "The map uses a Dow Village reference point, not the apartment searched; the source does not give its address."
   - The exact date of the raid is inferred as Tuesday 4 June 2024 from the TTPS release dated 5 June 2024 and the report that the operation ran 1pm to 8pm on a Tuesday.
   - The i955 report carries no publication date; the TTPS media release it quotes is dated 5 June 2024 but its PDF link no longer resolves, so figures rely on the opened i955 report.
   - The identity of the arrested man and any court outcome have not been disclosed.

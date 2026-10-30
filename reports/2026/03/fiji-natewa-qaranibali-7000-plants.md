@@ -32,6 +32,7 @@ sources:
     publisher: Fiji Sun
     date: 2026-06-17
 open_questions:
+  - "The map marks Vusasivo village, not the Qaranibali farm; the sources do not publish the farm coordinates."
   - 'Whether the plants were destroyed or only sampled: the reports say they were seized and would be analysed, and do not say the site was cleared. The fijivillage headline says ''uproots'' while its text says ''seized''.'
   - Police described the plants as 'believed to be marijuana'; no test result, weight, street value or area under cultivation was reported.
   - No suspect, farm owner or cultivator was named, and no charges were reported.

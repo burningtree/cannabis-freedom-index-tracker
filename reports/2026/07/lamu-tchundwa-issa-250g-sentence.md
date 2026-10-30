@@ -2,8 +2,9 @@
 date: 2026-07-29
 country: ke
 place: Tchundwa Village, Lamu East
-coordinates: [-2.2675, 40.901]
-precision: locality
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Lamu+East%2C+Kenya&format=jsonv2&limit=3
+coordinates: [-1.870612, 41.217881]
+precision: district
 type: sentence
 title: Man fined Sh50 million or 10 years for 250 g bhang and diazepam in Lamu
 summary: >-
@@ -20,6 +21,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [lamu, sentencing, trafficking]
 open_questions:
+  - "The exact location of Tchundwa village was not independently established; the map uses a Lamu East sub-county reference point."
   - Whether Issa appealed was not reported.
 sources:
   - title: Lamu court jails man for 10 years or Sh50 million fine over drug trafficking conviction

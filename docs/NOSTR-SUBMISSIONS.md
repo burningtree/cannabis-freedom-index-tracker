@@ -184,9 +184,8 @@ a reasoning variant. Include the actual effort even when it is configured separa
 model identifier; never infer it from current defaults or silently omit a known setting.
 If effort is unavailable, keep the known `provider/model` without a suffix. It is not a
 model-authored field.
-Existing-case updates retain the original creator and append distinct model/effort identifiers
-using the same format to `updated_by_models`.
-Both appear on the report detail page and in the report JSON API. `created_by_model` is required on every report. Historical reports without a known creator use
+Existing-case updates retain the original creator and do not record update-model metadata.
+Creator attribution appears on the report detail page and in the report JSON API. `created_by_model` is required on every report. Historical reports without a known creator use
 `unknown` and display "not recorded"; never infer their model from today's configuration.
 
 Exact normalized URLs share a case/job while each contributor keeps a receipt. Existing-case

@@ -32,6 +32,7 @@ sources:
     date: 2026-08-03
     language: fr
 open_questions:
+  - "The map uses a Bras-Panon locality reference; the exact seafront transfer site near Rivière du Mât was not geolocated."
   - The two men's names, ages and the charges they face were not published.
   - The outcome of the judicial investigation, including any trial or sentence, is unknown.
   - The investigation was opened to identify possible branches of the network, so others may be implicated.

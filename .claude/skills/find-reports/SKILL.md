@@ -107,8 +107,8 @@ where `xhigh` is the reasoning effort setting). Include a known effort even if c
 separately from the model; omit only the suffix when effort is unavailable. Do not omit the
 field, guess an effort or copy a sample model.
 Use `unknown` only if the runtime does not disclose its identity or a historical creator was
-not recorded, and state that limitation. Updates retain the original creator and record your
-model and effort in `updated_by_models` using the same format. See `docs/WRITING.md` for the provenance rules.
+not recorded, and state that limitation. Updates retain the original creator and do not record
+update-model metadata. See `docs/WRITING.md` for the provenance rules.
 
 ## 6. Check and commit
 

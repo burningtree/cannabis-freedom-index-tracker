@@ -17,6 +17,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [grimsby, docks, gardener, deportation]
 open_questions:
+  - "The map marks Hutton Road; the source does not identify the precise property."
   - Early police accounts put the crop at about 300 plants while the court heard 400; the report uses the court figure.
   - Sheti's deportation after sentence was expected but not confirmed.
 sources:

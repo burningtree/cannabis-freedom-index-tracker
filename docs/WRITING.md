@@ -77,6 +77,11 @@ Leave a field out rather than guessing.
 Give `coordinates` for the most precise place the sources name, and say how precise with
 `precision` (`locality`, `district`, `region` …). Coordinates of a town or district centre from
 OpenStreetMap or Wikipedia are fine; don't guess a spot in a forest.
+Run `node scripts/check-coordinates.mjs reports/<year>/<month>/<slug>.md` after setting coordinates.
+It flags points outside the mapped country and suggests sign/order mistakes for review. Legitimate
+offshore events, small islands and simplified borders can also be flagged; verify the source
+rather than automatically moving or rejecting a point. An inside result does not verify the
+named locality. See [coordinate checks](COORDINATES.md) for the full audit and limitations.
 
 ## 7. Pictures
 
@@ -150,19 +155,17 @@ reasoning effort setting (also called a reasoning variant). Preserve the exact e
 by the writing run, including when it is configured separately from the model identifier;
 do not drop it from the attribution. If the model is known but its effort is not available,
 record `provider/model` without a suffix. Never guess an effort or infer it for older work.
-Use the same `provider/model#effort` format for entries in `updated_by_models` when known.
 
 Agents writing Markdown fill this in themselves; the submission service assigns it from the
 actual OpenCode run configuration. It is required by both the schema and the report tests.
 Never claim another model, copy an example's attribution, or infer an old model from today's
 configuration. For historical reports without recorded attribution, or when the runtime does
 not disclose its identity, write `created_by_model: unknown` and explain the limitation.
-Preserve the original creator when updating a report, and add the current model once to
-`updated_by_models` instead. The report page shows recorded attribution or "not recorded".
+Preserve the original creator when updating a report. Do not add update-model metadata. The report page shows recorded attribution or "not recorded".
 
 ## Checklist
 
-- [ ] Required `created_by_model` records the actual provider, model and effort when available; update provenance preserved.
+- [ ] Required `created_by_model` records the actual provider, model and effort when available; original creator preserved on updates.
 - [ ] One event; every source is about it.
 - [ ] Every source opened; its own publication date checked.
 - [ ] Every factual sentence cited; every source cited.

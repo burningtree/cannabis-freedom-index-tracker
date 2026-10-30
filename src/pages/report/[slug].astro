@@ -111,7 +111,6 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
     </section>}
     <footer class="report-provenance" aria-label="Model attribution">
       {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
-      {r.updated_by_models?.length > 0 && <p class="report-model"><span>Updated with</span> {r.updated_by_models.map(model => <code>{model}</code>)}</p>}
     </footer>
   </article>
 

@@ -2,7 +2,8 @@
 date: 2026-10-18
 country: fj
 place: Narain Jetty, Walu Bay, Suva
-coordinates: [-18.1306, 178.4325]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Narain+Jetty%2C+Suva%2C+Fiji&format=jsonv2&limit=3
+coordinates: [-18.125929, 178.428397]
 precision: locality
 type: seizure
 also: [arrest]

@@ -19,6 +19,7 @@ status: verified
 created_by_model: Meta Muse Spark (via Muse Code)
 tags: [trafficking, tramadol, congo-route]
 open_questions:
+  - "The map marks Mabanda town; the source does not give the precise arrest location."
   - The exact weight of the cannabis is reported as "nearly 70 kg"; the precise figure is undisclosed.
   - The suspected Congolese origin of the drugs is an investigators' assessment, not yet proven.
   - No trial outcome has been reported; the suspects were to be transferred to Libreville.

@@ -2,7 +2,8 @@
 date: 2026-08-28
 country: bd
 place: Khidirpur, Binauti union, Kasba upazila, Brahmanbaria
-coordinates: [23.733, 91.167]
+# Geographic reference: https://nominatim.openstreetmap.org/search?q=Binauti%2C+Bangladesh&format=jsonv2&limit=3
+coordinates: [23.790404, 91.158099]
 precision: district
 type: seizure
 title: Nine sacks of cannabis recovered after fleeing microbus crashes into Brahmanbaria pond
@@ -34,6 +35,7 @@ sources:
     publisher: United News of Bangladesh
     date: 2026-08-29
 open_questions:
+  - "The map uses a Binauti union reference point; the pond in Khidirpur was not precisely geolocated."
   - Police said the exact quantity of cannabis in the nine sacks could not be determined immediately; the reports give no weight or estimated value.
   - 'No suspect was arrested: the driver and other occupants swam ashore and escaped, and police said efforts to trace them were under way.'
   - No charge, court appearance or other legal step was reported after the seizure.
