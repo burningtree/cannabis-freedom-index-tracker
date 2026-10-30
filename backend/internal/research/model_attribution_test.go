@@ -1,6 +1,7 @@
 package research
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -29,6 +30,9 @@ func TestUpdatesPreserveCreatorAndRemoveLegacyUpdateModels(t *testing.T) {
 			dir := t.TempDir()
 			r := valid()
 			r.Outcome = "existing_case"
+			for i := range r.Facts {
+				r.Facts[i].NewDetail = true
+			}
 			r.ExistingReport = r.Slug
 			r.CreatedByModel = "opencode-go/deepseek-v4.1-flash#max"
 			path := filepath.Join(dir, "reports/2026/01", r.Slug+".md")
@@ -40,6 +44,9 @@ func TestUpdatesPreserveCreatorAndRemoveLegacyUpdateModels(t *testing.T) {
 			os.WriteFile(path, []byte(header+"---\nOriginal report. [@1]\n"), 0644)
 			for i := 0; i < 2; i++ {
 				d, err := PrepareDraft(dir, r)
+				if errors.Is(err, ErrUnchanged) && i == 1 {
+					break
+				}
 				if err != nil {
 					t.Fatal(err)
 				}

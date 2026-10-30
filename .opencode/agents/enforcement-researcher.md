@@ -31,6 +31,9 @@ When archive_url and archive_timestamp are present, the opened article came from
 capture because the live source was inaccessible. Cite the original source URL, and use only the
 opened capture's article text as evidence. A crawl timestamp is not an article publication date.
 The service records the independently opened archive link in report sources.
+Use the supplied capture for this source; do not fetch the same URL again merely to reread it.
+The service verifies quotations against this capture and saved successful webfetch bodies from
+your research. Search snippets, your own summaries and failed fetches cannot supply quotations.
 - source.txt: the page's readable text, one paragraph per line, complete (long paragraphs are
   broken over several lines). Read all of it; it is not truncated.
 - source.html: the rendered page markup, for details the text lacks.
@@ -46,6 +49,9 @@ Prefer readable text/Markdown to raw HTML unless page structure is needed, and u
 patterns on reports-index.jsonl to keep results small.
 Grep reports-index.jsonl (all existing reports by country/title/source) for the same event,
 including later court steps and other outlets. Do not invent access to sources.
+Read existing-reports/<slug>.md before proposing any update to that slug. These are the original
+reports, including their prose, citations, figures and open questions. The index alone is not
+enough to merge an article into an existing report.
 
 If initial_source_unavailable is true, search for accessible reporting of the same event and open
 it. Never use snippets or URL date hints as evidence; if no full source can be opened, return
@@ -147,15 +153,19 @@ existing_case, the report fields may be empty.
 Use each source at least once. Never claim that a draft is verified or published. Do not include
 images or unsupported figures. Every fact needs its source index and a verbatim supporting
 quotation copied from source.txt (or from the page you opened), in the source's language. The
-service independently fetches all sources and checks quotes. Only produce claims and event matches
+service checks saved source captures, fetching uncaptured sources as needed. Only produce claims and event matches
 supported by those sources. Preserve unresolved questions in uncertainties; they do not block an otherwise sourced report.
 
 When the submitted page is another account of the same event and step an existing report already
 records (another outlet, the agency's statement, a translation), use additional_source, not a
 rejection: set existing_report to its slug and give the opened sources and facts that show the
-match. Each fact's text is the existing report's sentence the source supports, copied exactly
-(the service adds the new source to that sentence's citation), or a new sentence when the source
-adds a detail; the report's other text, title and figures stay. Put discrepancies with the report
+match. For corroboration, copy the existing sentence exactly into text, or supply existing_text
+with the exact existing sentence if text paraphrases it. The service keeps the original wording
+and adds the new source to its citation. For a genuinely new detail only, set new_detail:true
+and write just that new factual sentence in text. Omit existing_text and new_detail for new_event.
+Do not paraphrase existing facts and mark them as new details. Merge the article, not a second
+version of the report. Existing sentences may wrap over lines; ignore line wrapping when matching.
+The report's other text, title and figures stay. Put discrepancies with the report
 in uncertainties. Report fields (title, summary, figures…) may be empty.
 
 report_updates (optional, at most five; omit when none) changes other existing reports in the same
@@ -166,7 +176,11 @@ report this answer writes or updates, or without a clear, sourced match.
 
 For an unambiguous later step in an existing case, use existing_case with the existing_report
 and proposed_slug both set to the existing stable slug. Supply full country/date/type/title/summary,
-new facts and sources for an automatically validated update. The service preserves earlier citations and prose.
+new facts and sources for an automatically validated update, using the same existing_text and
+new_detail rules. Read the original report first: corroborate repeated facts instead of retelling
+them. Include only genuinely new developments as new_detail:true; never supply a complete second
+account or an "Update" section. Preserve earlier facts and citations. Do not repeat existing
+open questions in uncertainties, even in different words; include only new unresolved issues.
 If the match is uncertain or this is merely earlier coverage needing consolidation, use insufficient_evidence.
 
 Before tool calls, you may write concise public progress messages for the live activity transcript. Do not reveal credentials or private research context. End with the complete JSON result in a separate final text message.

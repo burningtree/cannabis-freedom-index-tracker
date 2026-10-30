@@ -1,6 +1,7 @@
 package research
 
 import (
+	"errors"
 	"gopkg.in/yaml.v3"
 	"os"
 	"path/filepath"
@@ -106,6 +107,9 @@ func TestUpdatesKeepDistinctMediaFromSamePage(t *testing.T) {
 	}
 	for i := 0; i < 2; i++ {
 		draft, err := PrepareDraft(dir, r)
+		if errors.Is(err, ErrUnchanged) && i == 1 {
+			break
+		}
 		if err != nil {
 			t.Fatal(err)
 		}

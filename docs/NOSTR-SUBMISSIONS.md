@@ -436,10 +436,22 @@ Public activity excludes machine discovery; the all-submissions register include
 
 When research finds that the submitted page is another account of an event a report already records,
 it answers `additional_source` with that report's slug instead of rejecting it. The service then
-adds the new sources to the existing report: the same quotation checks apply, each fact's sentence
-gains the new source in its citation (or is added as a new cited sentence), open questions are
-appended, and the rest of the report (title, prose, figures, status) stays as written. If the
+adds the new sources to the existing report: the same quotation checks apply, each corroborated
+sentence gains the new source in its citation, and genuinely new details become cited sentences.
+The rest of the report (title, prose, figures, status) stays as written. If the
 report already cites the sources, the submission ends as `duplicate`.
+
+Both `additional_source` and `existing_case` use the same sentence merge. Research receives the
+original Markdown files under `existing-reports/<slug>.md`, alongside the compact coverage index.
+A corroborating fact either copies the existing sentence into `text`, or names it in
+`existing_text`; line wrapping is ignored, and the original wording stays. A genuinely new fact
+must set `new_detail: true`. An unmatched, unmarked paraphrase is rejected rather than appended
+as a second account. Multiple sources supporting the same new sentence share its citation.
+No automatic `Update` section is created. Repeating an unchanged merge produces no new commit.
+Later case steps retain the slug, earlier citations, assets and original creator, update the
+event date/type and figures where supplied, and move the file when the event month changes.
+Another account of the same date/type keeps the original headline and summary. Front matter
+stays block YAML; legacy JSON front matter is converted back to readable YAML when merged.
 
 Any drafting answer can also carry `report_updates` (at most five) for other existing reports: the
 same source additions with optional open questions and a corrected title or summary (a correction
@@ -490,6 +502,18 @@ with the original source URL; the crawl date must not be used as the article's p
 Independently opened archive links are saved as `sources[].archived` on new reports and updates.
 Screenshots/evidence remain private as usual. Existing jobs need the backend restarted to use
 these access checks; already consumed tokens and past activity are retained.
+
+Quotation verification reuses the submitted source capture and completed `webfetch` article bodies
+from OpenCode's private execution log. It checks quotations against those saved bodies, not against
+the model's final answer or search snippets. Only normalized matching URLs are reused; failed,
+truncated, unsupported and challenge-page tool responses are excluded. Uncaptured sources use the
+same browser/HTTP retrieval and Wayback fallback described above. Captures are bounded, private,
+and saved with the research checkpoint so a retry can verify them without another download or model
+run. Older checkpoints can recover tool captures while their original workspace still exists.
+
+Scope decisions such as `not_relevant` and `routed_to_cfi` do not draft report facts and do not run
+the report quotation check. They retain the model's validated classification and explanation;
+an empty fact list must not be reported as a source download failure.
 
 ## AI usage statistics
 

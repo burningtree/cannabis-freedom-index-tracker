@@ -9,6 +9,7 @@ import (
 
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/config"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/research"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/safeurl"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
 )
 
@@ -98,5 +99,47 @@ func TestRecoveryAfterGitCommitBeforeDatabaseAcknowledgement(t *testing.T) {
 	}
 	if got := testGit(t, repo, "rev-parse", "HEAD"); got != sha {
 		t.Fatal("repeated commit", got, sha)
+	}
+}
+
+func TestClassificationWithoutFactsKeepsItsOutcome(t *testing.T) {
+	for _, outcome := range []string{"routed_to_cfi", "not_relevant", "insufficient_evidence"} {
+		t.Run(outcome, func(t *testing.T) {
+			repo, _ := commitFixture(t)
+			os.MkdirAll(filepath.Join(repo, "src/data"), 0755)
+			os.WriteFile(filepath.Join(repo, "src/data/countries.json"), []byte(`[]`), 0644)
+			s, err := store.Open(filepath.Join(t.TempDir(), "db.sqlite"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer s.DB.Close()
+			ctx := context.Background()
+			url := "https://news.example/statistics"
+			id, err := s.Accept(ctx, store.Intake{Origin: "web", URL: url, CanonicalURL: url})
+			if err != nil {
+				t.Fatal(err)
+			}
+			v, _ := s.Get(ctx, id)
+			if err = s.SetCaseOutput(ctx, v.CaseID, map[string]string{"validation": `{"passed":false,"reason":"no source could be opened again to check the facts"}`}); err != nil {
+				t.Fatal(err)
+			}
+			j, err := s.Claim(ctx, "jobs", time.Minute)
+			if err != nil {
+				t.Fatal(err)
+			}
+			explanation := "National statistics belong in the CFI history, rather than an event report."
+			saved := researchCheckpoint{Result: research.Result{Outcome: outcome, Explanation: explanation, Sources: []research.Source{{URL: url, Title: "National statistics", Publisher: "News"}}}, Initial: safeurl.Evidence{URL: url, FinalURL: url, Content: "Already captured source"}, Model: "original/model", Dir: "missing-old-checkout"}
+			if _, err = s.DB.Exec("INSERT INTO research_checkpoints VALUES(?,?,?)", v.CaseID, store.JSON(saved), time.Now().Unix()); err != nil {
+				t.Fatal(err)
+			}
+			w := Worker{Store: s, Config: config.Config{RepoPath: repo, Workspaces: t.TempDir()}}
+			if err = w.process(ctx, j); err != nil {
+				t.Fatal(err)
+			}
+			v, _ = s.Get(ctx, id)
+			if v.Status != outcome || v.Explanation != explanation || len(v.Validation) > 0 {
+				t.Fatal("classification was incorrectly sent through quotation verification", v.Status, v.Explanation, string(v.Validation))
+			}
+		})
 	}
 }

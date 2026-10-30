@@ -40,10 +40,12 @@ type Source struct {
 	Language  string `json:"language,omitempty"` // two letters, if not English
 }
 type Fact struct {
-	Text      string `json:"text"`
-	Source    int    `json:"source"`
-	Quote     string `json:"quote"`
-	Paragraph int    `json:"paragraph,omitempty"` // facts with the same number make one paragraph
+	Text         string `json:"text"`
+	Source       int    `json:"source"`
+	Quote        string `json:"quote"`
+	Paragraph    int    `json:"paragraph,omitempty"`     // facts with the same number make one paragraph
+	ExistingText string `json:"existing_text,omitempty"` // existing sentence corroborated by this source
+	NewDetail    bool   `json:"new_detail,omitempty"`    // explicitly novel information in an existing report
 }
 
 // Media is a photo or video of the event that may not be copied to the site (a newspaper's, an
@@ -211,6 +213,9 @@ func (r Result) Validate(countries map[string]bool) error {
 	updated := map[string]bool{r.Slug: r.Outcome != "additional_source", r.ExistingReport: r.Outcome == "additional_source"}
 	cited := map[int]bool{}
 	for _, f := range r.Facts {
+		if err := validateMergeFact(f); err != nil {
+			return err
+		}
 		cited[f.Source] = true
 	}
 	for _, u := range r.Updates {
@@ -325,7 +330,7 @@ type SourceCheck struct {
 	Confirmed int    `json:"confirmed"`
 }
 
-// Confirm opens every source again and looks for each fact's quotation in it. Only a really bad
+// Confirm reuses captured sources and opens uncaptured ones to check each quotation. Only a really bad
 // answer is refused: one with no confirmed fact, or one where most quotations checked are missing
 // (a sign of invented quotes). Otherwise the answer is kept, made sound and its gaps said:
 //   - a source the service cannot open again (a site that blocks it with 403, a paywall) stays, with
@@ -334,13 +339,25 @@ type SourceCheck struct {
 //   - a source no longer cited after that is left out, and the facts renumbered.
 //
 // It returns the answer to publish, the evidence that was opened and how it went.
-func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch func(context.Context, string) (safeurl.Evidence, error)) (Result, []safeurl.Evidence, Validation, error) {
+func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch func(context.Context, string) (safeurl.Evidence, error), cached ...safeurl.Evidence) (Result, []safeurl.Evidence, Validation, error) {
 	v := Validation{Facts: len(r.Facts), Sources: make([]SourceCheck, len(r.Sources))}
 	fail := func(err error) (Result, []safeurl.Evidence, Validation, error) {
 		v.Reason = err.Error()
 		return r, nil, v, err
 	}
 	evidence := []safeurl.Evidence{}
+	captures := map[string]safeurl.Evidence{}
+	// The service's initial capture takes precedence over later tool reads.
+	for _, e := range append(cached, initial) {
+		if e.Content == "" || safeurl.AccessChallenge(e) != "" {
+			continue
+		}
+		for _, raw := range []string{e.URL, e.FinalURL, e.ArchiveURL} {
+			if u, err := safeurl.Normalize(raw); err == nil {
+				captures[u] = e
+			}
+		}
+	}
 	opened := make([]*safeurl.Evidence, len(r.Sources))
 	for i, s := range r.Sources {
 		v.Sources[i] = SourceCheck{Title: s.Title, Publisher: s.Publisher, URL: s.URL}
@@ -348,8 +365,8 @@ func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch fun
 		if err != nil {
 			return fail(err)
 		}
-		e := initial
-		if (u != initial.URL && u != initial.FinalURL) || initial.Content == "" {
+		e, captured := captures[u]
+		if !captured {
 			if e, err = fetch(ctx, u); err != nil {
 				if ctx.Err() != nil {
 					return r, nil, v, ctx.Err()
@@ -808,6 +825,16 @@ func (r Runner) Run(ctx context.Context, cid, dir, run string, e safeurl.Evidenc
 		request["archive_timestamp"] = e.ArchivedAt
 	}
 	files := map[string][]byte{"reports-index.jsonl": []byte(index.String())}
+	// The model needs the actual prose to merge another outlet's account without
+	// paraphrasing the same facts into a second copy of the report.
+	reportFiles, err := existingReportFiles(dir)
+	if err != nil {
+		return Result{}, err
+	}
+	for name, content := range reportFiles {
+		files[name] = content
+	}
+	request["existing_reports_dir"] = "existing-reports/"
 	// the article's photos the capture kept, with caption and credit: candidates for media links
 	if e.Metadata != nil && len(e.Metadata.Images) > 0 {
 		var images []map[string]string
@@ -1084,7 +1111,10 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 		d, err = UpdateReport(dir, r.Primary(), r.Sources, r.Media)
 	} else {
 		d, err = prepareReport(dir, r)
-		d.Slug, d.Title = r.Slug, r.Title
+		d.Slug = r.Slug
+		if d.Title == "" {
+			d.Title = r.Title
+		}
 	}
 	if err != nil {
 		return d, err
@@ -1127,154 +1157,7 @@ func prepareReport(dir string, r Result) (Draft, error) {
 		return d, err
 	}
 	if r.Outcome == "existing_case" {
-		if existing == "" || r.ExistingReport != r.Slug {
-			return d, errors.New("existing report not found")
-		}
-		b, err := os.ReadFile(existing)
-		if err != nil {
-			return d, err
-		}
-		parts := strings.SplitN(string(b), "---", 3)
-		if len(parts) != 3 {
-			return d, errors.New("invalid existing report")
-		}
-		var header map[string]any
-		if err = yaml.Unmarshal([]byte(parts[1]), &header); err != nil {
-			return d, err
-		}
-		if header["country"] != r.Country {
-			return d, errors.New("existing report country differs")
-		}
-		var oldDate string
-		switch date := header["date"].(type) {
-		case time.Time:
-			oldDate = date.Format("2006-01-02")
-		case string:
-			oldDate = date
-		default:
-			return d, errors.New("invalid existing date")
-		}
-		if r.Date < oldDate {
-			return d, errors.New("earlier coverage requires editorial consolidation")
-		}
-		oldSources, ok := header["sources"].([]any)
-		if !ok || len(oldSources) == 0 {
-			return d, errors.New("invalid existing sources")
-		}
-		mapping := map[int]int{}
-		for i, source := range r.Sources {
-			normalized, err := safeurl.Normalize(source.URL)
-			if err != nil {
-				return d, err
-			}
-			for j, raw := range oldSources {
-				if old, ok := raw.(map[string]any); ok {
-					if oldURL, ok := old["url"].(string); ok {
-						known, _ := safeurl.Normalize(oldURL)
-						if known == normalized {
-							mapping[i+1] = j + 1
-							if source.Archived != "" {
-								old["archived"] = source.Archived
-							}
-							break
-						}
-					}
-				}
-			}
-			if mapping[i+1] == 0 {
-				entry := map[string]any{"title": source.Title, "url": source.URL, "publisher": source.Publisher}
-				if source.Date != "" {
-					entry["date"] = source.Date
-				}
-				if source.Language != "" {
-					entry["language"] = source.Language
-				}
-				if source.Archived != "" {
-					entry["archived"] = source.Archived
-				}
-				oldSources = append(oldSources, entry)
-				mapping[i+1] = len(oldSources)
-			}
-		}
-		oldType, _ := header["type"].(string)
-		if oldType != r.Type && oldType != "" {
-			also, _ := header["also"].([]any)
-			seen := map[string]bool{}
-			combined := []any{}
-			for _, raw := range append(also, oldType) {
-				v, ok := raw.(string)
-				if ok && v != r.Type && !seen[v] {
-					combined = append(combined, v)
-					seen[v] = true
-				}
-			}
-			header["also"] = combined
-		}
-		header["date"] = r.Date
-		header["title"] = r.Title
-		header["summary"] = r.Summary
-		header["type"] = r.Type
-		header["sources"] = oldSources
-		// Keep separate assets from the same article; deduplicate by asset, not page.
-		if len(r.Media) > 0 {
-			media, _ := header["media"].([]any)
-			for _, item := range r.Media {
-				seen := false
-				for _, old := range media {
-					if entry, ok := old.(map[string]any); ok && entry["kind"] == item.Kind && entry["media_url"] == item.MediaURL {
-						seen = true
-						break
-					}
-				}
-				if !seen {
-					media = append(media, map[string]any{"kind": item.Kind, "url": item.URL, "media_url": item.MediaURL, "publisher": item.Publisher, "caption": strings.Join(strings.Fields(item.Caption), " ")})
-				}
-			}
-			header["media"] = media
-		}
-		if creator, ok := header["created_by_model"].(string); !ok || strings.TrimSpace(creator) == "" {
-			header["created_by_model"] = "unknown"
-		}
-		delete(header, "updated_by_models") // Retired metadata; preserve the original creator.
-		questions := []string{}
-		if old, ok := header["open_questions"].([]any); ok {
-			for _, q := range old {
-				if text, ok := q.(string); ok {
-					questions = append(questions, text)
-				}
-			}
-		}
-		for _, q := range r.Uncertainties {
-			found := false
-			for _, old := range questions {
-				if old == q {
-					found = true
-					break
-				}
-			}
-			if !found {
-				questions = append(questions, q)
-			}
-		}
-		if len(questions) > 0 {
-			header["open_questions"] = questions
-		}
-		if header["status"] != "disputed" {
-			header["status"] = "reported"
-		}
-		var body strings.Builder
-		body.WriteString("---\n")
-		body.WriteString(store.JSON(header))
-		body.WriteString("\n---\n\n")
-		body.WriteString(strings.TrimSpace(parts[2]))
-		body.WriteString("\n\n## Update\n\n")
-		body.WriteString(Body(r.Facts, func(n int) int { return mapping[n] }))
-		d.Content = body.String()
-		previous, err := filepath.Rel(dir, existing)
-		if err != nil {
-			return d, err
-		}
-		d.PreviousPath = filepath.ToSlash(previous)
+		return updateCaseReport(dir, r)
 	} else if existing != "" {
 		return d, errors.New("slug already exists; case matching required")
 	}

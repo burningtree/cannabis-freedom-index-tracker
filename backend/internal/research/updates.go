@@ -18,7 +18,7 @@ import (
 // (another account of an event the tracker already records, or a related report the article also
 // covers) and can add open questions and correct its title or summary. Each fact names a source of
 // this run and quotes it; its text is the report's sentence it supports, which then cites the
-// added source too, or else a new sentence added at the end. Nothing else in the report changes.
+// added source too. Explicit new_detail facts add novel sentences. Nothing else changes.
 type ReportUpdate struct {
 	Report        string   `json:"report"`
 	Facts         []Fact   `json:"facts"`
@@ -38,6 +38,9 @@ func (u ReportUpdate) validate(sources int, cited map[int]bool) error {
 		return errors.New("invalid report update")
 	}
 	for _, f := range u.Facts {
+		if err := validateMergeFact(f); err != nil {
+			return err
+		}
 		if f.Source < 1 || f.Source > sources || len(f.Text) < 10 || len(f.Text) > 2000 || len(f.Quote) < 20 || len(f.Quote) > 4000 || plain.MatchString(f.Text) {
 			return errors.New("invalid report update fact")
 		}
@@ -98,12 +101,13 @@ func cite(body, sentence string, n int) (string, bool) {
 	if sentence == "" {
 		return body, false
 	}
-	for from := 0; ; {
-		i := strings.Index(body[from:], sentence)
-		if i < 0 {
-			return body, false
-		}
-		at := from + i + len(sentence)
+	words := strings.Fields(sentence)
+	for i := range words {
+		words[i] = regexp.QuoteMeta(words[i])
+	}
+	pattern := regexp.MustCompile(strings.Join(words, `\s+`))
+	for _, match := range pattern.FindAllStringIndex(body, -1) {
+		at := match[1]
 		if m := citation.FindStringSubmatchIndex(body[at:]); m != nil {
 			nums := map[int]bool{n: true}
 			for _, part := range strings.Split(body[at+m[2]:at+m[3]], ",") {
@@ -122,13 +126,17 @@ func cite(body, sentence string, n int) (string, bool) {
 			}
 			return body[:at+m[2]] + strings.Join(parts, ",") + body[at+m[3]:], true
 		}
-		from = at
 	}
+	return body, false
 }
 
 // UpdateReport applies an update to an existing report in the checkout, keeping the rest of the
 // file as it is.
 func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (Draft, error) {
+	return mergeReport(dir, u, sources, media, nil)
+}
+
+func mergeReport(dir string, u ReportUpdate, sources []Source, media []Media, current *Result) (Draft, error) {
 	path, err := findReport(dir, u.Report)
 	if err != nil {
 		return Draft{}, err
@@ -162,11 +170,28 @@ func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (
 		return d, errors.New("invalid existing sources")
 	}
 	front := strings.Split(strings.Trim(parts[1], "\n"), "\n")
+	// Repair legacy JSON front matter, then preserve normal YAML line-for-line.
+	if strings.HasPrefix(strings.TrimSpace(parts[1]), "{") {
+		clearYAMLStyle(header)
+		encoded, err := yaml.Marshal(header)
+		if err != nil {
+			return d, err
+		}
+		front = strings.Split(strings.TrimRight(string(encoded), "\n"), "\n")
+	}
 	// this run's sources, numbered as in the report: an already cited one keeps its number
 	number := map[int]int{}
 	added := map[string]bool{}
 	var newSources, newMedia []*yaml.Node
+	archivesChanged := false
+	pendingSources := map[string]int{}
 	for _, f := range u.Facts {
+		if err := validateMergeFact(f); err != nil {
+			return d, err
+		}
+		if f.Source < 1 || f.Source > len(sources) {
+			return d, errors.New("invalid merge source")
+		}
 		if number[f.Source] != 0 {
 			continue
 		}
@@ -175,10 +200,19 @@ func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (
 		if err != nil {
 			return d, err
 		}
+		if n := pendingSources[normalized]; n != 0 {
+			number[f.Source] = n
+			continue
+		}
 		for j, old := range list.Content {
 			if url := mapping(old, "url"); url != nil {
 				if known, _ := safeurl.Normalize(url.Value); known == normalized {
 					number[f.Source] = j + 1
+					if s.Archived != "" && (mapping(old, "archived") == nil || mapping(old, "archived").Value != s.Archived) {
+						setMapping(old, "archived", scalar(s.Archived))
+						archivesChanged = true
+						// Re-encode just this list when adding archive provenance.
+					}
 					break
 				}
 			}
@@ -188,59 +222,70 @@ func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (
 			number[f.Source] = len(list.Content) + len(newSources)
 			added[normalized] = true
 		}
+		pendingSources[normalized] = number[f.Source]
 	}
-	changed := len(newSources) > 0
+	if archivesChanged {
+		front, err = setNode(front, "sources", list)
+		if err != nil {
+			return d, err
+		}
+	}
+	changed := len(newSources) > 0 || archivesChanged
 	body := strings.TrimSpace(parts[2])
-	var extra []string
+	extra := ""
 	for _, f := range u.Facts {
 		n := number[f.Source]
-		next, ok := cite(body, f.Text, n)
+		target := f.Text
+		if f.ExistingText != "" {
+			target = f.ExistingText
+		}
+		next, ok := cite(body, target, n)
 		if ok {
 			changed = changed || next != body
 			body = next
+		} else if next, ok := cite(extra, target, n); ok {
+			changed = changed || extra != next
+			extra = next
+		} else if f.ExistingText != "" || !f.NewDetail {
+			return d, errors.New("merge fact must match an existing cited sentence or explicitly be a new_detail; do not append a paraphrase of existing prose")
 		} else if !strings.Contains(body, strings.TrimSpace(f.Text)) {
-			extra = append(extra, strings.TrimSpace(f.Text)+" [@"+strconv.Itoa(n)+"]")
+			if extra != "" {
+				extra += " "
+			}
+			extra += strings.TrimSpace(f.Text) + " [@" + strconv.Itoa(n) + "]"
 			changed = true
 		}
 	}
-	if len(extra) > 0 {
-		body += "\n\n" + strings.Join(extra, " ")
+	if extra != "" {
+		body += "\n\n" + extra
 	}
 	var oldMedia []*yaml.Node
 	if items := mapping(header, "media"); items != nil {
 		oldMedia = items.Content
 	}
 	for _, m := range media {
-		if normalized, _ := safeurl.Normalize(m.URL); !added[normalized] {
+		if normalized, _ := safeurl.Normalize(m.URL); current == nil && !added[normalized] {
 			continue // only the photos of the sources this update adds
 		}
 		seen := false
-		for _, old := range oldMedia {
+		for _, old := range append(oldMedia, newMedia...) {
 			if v := mapping(old, "media_url"); v != nil && v.Value == m.MediaURL {
 				seen = true
 			}
 		}
 		if !seen {
 			newMedia = append(newMedia, entry([][2]string{{"kind", m.Kind}, {"url", m.URL}, {"media_url", m.MediaURL}, {"publisher", m.Publisher}, {"caption", strings.Join(strings.Fields(m.Caption), " ")}}))
-		}
-	}
-	var newQuestions []*yaml.Node
-	if changed {
-		var old []*yaml.Node
-		if questions := mapping(header, "open_questions"); questions != nil {
-			old = questions.Content
-		}
-		for _, q := range u.Uncertainties {
-			seen := false
-			for _, o := range old {
-				seen = seen || o.Value == q
-			}
-			if !seen {
-				newQuestions = append(newQuestions, scalar(q))
-			}
+			changed = true
 		}
 	}
 	sets := [][2]string{}
+	if current != nil {
+		front, err = mergeCaseFields(front, header, *current)
+		if err != nil {
+			return d, err
+		}
+		changed = changed || strings.Join(front, "\n") != strings.Trim(parts[1], "\n")
+	}
 	for _, kv := range [][2]string{{"title", u.Title}, {"summary", u.Summary}} {
 		if old := mapping(header, kv[0]); kv[1] != "" && (old == nil || old.Value != kv[1]) {
 			sets = append(sets, kv)
@@ -254,6 +299,23 @@ func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (
 		// an automated correction is no longer a verified text
 		if status := mapping(header, "status"); status == nil || status.Value != "disputed" {
 			sets = append(sets, [2]string{"status", "reported"})
+		}
+	}
+	var newQuestions []*yaml.Node
+	{
+		var old []*yaml.Node
+		if questions := mapping(header, "open_questions"); questions != nil {
+			old = questions.Content
+		}
+		for _, q := range u.Uncertainties {
+			seen := false
+			for _, o := range append(old, newQuestions...) {
+				seen = seen || o.Value == q
+			}
+			if !seen {
+				newQuestions = append(newQuestions, scalar(q))
+				changed = true
+			}
 		}
 	}
 	if !changed {
@@ -275,6 +337,9 @@ func UpdateReport(dir string, u ReportUpdate, sources []Source, media []Media) (
 	var check yaml.Node
 	if err = yaml.Unmarshal([]byte(strings.Join(front, "\n")), &check); err != nil {
 		return d, fmt.Errorf("updated front matter is invalid: %w", err)
+	}
+	if title := mapping(check.Content[0], "title"); title != nil {
+		d.Title = title.Value
 	}
 	d.Content = "---\n" + strings.Join(front, "\n") + "\n---\n\n" + body + "\n"
 	return d, nil

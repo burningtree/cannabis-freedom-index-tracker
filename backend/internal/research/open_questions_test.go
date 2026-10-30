@@ -41,6 +41,9 @@ func TestExistingCaseRetainsAndAddsOpenQuestions(t *testing.T) {
 	dir := t.TempDir()
 	r := valid()
 	r.Outcome = "existing_case"
+	for i := range r.Facts {
+		r.Facts[i].NewDetail = true
+	}
 	r.ExistingReport = r.Slug
 	path := filepath.Join(dir, "reports/2026/01", r.Slug+".md")
 	os.MkdirAll(filepath.Dir(path), 0755)

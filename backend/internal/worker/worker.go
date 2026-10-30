@@ -233,6 +233,9 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 			return fmt.Errorf("invalid research checkpoint: %w", err)
 		}
 		result, initial, dir = checkpoint.Result, checkpoint.Initial, checkpoint.Dir
+		if len(checkpoint.Evidence) == 0 {
+			checkpoint.Evidence = research.ReadToolEvidence(dir)
+		}
 		result.CreatedByModel = checkpoint.Model
 		initial.ArtifactDir = checkpoint.ArtifactDir
 		// Build in a fresh trusted snapshot: the previous checkout may have been
@@ -241,7 +244,7 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		if err != nil {
 			return err
 		}
-		if err = research.SaveEvidence(dir, []safeurl.Evidence{initial}); err != nil {
+		if err = research.SaveEvidence(dir, append([]safeurl.Evidence{initial}, checkpoint.Evidence...)); err != nil {
 			return err
 		}
 	} else {
@@ -325,7 +328,7 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		}
 		result.CreatedByModel = w.Config.ResearchModel
 
-		checkpoint = researchCheckpoint{Result: result, Initial: initial, Dir: dir, Model: result.CreatedByModel, ArtifactDir: initial.ArtifactDir}
+		checkpoint = researchCheckpoint{Result: result, Initial: initial, Evidence: research.ReadToolEvidence(dir), Dir: dir, Model: result.CreatedByModel, ArtifactDir: initial.ArtifactDir}
 		if _, err = w.Store.DB.ExecContext(ctx, "INSERT INTO research_checkpoints(case_id,payload,created_at) VALUES(?,?,?) ON CONFLICT(case_id) DO UPDATE SET payload=excluded.payload,created_at=excluded.created_at", j.Ref, store.JSON(checkpoint), time.Now().Unix()); err != nil {
 			return err
 		}
@@ -352,13 +355,25 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if err = result.Validate(ids); err != nil {
 		return w.Store.Transition(ctx, j.Ref, "failed", "The AI result did not pass validation ("+err.Error()+") and cannot be published automatically.", "", "")
 	}
+	// Scope decisions do not draft facts. They must not fail quotation checks for
+	// having no quotations, or download corroborating pages unnecessarily.
+	if !result.Drafts() {
+		if err = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"validation": ""}); err != nil {
+			return err
+		}
+		outcome := result.Outcome
+		if outcome == "needs_review" {
+			outcome = "insufficient_evidence"
+		}
+		return w.Store.Transition(ctx, j.Ref, outcome, result.Explanation, "", "")
+	}
 
 	// a blocked extra source or a missing quotation is noted and worked around; only a really bad
 	// answer (nothing confirmed, or most quotations missing) stops here
-	if err = w.Store.Transition(ctx, j.Ref, "verifying", "The AI has answered; its sources are being opened again to check every quotation.", "", ""); err != nil {
+	if err = w.Store.Transition(ctx, j.Ref, "verifying", "Checking every quotation against saved source captures; opening sources not already captured.", "", ""); err != nil {
 		return err
 	}
-	confirmed, evidence, check, err := result.Confirm(ctx, initial, func(ctx context.Context, u string) (safeurl.Evidence, error) { return w.loadSource(ctx, j.Ref, u) })
+	confirmed, evidence, check, err := result.Confirm(ctx, initial, func(ctx context.Context, u string) (safeurl.Evidence, error) { return w.loadSource(ctx, j.Ref, u) }, checkpoint.Evidence...)
 	if ctx.Err() != nil {
 		return ctx.Err()
 	}
@@ -405,13 +420,6 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		if sourceCase != j.Ref && !known[e.URL] && !known[e.FinalURL] {
 			return w.rejectSourceOverlap(ctx, j.Ref, sourceCase, e.URL, check)
 		}
-	}
-	if !result.Drafts() {
-		outcome := result.Outcome
-		if outcome == "needs_review" {
-			outcome = "insufficient_evidence"
-		}
-		return w.Store.Transition(ctx, j.Ref, outcome, result.Explanation, "", "")
 	}
 	if err = w.Store.Transition(ctx, j.Ref, "drafted", "A cited draft is being checked against the repository rules.", "", ""); err != nil {
 		return err
@@ -498,6 +506,7 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 type researchCheckpoint struct {
 	Result                  research.Result
 	Initial                 safeurl.Evidence
+	Evidence                []safeurl.Evidence `json:",omitempty"`
 	Dir, Model, ArtifactDir string
 }
 

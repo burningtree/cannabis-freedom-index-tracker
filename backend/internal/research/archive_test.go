@@ -27,6 +27,9 @@ func TestIndependentlyOpenedArchiveIsSavedInReportSources(t *testing.T) {
 	os.MkdirAll(filepath.Dir(path), 0755)
 	os.WriteFile(path, []byte("---\ndate: 2026-01-01\ncountry: th\ntype: raid\nstatus: reported\nsources:\n  - title: News\n    url: "+r.Sources[0].URL+"\n    publisher: Publisher\n---\nOriginal report. [@1]\n"), 0644)
 	got.Outcome = "existing_case"
+	for i := range got.Facts {
+		got.Facts[i].NewDetail = true
+	}
 	got.ExistingReport = got.Slug
 	draft, err := PrepareDraft(dir, got)
 	if err != nil || !strings.Contains(draft.Content, archive) {

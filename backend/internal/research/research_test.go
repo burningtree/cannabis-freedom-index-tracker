@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func valid() Result {
@@ -88,6 +89,9 @@ Police arrested a person. [@1]
 	}
 	r := valid()
 	r.Outcome = "existing_case"
+	for i := range r.Facts {
+		r.Facts[i].NewDetail = true
+	}
 	r.ExistingReport = r.Slug
 	r.Date = "2026-02-03"
 	r.Type = "sentence"
@@ -106,7 +110,7 @@ Police arrested a person. [@1]
 	if err = yaml.Unmarshal([]byte(parts[1]), &header); err != nil {
 		t.Fatal(err)
 	}
-	if header["status"] != "reported" || header["date"] != "2026-02-03" || header["type"] != "sentence" {
+	if header["status"] != "reported" || header["date"].(time.Time).Format("2006-01-02") != "2026-02-03" || header["type"] != "sentence" {
 		t.Fatal(header)
 	}
 	r.Country = "us"
