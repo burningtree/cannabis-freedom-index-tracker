@@ -47,6 +47,11 @@ sources:
     publisher: Lokal Tamil
     date: 2026-10-30
     language: ta
+  - title: கஞ்சா போதை.. பெற்ற தாய்க்கே எமனான மகன்.. 20 வயதில் இப்படியொரு வெறிச்செயலா?.. தருமபுரியில் ஷாக்
+    url: https://tamil.oneindia.com/news/dharmapuri/20-year-old-son-arrested-for-brutally-stabbing-mother-to-death-under-the-influence-of-ganja-841771.html
+    publisher: Oneindia Tamil
+    date: 2026-10-30
+    language: ta
 open_questions:
   - 'The accounts differ on the date and time: Thanthi TV placed the killing on the morning of 30 October, The Hindu and Dinakaran late on 29 October, and Dinamalar on the night of 28 October; this report uses the night of 29 October.'
   - Chinnapappa's age is given as 42 by Thanthi TV and 45 by The Hindu, Dinakaran and Dinamalar; Devaraj's age is given as 19 by Thanthi TV, The Hindu and Dinakaran and 20 by Dinamalar.
@@ -54,13 +59,15 @@ open_questions:
   - The weapon is given as a knife by Thanthi TV, an iron rod by The Hindu, and an iron rod and a knife by Dinakaran.
   - No charge, court appearance or sentence was reported, and no police statement was opened.
   - Lokal Tamil described the earlier case as threatening police with a knife and his release on bail as 'a few days' before the killing, where the report, citing The Hindu, describes a sword and a bail on 28 October.
+  - Oneindia Tamil placed the killing on 30 October and the bail on 29 October, while the report uses the night of 29 October and dates the bail to 28 October.
+  - Oneindia Tamil described the earlier arrest as taking place at the Indur bus stand during a ganja-fuelled disturbance, rather than near the police station with a sword as The Hindu reported.
 ---
 
 Police in Indur, in Tamil Nadu's Dharmapuri district, arrested 19-year-old
 Devaraj after he allegedly killed his mother at their home in Pazhaya Indur.
-[@1,5] Thanthi TV reported that he stabbed Chinnapappa, 42, with a knife while
+[@1,5,6] Thanthi TV reported that he stabbed Chinnapappa, 42, with a knife while
 under the influence of cannabis, known locally as ganja, and that she died at
-the scene. [@1] The Hindu said he attacked her with an iron rod around 11:30
+the scene. [@1,6] The Hindu said he attacked her with an iron rod around 11:30
 p.m. on Thursday, 29 October, after she refused him money. [@2] The Hindu gave
 her age as 45. [@2]
 
