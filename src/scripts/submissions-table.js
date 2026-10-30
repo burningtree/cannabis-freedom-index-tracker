@@ -108,7 +108,7 @@ function initialize(root) {
       renderProcessingStatus($("processing"), data.processing, { compact: true });
       plan = data.processing?.plan || null;
       const working = (data.working || []).filter(v => ID_PATTERN.test(v.id));
-      $("working").replaceChildren(...working.map(row));
+      $("working").replaceChildren(...working.map(v => row(v)));
       if (!working.length) $("working").append(el("li", "No submissions are running right now.", "sx-empty"));
       $("working-count").textContent = Number.isFinite(data.summary?.running) ? `· ${data.summary.running.toLocaleString()}` : "";
       rows = data.submissions.filter((v) => ID_PATTERN.test(v.id));
