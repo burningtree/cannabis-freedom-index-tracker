@@ -119,3 +119,16 @@ Police arrested a person. [@1]
 		t.Fatal("earlier step replaced latest date")
 	}
 }
+
+func TestCleanTagsMendsInsteadOfRefusing(t *testing.T) {
+	got := CleanTags([]string{"Hong Kong", "香港", "São Paulo", "drug_trafficking", "hong-kong", "--x--", "Customs/Excise"})
+	want := []string{"hong-kong", "sao-paulo", "drug-trafficking", "x", "customs-excise"}
+	if strings.Join(got, ",") != strings.Join(want, ",") {
+		t.Fatal(got)
+	}
+	r := valid()
+	r.Tags = CleanTags([]string{"Hong Kong", "大麻"})
+	if r.Validate(map[string]bool{"th": true}) != nil {
+		t.Fatal("cleaned tags still refused")
+	}
+}

@@ -97,6 +97,10 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
   hectares this event involved must also be in figures. A number about something else (a legal
   limit, last year's total) stays out of figures.
 - tags: up to five short lower-case words a reader would search (a province, a crop, a programme).
+  Any new tag is welcome; reuse one other reports already have (reports-index.jsonl) when it fits.
+  Write them in English or romanised, with hyphens between words: hong-kong, kerala-ganja, operation-
+  green-hunt, never 香港 or "Hong Kong". The service mends spacing and capitals and drops tags it
+  cannot write in Latin letters.
 - media: the photos and videos of this event on the pages you cite, as links (docs/WRITING.md §7:
   a newspaper's or an agency's picture is never copied, only linked). request.json lists the
   submitted page's photos (source_images) with direct image addresses (src), captions and credits.
