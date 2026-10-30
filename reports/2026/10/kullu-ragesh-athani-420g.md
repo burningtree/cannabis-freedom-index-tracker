@@ -31,6 +31,11 @@ sources:
     publisher: Marunadan Malayalee
     date: 2026-10-30
     language: ml
+  - title: മയക്കുമരുന്ന് കേസിലെ പ്രധാന പ്രതി രണ്ട് വർഷത്തിന് ശേഷം പിടിയിൽ
+    url: https://pathanamthittamedia.com/key-suspect-in-drug-case-arrested-after-two-years/
+    publisher: Pathanamthitta Media
+    date: 2026-10-30
+    language: ml
 open_questions:
   - Neither account gives the calendar date of the Kullu arrest; 30 October 2026 is the publication date of both.
   - Asianet News alone reported two LSD stamps, the date 27 June 2024, the unnamed resort, the tourist disguise, the junior officers and seizure of the car. The Hindu described the MDMA and ganja as suspected and did not mention LSD.
@@ -44,6 +49,10 @@ open_questions:
   - The article does not say what happened to Azad and Harikrishnan after their 2024 arrest.
   - The page's lead picture is a close-up portrait of the accused, not a photograph of the arrest or the seizure, so no media entry is added.
   - 'Left out, as its quotation was not found in Marunadan Malayalee: With Sudarshan were deputy superintendent Baiju Paulose, circle inspector B.K. Arun, sub-inspectors Arun Raj and Rony Augustine, assistant sub-inspector M.V. Binu and civil police officer Sajaz.'
+  - The page gives no separate date for the arrest; 30 October 2026 is its publication date and the date used for the report.
+  - The Malayalam text is almost identical to the police account carried by Asianet News and Marunadan Malayalee, so it does not independently confirm the details.
+  - The page's only image is an uncaptioned close-up of handcuffs that does not show the arrest, so no media entry is given.
+  - The page does not name the resort in Kullu where the accused was staying.
 ---
 
 Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in
@@ -69,3 +78,5 @@ officer Sajaz. [@1] Ragesh was produced before a court and remanded in judicial
 custody. [@2]
 
 Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in a drug case, a 32-year-old from Painkulam in Thalappilly, Thrissur, from Kullu in Himachal Pradesh. [@3] Police said he had been staying at a resort 20 kilometres above the base camp in Kullu. [@3] On 27 June 2024, police seized 316 grams of MDMA, two LSD stamps and 420 grams of cannabis from a car at Athani that was carrying the drugs from Bengaluru. [@3] Azad, 38, of Chalakkal, Aluva, and Harikrishnan, 28, of Tirurangadi, Malappuram, had been arrested earlier. [@3] The team stayed for several days disguised as tourists before taking him into custody. [@3] Ragesh was produced before a court and remanded in judicial custody. [@3]
+
+Nedumbassery police arrested Ragesh, 32, of Paingulam, Thalappilly, Thrissur, in Kullu, Himachal Pradesh, after two years on the run. [@4] On 27 June 2024, police seized 316 g of MDMA, two LSD stamps and 420 g of cannabis from a car at Athani as they were being brought from Bengaluru. [@4] Azad, 38, of Chalayakkal, Aluva, and Harikrishnan, 28, of Tirurangadi, Malappuram, were arrested earlier in the case. [@4] Police said he had been hiding as a tourist guide at a resort 20 km above the base camp in Kullu, and that officers posing as tourists stayed for days before detaining him. [@4] He was produced before a court and remanded. [@4]
