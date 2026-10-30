@@ -96,9 +96,18 @@ copied** to this site.
   - photos released for reuse by the agency itself, with that release linked.
   Save it in `src/assets/reports/<slug>.jpg` (1200–1600 px wide), fill in `alt` (what is in the
   picture), `credit` (the photographer or agency, "via" the outlet), `licence` and `url` (where it
-  and its licence can be checked).
+  and its licence can be checked). Record `media_url` as the original direct image address too.
 - **`media`: links**, for every other good photo or video of the event: the page it is on, its
-  publisher, and a caption saying what it shows. It is listed under the text as "Photos and video".
+  publisher, and a caption saying what it shows. For **every newly collected photo or video**, also record
+  `media_url`: the absolute HTTP(S) address of that individual photo or video. For photos,
+  extract it from the opened page's image markup, `srcset`, metadata, or captured
+  `source_images[].src`. For videos, use the published file/stream URL or dedicated video-host page. Keep `url` as the
+  article/source page; keep it separate from the media address. Use one entry per photo or video, even
+  when several are on the same page, and preserve meaningful media query parameters. Never
+  guess an address or substitute a news article URL. If no address can be recovered, explain the
+  missing media in `open_questions` instead of inventing a media entry. Media URLs do not grant
+  permission to copy or embed the asset. Old entries without `media_url` remain valid.
+  Media is listed under the text as "Photos and video".
 - Never publish a newspaper's photo, a stock photo, or a picture of a different event or of a building
   sign. A photo must show *this* event.
 - **Archive everything.** Pages and pictures disappear, and they are the evidence. After writing a
@@ -172,6 +181,6 @@ Preserve the original creator when updating a report. Do not add update-model me
 - [ ] Figures only as stated, units converted, whose estimate said.
 - [ ] Coordinates with precision.
 - [ ] What the sources leave open listed in `open_questions` (§9).
-- [ ] A cover only with an open licence; other photos as `media` links.
+- [ ] A cover only with an open licence; other photos as `media` links; every newly collected photo or video has its direct `media_url` and source-page `url`.
 - [ ] Pictures archived (`node scripts/archive-media.mjs <slug>`); `archived` source copies where they exist.
 - [ ] `npm test` and `npm run build` pass.

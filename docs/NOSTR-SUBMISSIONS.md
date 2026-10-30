@@ -177,6 +177,11 @@ untrustworthy (`insufficient_evidence`), routed to CFI (`routed_to_cfi`), inacce
 vegetable type or a missing court outcome belong in `open_questions`, not a failed outcome.
 Every factual claim still needs a quotation independently confirmed in an opened source.
 Automated report status remains `reported`, never automatically `verified`.
+Each newly collected photo or video requires its own media entry with `url` (the cited source page),
+`media_url` (the direct absolute HTTP(S) photo/video address), publisher and caption/credit. OpenCode
+copies the address from captured `source_images[].src` or the opened page, never guesses it.
+The service validates and persists this field; it does not download or embed the photo.
+Legacy report media may omit it. Multiple photos on one source page remain separate entries.
 The service must write `created_by_model` from the actual run configuration, including the provider,
 model and reasoning effort whenever available: `provider/model#effort`, for example
 `alibaba-token-plan/qwen3.8-flash#xhigh`. The `xhigh` suffix is the effort setting, also called
@@ -188,7 +193,11 @@ Existing-case updates retain the original creator and do not record update-model
 Creator attribution appears on the report detail page and in the report JSON API. `created_by_model` is required on every report. Historical reports without a known creator use
 `unknown` and display "not recorded"; never infer their model from today's configuration.
 
-Exact normalized URLs share a case/job while each contributor keeps a receipt. Existing-case
+Repeated normalized URLs return the first existing submission ID, including across website,
+Nostr and discovery intake and after terminal outcomes. Tracking parameters and fragments removed
+by URL normalization do not create another receipt. Resubmitting a failed URL does not restart it;
+use the existing loopback restart control. Historical duplicate receipts remain readable, with
+all their notes/history intact; future submissions reuse the earliest one. Existing-case
 updates preserve the stable slug, earlier prose/citations and existing open questions, adding
 new questions without duplication. Unsupported event identity or ambiguous duplicate matches
 still need explicit handling rather than fabricated certainty.
@@ -251,7 +260,8 @@ The status page also subscribes so model messages appear without waiting for its
 
 The register's top counters cover the whole database, independent of filters/pagination:
 all submission receipts, actively leased processing cases, queued cases and budget-paused cases.
-Multiple receipts for one URL share one processing case. Counters update over the same WebSocket.
+New intake reuses an existing submission for the same normalized URL. Historical duplicate
+receipts still share one processing case. Counters update over the same WebSocket.
 A separate Working now table always shows active cases (one receipt per case, bounded to 50),
 independent of history filters or pages. Restarted older submissions appear there when claimed.
 
@@ -356,6 +366,40 @@ Back up keys encrypted off-host. On compromise, stop delivery, rotate/announce t
 through trusted channels and inspect pending signed events before resuming. Old relay events
 cannot be recalled globally. Metadata/cursors backfill a five-minute overlap with a seven-day
 maximum intake age; longer outages need an explicit recovery run.
+
+Google News discovery is enabled by default. It runs shortly after backend startup and then
+15 minutes after each completed scan, independently of RSS/GDELT collectors. Configure it with:
+
+```dotenv
+HARVEST_GOOGLE_NEWS_ENABLED=true
+HARVEST_GOOGLE_NEWS_INTERVAL=15m
+HARVEST_GOOGLE_NEWS_MAX_ARTICLES=25
+# Optional pipe-separated Google News queries; blank uses the default below.
+HARVEST_GOOGLE_NEWS_QUERIES=
+LOG_LEVEL=debug
+```
+
+The default search is `(cannabis OR marijuana OR hashish) (seizure OR arrest OR raid OR eradication OR sentenced) when:1d`
+in Google News's English/US RSS search edition. Custom queries can use other language terms and
+a lookback such as `when:7d`. This is candidate discovery, not exhaustive worldwide coverage or
+a relevance verdict: the normal source and AI checks decide which articles become reports.
+The interval accepts Go durations from `1m` to `24h`; each scan admits at most 1–100 new URLs
+(default 25), with at most ten queries. Restart the backend after configuration changes.
+
+Google wrapper URLs are resolved to publisher article URLs before intake, using Google's public
+article-page redirect RPC. That RPC is undocumented and may change. Unresolved candidates are
+logged and retried on the next scan; aggregator pages are never submitted as article evidence.
+All network calls use the existing public-destination-pinned fetch transport, bounded response
+sizes and timeouts. Resolution attempts are paced and each scan has a five-minute deadline.
+Successful discovery mappings persist in SQLite. Previously known canonical/source URLs and
+repeated Google results are skipped; queue admission retains durable idempotency and normal
+capacity limits. Machine receipts use the `rss` origin, with `google-news`, query and discovery
+URL in private provenance. Discovery does not post candidates to Nostr.
+
+Console JSON logs at `info` include enablement, search start/completion, queued publisher URLs,
+scan totals (`found`, `queued`, `known`, `unresolved`), duration and next-scan delay. Warnings show
+fetch/decoding failures and queue errors. `LOG_LEVEL=debug` additionally shows already-seen and
+already-covered candidates. No research-provider credentials or article bodies are logged.
 
 Optional RSS/Atom feeds and GDELT queries feed the same durable queue without posting every
 candidate to Nostr. Provider/article keys deduplicate discovery. GDELT advances bounded one-hour

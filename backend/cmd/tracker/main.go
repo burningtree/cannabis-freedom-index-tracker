@@ -19,6 +19,7 @@ import (
 	"os"
 	"os/signal"
 	"regexp"
+	"sync"
 	"syscall"
 	"time"
 )
@@ -48,7 +49,13 @@ func run() error {
 		_, err = fmt.Fprintf(f, "NOSTR_GATEWAY_SECRET=%s\nNOSTR_BOT_SECRET=%s\n", n.Generate().Hex(), n.Generate().Hex())
 		return err
 	}
-	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, nil)))
+	var logLevel slog.Level
+	if raw := os.Getenv("LOG_LEVEL"); raw != "" {
+		if err := logLevel.UnmarshalText([]byte(raw)); err != nil {
+			return fmt.Errorf("invalid LOG_LEVEL: %w", err)
+		}
+	}
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: logLevel})))
 	c, err := config.Load()
 	if err != nil {
 		return err
@@ -158,12 +165,34 @@ func run() error {
 		slog.Info("Nostr enabled", "npub", w.Nostr.Npub())
 	}
 	collectorDone := make(chan struct{})
-	if len(c.RSSFeeds)+len(c.GDELTQueries) > 0 {
-		collector := harvest.Collector{Store: s, Feeds: c.RSSFeeds, Queries: c.GDELTQueries}
-		go func() { defer close(collectorDone); collector.Run(ctx) }()
+	if len(c.RSSFeeds)+len(c.GDELTQueries) > 0 || c.GoogleNewsEnabled {
+		go func() {
+			defer close(collectorDone)
+			var collectors sync.WaitGroup
+			if len(c.RSSFeeds)+len(c.GDELTQueries) > 0 {
+				collectors.Add(1)
+				go func() {
+					defer collectors.Done()
+					(harvest.Collector{Store: s, Feeds: c.RSSFeeds, Queries: c.GDELTQueries}).Run(ctx)
+				}()
+			}
+			if c.GoogleNewsEnabled {
+				queries := c.GoogleNewsQueries
+				if len(queries) == 0 {
+					queries = []string{harvest.DefaultGoogleNewsQuery}
+				}
+				collectors.Add(1)
+				go func() {
+					defer collectors.Done()
+					(harvest.GoogleNews{Store: s, Queries: queries, Interval: c.GoogleNewsInterval, MaxArticles: c.GoogleNewsMaxArticles}).Run(ctx)
+				}()
+			}
+			collectors.Wait()
+		}()
 	} else {
 		close(collectorDone)
 	}
+
 	done := make(chan struct{})
 	go func() { defer close(done); w.Run(ctx) }()
 	server := &http.Server{BaseContext: func(net.Listener) context.Context { return ctx }, Addr: c.Addr, Handler: (&api.Server{Store: s, Config: c, Health: health}).Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16384}

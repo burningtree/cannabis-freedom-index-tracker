@@ -124,9 +124,11 @@ cover:                           # optional; a local picture with an open licenc
   credit: Photographer / agency
   licence: CC BY-SA 4.0
   url: https://commons.wikimedia.org/wiki/File:…
+  media_url: https://upload.wikimedia.org/… # direct original image; required for new collected covers
 media:                           # optional; photos or video of the event that can't be copied here
   - kind: photo                  # photo | video
-    url: https://…               # the page they are on
+    url: https://…               # the page this photo is on
+    media_url: https://…         # photo/video URL; required for every newly collected photo or video
     publisher: La Nación (Paraguay)
     caption: Agents pull up plants in a cleared forest plot
 created_by_model: unknown         # REQUIRED: provider/model#effort when known; unknown only if creator is unavailable

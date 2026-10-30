@@ -22,7 +22,9 @@ Index (country ids are the CFI's).
   creator on updates. Do not add update-model metadata.
 - Every sentence cites a source that was opened (`[@n]`); every source must be about the same event.
 - Photos: copy one into `src/assets/reports/` only with an open licence or a no-copyright government
-  work; link all others as `media`, and keep local evidence copies with `node scripts/archive-media.mjs`.
+  work; link all others as `media`. Every newly collected photo or video must include its direct
+  `media_url` alongside the source-page `url`, one media entry per photo or video. Never guess a media
+  address. Keep local evidence copies with `node scripts/archive-media.mjs`.
 - The site must stay fast with thousands of reports: no page may embed all reports; use the
   indexes in `src/lib/reports.js` and `/api/index.json`. Check with `node scripts/load-test.mjs`.
 - Check with `npm run build` (runs `npm test` first) and read the HTML in `dist/`. Don't start dev

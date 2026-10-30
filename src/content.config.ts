@@ -68,12 +68,14 @@ const reports = defineCollection({
       credit: z.string().min(1),
       licence: z.string().min(1),
       url: z.string().url(), // where the picture and its licence can be checked
+      media_url: z.string().url().optional(), // original photo URL; optional for legacy covers
     }).strict().optional(),
     // photos or video of the event that may not be copied here (a newspaper's or an agency's):
     // shown as links to where they are published
     media: z.array(z.object({
       kind: z.enum(["photo", "video"]),
-      url: z.string().url(),
+      url: z.string().url(), // source page
+      media_url: z.string().url().optional(), // required for newly collected media; optional for legacy entries
       publisher: z.string().min(1),
       caption: z.string().min(1), // what it shows
       archived: z.string().url().optional(), // a copy in the Wayback Machine

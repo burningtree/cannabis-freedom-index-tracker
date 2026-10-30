@@ -12,6 +12,10 @@ import (
 )
 
 type Config struct {
+	GoogleNewsEnabled                                                           bool
+	GoogleNewsQueries                                                           []string
+	GoogleNewsInterval                                                          time.Duration
+	GoogleNewsMaxArticles                                                       int
 	Addr, Database, PublicURL, RepoPath, Workspaces, IngestToken                string
 	Origins, Relays, RSSFeeds, GDELTQueries, TrustedProxies                     []string
 	GatewaySecret, BotSecret                                                    string
@@ -40,6 +44,30 @@ func env(k, d string) string {
 }
 func Load() (Config, error) {
 	c := Config{Addr: env("HTTP_ADDR", "127.0.0.1:8080"), Database: env("DATABASE_PATH", "data/tracker.sqlite"), PublicURL: strings.TrimRight(env("PUBLIC_BASE_URL", "https://tracker.cannabisfreedom.fyi"), "/"), RepoPath: env("REPO_PATH", ".."), Workspaces: env("WORKSPACE_PATH", "data/jobs"), IngestToken: os.Getenv("INGEST_TOKEN"), Origins: strings.Split(env("CORS_ORIGINS", "https://tracker.cannabisfreedom.fyi"), ","), GatewaySecret: os.Getenv("NOSTR_GATEWAY_SECRET"), BotSecret: os.Getenv("NOSTR_BOT_SECRET"), ResearchImage: os.Getenv("RESEARCH_IMAGE"), ResearchNetwork: os.Getenv("RESEARCH_NETWORK"), ResearchModel: os.Getenv("RESEARCH_MODEL"), ResearchKey: os.Getenv("RESEARCH_API_KEY"), GitHubAppID: os.Getenv("GITHUB_APP_ID"), GitHubInstallationID: os.Getenv("GITHUB_INSTALLATION_ID"), GitHubKeyFile: os.Getenv("GITHUB_APP_PRIVATE_KEY_FILE"), GitHubRepo: env("GITHUB_REPO", "burningtree/cannabis-freedom-index-tracker"), WebhookSecret: os.Getenv("GITHUB_WEBHOOK_SECRET"), Demo: env("DEMO_WORKER", "false") == "true"}
+	var discoveryErr error
+	c.GoogleNewsEnabled, discoveryErr = strconv.ParseBool(env("HARVEST_GOOGLE_NEWS_ENABLED", "true"))
+	if discoveryErr != nil {
+		return c, errors.New("invalid HARVEST_GOOGLE_NEWS_ENABLED")
+	}
+	c.GoogleNewsInterval, discoveryErr = time.ParseDuration(env("HARVEST_GOOGLE_NEWS_INTERVAL", "15m"))
+	if discoveryErr != nil || c.GoogleNewsInterval < time.Minute || c.GoogleNewsInterval > 24*time.Hour {
+		return c, errors.New("HARVEST_GOOGLE_NEWS_INTERVAL must be between 1m and 24h")
+	}
+	c.GoogleNewsMaxArticles, discoveryErr = strconv.Atoi(env("HARVEST_GOOGLE_NEWS_MAX_ARTICLES", "25"))
+	if discoveryErr != nil || c.GoogleNewsMaxArticles < 1 || c.GoogleNewsMaxArticles > 100 {
+		return c, errors.New("HARVEST_GOOGLE_NEWS_MAX_ARTICLES must be 1 to 100")
+	}
+	for _, query := range strings.Split(os.Getenv("HARVEST_GOOGLE_NEWS_QUERIES"), "|") {
+		if query = strings.TrimSpace(query); query != "" {
+			if len(query) > 1000 {
+				return c, errors.New("Google News query exceeds 1000 characters")
+			}
+			c.GoogleNewsQueries = append(c.GoogleNewsQueries, query)
+		}
+	}
+	if len(c.GoogleNewsQueries) > 10 {
+		return c, errors.New("at most 10 Google News queries")
+	}
 	c.SourceBrowser = env("SOURCE_BROWSER", "true") == "true"
 	c.DevControls = env("DEV_CONTROLS", "false") == "true"
 	c.RawAILogs = env("RAW_AI_LOGS", "false") == "true"

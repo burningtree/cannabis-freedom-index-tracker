@@ -26,7 +26,7 @@ func accept(t *testing.T, s *Store, gateway bool) string {
 	}
 	return id
 }
-func TestReceiptsShareCaseAndSurviveRestart(t *testing.T) {
+func TestSubmissionURLIsReusedAndSurvivesRestart(t *testing.T) {
 	ctx := context.Background()
 	path := filepath.Join(t.TempDir(), "test.sqlite")
 	s, err := Open(path)
@@ -35,8 +35,8 @@ func TestReceiptsShareCaseAndSurviveRestart(t *testing.T) {
 	}
 	a := accept(t, s, false)
 	b := accept(t, s, false)
-	if a == b {
-		t.Fatal("receipt identity reused")
+	if a != b {
+		t.Fatal("duplicate receipt created")
 	}
 	av, _ := s.Get(ctx, a)
 	bv, _ := s.Get(ctx, b)
@@ -113,8 +113,8 @@ func TestResolutionTransactionalAndIdempotent(t *testing.T) {
 		t.Fatal(other)
 	}
 	s.DB.QueryRow("SELECT count(*) FROM outbox WHERE kind='resolution'").Scan(&count)
-	if count != 2 {
-		t.Fatal("new receipt lost its resolution")
+	if count != 1 || second != id {
+		t.Fatal("duplicate receipt or resolution created")
 	}
 }
 func TestIngestIdempotencyAndBudget(t *testing.T) {
@@ -195,4 +195,16 @@ func TestLaterHumanOutcomeHasSeparateResolution(t *testing.T) {
 	if n != 2 {
 		t.Fatal("later resolution was suppressed", n)
 	}
+}
+
+// Historical duplicates remain supported; create them explicitly rather than through new intake.
+func legacyReceipt(t *testing.T, s *Store, original string) string {
+	t.Helper()
+	id := ID()
+	_, err := s.DB.Exec(`INSERT INTO submissions(id,origin,original_url,canonical_url,note,case_id,created_at)
+ SELECT ?,'web',original_url,canonical_url,'Legacy receipt',case_id,created_at+1 FROM submissions WHERE id=?`, id, original)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return id
 }

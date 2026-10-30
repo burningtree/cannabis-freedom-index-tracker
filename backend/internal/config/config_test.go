@@ -7,7 +7,7 @@ import (
 
 func defaults(t *testing.T) {
 	t.Helper()
-	for _, k := range []string{"NOSTR_GATEWAY_SECRET", "NOSTR_BOT_SECRET", "NOSTR_RELAYS", "RESEARCH_IMAGE", "RESEARCH_NETWORK", "RESEARCH_MODEL", "RESEARCH_API_KEY", "GITHUB_APP_ID", "GITHUB_INSTALLATION_ID", "GITHUB_APP_PRIVATE_KEY_FILE", "INGEST_TOKEN", "TRUSTED_PROXY_CIDRS", "HARVEST_RSS_URLS", "HARVEST_GDELT_QUERIES"} {
+	for _, k := range []string{"NOSTR_GATEWAY_SECRET", "NOSTR_BOT_SECRET", "NOSTR_RELAYS", "RESEARCH_IMAGE", "RESEARCH_NETWORK", "RESEARCH_MODEL", "RESEARCH_API_KEY", "GITHUB_APP_ID", "GITHUB_INSTALLATION_ID", "GITHUB_APP_PRIVATE_KEY_FILE", "INGEST_TOKEN", "TRUSTED_PROXY_CIDRS", "HARVEST_RSS_URLS", "HARVEST_GDELT_QUERIES", "HARVEST_GOOGLE_NEWS_ENABLED", "HARVEST_GOOGLE_NEWS_INTERVAL", "HARVEST_GOOGLE_NEWS_QUERIES", "HARVEST_GOOGLE_NEWS_MAX_ARTICLES"} {
 		t.Setenv(k, "")
 	}
 	t.Setenv("DEMO_WORKER", "false")
@@ -64,6 +64,29 @@ func TestResearchModelComesFromEnvironment(t *testing.T) {
 			}
 			if runner == "local" && !c.ResearchEnabled() {
 				t.Fatal("configured local model should enable research")
+			}
+		})
+	}
+}
+
+func TestGoogleNewsConfiguration(t *testing.T) {
+	defaults(t)
+	c, err := Load()
+	if err != nil || !c.GoogleNewsEnabled || c.GoogleNewsInterval.String() != "15m0s" || c.GoogleNewsMaxArticles != 25 {
+		t.Fatal(c, err)
+	}
+	t.Setenv("HARVEST_GOOGLE_NEWS_ENABLED", "false")
+	t.Setenv("HARVEST_GOOGLE_NEWS_QUERIES", " cannabis raid | marijuana seized ")
+	c, err = Load()
+	if err != nil || c.GoogleNewsEnabled || len(c.GoogleNewsQueries) != 2 || c.GoogleNewsQueries[0] != "cannabis raid" {
+		t.Fatal(c, err)
+	}
+	for key, value := range map[string]string{"HARVEST_GOOGLE_NEWS_ENABLED": "invalid", "HARVEST_GOOGLE_NEWS_INTERVAL": "0s", "HARVEST_GOOGLE_NEWS_MAX_ARTICLES": "-1"} {
+		t.Run(key, func(t *testing.T) {
+			defaults(t)
+			t.Setenv(key, value)
+			if _, err := Load(); err == nil {
+				t.Fatal("invalid value accepted")
 			}
 		})
 	}

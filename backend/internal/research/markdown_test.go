@@ -1,6 +1,9 @@
 package research
 
 import (
+	"gopkg.in/yaml.v3"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -42,15 +45,82 @@ func TestMarkdownLooksLikeAReport(t *testing.T) {
 // Photos of the event are linked as media, only for pages the report cites.
 func TestMediaLinksOnlyForCitedPages(t *testing.T) {
 	r := valid()
-	r.Media = []Media{{Kind: "photo", URL: r.Sources[0].URL, Publisher: "Publisher", Caption: "Police photos of the plants. Photo: Police"}}
+	r.Media = []Media{{Kind: "photo", URL: r.Sources[0].URL, MediaURL: "https://images.example/plants.jpg?size=original&token=abc", Publisher: "Publisher", Caption: "Police photos of the plants. Photo: Police"}}
 	if err := r.Validate(map[string]bool{"th": true}); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(r.Markdown(), "media:\n  - kind: photo\n    url: https://news.example/a\n    publisher: Publisher\n    caption: \"Police photos of the plants. Photo: Police\"\n") && !strings.Contains(r.Markdown(), "caption: 'Police photos of the plants. Photo: Police'") {
-		t.Fatal(r.Markdown())
+	var header struct {
+		Media []struct {
+			URL      string `yaml:"url"`
+			MediaURL string `yaml:"media_url"`
+		} `yaml:"media"`
+	}
+	if err := yaml.Unmarshal([]byte(strings.SplitN(r.Markdown(), "---", 3)[1]), &header); err != nil {
+		t.Fatal(err)
+	}
+	if len(header.Media) != 1 || header.Media[0].URL != r.Media[0].URL || header.Media[0].MediaURL != r.Media[0].MediaURL {
+		t.Fatal("source page or exact asset URL lost", header)
 	}
 	r.Media[0].URL = "https://elsewhere.example/photo"
 	if r.Validate(map[string]bool{"th": true}) == nil {
 		t.Fatal("media link to an uncited page accepted")
+	}
+}
+
+func TestCollectedMediaNeedsAssetAddress(t *testing.T) {
+	for _, kind := range []string{"photo", "video"} {
+		for _, address := range []string{"", "javascript:alert(1)", "/relative.jpg", "http://127.0.0.1/private.jpg"} {
+			r := valid()
+			r.Media = []Media{{Kind: kind, URL: r.Sources[0].URL, MediaURL: address, Publisher: "Publisher", Caption: "Footage of the raid"}}
+			if err := r.Validate(map[string]bool{"th": true}); err == nil {
+				t.Fatalf("accepted %s address %q", kind, address)
+			}
+		}
+		r := valid()
+		r.Media = []Media{{Kind: kind, URL: r.Sources[0].URL, MediaURL: "https://cdn.example/asset?signature=123", Publisher: "Publisher", Caption: "Footage of the raid"}}
+		if err := r.Validate(map[string]bool{"th": true}); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestUpdatesKeepDistinctMediaFromSamePage(t *testing.T) {
+	dir := t.TempDir()
+	r := valid()
+	file := filepath.Join(dir, "reports/2026/01", r.Slug+".md")
+	if err := os.MkdirAll(filepath.Dir(file), 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(file, []byte(r.Markdown()), 0644); err != nil {
+		t.Fatal(err)
+	}
+	r.Outcome = "existing_case"
+	r.ExistingReport = r.Slug
+	for _, asset := range []string{"https://images.example/one.jpg?size=full", "https://images.example/two.mp4?signature=abc"} {
+		kind := "photo"
+		if strings.Contains(asset, ".mp4") {
+			kind = "video"
+		}
+		r.Media = append(r.Media, Media{Kind: kind, URL: r.Sources[0].URL, MediaURL: asset, Publisher: "Publisher", Caption: "The raid"})
+	}
+	for i := 0; i < 2; i++ {
+		draft, err := PrepareDraft(dir, r)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var header struct {
+			Media []struct {
+				MediaURL string `yaml:"media_url"`
+			} `yaml:"media"`
+		}
+		if err = yaml.Unmarshal([]byte(strings.SplitN(draft.Content, "---", 3)[1]), &header); err != nil {
+			t.Fatal(err)
+		}
+		if len(header.Media) != 2 || header.Media[0].MediaURL != r.Media[0].MediaURL || header.Media[1].MediaURL != r.Media[1].MediaURL {
+			t.Fatal("assets lost or duplicated", header)
+		}
+		if err = os.WriteFile(file, []byte(draft.Content), 0644); err != nil {
+			t.Fatal(err)
+		}
 	}
 }

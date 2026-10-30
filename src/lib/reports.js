@@ -124,7 +124,7 @@ export function compact(r, site) {
     status: r.status,
     figures: r.figures ?? {},
     tags: r.tags ?? [],
-    cover: r.cover ? { url: new URL(r.cover.image.src, site).href, alt: r.cover.alt, credit: r.cover.credit, licence: r.cover.licence, source: r.cover.url } : null,
+    cover: r.cover ? { url: new URL(r.cover.image.src, site).href, alt: r.cover.alt, credit: r.cover.credit, licence: r.cover.licence, source: r.cover.url, ...(r.cover.media_url ? { media_url: r.cover.media_url } : {}) } : null,
     media: r.media ?? [],
     cfi_id: r.cfi_id ?? null,
     created_by_model: r.created_by_model,

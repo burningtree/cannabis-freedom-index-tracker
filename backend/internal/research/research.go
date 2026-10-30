@@ -42,11 +42,12 @@ type Fact struct {
 }
 
 // Media is a photo or video of the event that may not be copied to the site (a newspaper's, an
-// agency's): a link to the page it is published on, its publisher and what it shows
+// agency's): a source-page link, the individual asset URL, its publisher and what it shows
 // (docs/WRITING.md §7, src/content.config.ts).
 type Media struct {
 	Kind      string `json:"kind"`
 	URL       string `json:"url"`
+	MediaURL  string `json:"media_url,omitempty"`
 	Publisher string `json:"publisher"`
 	Caption   string `json:"caption"`
 }
@@ -372,6 +373,9 @@ func (r Result) validateMedia() error {
 		if err != nil || !cited[u] {
 			return errors.New("a media link must be a page among the sources")
 		}
+		if mediaURL, err := safeurl.Normalize(m.MediaURL); err != nil || (m.Kind == "photo" && mediaURL == u) {
+			return errors.New("collected media requires a valid media_url distinct from the source page")
+		}
 		if (m.Kind != "photo" && m.Kind != "video") || m.Publisher == "" || len(m.Publisher) > 200 || len(m.Caption) < 3 || len(m.Caption) > 300 || plain.MatchString(m.Caption) || plain.MatchString(m.Publisher) {
 			return errors.New("invalid media link")
 		}
@@ -434,7 +438,12 @@ func (r Result) Markdown() string {
 	if len(r.Media) > 0 {
 		media := &yaml.Node{Kind: yaml.SequenceNode}
 		for _, m := range r.Media {
-			media.Content = append(media.Content, &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("kind"), str(m.Kind), str("url"), str(m.URL), str("publisher"), str(m.Publisher), str("caption"), str(strings.Join(strings.Fields(m.Caption), " "))}})
+			item := &yaml.Node{Kind: yaml.MappingNode, Content: []*yaml.Node{str("kind"), str(m.Kind), str("url"), str(m.URL)}}
+			if m.MediaURL != "" {
+				item.Content = append(item.Content, str("media_url"), str(m.MediaURL))
+			}
+			item.Content = append(item.Content, str("publisher"), str(m.Publisher), str("caption"), str(strings.Join(strings.Fields(m.Caption), " ")))
+			media.Content = append(media.Content, item)
 		}
 		add("media", media)
 	}
@@ -1051,6 +1060,23 @@ func PrepareDraft(dir string, r Result) (Draft, error) {
 		header["summary"] = r.Summary
 		header["type"] = r.Type
 		header["sources"] = oldSources
+		// Keep separate assets from the same article; deduplicate by asset, not page.
+		if len(r.Media) > 0 {
+			media, _ := header["media"].([]any)
+			for _, item := range r.Media {
+				seen := false
+				for _, old := range media {
+					if entry, ok := old.(map[string]any); ok && entry["kind"] == item.Kind && entry["media_url"] == item.MediaURL {
+						seen = true
+						break
+					}
+				}
+				if !seen {
+					media = append(media, map[string]any{"kind": item.Kind, "url": item.URL, "media_url": item.MediaURL, "publisher": item.Publisher, "caption": strings.Join(strings.Fields(item.Caption), " ")})
+				}
+			}
+			header["media"] = media
+		}
 		if creator, ok := header["created_by_model"].(string); !ok || strings.TrimSpace(creator) == "" {
 			header["created_by_model"] = "unknown"
 		}

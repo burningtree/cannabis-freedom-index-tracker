@@ -120,8 +120,8 @@ func TestExclusiveWorkerLock(t *testing.T) {
 func TestGlobalSummaryIgnoresFiltersAndDeduplicatesCases(t *testing.T) {
 	s := openTest(t)
 	ctx := context.Background()
-	accept(t, s, false)
-	accept(t, s, false)
+	first := accept(t, s, false)
+	legacyReceipt(t, s, first)
 	j, err := s.Claim(ctx, "jobs", time.Minute)
 	if err != nil {
 		t.Fatal(err)

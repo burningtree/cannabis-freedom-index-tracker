@@ -79,7 +79,7 @@ func TestFeedRevisionCoversSharedCasesAndNostrLinks(t *testing.T) {
 	ctx := context.Background()
 	before, _ := s.FeedVersion(ctx)
 	id := accept(t, s, false)
-	other := accept(t, s, false)
+	other := legacyReceipt(t, s, id)
 	after, _ := s.FeedVersion(ctx)
 	if before == after {
 		t.Fatal("intake did not invalidate register")
@@ -112,7 +112,7 @@ func TestSubmissionFeedIncludesCumulativeUsageAndBudgetResume(t *testing.T) {
 	s := openTest(t)
 	ctx := context.Background()
 	id := accept(t, s, false)
-	other := accept(t, s, false)
+	other := legacyReceipt(t, s, id)
 	v, _ := s.Get(ctx, id)
 	for i := 0; i < 2; i++ {
 		run, err := s.Reserve(ctx, v.CaseID, "private-workspace", 1, 1000)

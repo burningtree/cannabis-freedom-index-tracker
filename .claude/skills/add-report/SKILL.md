@@ -38,7 +38,8 @@ Open the URL and read the whole article. Note:
 - figures as stated (people, kg, plants, hectares, prison, fine, the authorities' value), and whose
   numbers they are;
 - quotes from the accused, families, critics or officials worth keeping (short);
-- photos and video of the event, with their credit.
+- photos and video of the event, with their credit. For each collected photo or video, extract its direct
+  absolute media URL from the opened page as well as the source-page URL.
 
 If the page cannot be opened (paywall, block, removed), try its Wayback copy
 (`https://web.archive.org/web/2026/<url>`) or another outlet's report of the same event. Never write
@@ -64,7 +65,10 @@ reported; if they truly contradict, `status: disputed`.
   every source cited.
 - Pictures (docs/WRITING.md §7): `cover` only with an open licence or a no-copyright government work
   (save it to `src/assets/reports/`, look at it first: it must show this event); every other photo
-  or video of the event as a `media` link.
+  or video of the event as a `media` link. Every collected photo or video needs `media_url` (the direct
+  media address) and `url` (its source page), one entry per photo or video. Covers also record the original
+  `media_url`. Never invent an address; document unavailable media in `open_questions`. For videos, use the file/stream URL or
+  dedicated video-host page.
 - **Required `created_by_model`:** your actual runtime model identifier, including provider and
   reasoning effort when available, as `provider/model#effort` (for example
   `alibaba-token-plan/qwen3.8-flash#xhigh`; `xhigh` is the effort setting). Include the actual

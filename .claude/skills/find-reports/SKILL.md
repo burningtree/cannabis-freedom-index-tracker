@@ -68,7 +68,12 @@ For each candidate:
 4. **Look for a photo of the action** (docs/WRITING.md §7): a copy (`cover`) only with an open
    licence or a no-copyright government work; otherwise list good photos and video as `media` links.
    Look at an image before you use it: it must show this event. Add **every** photo or video of the
-   event you find as `media`, so the record is complete.
+   event you find as `media`, so the record is complete. For every collected photo or video, record
+   `media_url` as its direct absolute HTTP(S) photo/video address and keep `url` as its source page.
+   Use one entry per photo or video, including multiple photos on one page. Covers also keep the original
+   `media_url`. For videos, use the file/stream URL or dedicated video-host page. Extract addresses from the
+   opened page, never guess them; if an address cannot
+   be recovered, note the unavailable photo in `open_questions` instead of inventing an entry.
 5. Drop the candidate if the facts cannot be confirmed in an opened source. Never invent or fill
    gaps.
 

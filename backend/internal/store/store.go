@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/safeurl"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/migrations"
 	_ "modernc.org/sqlite"
 	"os"
@@ -126,6 +127,11 @@ type Intake struct {
 }
 
 func (s *Store) Accept(ctx context.Context, in Intake) (string, error) {
+	normalized, err := safeurl.Normalize(in.CanonicalURL)
+	if err != nil {
+		return "", err
+	}
+	in.CanonicalURL = normalized
 	tx, err := s.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return "", err
@@ -155,6 +161,17 @@ func (s *Store) Accept(ctx context.Context, in Intake) (string, error) {
 	cid := ID()
 	_, err = tx.ExecContext(ctx, `INSERT INTO cases(id,canonical_url,created_at,updated_at) VALUES(?,?,?,?) ON CONFLICT(canonical_url) DO NOTHING`, cid, in.CanonicalURL, now, now)
 	if err != nil {
+		return "", err
+	}
+	// The preceding case insert acquires SQLite's writer lock before checking
+	// receipts, so concurrent intake cannot both observe a missing submission.
+	// Reuse even terminal/failed receipts, before queue capacity or Nostr side effects.
+	var existing string
+	err = tx.QueryRowContext(ctx, "SELECT id FROM submissions WHERE canonical_url=? ORDER BY created_at,id LIMIT 1", in.CanonicalURL).Scan(&existing)
+	if err == nil {
+		return existing, nil
+	}
+	if !errors.Is(err, sql.ErrNoRows) {
 		return "", err
 	}
 	var status, explanation string

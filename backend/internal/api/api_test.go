@@ -173,3 +173,31 @@ func TestActivityBoundedAndMachineCandidatesExcluded(t *testing.T) {
 		t.Fatal("machine event leaked or pagination repeated", len(data.Events))
 	}
 }
+
+func TestRepeatedURLReturnsExistingSubmission(t *testing.T) {
+	s, h := server(t)
+	var first string
+	for _, raw := range []string{"https://news.example/same?utm_source=one", "https://news.example/same#section"} {
+		body, _ := json.Marshal(map[string]string{"url": raw})
+		w := request(h, "POST", "/v1/submissions", string(body), "https://tracker.example")
+		if w.Code != 202 {
+			t.Fatal(w.Code, w.Body.String())
+		}
+		var response struct {
+			ID string `json:"id"`
+		}
+		if err := json.Unmarshal(w.Body.Bytes(), &response); err != nil {
+			t.Fatal(err)
+		}
+		if first == "" {
+			first = response.ID
+		} else if response.ID != first {
+			t.Fatal("new receipt for repeated URL")
+		}
+	}
+	var count int
+	s.Store.DB.QueryRow("SELECT count(*) FROM submissions").Scan(&count)
+	if count != 1 {
+		t.Fatal(count)
+	}
+}

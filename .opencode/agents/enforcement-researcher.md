@@ -99,11 +99,18 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
 - tags: up to five short lower-case words a reader would search (a province, a crop, a programme).
 - media: the photos and videos of this event on the pages you cite, as links (docs/WRITING.md §7:
   a newspaper's or an agency's picture is never copied, only linked). request.json lists the
-  submitted page's photos (source_images) with their captions and credits. Add one entry per page
+  submitted page's photos (source_images) with direct image addresses (src), captions and credits.
+  Add one entry per photo or video (including several from the same page)
   that shows the event itself (the field, the plants, the seizure, the raid, the court), with kind
   "photo" or "video", url the cited page it is on, the publisher, and a caption saying what the
-  pictures show, with the credit when there is one ("Police photos of the 52 plants and the grow
-  room in the attic. Photo: Police of the Czech Republic"). Leave out a stock photo, a logo, a
+  asset shows, with the credit when there is one ("Police photos of the 52 plants and the grow
+  room in the attic. Photo: Police of the Czech Republic"). Every photo or video requires media_url:
+  copy its absolute HTTP(S) address from source_images[].src or the opened page's image markup,
+  srcset or metadata. Keep url as the cited article page, preserve image query parameters, and
+  never guess an address or use the article URL as media_url. For videos, use the published
+  video file/stream address or its dedicated video-host page;
+  never substitute the news article. If the media address is unavailable, omit that entry and
+  explain the missing media in uncertainties. Leave out a stock photo, a logo, a
   portrait of an official or a picture of something else. Never open an image address (.jpg, .png,
   .webp, .gif, .avif) with webfetch: the tool reads text only and refuses every image, and you
   cannot see pictures. Judge a photo by its caption, its credit and the article text around it;
@@ -118,7 +125,7 @@ Return a single JSON object, no Markdown fences or commentary, with exactly thes
 "precision":"exact|locality|district|region|country",
 "figures":{"arrested":0,"charged":0,"kg_seized":0,"plants_destroyed":0,"hectares":0,"prison":"as stated","fine":{"amount":0,"currency":"XXX"},"value":{"amount":0,"currency":"XXX"},"deaths":0},
 "tags":["lower-case-words"],
-"media":[{"kind":"photo|video","url":"a cited page","publisher":"publisher","caption":"what the pictures show, and their credit"}],
+"media":[{"kind":"photo|video","url":"a cited page","media_url":"direct photo/video URL","publisher":"publisher","caption":"what this photo/video shows, and its credit"}],
 "sources":[{"url":"https://...","title":"actual source title","publisher":"publisher","date":"YYYY-MM-DD","language":"two letters if not English"}],
 "facts":[{"text":"One plain factual sentence of the report without markup","source":1,"quote":"Exact supporting passage from the source","paragraph":1}],
 "proposed_slug":"lower-case-hyphens or empty","title":"up to 90 characters","summary":"up to 400 characters",
