@@ -475,3 +475,17 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .clear-filters:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 .clear-filters:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 @media (max-width: 600px) { .browser:not(.compact) .months { height: 128px; margin-top: 48px; margin-bottom: 48px; } }
+
+/* the report page's photo viewer (src/scripts/media-viewer.js) */
+.media-viewer { width: min(96vw, 1200px); max-height: 94vh; padding: 0; border: 0; border-radius: 10px; background: #111; color: #eee; overflow: visible; }
+.media-viewer::backdrop { background: rgba(0, 0, 0, .8); }
+.media-viewer figure { margin: 0; }
+.media-viewer img { display: block; width: 100%; max-height: calc(94vh - 72px); object-fit: contain; border-radius: 10px 10px 0 0; }
+.media-viewer figcaption { padding: 10px 14px 12px; font-size: 14px; line-height: 1.5; }
+.media-viewer figcaption a { color: #bbb; }
+.media-viewer button { position: absolute; border: 0; border-radius: 50%; width: 40px; height: 40px; background: rgba(0, 0, 0, .55); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+.media-viewer .mv-close { top: 8px; right: 8px; }
+.media-viewer .mv-prev, .media-viewer .mv-next { top: calc(50% - 56px); }
+.media-viewer .mv-prev { left: 8px; }
+.media-viewer .mv-next { right: 8px; }
+.media-viewer button[hidden] { display: none; }

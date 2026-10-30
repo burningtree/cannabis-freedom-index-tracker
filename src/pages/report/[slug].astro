@@ -13,6 +13,7 @@ import { relative } from "node:path";
 import { readReportHistory } from "../../lib/report-history.js";
 import { submissionsAPI } from "../../lib/submissions-config.js";
 import { shortSubmission } from "../../lib/report-submission.js";
+import { mediaView } from "../../lib/media.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("reports");
@@ -28,6 +29,10 @@ const order = remarkPluginFrontmatter.citeOrder ?? r.sources.map((_, i) => i + 1
 const cited = order.map((i) => r.sources[i - 1]);
 const base = import.meta.env.BASE_URL;
 const more = related(r);
+// photos with a direct address are shown from the publisher's own server (never copied here, see
+// docs/WRITING.md §7); videos and photos without one stay links
+const shown = (r.media ?? []).map((m) => ({ ...m, view: mediaView(m) })).filter((m) => m.view);
+const linked = (r.media ?? []).filter((m) => !mediaView(m));
 const languageName = (code) => new Intl.DisplayNames(["en"], { type: "language" }).of(code);
 // the Landrace.wiki growing areas and regions the place lies in, when it is known closely enough
 // (a province or a country centre says nothing about where in it)
@@ -93,11 +98,25 @@ const updatedLabel = source && new Intl.DateTimeFormat("en-GB", {
     {r.media?.length > 0 && (
       <>
         <h2 id="media">Photos and video</h2>
-        <ul class="media">
-          {r.media.map((m) => (
+        {shown.length > 0 && (
+          <div class="media-grid" data-count={Math.min(shown.length, 4)} data-media-grid>
+            {shown.map((m) => (
+              <figure class:list={["media-tile", m.view.type !== "photo" && "media-tile-video"]}>
+                {m.view.type === "photo" && <button type="button" class="media-open" aria-label={`Enlarge: ${m.caption}`}>
+                  <img src={m.view.src} alt={m.caption} loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                </button>}
+                {m.view.type === "video" && <video src={m.view.src} controls preload="metadata" playsinline referrerpolicy="no-referrer" aria-label={m.caption}></video>}
+                {m.view.type === "embed" && <iframe src={m.view.src} title={m.caption} loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>}
+                <figcaption>{m.caption} <span class="media-source">Source: <a href={m.url} class="ext" target="_blank" rel="noopener noreferrer">{m.publisher}</a>{m.archived && <> · <a href={m.archived} target="_blank" rel="noopener">archived copy</a></>}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+        {linked.length > 0 && <ul class="media">
+          {linked.map((m) => (
             <li><a href={m.url} class="ext" target="_blank" rel="noopener noreferrer">{m.caption}</a> <span class="muted">{m.kind === "video" ? "Video" : "Photos"}: {m.publisher}{m.archived && <>, <a href={m.archived} target="_blank" rel="noopener">archived copy</a></>}</span></li>
           ))}
-        </ul>
+        </ul>}
       </>
     )}
 
@@ -178,6 +197,7 @@ const updatedLabel = source && new Intl.DateTimeFormat("en-GB", {
 </Base>
 
 {r.submission && <script>import "../../scripts/report-submission.js";</script>}
+{shown.some((m) => m.view.type === "photo") && <script>import "../../scripts/media-viewer.js";</script>}
 
 <style>
 .report-provenance { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 24px; margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
@@ -187,6 +207,21 @@ const updatedLabel = source && new Intl.DateTimeFormat("en-GB", {
 .report-model { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0; font-size: 12px; color: var(--text-2); }
 .report-model + .report-model { margin-top: 6px; }
 .report-model code { font: 11px/1.6 var(--mono); overflow-wrap: anywhere; }
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 0 0 16px; }
+.media-grid[data-count="1"] { grid-template-columns: minmax(0, 560px); }
+.media-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.media-tile { margin: 0; min-width: 0; }
+.media-grid[hidden], .media-tile[hidden] { display: none; }
+.media-open { display: block; width: 100%; padding: 0; border: 0; border-radius: 8px; overflow: hidden; background: var(--border); cursor: zoom-in; }
+.media-open img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .2s; }
+.media-grid[data-count="1"] .media-open img { aspect-ratio: auto; max-height: 420px; }
+.media-open:hover img, .media-open:focus-visible img { transform: scale(1.03); }
+.media-tile-video { grid-column: span 2; }
+.media-grid[data-count="1"] .media-tile-video { grid-column: auto; }
+.media-tile video, .media-tile iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 8px; background: #000; }
+.media-tile figcaption { margin-top: 6px; font-size: 13px; line-height: 1.45; }
+.media-source { display: block; color: var(--text-2); }
+@media (max-width: 520px) { .media-tile-video { grid-column: 1 / -1; } }
 .report-questions { margin-top: 24px; padding: 18px 20px; background: color-mix(in srgb, #d9a43c 12%, transparent); border-radius: 10px; }
 .report-questions h2 { margin: 0 0 10px; font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.5; text-transform: none; letter-spacing: normal; }
 .report-questions ul { margin: 0; padding-left: 22px; }
