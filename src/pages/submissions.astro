@@ -29,7 +29,8 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
     <section class="sx-overview" aria-label="All submissions" aria-live="polite">
       <div class="sx-overview-running"><strong id="register-running">—</strong><span>Running now</span><small>Active processing jobs</small></div>
       <div><strong id="register-total">—</strong><span>Total submissions</span><small>All sources and pages</small></div>
-      <div><strong id="register-queued">—</strong><span>Queued</span><small>Cases waiting to run</small></div>
+      <div><strong id="register-queued">—</strong><span>Queued</span><small>Cases waiting to run</small><small id="register-queue-estimate" title="Approximate time for queued and running cases at the last hour's commit rate, assuming no new arrivals. Budget pauses prevent an estimate.">Est. to clear: —</small></div>
+      <div><strong id="register-commit-rate">—</strong><span>Committed / min</span><small>Last 60 minutes</small></div>
     </section>
 
     <section class="sx-compose" aria-labelledby="submit-source-title">

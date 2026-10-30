@@ -72,6 +72,9 @@ hectares), keep the original in the text ("63,204 pounds (about 28.7 tonnes)"). 
 (`arrested`, `charged`, `deaths`) counts the people the source names or counts for **this** event.
 Leave a field out rather than guessing.
 
+Keep `kg_seized` in kilograms without rounding away small quantities: 3.86 g is `0.00386`.
+The site chooses mg, g, kg or tonnes for display; the stored unit stays kilograms.
+
 ## 6. Place
 
 Give `coordinates` for the most precise place the sources name, and say how precise with

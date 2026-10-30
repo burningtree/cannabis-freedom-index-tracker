@@ -6,6 +6,7 @@ import { sourcesByDomain } from "../lib/source-domains.js";
 import { TYPES, STATUS } from "../lib/types.js";
 import { countryOf, flagOf, countryName } from "../lib/countries.js";
 import { fmt, compact, headlineFigures, periodColumns, typeRows, reportsByModel, topCountriesBy } from "../lib/stats.js";
+import { formatWeight, formatWeightNumber } from "../lib/figures.js";
 const base = import.meta.env.BASE_URL;
 const domains = sourcesByDomain(reports);
 const countries = countriesWithReports();
@@ -29,9 +30,9 @@ const models = reportsByModel(reports);
 const maxModel = Math.max(1, models.unrecorded, ...models.rows.map((m) => m.count));
 const recorded = reports.length - models.unrecorded;
 const leaders = [
-  { title: "Most people arrested", figure: "arrested", unit: "" },
-  { title: "Most plants destroyed", figure: "plants_destroyed", unit: "" },
-  { title: "Most cannabis seized", figure: "kg_seized", unit: " kg" },
+  { title: "Most people arrested", figure: "arrested" },
+  { title: "Most plants destroyed", figure: "plants_destroyed" },
+  { title: "Most cannabis seized", figure: "kg_seized" },
 ].map((l) => ({ ...l, rows: topCountriesBy(reports, l.figure) })).filter((l) => l.rows.length);
 const yearRows = years.map((y) => { const list = reports.filter((r) => r.year === y); return { y, list, t: totals(list), types: countByType(list) }; });
 const pct = (n, of) => `${((n / Math.max(1, of)) * 100).toFixed(1)}%`;
@@ -55,7 +56,7 @@ const sections = [["overview", "Overview"], ["time", "Over time"], ["what", "Wha
     <div class="figure-cards">
       {figures.map((f) => (
         <div class="figure-card">
-          <div class="fc-num" title={`${f.value.toLocaleString("en-GB", { maximumFractionDigits: 1 })}${f.unit ? ` ${f.unit}` : ""}`}>{compact(f.value)}{f.unit === "tonnes" && <small> t</small>}{f.unit === "kg" && <small> kg</small>}</div>
+          <div class="fc-num" title={`${formatWeightNumber(f.value)}${f.unit ? ` ${f.unit}` : ""}`}>{f.id === "seized" && f.value < 10000 ? formatWeightNumber(f.value, 6) : compact(f.value)}{f.unit && <small> {f.unit}</small>}</div>
           <div class="fc-label">{f.label}</div>
           <div class="fc-note">{f.value >= 10000 && <>{f.value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}{f.unit ? ` ${f.unit}` : ""} · </>}from {fmt(f.reports)} {f.reports === 1 ? "report" : "reports"}</div>
         </div>
@@ -119,7 +120,7 @@ const sections = [["overview", "Overview"], ["time", "Over time"], ["what", "Wha
       {leaders.map((l) => { const max = l.rows[0].value; return (
         <div>
           <h3>{l.title}</h3>
-          <ol class="hbars compact">{l.rows.map((c) => <li><a class="hb-label" href={`${base}country/${c.id}/`}>{flagOf(c.id)} {countryName(c.id)}</a><span class="hb-track"><i style={`width:${(c.value / max) * 100}%`}></i></span><span class="hb-num" title={`${c.value.toLocaleString("en-GB")}${l.unit}`}>{compact(c.value)}{l.unit && <small>{l.unit}</small>}</span></li>)}</ol>
+          <ol class="hbars compact">{l.rows.map((c) => <li><a class="hb-label" href={`${base}country/${c.id}/`}>{flagOf(c.id)} {countryName(c.id)}</a><span class="hb-track"><i style={`width:${(c.value / max) * 100}%`}></i></span><span class="hb-num" title={l.figure === "kg_seized" ? formatWeight(c.value) : c.value.toLocaleString("en-GB")}>{l.figure === "kg_seized" ? formatWeight(c.value, 6) : compact(c.value)}</span></li>)}</ol>
         </div>
       ); })}
     </div>

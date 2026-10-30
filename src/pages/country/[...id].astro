@@ -8,6 +8,7 @@ import { reportsOf, totals, countByType } from "../../lib/reports.js";
 import { countries, countryName, countryOf, flagOf } from "../../lib/countries.js";
 import { TYPES, typeIcon } from "../../lib/types.js";
 import { compact } from "../../lib/stats.js";
+import { formatWeight } from "../../lib/figures.js";
 import { cfiOf } from "../../lib/cfi.js";
 
 export function getStaticPaths() {
@@ -25,7 +26,7 @@ const fmt = (n) => n.toLocaleString("en-GB");
 // the figures the reports state, in short form (5.2M) with the exact number on hover
 const figures = [
   ["People arrested", t.arrested], ["Plants destroyed", t.plants_destroyed], ["Hectares destroyed", t.hectares],
-  ["kg of cannabis seized", t.kg_seized], ["Deaths", t.deaths],
+  ["Cannabis seized", t.kg_seized, formatWeight(t.kg_seized, 6), formatWeight(t.kg_seized)], ["Deaths", t.deaths],
 ].filter(([, v]) => v > 0);
 const hasCfi = Boolean(cfiOf(id));
 ---
@@ -44,7 +45,7 @@ const hasCfi = Boolean(cfiOf(id));
   {figures.length > 0 && (
     <>
       <dl class="country-figures" style={`--n:${figures.length}`}>
-        {figures.map(([label, v]) => <div><dt>{label}</dt><dd title={v.toLocaleString("en-GB")}>{compact(v)}</dd></div>)}
+        {figures.map(([label, v, weight, exactWeight]) => <div><dt>{label}</dt><dd title={exactWeight ?? v.toLocaleString("en-GB")}>{weight ?? compact(v)}</dd></div>)}
       </dl>
       <p class="note">Only what the reports state; most operations are never reported in numbers.</p>
     </>

@@ -9,6 +9,9 @@ source disagreements are preserved in the report's `open_questions` front matter
 on its page. Reject unsupported events, scams/misinformation and untrustworthy material; do not
 reject a supported incident merely because details are missing or differ between outlets.
 The service does not open PRs, call GitHub to publish, push commits or deploy the website.
+The submissions overview shows committed articles per minute as a rolling 60-minute average.
+It counts recorded local publications once per case, across all origins and list filters;
+duplicate receipts and unrelated status updates do not increase the rate.
 
 ## Local development
 
@@ -154,6 +157,10 @@ metadata and the optional screenshot; independent quotation checks use the rende
 
 The local request detail page shows selected metadata expanded and an inline screenshot preview,
 which links to the full-size capture.
+Report previews use the prepared report file's selected media, including an empty selection;
+captured research photos remain in the source-check section. Once a submission is committed,
+published or matched to an existing report, its inline preview loads the actual report article,
+and its full preview opens that report page. Covers, photos and later edits therefore stay in sync.
 Screenshots use a loopback-only development endpoint, not the public static report assets; no
 third-party page images are copied into published reports. A login, paywall or access challenge
 can still prevent readable evidence. If Chromium is missing, static HTTP retrieval remains

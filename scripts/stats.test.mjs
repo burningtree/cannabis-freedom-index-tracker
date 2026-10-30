@@ -12,8 +12,16 @@ test('headline figures say how many reports state them; seizures switch to tonne
   const list = [{ type: 'seizure', figures: { kg_seized: 1500, arrested: 2 } }, { type: 'arrest', figures: { arrested: 3 } }, { type: 'execution', figures: {} }];
   const f = Object.fromEntries(headlineFigures(list).map((x) => [x.id, x]));
   assert.deepEqual([f.arrested.value, f.arrested.reports], [5, 2]);
-  assert.deepEqual([f.seized.value, f.seized.unit], [1.5, 'tonnes']);
+  assert.deepEqual([f.seized.value, f.seized.unit], [1.5, 't']);
   assert.deepEqual([f.deaths.value, f.deaths.reports], [1, 1]);
+});
+
+test('small cannabis totals use grams and milligrams', () => {
+  for (const [kg, value, unit] of [[0.00386, 3.86, 'g'], [0.00047, 470, 'mg']]) {
+    const seized = headlineFigures([{ type: 'seizure', figures: { kg_seized: kg } }]).find(f => f.id === 'seized');
+    assert.ok(Math.abs(seized.value - value) < 1e-9);
+    assert.equal(seized.unit, unit);
+  }
 });
 
 test('models are grouped without provider and reasoning setting; unknown is counted apart', () => {

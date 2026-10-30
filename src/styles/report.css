@@ -1,0 +1,26 @@
+.report-provenance { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 24px; margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
+.report-updated { margin-left: auto; font-size: 12px; color: var(--text-2); text-align: right; text-decoration: none; }
+.report-updated:hover { color: var(--text); text-decoration: underline; }
+.report-updated time { white-space: nowrap; }
+.report-model { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0; font-size: 12px; color: var(--text-2); }
+.report-model + .report-model { margin-top: 6px; }
+.report-model code { font: 11px/1.6 var(--mono); overflow-wrap: anywhere; }
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 0 0 16px; }
+.media-grid[data-count="1"] { grid-template-columns: minmax(0, 560px); }
+.media-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.media-tile { margin: 0; min-width: 0; }
+.media-grid[hidden], .media-tile[hidden] { display: none; }
+.media-open { display: block; width: 100%; padding: 0; border: 0; border-radius: 8px; overflow: hidden; background: var(--border); cursor: zoom-in; }
+.media-open img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .2s; }
+.media-grid[data-count="1"] .media-open img { aspect-ratio: auto; max-height: 420px; }
+.media-open:hover img, .media-open:focus-visible img { transform: scale(1.03); }
+.media-tile-video { grid-column: span 2; }
+.media-grid[data-count="1"] .media-tile-video { grid-column: auto; }
+.media-tile video, .media-tile iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 8px; background: #000; }
+.media-tile figcaption { margin-top: 6px; font-size: 13px; line-height: 1.45; }
+.media-source { display: block; color: var(--text-2); }
+@media (max-width: 520px) { .media-tile-video { grid-column: 1 / -1; } }
+.report-questions { margin-top: 24px; padding: 18px 20px; background: color-mix(in srgb, #d9a43c 12%, transparent); border-radius: 10px; }
+.report-questions h2 { margin: 0 0 10px; font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.5; text-transform: none; letter-spacing: normal; }
+.report-questions ul { margin: 0; padding-left: 22px; }
+.report-questions li { margin: 6px 0; }

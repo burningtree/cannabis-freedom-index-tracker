@@ -3,6 +3,9 @@
 // text in paragraphs with numbered citations, the sources, and beside it where it happened. Used on
 // the request page (compact: no side column) and on the draft preview page (/draft/?id=).
 import { figureRows } from "../lib/figures.js";
+import { previewMedia, savedReportPath } from "../lib/report-preview.js";
+import { renderReportMedia } from "./report-media.js";
+import { loadSavedArticle, renderSavedReport } from "./saved-report-preview.js";
 
 const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined && text !== null) n.textContent = text; if (className) n.className = className; return n; };
 const OUTCOMES = { new_event: "New report", existing_case: "Update to an existing report", additional_source: "Source for an existing report", not_relevant: "Outside scope", insufficient_evidence: "Unable to verify", routed_to_cfi: "Routed to the CFI", needs_review: "Needs review" };
@@ -38,32 +41,11 @@ function typeChip(types, id) {
   return s;
 }
 
-// container: where to draw; v: the submission; types: { id: {label, color} }; countries: { id: name }
-// Returns false when there is no answer to draw. Not compact, the side column holds a
-// [data-draft-map] box that the preview page turns into a map.
-// The source's photos the capture kept, as illustrations floating beside the draft's text: served
-// only by the local development backend (anywhere else the request fails and the figure is
-// removed), so a reviewer sees the report with its pictures; nothing here is published.
-function capturedPhotos(v, api) {
-  const c = v.source_check, images = Array.isArray(c?.images) ? c.images : [];
-  if (!api || !images.length) return [];
-  return images.map((img, i) => {
-    const n = Number((String(img.file || "").match(/images\/(\d)\.png$/) || [])[1] || i + 1);
-    return { href: `${api}/v1/submissions/${v.id}/source/image/${n}${c.capture_id ? `?capture=${encodeURIComponent(c.capture_id)}` : ""}`, caption: img.caption || "", credit: img.credit || "" };
-  });
-}
-function photoFigure(photo, publisher) {
-  const fig = el("figure", undefined, "draft-photo");
-  const a = el("a"); a.href = photo.href; a.target = "_blank"; a.rel = "noopener noreferrer";
-  const img = el("img"); img.src = photo.href; img.alt = photo.caption || "Photo on the source page"; img.loading = "lazy"; img.decoding = "async";
-  img.addEventListener("error", () => fig.remove());
-  a.append(img); fig.append(a);
-  const cap = el("figcaption", photo.caption || ""); cap.append(el("span", ` ${photo.credit ? `Photo: ${photo.credit}` : publisher ? `Photo: ${publisher}` : ""} · local preview only`, "muted"));
-  fig.append(cap);
-  return fig;
-}
-
-export function renderDraft(container, v, { base = "/", types = {}, countries = {}, compact = false, api = "" } = {}) {
+// Before commitment, draw the prepared report's selected media. Once saved, load
+// the actual report article so later edits, covers and deduplication stay in sync.
+export function renderDraft(container, v, { base = "/", types = {}, countries = {}, compact = false } = {}) {
+  const saved = savedReportPath(v, base);
+  if (saved) { renderSavedReport(container, saved, { compact }); return true; }
   const r = readResult(v);
   container.replaceChildren();
   if (!r) return false;
@@ -94,10 +76,7 @@ export function renderDraft(container, v, { base = "/", types = {}, countries = 
   const facts = Array.isArray(r.facts) ? r.facts : [];
   if (facts.length) {
     const prose = el("div", undefined, "prose");
-    // a photo before every other paragraph, floating beside the text, while there are photos
-    const photos = capturedPhotos(v, api), publisher = sources[0]?.publisher || "";
-    paragraphs(facts).forEach((group, k) => {
-      if (k % 2 === 0 && photos[k / 2]) prose.append(photoFigure(photos[k / 2], publisher));
+    paragraphs(facts).forEach((group) => {
       const p = el("p");
       group.forEach((f, i) => {
         p.append(document.createTextNode(`${i ? " " : ""}${f.text}`));
@@ -109,23 +88,20 @@ export function renderDraft(container, v, { base = "/", types = {}, countries = 
       });
       prose.append(p);
     });
-    // photos left over after the last paragraph follow it
-    for (const photo of photos.slice(Math.ceil(paragraphs(facts).length / 2))) prose.append(photoFigure(photo, publisher));
     article.append(prose);
   } else if (r.explanation) article.append(el("p", r.explanation, "draft-expl"));
 
   if (r.existing_report && SLUG.test(r.existing_report)) { const p = el("p", "Existing report: ", "muted"); const a = el("a", r.existing_report); a.href = `${base}report/${r.existing_report}/`; p.append(a); article.append(p); }
 
-  // photos and video of the event, as links to where they are published (as on a report page)
-  const media = (Array.isArray(r.media) ? r.media : []).filter((m) => httpURL(m.url));
-  if (media.length) {
-    article.append(el(compact ? "h4" : "h2", "Photos and video"));
-    const ul = el("ul", undefined, "media");
-    for (const m of media) {
-      const li = el("li"); const a = el("a", m.caption || m.url, "ext"); a.href = m.url; a.target = "_blank"; a.rel = "noopener noreferrer";
-      li.append(a, el("span", ` ${m.kind === "video" ? "Video" : "Photos"}: ${m.publisher || ""}`, "muted")); ul.append(li);
-    }
-    article.append(ul);
+  const selected = previewMedia(v);
+  renderReportMedia(article, selected.media, { compact });
+  // Updates preserve the existing cover. Read its public, processed image rather
+  // than trying to expose a source asset path from the private draft checkout.
+  if (selected.cover && SLUG.test(r.existing_report || "")) {
+    loadSavedArticle(`${base}report/${r.existing_report}/`).then(saved => {
+      const cover = saved.querySelector(".cover");
+      if (cover && article.isConnected && container.contains(article)) head.after(cover);
+    }).catch(() => {});
   }
 
   if (sources.length) {

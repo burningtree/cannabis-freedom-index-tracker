@@ -7,6 +7,7 @@ import { TYPES } from "../lib/types.js";
 import { MAP_STYLES } from "../lib/map.js";
 import countryList from "../data/countries.json";
 import "../styles/submissions-ui.css";
+import "../styles/report.css";
 const base = import.meta.env.BASE_URL;
 const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { label: v.label, color: v.color }]));
 const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
@@ -26,6 +27,7 @@ const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
     import "../scripts/maplibre-worker.js";
     import "maplibre-gl/dist/maplibre-gl.css";
     import { renderDraft } from "../scripts/draft-report.js";
+    import { savedReportPath } from "../lib/report-preview.js";
     import { statusMeta } from "../lib/submission-status.js";
     import { typeIcon } from "../lib/types.js";
     // the map beside the text, as on a report page: the place, zoomed by how precise it is
@@ -47,9 +49,10 @@ const countries = Object.fromEntries(countryList.map((c) => [c.id, c.name]));
     if (!api) say("Drafts are not available yet.");
     else if (!/^[a-f0-9]{32}$/.test(id)) say("This link needs a valid request id.");
     else fetch(`${api}/v1/submissions/${id}`, { credentials: "omit" }).then((r) => (r.ok ? r.json() : Promise.reject(r.status))).then((v) => {
+      const saved = savedReportPath(v, base);
+      if (saved) { location.replace(saved); return; }
       (document.getElementById("draft-back") as HTMLAnchorElement).href = `${base}submission/?id=${id}`;
       document.getElementById("draft-state")!.textContent = `Request status: ${statusMeta(v.status).label}.${v.status === "published" && v.report_slug ? "" : " It may still change or be rejected."}`;
-      if (v.status === "published" && /^[a-z0-9-]+$/.test(v.report_slug || "")) { const a = document.createElement("a"); a.href = `${base}report/${v.report_slug}/`; a.textContent = "Read the published report →"; document.getElementById("draft-banner")!.append(a); }
       if (!renderDraft(article, v, { base, api, types: JSON.parse(root.dataset.types!), countries: JSON.parse(root.dataset.countries!) })) { say("There is no draft for this request yet."); return; }
       const mapBox = article.querySelector<HTMLElement>("[data-draft-map]");
       if (mapBox) drawMap(mapBox);

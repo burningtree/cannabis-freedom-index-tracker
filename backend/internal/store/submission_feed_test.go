@@ -192,3 +192,46 @@ func TestSubmissionFeedOrdersByLatestUpdate(t *testing.T) {
 		t.Fatal(bySource.Submissions, err)
 	}
 }
+
+func TestCommitRateUsesRecentPublicationsAcrossFiltersAndReceipts(t *testing.T) {
+	s := openTest(t)
+	ctx := context.Background()
+	now := time.Now().Unix()
+	for i, age := range []int64{0, 30, 3590, 3601, -60} {
+		url := fmt.Sprintf("https://news.example/rate-%d", i)
+		id, err := s.Accept(ctx, Intake{Origin: "web", URL: url, CanonicalURL: url})
+		if err != nil {
+			t.Fatal(err)
+		}
+		v, err := s.Get(ctx, id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err = s.DB.Exec("INSERT INTO local_publications VALUES(?,?,?,?)", v.CaseID, "sha", "reports/example.md", now-age); err != nil {
+			t.Fatal(err)
+		}
+		legacyReceipt(t, s, id)
+	}
+	page, err := s.ListSubmissions(ctx, "", "failed", "rss", "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if page.Total != 0 || page.Summary.CommittedLastHour != 3 {
+		t.Fatal(page.Summary, page.Total)
+	}
+	// An unrelated case update must not make an old publication recent again.
+	if _, err := s.DB.Exec("UPDATE cases SET updated_at=?", now+1); err != nil {
+		t.Fatal(err)
+	}
+	page, err = s.ListSubmissions(ctx, "", "", "", "", "")
+	if err != nil || page.Summary.CommittedLastHour != 3 {
+		t.Fatal(page.Summary, err)
+	}
+	if _, err := s.DB.Exec("DELETE FROM local_publications"); err != nil {
+		t.Fatal(err)
+	}
+	page, err = s.ListSubmissions(ctx, "", "", "", "", "")
+	if err != nil || page.Summary.CommittedLastHour != 0 {
+		t.Fatal(page.Summary, err)
+	}
+}

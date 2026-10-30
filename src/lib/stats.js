@@ -1,5 +1,6 @@
 // The figures and series the Statistics page draws, worked out at build time from the reports.
 import { TYPES } from "./types.js";
+import { weightParts } from "./figures.js";
 
 const compactFormat = new Intl.NumberFormat("en-GB", { notation: "compact", maximumFractionDigits: 1 });
 export const fmt = (n) => Math.round(n).toLocaleString("en-GB");
@@ -14,9 +15,7 @@ export function headlineFigures(list) {
   return [
     { id: "arrested", label: "People arrested", value: sum("arrested"), reports: stated("arrested").length },
     { id: "plants", label: "Plants destroyed", value: sum("plants_destroyed"), reports: stated("plants_destroyed").length },
-    kg >= 1000
-      ? { id: "seized", label: "Cannabis seized", value: kg / 1000, unit: "tonnes", reports: stated("kg_seized").length }
-      : { id: "seized", label: "Cannabis seized", value: kg, unit: "kg", reports: stated("kg_seized").length },
+    { id: "seized", label: "Cannabis seized", ...weightParts(kg), reports: stated("kg_seized").length },
     { id: "hectares", label: "Hectares destroyed", value: sum("hectares"), reports: stated("hectares").length },
     { id: "deaths", label: "Deaths", value: deaths.reduce((s, r) => s + (r.figures?.deaths ?? 1), 0), reports: deaths.length },
   ];

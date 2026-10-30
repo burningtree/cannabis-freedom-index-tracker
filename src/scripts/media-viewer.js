@@ -1,9 +1,19 @@
 // The report page's photo grid: a photo opens large in a dialog, with its caption and credit, and
 // the arrow keys move between photos. A photo its publisher no longer serves leaves the grid and
 // is listed as a link instead, so a broken image is never shown.
-const grid = document.querySelector("[data-media-grid]");
-if (grid) {
+const initialized = new WeakSet();
+
+export function initMediaViewers(root = document) {
+  for (const grid of root.querySelectorAll("[data-media-grid]")) {
+    if (initialized.has(grid)) continue;
+    initialized.add(grid);
+    initGrid(grid);
+  }
+}
+
+function initGrid(grid) {
   const tiles = [...grid.querySelectorAll(".media-tile")].filter((t) => t.querySelector(".media-open"));
+  if (!tiles.length) return;
   const broken = (tile) => {
     tile.hidden = true;
     const a = tile.querySelector(".media-source a");
@@ -26,7 +36,7 @@ if (grid) {
     <button type="button" class="mv-close" aria-label="Close">×</button>
     <button type="button" class="mv-prev" aria-label="Previous photo">‹</button>
     <button type="button" class="mv-next" aria-label="Next photo">›</button>`;
-  document.body.append(dialog);
+  grid.parentElement.append(dialog);
   const big = dialog.querySelector("img"), caption = dialog.querySelector("figcaption");
   let at = 0;
   const visible = () => tiles.filter((t) => !t.hidden);
@@ -47,3 +57,5 @@ if (grid) {
   dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
   dialog.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1); });
 }
+
+initMediaViewers();

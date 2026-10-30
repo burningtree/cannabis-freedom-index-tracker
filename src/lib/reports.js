@@ -70,7 +70,7 @@ export function totals(list) {
     arrested: sum("arrested"),
     plants_destroyed: sum("plants_destroyed"),
     hectares: +sum("hectares").toFixed(2),
-    kg_seized: +sum("kg_seized").toFixed(1),
+    kg_seized: Number(sum("kg_seized").toPrecision(15)),
     deaths: sum("deaths") + list.filter((r) => r.type === "execution" && r.figures?.deaths == null).length,
   };
 }

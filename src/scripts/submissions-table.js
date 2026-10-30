@@ -4,6 +4,7 @@
 import { renderProcessingStatus } from "../lib/ai-activity.js";
 import { runCost, planCost, formatUSD } from "../lib/model-cost.js";
 import { ID_PATTERN } from "../lib/submission-receipts.js";
+import { queueEstimate } from "../lib/queue-estimate.js";
 import { statusMeta, isRunning, STAGES, ORIGINS, relativeTime, fullTime, sourceParts } from "../lib/submission-status.js";
 
 const root = document.querySelector("[data-submission-register]");
@@ -118,6 +119,10 @@ function initialize(root) {
         $(key).textContent = Number.isFinite(data.summary?.[key]) ? data.summary[key].toLocaleString() : "—";
       }
       // running against the worker's limit: "1/2"
+      const committed = data.summary?.committed_last_hour;
+      $("commit-rate").textContent = Number.isFinite(committed) ? (committed / 60).toLocaleString("en-GB", { maximumFractionDigits: 2 }) : "—";
+      $("commit-rate").title = Number.isFinite(committed) ? `${committed.toLocaleString()} articles committed in the last 60 minutes` : "Commit rate unavailable";
+      $("queue-estimate").textContent = `Est. to clear: ${queueEstimate(data.summary, data.processing)}`;
       if (Number.isFinite(data.summary?.running) && limit) $("running").textContent = `${data.summary.running}${limit}`;
       const running = rows.filter((v) => isRunning(v.status)).length;
       $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}`;

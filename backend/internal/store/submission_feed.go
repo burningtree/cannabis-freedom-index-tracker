@@ -37,10 +37,11 @@ type SubmissionEntry struct {
 	sortKey      string
 }
 type SubmissionSummary struct {
-	Total   int64 `json:"total"`
-	Running int64 `json:"running"`
-	Queued  int64 `json:"queued"`
-	Paused  int64 `json:"paused"`
+	Total             int64 `json:"total"`
+	Running           int64 `json:"running"`
+	Queued            int64 `json:"queued"`
+	Paused            int64 `json:"paused"`
+	CommittedLastHour int64 `json:"committed_last_hour"`
 }
 
 type SubmissionPage struct {
@@ -164,6 +165,10 @@ func (s *Store) ListSubmissions(ctx context.Context, cursor, status, origin, sor
 		return out, err
 	}
 	var revision int64
+	// One publication per case, independent of receipt count, current status and list filters.
+	if err = tx.QueryRowContext(ctx, `SELECT count(*) FROM local_publications WHERE created_at>unixepoch()-3600 AND created_at<=unixepoch()`).Scan(&out.Summary.CommittedLastHour); err != nil {
+		return out, err
+	}
 	if err = tx.QueryRowContext(ctx, "SELECT version FROM submission_feed_version WHERE singleton=1").Scan(&revision); err != nil {
 		return out, err
 	}

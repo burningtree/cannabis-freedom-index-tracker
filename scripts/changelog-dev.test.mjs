@@ -23,15 +23,16 @@ test("dev commits refresh changelog, report indexes and cached report routes", {
   };
   try {
     mkdirSync(join(root, "src/pages/changelog"), { recursive: true });
-    for (const dir of ["src/lib", "src/data", "src/pages/api", "src/pages/report", "src/pages/r", "reports"]) mkdirSync(join(root, dir), { recursive: true });
+    for (const dir of ["src/lib", "src/data", "src/pages/api/country", "src/pages/report", "src/pages/r", "reports"]) mkdirSync(join(root, dir), { recursive: true });
     for (const name of ["reports", "types", "countries", "map", "code", "figures"]) copyFileSync(resolve(`src/lib/${name}.js`), join(root, `src/lib/${name}.js`));
     copyFileSync(resolve("src/data/countries.json"), join(root, "src/data/countries.json"));
     copyFileSync(resolve("src/pages/api/index.json.js"), join(root, "src/pages/api/index.json.js"));
+    copyFileSync(resolve("src/pages/api/country/[...id].json.js"), join(root, "src/pages/api/country/[...id].json.js"));
     copyFileSync(resolve("src/pages/r/[code].astro"), join(root, "src/pages/r/[code].astro"));
     writeFileSync(join(root, "src/content.config.ts"), `import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 export const collections = { reports: defineCollection({ loader: glob({ pattern: '**/*.md', base: './reports' }), schema: z.object({date:z.coerce.date()}).passthrough() }) };`);
-    const report = (title) => `---\ndate: 2026-10-30\ncountry: cz\ntype: seizure\ntitle: ${title}\nsummary: Fixture report\nstatus: reported\ncreated_by_model: unknown\nsources: []\n---\nFixture body.\n`;
+    const report = (title) => `---\ndate: 2026-10-30\ncountry: cz\ntype: seizure\ntitle: ${title}\nsummary: Fixture report\nfigures:\n  kg_seized: 0.00386\nstatus: reported\ncreated_by_model: unknown\nsources: []\n---\nFixture body.\n`;
     writeFileSync(join(root, "reports/initial.md"), report("Initial report"));
     writeFileSync(join(root, "src/pages/report/[slug].astro"), `---
 import { reports } from '../../lib/reports.js';
@@ -41,7 +42,7 @@ export const getStaticPaths = () => reports.map(r => ({params:{slug:r.id},props:
     symlinkSync(resolve("node_modules"), join(root, "node_modules"), "dir");
     writeFileSync(join(root, "package.json"), '{"type":"module"}');
     const plugin = pathToFileURL(resolve("scripts/lib/changelog-dev.mjs")).href;
-    writeFileSync(join(root, "astro.config.mjs"), `import { defineConfig } from 'astro/config';\nimport { changelogDev } from ${JSON.stringify(plugin)};\nexport default defineConfig({ devToolbar: { enabled: false }, cacheDir: './.astro-cache', vite: { cacheDir: './.vite-cache', plugins: [changelogDev({ interval: 100 })] } });`);
+    writeFileSync(join(root, "astro.config.mjs"), `import { defineConfig } from 'astro/config';\nimport { changelogDev } from ${JSON.stringify(plugin)};\nexport default defineConfig({ site: 'https://tracker.example', devToolbar: { enabled: false }, cacheDir: './.astro-cache', vite: { cacheDir: './.vite-cache', plugins: [changelogDev({ interval: 100 })] } });`);
     writeFileSync(join(root, "src/pages/changelog/[...page].astro"), `---
 import {execFileSync} from 'node:child_process';
 import { reports } from '../../lib/reports.js';
@@ -61,7 +62,9 @@ export function getStaticPaths() {
     const read = async (path) => { const response = await fetch(address + path); return { status: response.status, text: await response.text() }; };
     await until(async () => (await read("/changelog/")).text.includes("<h1>Initial history</h1>"));
     assert.equal((await read("/changelog/2/")).status, 404);
-    assert.ok((await read("/api/index.json")).text.includes("Initial report"));
+    await until(async () => (await read("/api/index.json")).text.includes("Initial report"));
+    assert.ok((await read("/api/index.json")).text.includes("3.86 g"));
+    assert.equal(JSON.parse((await read("/api/country/cz.json")).text).totals.kg_seized, 0.00386);
     assert.equal((await read("/report/new-report/")).status, 404);
     assert.ok((await read("/report/initial/")).text.includes("Initial report"));
     const { codeOf } = await import("../src/lib/code.js");

@@ -6,6 +6,7 @@ import { submissionDecision, changedReports } from "../lib/submission-decision.j
 import { restartControl } from "../lib/submission-restart.js";
 import { renderAIActivity } from "../lib/ai-activity.js";
 import { renderDraft, readResult } from "./draft-report.js";
+import { savedReportPath } from "../lib/report-preview.js";
 import { runCost, planCost, formatUSD } from "../lib/model-cost.js";
 import { safeHTTP } from "../lib/submission-receipts.js";
 import { STAGES, statusMeta, isRunning, OUTCOME_HELP, ORIGINS, attempts, relativeTime, fullTime, duration, sourceParts } from "../lib/submission-status.js";
@@ -97,12 +98,12 @@ function output(box, v) {
   box.replaceChildren(el("h2", "Outcome"));
   const items = el("div", undefined, "sx-out-items");
   if (SLUG.test(v.report_slug || "") && ["committed", "published", "duplicate"].includes(v.status)) items.append(link(v.status === "committed" ? "Read the committed report →" : v.status === "published" ? "Read the published report →" : "Read the existing report →", `${base}report/${v.report_slug}/`, "sx-btn sx-btn-primary"));
-  if (readResult(v)) items.append(link("Preview as a report →", `${base}draft/?id=${v.id}`, `sx-btn${items.childElementCount ? "" : " sx-btn-primary"}`));
+  if (readResult(v) || savedReportPath(v, base)) items.append(link("Preview as a report →", `${base}draft/?id=${v.id}`, `sx-btn${items.childElementCount ? "" : " sx-btn-primary"}`));
   if (PR.test(v.pr_url || "")) items.append(link("Proposal on GitHub ↗", v.pr_url, "sx-btn"));
   if (/^[a-f0-9]{64}$/.test(v.reply_event_id || "")) items.append(link("Reply on Nostr ↗", `https://njump.me/${v.reply_event_id}`, "sx-btn"));
   const draft = el("article", undefined, "sx-draft");
   const drew = renderDraft(draft, v, { base, types: JSON.parse(root?.dataset.types || "{}"), countries: JSON.parse(root?.dataset.countries || "{}"), compact: true, api: (root?.dataset.api || "").replace(/\/$/, "") });
-  if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : ["published", "committed"].includes(v.status) ? "The report as drafted:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
+  if (drew) box.append(el("p", isRunning(v.status) ? "The AI's draft, still being checked:" : savedReportPath(v, base) ? "The saved report:" : "The AI's answer:", "sx-muted sx-draft-label"), draft);
   if (drew) box.append(validation(v));
   else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
   else if (!items.childElementCount) box.append(el("p", OUTCOME_HELP[v.status] ?? v.explanation, "sx-muted"));
