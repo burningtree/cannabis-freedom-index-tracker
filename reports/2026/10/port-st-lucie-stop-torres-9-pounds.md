@@ -32,11 +32,16 @@ sources:
     url: https://www.tcpalm.com/story/news/crime/st-lucie-county/2026/10/30/port-st-lucie-man-caught-with-9-pounds-of-marijuana-in-traffic-stop/92513451007/
     publisher: TCPalm
     date: 2026-10-30
+  - title: 'Port St. Lucie police: Traffic stop leads to nearly 9 pounds of marijuana seizure'
+    url: https://cbs12.com/news/crime/gallery/port-st-lucie-police-traffic-stop-leads-to-nearly-9-pounds-of-marijuana-seizure-1450-cash-packaged-for-distribution-intent-to-sell-?photo=1
+    publisher: CBS12
+    date: 2026-10-30
 open_questions:
   - Police gave no street value for the marijuana; the $1,450 in the reports is cash found in the vehicle, not a valuation.
   - No court date, plea or outcome was reported after Torres was released on bail.
   - The two reports describe the quantity as “nearly” and “about” 9 pounds, so the converted figure of 4.1 kg is approximate.
   - CBS12's gallery lists three images under one caption, but only the lead image's content could be checked, so the other two were left out.
+  - The gallery's first image shows a marked Port St. Lucie police SUV, while the report's existing media caption describes the lead CBS12 image as a composite of the driver's booking photo and the packaged marijuana; the other two gallery images share the same generic caption and could not be verified.
 ---
 
 The driver, Samuel Torres, 27, of Port St. Lucie, was arrested and charged with
@@ -54,7 +59,7 @@ vacuum-sealed and individually packaged bags, as well as loose suspected
 marijuana in the seats and floorboard, and investigators said the marijuana had
 been packaged for distribution. [@1] The traffic stop led to the seizure of
 nearly 9 pounds (about 4.1 kilograms) of marijuana and $1,450 in cash, police
-said. [@1] The 2019 Kia Optima was also seized under the Florida Contraband
+said. [@1,3] The 2019 Kia Optima was also seized under the Florida Contraband
 Forfeiture Act. [@1]
 
 Torres told officers he and his girlfriend had argued and that he grabbed the
@@ -62,4 +67,3 @@ marijuana from inside the home and put it in the vehicle to avoid her calling
 law enforcement to take it. [@2] He said he sells narcotics to make money for
 his family, that he is unemployed, and that he had been selling marijuana for
 about a year, according to the arrest report. [@2]
-
