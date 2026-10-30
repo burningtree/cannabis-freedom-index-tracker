@@ -1301,24 +1301,45 @@ func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
 			return d, err
 		}
 	}
-	for _, args := range [][]string{{"ci", "--ignore-scripts", "--no-audit", "--no-fund"}, {"run", "build"}} {
+	npm := func(args ...string) ([]byte, error) {
 		cmd := exec.CommandContext(ctx, "npm", args...)
 		cmd.Dir = dir
 		cmd.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + dir, "CI=true"}
 		out := &capped{Max: 2 * 1024 * 1024}
 		cmd.Stdout = out
 		cmd.Stderr = out
-		if err := cmd.Run(); err != nil {
-			_ = os.WriteFile(filepath.Join(dir, "validation.log"), out.Bytes(), 0600)
-			return d, &BuildError{Step: "npm " + strings.Join(args, " "), Detail: BuildFailure(out.Bytes(), dir)}
+		err := cmd.Run()
+		return out.Bytes(), err
+	}
+	for _, args := range [][]string{{"ci", "--ignore-scripts", "--no-audit", "--no-fund"}, {"run", "build"}} {
+		out, err := npm(args...)
+		if err == nil {
+			continue
 		}
+		_ = os.WriteFile(filepath.Join(dir, "validation.log"), out, 0600)
+		failure := &BuildError{Step: "npm " + strings.Join(args, " "), Detail: BuildFailure(out, dir)}
+		// A draft is only to blame if the repository builds without it: build the untouched
+		// checkout again, so a broken repository is not reported as a bad draft.
+		if args[0] == "run" && ctx.Err() == nil {
+			restore := exec.CommandContext(ctx, "sh", "-c", "git checkout --quiet -- reports && git clean -fdq -- reports")
+			restore.Dir = dir
+			if restore.Run() == nil {
+				if _, err := npm(args...); err != nil && ctx.Err() == nil {
+					failure.Repository = true
+				}
+			}
+		}
+		return d, failure
 	}
 	return d, nil
 }
 
 // BuildError is a draft that failed the repository build; Detail is the failing lines of its log,
-// made safe to show publicly.
-type BuildError struct{ Step, Detail string }
+// made safe to show publicly. Repository: the checkout fails the build without the draft too.
+type BuildError struct {
+	Step, Detail string
+	Repository   bool
+}
 
 func (e *BuildError) Error() string {
 	if e.Detail == "" {
@@ -1329,7 +1350,7 @@ func (e *BuildError) Error() string {
 
 var (
 	ansiCodes   = regexp.MustCompile(`\x1b\[[0-9;?]*[A-Za-z]`)
-	hostPath    = regexp.MustCompile(`(?:file://)?(?:/[^\s/:'"()]+)+/`)
+	hostPath    = regexp.MustCompile(`(^|[\s'"(])(?:file://)?(?:/[^\s/:'"()]+)+/`) // absolute paths only
 	failureHead = regexp.MustCompile(`^(?:\[\w*Error\]|not ok \d+|npm (?:ERR!|error)|\S*Error:|error(?:\s|:|\[)|✖|✗|×)`)
 	failureEnd  = regexp.MustCompile(`^(?:Hint:|Error reference:|Location:|Stack trace:|stack:|at |---|\.\.\.$)`)
 	failureSkip = regexp.MustCompile(`^(?:duration_ms|failureType|location|code|type):\s*['\d]`) // node test runner's own fields
@@ -1345,7 +1366,7 @@ func BuildFailure(log []byte, dir string) string {
 		if dir != "" {
 			line = strings.ReplaceAll(line, dir+string(filepath.Separator), "")
 		}
-		line = hostPath.ReplaceAllString(line, "")
+		line = hostPath.ReplaceAllString(line, "$1")
 		text := strings.TrimSpace(line)
 		switch {
 		case text == "":

@@ -74,3 +74,42 @@ func TestSuccessfulAndRejectedSubmissionsCannotRestart(t *testing.T) {
 		})
 	}
 }
+
+func TestRetryKeepsResearchAndRestartDropsIt(t *testing.T) {
+	s := openTest(t)
+	ctx := context.Background()
+	id := accept(t, s, false)
+	v, _ := s.Get(ctx, id)
+	job, err := s.Claim(ctx, "jobs", time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s.Finish(ctx, "jobs", job, nil)
+	s.Transition(ctx, v.CaseID, "failed", "Build failed.", "", "")
+	if err = s.Retry(ctx, id); !errors.Is(err, ErrNothingToResume) {
+		t.Fatal("retry without research accepted", err)
+	}
+	s.DB.Exec("INSERT INTO research_checkpoints(case_id,payload,created_at) VALUES(?,?,?)", v.CaseID, "{}", 1)
+	s.SetCaseOutput(ctx, v.CaseID, map[string]string{"ai_result": `{"outcome":"new_event"}`, "draft_path": "reports/x.md"})
+	if v, _ = s.Get(ctx, id); !v.Resumable {
+		t.Fatal("saved research not reported as resumable")
+	}
+	if err = s.Retry(ctx, id); err != nil {
+		t.Fatal(err)
+	}
+	var saved int
+	s.DB.QueryRow("SELECT count(*) FROM research_checkpoints WHERE case_id=?", v.CaseID).Scan(&saved)
+	if v, _ = s.Get(ctx, id); saved != 1 || v.Status != "queued" || len(v.Result) == 0 || v.DraftPath != "" {
+		t.Fatal("retry lost the research or kept the draft", saved, v.Status, string(v.Result), v.DraftPath)
+	}
+	job, _ = s.Claim(ctx, "jobs", time.Minute)
+	s.Finish(ctx, "jobs", job, nil)
+	s.Transition(ctx, v.CaseID, "failed", "Build failed again.", "", "")
+	if err = s.Restart(ctx, id); err != nil {
+		t.Fatal(err)
+	}
+	s.DB.QueryRow("SELECT count(*) FROM research_checkpoints WHERE case_id=?", v.CaseID).Scan(&saved)
+	if v, _ = s.Get(ctx, id); saved != 0 || v.Resumable || len(v.Result) != 0 {
+		t.Fatal("restart kept the research")
+	}
+}

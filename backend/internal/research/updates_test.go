@@ -131,9 +131,10 @@ func TestBuildFailureKeepsErrorsWithoutPathsOrStacks(t *testing.T) {
 		"  Hint:\n    See https://docs.astro.build/ for more information.\n" +
 		"  Location:\n    /srv/jobs/abc/reports/2026/10/x.md:0:0\n" +
 		"  Stack trace:\n    at getEntryData (/srv/jobs/abc/node_modules/astro/dist/content/utils.js:83:22)\n" +
-		"not ok 3 - every source is cited\n  error: |-\n    source 2 is never cited ([@2])\n  location: '/srv/jobs/abc/scripts/reports.test.mjs:12:1'\n"
+		"not ok 3 - every source is cited\n  error: |-\n    source 2 is never cited ([@2])\n  location: '/srv/jobs/abc/scripts/reports.test.mjs:12:1'\n" +
+		"✖ reports/2026/09/hulhumale-shareef-25-years.md (0.7ms)\n"
 	got := BuildFailure([]byte(log), "/srv/jobs/abc")
-	for _, want := range []string{"[InvalidContentEntryDataError] reports → x data does not match", "type: Invalid option", "not ok 3 - every source is cited", "source 2 is never cited"} {
+	for _, want := range []string{"[InvalidContentEntryDataError] reports → x data does not match", "type: Invalid option", "not ok 3 - every source is cited", "source 2 is never cited", "✖ reports/2026/09/hulhumale-shareef-25-years.md"} {
 		if !strings.Contains(got, want) {
 			t.Fatalf("missing %q in %q", want, got)
 		}

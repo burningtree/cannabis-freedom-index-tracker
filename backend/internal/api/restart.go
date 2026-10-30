@@ -1,7 +1,9 @@
 package api
 
 import (
+	"encoding/json"
 	"errors"
+	"io"
 	"mime"
 	"net"
 	"net/http"
@@ -59,8 +61,20 @@ func (s *Server) restart(w http.ResponseWriter, r *http.Request) {
 		problem(w, 404, "Receipt not found.")
 		return
 	}
-	if err = s.Store.Restart(r.Context(), id); err != nil {
+	// {"resume": true} retries after the saved AI research; otherwise everything starts again
+	var body struct {
+		Resume bool `json:"resume"`
+	}
+	_ = json.NewDecoder(io.LimitReader(r.Body, 1024)).Decode(&body)
+	if body.Resume {
+		err = s.Store.Retry(r.Context(), id)
+	} else {
+		err = s.Store.Restart(r.Context(), id)
+	}
+	if err != nil {
 		switch {
+		case errors.Is(err, store.ErrNothingToResume):
+			problem(w, 409, "This submission has no finished research to resume from. Restart it instead.")
 		case store.IsMissingAI(err):
 			problem(w, 404, "Receipt not found.")
 		case errors.Is(err, store.ErrRestartConflict):
