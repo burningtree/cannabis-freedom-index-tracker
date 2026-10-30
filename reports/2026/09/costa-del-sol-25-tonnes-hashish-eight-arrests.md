@@ -18,6 +18,11 @@ media:
     media_url: https://s2.ppllstatics.com/surinenglish/www/multimedia/sucesos/2026/10/30/droga-kRqH--1200x840@Diario%20Sur.jpg
     publisher: Sur in English
     caption: 'Seized drugs from the National Police operation. Photo: Policía Nacional'
+  - kind: photo
+    url: https://www.laopiniondemalaga.es/malaga/2026/10/30/cuatro-detenidos-malaga-tres-toneladas-hachis-cocaina-135914861.html
+    media_url: https://estaticos-cdn.prensaiberica.es/clip/40d1ad31-c61f-4814-89f0-db55411124fb_source-aspect-ratio_default_1525131.webp
+    publisher: La Opinión de Málaga
+    caption: 'A rifle seized in one of the searches. Photo: L.O. (La Opinión de Málaga).'
 status: reported
 created_by_model: xai/grok-4.7#low
 submission: 53fc23aca5a8e595c134a45894de6b9e
@@ -37,6 +42,11 @@ sources:
     publisher: Moncloa
     date: 2026-10-30
     language: es
+  - title: Cuatro detenidos en Málaga en una operación que suma más de tres toneladas de hachís y cocaína
+    url: https://www.laopiniondemalaga.es/malaga/2026/10/30/cuatro-detenidos-malaga-tres-toneladas-hachis-cocaina-135914861.html
+    publisher: La Opinión de Málaga
+    date: 2026-10-30
+    language: es
 open_questions:
   - The police account, as reported by Europa Press, places the searches in September 2026 but gives no day; 1 September marks that month only.
   - Which of the searched houses in Málaga or Valencia held the drugs is not stated.
@@ -47,27 +57,29 @@ open_questions:
   - The reports do not say what happened to the five detainees who were not remanded in custody.
   - No street value for the 2.5 tonnes of hashish was published.
   - The Moncloa page's cover image is uncaptioned and uncredited, so it was not added; the media entry is the police-credited photo on the Europa Press page.
+  - La Opinión de Málaga's headline highlights four detainees in Málaga and its breakdown adds to seven (four on the Costa del Sol, two in Cullera and one in Girona), although its text says eight; the report keeps the police count of eight reported by Europa Press and Sur in English.
+  - The page's photo captioned 'Parte de la droga intervenida' carries no credit and appears to repeat the National Police handout already linked in the report, so it was not listed twice.
 ---
 
 Eight men, aged 24 to 58, were arrested in Málaga, Valencia and Girona after the
 National Police dismantled an international cocaine and hashish trafficking
-organisation operating from the Costa del Sol. [@2] Two were detained in
+organisation operating from the Costa del Sol. [@2,4] Two were detained in
 Marbella, two in Torremolinos, three in Cullera in Valencia and one in Girona.
 [@1] After they appeared in court, a judge remanded three of them in custody.
-[@1] The men were held as suspected authors of drug trafficking, membership of a
+[@1,4] The men were held as suspected authors of drug trafficking, membership of a
 criminal organisation, unlawful possession of firearms, vehicle theft and
 document forgery. [@1]
 
 Searches of six homes and one commercial premises in Málaga and Valencia,
 carried out in September, yielded 2.5 tonnes of hashish and 600 kilograms of
 cocaine from a single house, the National Police said in a statement reported by
-Europa Press. [@2] Officers also seized a rifle, 13,000 euros in cash, five
+Europa Press. [@2,4] Officers also seized a rifle, 13,000 euros in cash, five
 stolen high-end vehicles, 14 sets of fake number plates, plate-stamping
-equipment, signal jammers and fraudulent identity documents. [@1]
+equipment, signal jammers and fraudulent identity documents. [@1,4]
 
 The inquiry was run jointly by the Drugs and Organised Crime Unit (UDYCO, the
 National Police unit for drugs and organised crime) in Torremolinos-Benalmádena
-and its counterpart in Valencia, and began in May. [@1] Detectives said the
+and its counterpart in Valencia, and began in May. [@1,4] Detectives said the
 group bought cocaine and hashish in Portugal, stored and prepared shipments in
 Málaga and Valencia, and moved them by road toward European markets, mainly
 France, in high-end cars stolen in France and Belgium and fitted with forged
