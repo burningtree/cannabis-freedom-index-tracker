@@ -17,7 +17,7 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
     <header class="sx-head">
       <div>
         <h1>Submissions</h1>
-        <p class="sx-lead">Send a news URL and follow its processing. All submitted sources appear below, newest first.</p>
+        <p class="sx-lead">Send a news URL and follow its processing. All submitted sources appear below, most recently updated first.</p>
       </div>
       {/* the AI worker and the live connection, compact, at the top right */}
       <aside class="sx-head-side sx-worker-card" aria-label="AI worker">
@@ -73,8 +73,17 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
       </div>
     </div>
 
-    <div class="sx-table" tabindex="0" role="region" aria-label="Submission table; scroll horizontally on smaller screens">
-    <div class="sx-grid-head" aria-hidden="true"><span>Received</span><span>ID</span><span>Source</span><span>Status</span><span>Tokens in/out</span><span>Runs · time</span><span>Cost</span></div>
+    <div class="sx-table sx-table-updated" tabindex="0" role="region" aria-label="Submission table; scroll horizontally on smaller screens">
+    <div class="sx-grid-head">
+      <button type="button" class="sx-sort" data-sort="received" aria-sort="none" title="Sort by when the source arrived" disabled={!api}>Received</button>
+      <button type="button" class="sx-sort" data-sort="updated" aria-sort="descending" title="Sort by the latest change" disabled={!api}>Updated</button>
+      <button type="button" class="sx-sort" data-sort="id" aria-sort="none" title="Sort by receipt" disabled={!api}>ID</button>
+      <button type="button" class="sx-sort" data-sort="source" aria-sort="none" title="Sort by source address" disabled={!api}>Source</button>
+      <button type="button" class="sx-sort" data-sort="status" aria-sort="none" title="Sort by status" disabled={!api}>Status</button>
+      <button type="button" class="sx-sort" data-sort="tokens" aria-sort="none" title="Sort by tokens read and written" disabled={!api}>Tokens in/out</button>
+      <button type="button" class="sx-sort" data-sort="runs" aria-sort="none" title="Sort by time since the source arrived" disabled={!api}>Runs · time</button>
+      <button type="button" class="sx-sort" data-sort="cost" aria-sort="none" title="Sort by cost" disabled={!api}>Cost</button>
+    </div>
     <ol class="sx-list" id="register-rows" aria-live="polite" aria-busy="true">
       <li class="sx-empty">{api ? "Loading submissions…" : "Submissions are not available yet."}</li>
     </ol>
@@ -83,10 +92,10 @@ const relays = (import.meta.env.PUBLIC_NOSTR_RELAYS || "").split(",").filter(Boo
     <p id="register-message" class="sx-message" role="status"></p>
 
     <nav class="sx-pager" aria-label="Pages">
-      <button id="register-newest" type="button" class="sx-btn" disabled>Newest</button>
-      <button id="register-previous" type="button" class="sx-btn" disabled>← Newer</button>
+      <button id="register-newest" type="button" class="sx-btn" disabled>First</button>
+      <button id="register-previous" type="button" class="sx-btn" disabled>← Previous</button>
       <span id="register-page">Page 1</span>
-      <button id="register-next" type="button" class="sx-btn" disabled>Older →</button>
+      <button id="register-next" type="button" class="sx-btn" disabled>Next →</button>
     </nav>
     <p class="sx-foot">Sources come from the website, Nostr and automatic discovery (RSS, GDELT). Addresses, public notes and outcomes are public; private research evidence is not shown.</p>
     <details class="submissions sx-saved-receipts"><summary>My saved receipts · import / export</summary>

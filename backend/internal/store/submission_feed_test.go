@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -22,22 +21,21 @@ func TestSubmissionFeedPagesEveryOriginWithoutPrivateData(t *testing.T) {
 		}
 		ids = append(ids, id)
 	}
-	page, err := s.ListSubmissions(ctx, 1<<62, "", "")
+	page, err := s.ListSubmissions(ctx, "", "", "", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if page.Total != 57 || len(page.Submissions) != 50 || page.NextCursor == "" || page.Submissions[0].ID != ids[56] {
 		t.Fatal("incorrect page", page)
 	}
-	cursor, err := strconv.ParseInt(page.NextCursor, 10, 64)
-	if err != nil {
+	if _, err = ParseSubmissionCursor(page.NextCursor); err != nil {
 		t.Fatal(err)
 	}
 	// A new arrival cannot shift an older cursor page or hide same-second receipts.
 	if _, err = s.Accept(ctx, Intake{Origin: "web", URL: "https://news.example/new", CanonicalURL: "https://news.example/new"}); err != nil {
 		t.Fatal(err)
 	}
-	older, err := s.ListSubmissions(ctx, cursor, "", "")
+	older, err := s.ListSubmissions(ctx, page.NextCursor, "", "", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -58,7 +56,7 @@ func TestSubmissionFeedPagesEveryOriginWithoutPrivateData(t *testing.T) {
 	if strings.Contains(string(b), "PRIVATE") {
 		t.Fatal("private provenance leaked")
 	}
-	rss, err := s.ListSubmissions(ctx, 1<<62, "queued", "rss")
+	rss, err := s.ListSubmissions(ctx, "", "queued", "rss", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -70,7 +68,7 @@ func TestSubmissionFeedPagesEveryOriginWithoutPrivateData(t *testing.T) {
 			t.Fatal(v)
 		}
 	}
-	if _, err = s.ListSubmissions(ctx, 1<<62, "bad", ""); err == nil {
+	if _, err = s.ListSubmissions(ctx, "", "bad", "", "", ""); err == nil {
 		t.Fatal("invalid filter accepted")
 	}
 }
@@ -88,7 +86,7 @@ func TestFeedRevisionCoversSharedCasesAndNostrLinks(t *testing.T) {
 	if err := s.Transition(ctx, v.CaseID, "researching", "Research in progress.", "", ""); err != nil {
 		t.Fatal(err)
 	}
-	page, err := s.ListSubmissions(ctx, 1<<62, "researching", "")
+	page, err := s.ListSubmissions(ctx, "", "researching", "", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -133,7 +131,7 @@ func TestSubmissionFeedIncludesCumulativeUsageAndBudgetResume(t *testing.T) {
 	if err = s.Finish(ctx, "jobs", job, ErrBudget); err != nil {
 		t.Fatal(err)
 	}
-	page, err := s.ListSubmissions(ctx, 1<<62, "budget_wait", "")
+	page, err := s.ListSubmissions(ctx, "", "budget_wait", "", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,5 +146,49 @@ func TestSubmissionFeedIncludesCumulativeUsageAndBudgetResume(t *testing.T) {
 	detail, err := s.Get(ctx, other)
 	if err != nil || detail.Status != "budget_wait" || detail.ResumeAt != page.Submissions[0].ResumeAt || !strings.Contains(detail.Explanation, "No new AI run") {
 		t.Fatal(detail, err)
+	}
+}
+
+func TestSubmissionFeedOrdersByLatestUpdate(t *testing.T) {
+	s := openTest(t)
+	ctx := context.Background()
+	older, err := s.Accept(ctx, Intake{Origin: "web", URL: "https://news.example/older", CanonicalURL: "https://news.example/older"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	newer, err := s.Accept(ctx, Intake{Origin: "web", URL: "https://news.example/newer", CanonicalURL: "https://news.example/newer"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	v, err := s.Get(ctx, older)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.DB.Exec("UPDATE cases SET updated_at=? WHERE id=?", time.Now().Unix()+60, v.CaseID); err != nil {
+		t.Fatal(err)
+	}
+	page, err := s.ListSubmissions(ctx, "", "", "", "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(page.Submissions) != 2 || page.Submissions[0].ID != older || page.Submissions[1].ID != newer {
+		t.Fatal(page.Submissions)
+	}
+	if page.Submissions[0].UpdatedAt <= page.Submissions[1].UpdatedAt {
+		t.Fatal(page.Submissions)
+	}
+	received, err := s.ListSubmissions(ctx, "", "", "", "received", "asc")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if received.Submissions[0].ID != older || received.Submissions[1].ID != newer {
+		t.Fatal(received.Submissions)
+	}
+	if _, err = s.ListSubmissions(ctx, FormatSubmissionCursor("received", "asc", "1", 1), "", "", "source", "asc"); err == nil {
+		t.Fatal("cursor from another sort was accepted")
+	}
+	bySource, err := s.ListSubmissions(ctx, "", "", "", "source", "asc")
+	if err != nil || bySource.Submissions[0].URL > bySource.Submissions[1].URL {
+		t.Fatal(bySource.Submissions, err)
 	}
 }

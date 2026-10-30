@@ -191,12 +191,21 @@
 /* Compact one-line register; keep columns aligned and scroll on small screens. */
 [data-tone="paused"] { --tone: var(--sx-attention, #b78318); }
 /* The submission tables: dense, monospaced, one line per request, columns in scanning order
-   (received, id, source, status, tokens, runs and time, cost) */
+   (received, id, source, status, tokens, runs and time, cost). The full register adds updated. */
 .sx-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
 .sx-table .sx-list { border: 0; border-radius: 0; min-width: 900px; }
 .sx-grid-head, .sx-table .sx-row-link { display: grid; grid-template-columns: 62px 62px minmax(220px, 1fr) 150px 92px 96px 68px; gap: 14px; align-items: center; min-width: 900px; padding: 7px 14px; box-sizing: border-box; }
+.sx-table-updated .sx-list,
+.sx-table-updated .sx-grid-head,
+.sx-table-updated .sx-row-link { grid-template-columns: 78px 78px 62px minmax(160px, 1fr) 150px 92px 96px 68px; min-width: 1010px; }
 .sx-grid-head { border-bottom: 1px solid var(--border); background: var(--surface-2); font: 9.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.sx-grid-head > :nth-child(n+5) { text-align: right; }
+.sx-sort { width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; text-align: inherit; cursor: pointer; white-space: nowrap; }
+.sx-sort:hover, .sx-sort[aria-sort="ascending"], .sx-sort[aria-sort="descending"] { color: var(--text); }
+.sx-sort[aria-sort="ascending"]::after { content: " ↑"; }
+.sx-sort[aria-sort="descending"]::after { content: " ↓"; }
+.sx-sort:disabled { cursor: default; }
+.sx-table:not(.sx-table-updated) .sx-grid-head > :nth-child(n+5),
+.sx-table-updated .sx-grid-head > :nth-child(n+6) { text-align: right; }
 .sx-table .sx-row-link { min-height: 40px; font: 11.5px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
 .sx-table .sx-row + .sx-row { border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent); }
 .sx-row-time { display: flex; flex-direction: column; line-height: 1.25; color: var(--text); }

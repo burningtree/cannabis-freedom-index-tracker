@@ -4,7 +4,6 @@ import (
 	"context"
 	"net/http"
 	"net/url"
-	"strconv"
 	"time"
 
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
@@ -18,21 +17,22 @@ func (s *Server) submissions(w http.ResponseWriter, r *http.Request) {
 		s.batch(w, r)
 		return
 	}
-	cursor := int64(1 << 62)
-	if raw := r.URL.Query().Get("cursor"); raw != "" {
-		v, err := strconv.ParseInt(raw, 10, 64)
-		if err != nil || v < 1 {
-			problem(w, 400, "Invalid submission cursor.")
-			return
-		}
-		cursor = v
+	cursor := r.URL.Query().Get("cursor")
+	sortBy, order := r.URL.Query().Get("sort"), r.URL.Query().Get("order")
+	if !store.ValidSubmissionSort(sortBy, order) {
+		problem(w, 400, "Invalid submission sort.")
+		return
+	}
+	if _, err := store.ParseSubmissionCursor(cursor); err != nil {
+		problem(w, 400, "Invalid submission cursor.")
+		return
 	}
 	status, origin := r.URL.Query().Get("status"), r.URL.Query().Get("origin")
 	if !store.ValidSubmissionFilter(status, origin) {
 		problem(w, 400, "Invalid submission filter.")
 		return
 	}
-	page, err := s.Store.ListSubmissions(r.Context(), cursor, status, origin)
+	page, err := s.Store.ListSubmissions(r.Context(), cursor, status, origin, sortBy, order)
 	if err != nil {
 		problem(w, 503, "Submissions could not be loaded.")
 		return

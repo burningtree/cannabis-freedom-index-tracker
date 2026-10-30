@@ -46,7 +46,7 @@ const here = Astro.url.pathname.replace(base, "/");
         <span class="cfi-link-long">Cannabis Freedom Index</span><span class="cfi-link-short">CFI</span> ↗
       </a>
       <span class="svc-counters">
-      <a class="svc-total" href={`${base}reports/`} title={`${reports.length.toLocaleString("en-GB")} committed reports`} aria-label={`${reports.length.toLocaleString("en-GB")} committed reports`}>
+      <a class="svc-total" href={`${base}changelog/`} title={`${reports.length.toLocaleString("en-GB")} committed reports — changelog`} aria-label={`${reports.length.toLocaleString("en-GB")} committed reports, open changelog`} aria-current={here.startsWith("/changelog") ? "page" : undefined}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M8 14l2.5 2.5L16 11"/></svg>
         <span>{reports.length.toLocaleString("en-GB")}</span>
       </a>

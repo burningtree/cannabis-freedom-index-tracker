@@ -1,4 +1,4 @@
-// The submissions list (/submissions/): one row per request, newest first, live over a WebSocket.
+// The submissions list (/submissions/): one row per request, most recently updated first, live over a WebSocket.
 // A row says what is happening (a pulsing status while running, its stage and attempt) or how it
 // ended and why, and links to the request's own page.
 import { renderProcessingStatus } from "../lib/ai-activity.js";
@@ -15,7 +15,8 @@ function initialize(root) {
   const base = root.dataset.base;
   const $ = (id) => document.getElementById(`register-${id}`);
   const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (className) n.className = className; return n; };
-  let cursors = [""], nextCursor = "", revision = "", rows = [], status = "", plan = null;
+  let cursors = [""], nextCursor = "", revision = "", rows = [], status = "", plan = null, sort = "updated", order = "desc";
+  const sortDefault = { received: "desc", updated: "desc", id: "asc", source: "asc", status: "asc", tokens: "desc", runs: "desc", cost: "desc" };
   let socket, retryTimer, refreshTimer, tick, failures = 0, request, pending = false, disposed = false;
 
   function connection(text, state = "offline") { const c = $("connection"); c.dataset.state = state; c.querySelector("span").textContent = text; }
@@ -35,20 +36,25 @@ function initialize(root) {
     const meta = statusMeta(s), p = el("span", undefined, "sx-pill"); p.dataset.tone = meta.tone;
     p.append(el("i", undefined, "sx-dot"), document.createTextNode(meta.label)); return p;
   }
-  // One row, in the order a reader scans: when it came in, its short id, the source, where it is
-  // (status and the pipeline, the step being worked on pulsing), tokens read and written, AI runs and
-  // how long the request has taken, and what it cost (the plan's share when there is a plan).
+  // One row, in the order a reader scans: when it came in, when it last changed (the full register
+  // only), its short id, the source, where it is (status and the pipeline, the step being worked on
+  // pulsing), tokens read and written, AI runs and how long the request has taken, and what it cost
+  // (the plan's share when there is a plan).
   const compact = (n) => { n = Number(n) || 0; return n >= 1e6 ? `${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(n >= 1e4 ? 0 : 1)}k` : String(n); };
   const span = (sec) => { sec = Math.max(0, Math.round(sec)); return sec < 60 ? `${sec}s` : sec < 3600 ? `${Math.floor(sec / 60)}m ${String(sec % 60).padStart(2, "0")}s` : `${Math.floor(sec / 3600)}h ${String(Math.round((sec % 3600) / 60)).padStart(2, "0")}m`; };
   const stamp = (sec) => { const d = new Date(sec * 1000), p = (x) => String(x).padStart(2, "0"); return { date: `${p(d.getMonth() + 1)}-${p(d.getDate())}`, time: `${p(d.getHours())}:${p(d.getMinutes())}` }; };
-  function row(v) {
+  const timeCell = (sec, title) => {
+    const { date, time } = stamp(sec);
+    const when = el("time", undefined, "sx-row-time"); when.dateTime = new Date(sec * 1000).toISOString(); when.title = title;
+    when.append(el("span", date, "sx-row-date"), el("span", time));
+    return when;
+  };
+  function row(v, showUpdated = false) {
     const meta = statusMeta(v.status), running = isRunning(v.status), now = Date.now() / 1000;
     const li = el("li", undefined, "sx-row"); li.dataset.tone = meta.tone;
     const a = el("a", undefined, "sx-row-link"); a.href = `${base}submission/?id=${v.id}`; a.title = v.explanation;
-    // when it came in
-    const { date, time } = stamp(v.created_at);
-    const when = el("time", undefined, "sx-row-time"); when.dateTime = new Date(v.created_at * 1000).toISOString(); when.title = `Received ${fullTime(v.created_at)} · updated ${relativeTime(Math.max(v.created_at, v.updated_at || 0))}`;
-    when.append(el("span", date, "sx-row-date"), el("span", time));
+    const when = timeCell(v.created_at, `Received ${fullTime(v.created_at)}`);
+    const updated = timeCell(Math.max(v.created_at, v.updated_at || 0), `Updated ${fullTime(Math.max(v.created_at, v.updated_at || 0))}`);
     const id = el("span", v.id.slice(0, 7), "sx-row-id"); id.title = `Receipt ${v.id}`;
     // the source
     const { host, path } = sourceParts(v.url);
@@ -78,13 +84,13 @@ function initialize(root) {
     const apiCost = list.reduce((t, r) => t + runCost(r), 0), share = planCost(apiCost, plan);
     const cost = el("span", apiCost ? formatUSD(share || apiCost) : "—", "sx-row-cost");
     cost.title = apiCost ? `${share ? `${formatUSD(share)} of the plan · ` : ""}${formatUSD(apiCost)} at API prices` : "No AI run yet";
-    a.append(when, id, src, state, tokens, runs, cost);
+    a.append(when, ...(showUpdated ? [updated] : []), id, src, state, tokens, runs, cost);
     li.append(a); return li;
   }
   function render() {
     const list = $("rows"); list.replaceChildren(); list.setAttribute("aria-busy", "false");
     if (!rows.length) list.append(el("li", status || $("origin").value ? "No submissions match this filter." : "No submissions yet.", "sx-empty"));
-    for (const v of rows) list.append(row(v));
+    for (const v of rows) list.append(row(v, true));
     controls();
   }
   async function refresh() {
@@ -94,6 +100,7 @@ function initialize(root) {
     if (cursors.at(-1)) params.set("cursor", cursors.at(-1));
     if (status) params.set("status", status);
     if ($("origin").value) params.set("origin", $("origin").value);
+    params.set("sort", sort); params.set("order", order);
     request = new AbortController(); const active = request;
     try {
       const data = await get(`/v1/submissions?${params}`, active.signal);
@@ -111,7 +118,7 @@ function initialize(root) {
       }
       const running = rows.filter((v) => isRunning(v.status)).length;
       $("count").textContent = `${Number(data.total).toLocaleString()} matching${running ? ` · ${running} in progress` : ""}`;
-      $("message").textContent = cursors.length > 1 ? "Showing older submissions. Choose Newest to see new arrivals." : "";
+      $("message").textContent = cursors.length > 1 ? "Showing a later page. Choose First to return to the start." : "";
     } catch {
       if (!active.signal.aborted) { $("message").textContent = "Submissions could not be refreshed; the last loaded list is kept."; if (!rows.length) $("rows").replaceChildren(el("li", "Submissions could not be loaded.", "sx-empty")); }
     } finally { request = null; if (pending) { pending = false; scheduleRefresh(); } }
@@ -122,6 +129,17 @@ function initialize(root) {
   for (const chip of root.querySelectorAll("[data-filter]")) chip.addEventListener("click", () => {
     status = chip.dataset.filter;
     for (const c of root.querySelectorAll("[data-filter]")) c.setAttribute("aria-pressed", String(c === chip));
+    changePage(() => { cursors = [""]; });
+  });
+  function markSort() {
+    for (const button of root.querySelectorAll(".sx-table-updated [data-sort]")) {
+      button.setAttribute("aria-sort", button.dataset.sort === sort ? (order === "asc" ? "ascending" : "descending") : "none");
+    }
+  }
+  for (const button of root.querySelectorAll(".sx-table-updated [data-sort]")) button.addEventListener("click", () => {
+    if (sort === button.dataset.sort) order = order === "desc" ? "asc" : "desc";
+    else { sort = button.dataset.sort; order = sortDefault[sort] || "desc"; }
+    markSort();
     changePage(() => { cursors = [""]; });
   });
   $("origin").addEventListener("change", () => changePage(() => { cursors = [""]; }));
@@ -136,7 +154,7 @@ function initialize(root) {
   // "5 min ago" stays true without reloading
   tick = setInterval(() => {
     if (document.hidden) return;
-    for (const t of root.querySelectorAll(".sx-list time")) t.textContent = relativeTime(Date.parse(t.dateTime) / 1000);
+    for (const t of root.querySelectorAll(".sx-list time")) if (!t.childElementCount) t.textContent = relativeTime(Date.parse(t.dateTime) / 1000);
     // Refresh the UTC daily budget even when no WebSocket events occur overnight.
     refresh();
   }, 30000);

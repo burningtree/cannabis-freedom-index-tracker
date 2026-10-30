@@ -126,7 +126,7 @@ func TestGlobalSummaryIgnoresFiltersAndDeduplicatesCases(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	page, err := s.ListSubmissions(ctx, 1, "failed", "rss")
+	page, err := s.ListSubmissions(ctx, "", "failed", "rss", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -134,7 +134,7 @@ func TestGlobalSummaryIgnoresFiltersAndDeduplicatesCases(t *testing.T) {
 		t.Fatal(page)
 	}
 	s.Finish(ctx, "jobs", j, ErrInterrupted)
-	page, err = s.ListSubmissions(ctx, 1, "failed", "rss")
+	page, err = s.ListSubmissions(ctx, "", "failed", "rss", "", "")
 	if err != nil || page.Summary.Running != 0 || page.Summary.Queued != 1 {
 		t.Fatal(page, err)
 	}
@@ -189,7 +189,7 @@ func TestWorkingIncludesOldRestartOutsideHistoryPageAndFilter(t *testing.T) {
 	}
 	// Claim the restarted job specifically, as if the worker has reached it.
 	s.DB.Exec("UPDATE jobs SET status='running',lease_until=?,lease_token='fixture' WHERE ref=?", time.Now().Add(time.Minute).Unix(), v.CaseID)
-	page, err := s.ListSubmissions(ctx, 1, "failed", "rss")
+	page, err := s.ListSubmissions(ctx, "", "failed", "rss", "", "")
 	if err != nil {
 		t.Fatal(err)
 	}

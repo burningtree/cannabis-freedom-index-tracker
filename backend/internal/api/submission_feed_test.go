@@ -26,7 +26,7 @@ func TestSubmissionListAndValidation(t *testing.T) {
 			t.Fatal(path, w.Code, w.Body.String())
 		}
 	}
-	for _, path := range []string{"/v1/submissions?cursor=bad", "/v1/submissions?cursor=0", "/v1/submissions?status=unknown", "/v1/submissions?origin=unknown", "/v1/submissions?ids="} {
+	for _, path := range []string{"/v1/submissions?cursor=bad", "/v1/submissions?cursor=0", "/v1/submissions?status=unknown", "/v1/submissions?origin=unknown", "/v1/submissions?ids=", "/v1/submissions?sort=nope", "/v1/submissions?order=sideways"} {
 		w := request(h, "GET", path, "", "")
 		if w.Code != 400 {
 			t.Fatal(path, w.Code)
