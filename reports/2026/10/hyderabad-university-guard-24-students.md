@@ -1,0 +1,76 @@
+---
+date: 2026-10-29
+country: in
+place: University of Hyderabad, Gachibowli, Hyderabad
+coordinates: [17.46, 78.332]
+precision: locality
+type: arrest
+also: [seizure]
+title: Guard held after 150 g cannabis seizure; 24 University of Hyderabad students identified
+summary: >-
+  A security guard accused of supplying ganja to University of Hyderabad students was arrested on 29 October 2026, and the Telangana EAGLE Force seized 150 grams packed in 24 sachets. Across two linked inquiries, the force says 24 university students have been identified as alleged cannabis consumers, and it wants meetings with their parents about counselling and de-addiction.
+figures:
+  arrested: 1
+  kg_seized: 0.15
+media:
+  - kind: photo
+    url: https://www.siasat.com/eagle-force-arrests-supplier-seizes-150-gm-ganja-in-gachibowli-3567238/
+    media_url: https://cdn.siasat.com/wp-content/uploads/2026/10/drugs.jpg
+    publisher: The Siasat Daily
+    caption: Bikash Singh with the 24 sachets of ganja seized in the case, laid out in front of him; faces are blurred.
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: 35e9811894e9b5aae2ee6da15ef57fc1
+tags: [hyderabad, telangana, university, ganja, students]
+sources:
+  - title: Marijuana trail leads to 24 students at University of Hyderabad; security guard held
+    url: https://www.thehindu.com/news/national/telangana/marijuana-trail-leads-to-24-students-at-university-of-hyderabad-security-guard-held/article71645035.ece
+    publisher: The Hindu
+    date: 2026-10-30
+  - title: EAGLE Force Probes Ganja Supply Network Linked to University Students in Hyderabad
+    url: https://hyderabadmail.com/eagle-force-ganja-network-university-hyderabad-drug-crackdown/
+    publisher: Hyderabad Mail
+    date: 2026-10-30
+  - title: EAGLE Force arrests supplier, seizes 150 gm ganja in Gachibowli
+    url: https://www.siasat.com/eagle-force-arrests-supplier-seizes-150-gm-ganja-in-gachibowli-3567238/
+    publisher: The Siasat Daily
+    date: 2026-10-30
+open_questions:
+  - The two students questioned on 29 October were described as picked up or apprehended for enquiry, not arrested, and their legal status after screening is not reported.
+  - The reports do not say whether the 24 students identified as alleged consumers face charges, and no court appearance or charge sheet was reported for Singh.
+  - The exact place of Singh's arrest is not given; the reports say he lived in Gowlidoddi, Gachibowli, and delivered packets near the university's South Gate.
+  - The same article reports separate enquiries at NALSAR University and GITAM University in Patancheru, different events left out of this report.
+---
+
+A security guard accused of supplying marijuana to University of Hyderabad
+students was arrested by the Telangana EAGLE Force. [@1] The force seized 150
+grams of ganja packed in 24 small sachets. [@1] The accused, Bikash Singh alias
+Jung, 30, a Nepali native living in Gowlidoddi, Gachibowli, was apprehended on
+29 October after information through the EAGLE Force toll-free number. [@1] A
+mobile phone was also seized. [@3] EAGLE director Sandeep Shandilya said Singh
+admitted selling packets of about five grams for ₹500, sometimes ₹1,000. [@1] He
+delivered the packets near the university's South Gate after receiving orders,
+the officer said. [@1] Gachibowli police registered a case under the Narcotic
+Drugs and Psychotropic Substances Act. [@2]
+
+The inquiry began after two University of Hyderabad students, Bharadwaj, 27, and
+Anand, 26, were picked up for questioning. [@1] Both reportedly tested positive
+for cannabis in screening tests. [@1] Bharadwaj reportedly told investigators he
+had used marijuana for two years with Anand, who allegedly bought the drug from
+Singh. [@1] Singh told investigators that Raiz, a resident of Assam, supplied
+him about 200 grams at a time, which he split into smaller packets. [@1] Singh
+also reportedly named 23 people, including seven students, who he said had
+bought marijuana from him. [@1] The force said the disclosures were being
+verified. [@1] Across this inquiry and an earlier one in August, EAGLE Force
+said 24 University of Hyderabad students had been identified as alleged
+consumers. [@2] The force plans to write to the Vice-Chancellor seeking meetings
+with parents to counsel them and arrange de-addiction treatment where needed.
+[@1]
+
+The earlier case began on 7 August 2026, when the force apprehended Sandesh, 24,
+a former student whose urine test reportedly returned positive for THC. [@2]
+Sandesh named another former student, Biswajit Kalita, 28, as his supplier. [@1]
+Kalita was subsequently apprehended and 10 grams of ganja seized from him. [@1]
+Kalita reportedly told investigators he bought 200 to 300 grams on visits to
+Assam and sold four- to five-gram packets for about ₹500. [@1]
+
