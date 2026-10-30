@@ -5,7 +5,7 @@
 import { figureRows } from "../lib/figures.js";
 
 const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined && text !== null) n.textContent = text; if (className) n.className = className; return n; };
-const OUTCOMES = { new_event: "New report", existing_case: "Update to an existing report", not_relevant: "Outside scope", insufficient_evidence: "Unable to verify", routed_to_cfi: "Routed to the CFI", needs_review: "Needs review" };
+const OUTCOMES = { new_event: "New report", existing_case: "Update to an existing report", additional_source: "Source for an existing report", not_relevant: "Outside scope", insufficient_evidence: "Unable to verify", routed_to_cfi: "Routed to the CFI", needs_review: "Needs review" };
 const PRECISION_LABEL = { exact: "Exact spot", locality: "Village, town or city", district: "District", region: "Province or region", country: "Country only" };
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;

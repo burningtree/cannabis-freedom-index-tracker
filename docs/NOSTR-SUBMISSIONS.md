@@ -428,6 +428,26 @@ candidate to Nostr. Provider/article keys deduplicate discovery. GDELT advances 
 windows, pauses saturated 250-record partitions instead of silently skipping, and keeps cursors.
 Public activity excludes machine discovery; the all-submissions register includes every origin.
 
+## Additional sources and updates to other reports
+
+When research finds that the submitted page is another account of an event a report already records,
+it answers `additional_source` with that report's slug instead of rejecting it. The service then
+adds the new sources to the existing report: the same quotation checks apply, each fact's sentence
+gains the new source in its citation (or is added as a new cited sentence), open questions are
+appended, and the rest of the report (title, prose, figures, status) stays as written. If the
+report already cites the sources, the submission ends as `duplicate`.
+
+Any drafting answer can also carry `report_updates` (at most five) for other existing reports: the
+same source additions with optional open questions and a corrected title or summary (a correction
+sets the report's status to `reported`). The sources must be ones the answer itself cites. Updates
+whose quotations fail are dropped; an update that changes nothing is skipped. Sources already cited
+by a report being updated do not count as overlap with another case. All changed files pass the
+site build and are committed together, each refused if the report changed since research began.
+The request page lists the existing reports a run changes (or would have changed).
+
+A failed report build shows the failing lines of the build log on the request page, without
+workspace paths or stack traces; the full log stays private in the workspace's `validation.log`.
+
 ## Multilingual vocabulary
 
 The source check uses a versioned snapshot of CFI's `/api/glossary.json`, combining its glossary,

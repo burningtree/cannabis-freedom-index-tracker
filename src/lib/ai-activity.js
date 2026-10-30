@@ -120,7 +120,7 @@ function buildPanel(container, api, id) {
 }
 
 const RUN_LABELS = { running: "Running", interrupted: "Interrupted · recovering", preparing: "Preparing", starting: "Starting", queued: "Waiting", completed: "Finished", failed: "Failed", cancelled: "Cancelled" };
-const OUTCOME_LABELS = { new_event: "new report", duplicate: "already covered", routed_to_cfi: "routed to the CFI", not_relevant: "outside scope", insufficient_evidence: "unable to verify", needs_review: "needs review" };
+const OUTCOME_LABELS = { new_event: "new report", existing_case: "report updated", additional_source: "source added", duplicate: "already covered", routed_to_cfi: "routed to the CFI", not_relevant: "outside scope", insufficient_evidence: "unable to verify", needs_review: "needs review" };
 const runTone = (run) => (run.status === "running" || run.status === "queued" ? "running" : run.status === "failed" ? "failed" : run.outcome === "new_event" ? "done" : "covered");
 const runText = (run) => `${RUN_LABELS[run.status] || run.status}${run.outcome ? ` · ${OUTCOME_LABELS[run.outcome] || run.outcome.replace(/_/g, " ")}` : ""}`;
 const span = (s) => { s = Math.max(0, Math.round(s)); return s < 60 ? `${s} s` : s < 3600 ? `${Math.floor(s / 60)} min ${s % 60 ? `${s % 60} s` : ""}`.trim() : `${Math.floor(s / 3600)} h ${Math.round((s % 3600) / 60)} min`; };
