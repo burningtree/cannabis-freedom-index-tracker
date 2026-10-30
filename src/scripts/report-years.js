@@ -54,3 +54,18 @@ export function watchMonths() {
   document.addEventListener("reports:drawn", mark);
   mark();
 }
+
+// Add only the next batch, preserving the existing rows, focus and scroll position.
+export function appendYears(container, rows, all, item, base = "/") {
+  const fragment = document.createElement("template");
+  fragment.innerHTML = yearsHTML(rows, all, item, base);
+  for (const year of [...fragment.content.children]) {
+    const existingYear = container.querySelector(`#${year.id}`);
+    if (!existingYear) { container.append(year); continue; }
+    for (const month of [...year.querySelectorAll(".ry-month")]) {
+      const existingMonth = existingYear.querySelector(`#${month.id}`);
+      if (existingMonth) existingMonth.querySelector(".reports").append(...month.querySelector(".reports").children);
+      else existingYear.querySelector(".ry-list").append(month);
+    }
+  }
+}

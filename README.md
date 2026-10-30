@@ -17,8 +17,8 @@ Site: <https://tracker.cannabisfreedom.fyi> (static, built with [Astro](https://
 
 | Address | What it shows |
 |---|---|
-| `/` | **Map**: a full-screen map of all reports (the view is kept in the address, `#map=zoom/lat/lon`, so it can be shared) (a diamond marker per type; grouping crowded markers into clusters is an option in the Layers panel) with a pane on the right: the newest reports; filter by type, country, year, month and free text, or click a month in the strip of the last 36 months; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
-| `/reports/` | **Reports**: the same filterable list as a page of its own, with an RSS subscription button |
+| `/` | **Map**: a full-screen map of all reports (the view is kept in the address, `#map=zoom/lat/lon`, so it can be shared) (a diamond marker per type; grouping crowded markers into clusters is an option in the Layers panel) with a pane on the right: the newest reports; filter by type, country and free text, use synchronized time controls on the map and in the panel, or select a period in the timeline; filters are kept in the address (`/?type=sentence&country=ge&year=2025`) |
+| `/reports/` | **Reports**: the same filterable list as a page of its own, with an RSS subscription button and automatic loading as you scroll |
 | `/<year>/`, `/<year>/<month>/` | The archive by date: a year's months, and every report of a month (`/2026/08/`) |
 | `/report/<slug>/` | One report: figures, text with citations, sources, map pin, link to the CFI profile, related reports; semantic article markup and Article metadata support native browser reader views; availability is decided by the browser |
 | `/country/<id>/` | A country's or state's reports, totals and map (`/country/ng/`, `/country/us/ca/`) |
@@ -35,6 +35,28 @@ dark/light theme (the button in the top bar; the reader's choice is remembered, 
 system's is followed). The style URLs are `MAP_STYLES` in `src/lib/map.js`. Each type has a diamond marker with a pictogram (`typeIcon` in `src/lib/types.js`,
 also used by the legend), in warm colours for what is done to land and people and cooler ones for
 the courts; there is no green, which belongs to the Landrace layers.
+
+On the Reports page, scrolling near the bottom automatically appends the next 30 reports.
+Filters reset the loaded list; year/month navigation remains available. Browsers without
+IntersectionObserver keep the **Show more** button. After building the site and installing the
+browser, run `node scripts/check-report-scroll.mjs` for the scrolling regression checks.
+
+The map's quick period buttons and the panel's **Time** selector share one time filter.
+Choose Last 7 days, Last 30 days, Last year or All time for a preset, or **Calendar dates…**
+for a year, month or day. Calendar selections switch off rolling-window restrictions; choosing
+a preset clears calendar selections. The map highlights **Calendar** while calendar dates are
+active. The Reports page offers only All time and Calendar dates, without relative presets.
+Shared links retain the same selection, and older links with both recent and calendar
+parameters resolve to the calendar selection.
+
+The Reports timeline includes a count scale, gridlines and zero-day baseline markers.
+Use **Clear all filters** to reset search, category, country and time selections to All time.
+Timeline bars show category-count tooltips on hover or keyboard focus. Selecting a year or month
+drills into that period; selecting a day filters both the report list and map to that exact date.
+Day filters are shareable as `?date=2026-10-26` and combine with the other filters. Use **Clear day**
+or select the same day again to remove the day filter.
+Browser tooltip regressions (rapid hover, keyboard access and scrolling) can be checked with
+`node scripts/check-timeline-tooltip.mjs` after `npm run browser-install`.
 
 ### Landrace layers
 

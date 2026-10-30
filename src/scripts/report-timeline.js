@@ -26,3 +26,18 @@ export function reportTimeline(rows, { start = "", end = "", year = "", month = 
   }
   return [...buckets.values()];
 }
+
+export function isReportDay(value) {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)
+    && !Number.isNaN(Date.parse(`${value}T00:00:00Z`))
+    && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
+}
+
+// Daily bars narrow only the day, keeping the surrounding calendar/window intact.
+export function timelineSelection(key, { year = "", month = "", date = "" } = {}) {
+  if (isReportDay(key)) return { year, month, date: date === key ? "" : key };
+  if (!/^\d{4}(?:-(?:0[1-9]|1[0-2]))?$/.test(key)) return null;
+  const [y, m = ""] = key.split("-");
+  const same = year === y && month === m;
+  return { year: same ? "" : y, month: same ? "" : m, date: "" };
+}

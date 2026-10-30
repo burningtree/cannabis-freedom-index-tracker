@@ -1,5 +1,5 @@
 ---
-// The filterable list of reports: free text, type, country, year and month, a strip of reports per
+// The filterable list of reports: free text, type, country, year, month and day, a strip of reports per
 // month, and "Show more". The newest reports are in the page itself (for readers without scripts and
 // for search engines); filtering and paging work on the shared index of all reports
 // (/api/index.json). Used by the map's side pane (compact) and by the Reports page. The filters also
@@ -33,16 +33,35 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       <option value="">All countries</option>
       {places.map((c) => <option value={c.id}>{c.name} ({c.count})</option>)}
     </select>
-    <select id="year" aria-label="Year">
-      <option value="">All years</option>
-      {years.map((y) => <option value={y}>{y}</option>)}
-    </select>
-    <select id="month" aria-label="Month">
-      <option value="">All months</option>
-      {MONTHS.map((m, i) => <option value={String(i + 1).padStart(2, "0")}>{m}</option>)}
-    </select>
+    <div class="time-filter">
+      <label for="period">Time</label>
+      <select id="period" aria-label="Time period" aria-controls="calendar-filters">
+        {compact && <>
+          <option value="7d">Last 7 days</option>
+          <option value="30d" selected>Last 30 days</option>
+          <option value="1y">Last year</option>
+        </>}
+        <option value="all" selected={!compact}>All time</option>
+        <option value="calendar">Calendar dates…</option>
+      </select>
+      <div class="calendar-filters" id="calendar-filters" hidden>
+        <select id="year" aria-label="Year">
+          <option value="">All years</option>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+        <select id="month" aria-label="Month">
+          <option value="">All months</option>
+          {MONTHS.map((m, i) => <option value={String(i + 1).padStart(2, "0")}>{m}</option>)}
+        </select>
+      </div>
+    </div>
+    <button class="clear-filters" id="clear-filters" type="button" hidden>Clear all filters ×</button>
   </form>
   <div class="months" id="months" aria-label="Reports over time, stacked by primary category" hidden></div>
+  <p class="day-filter" id="day-filter" hidden>
+    <span id="day-filter-label"></span>
+    <button type="button" id="clear-day" aria-label="Clear the selected day">Clear day ×</button>
+  </p>
   <p class="count" id="count" aria-live="polite">{fmt(reports.length)} reports · newest first</p>
   {/* the map's side pane: one plain list; the Reports page: by year, with a sticky month index */}
   {compact
@@ -53,6 +72,10 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
         <ReportYears reports={reports.slice(0, PAGE)} />
       </div>}
   <p class="empty" id="empty" hidden>No report matches these filters.</p>
+  {!compact && <>
+    <div id="report-scroll-sentinel" aria-hidden="true" hidden></div>
+    <p class="count" id="scroll-status" role="status" aria-live="polite"></p>
+  </>}
   <p class="more-row">
     <button type="button" class="more" id="more" hidden={reports.length <= PAGE}>Show more</button>
     <a class="muted" href={`${base}${years[0] ?? ""}/`}>Browse by month →</a>
@@ -60,11 +83,13 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
 </div>
 
 <script>
-  // Filters: free text, type, country, year and month. They narrow the list and the map's dots and
+  // Filters: free text, type, country, year, month and exact day. They narrow the list and map and
   // are kept in the address (?type=raid&country=ng&year=2026), so a filtered view can be shared.
   import { loadIndex, inCountry, type Row } from "../scripts/report-index";
-  import { yearsHTML } from "../scripts/report-years.js";
-  import { reportTimeline } from "../scripts/report-timeline.js";
+  import { yearsHTML, appendYears } from "../scripts/report-years.js";
+  import { reportTimeline, timelineSelection } from "../scripts/report-timeline.js";
+  import { readPeriod, changePeriod } from "../scripts/report-period.js";
+  import { timelineTooltip } from "../scripts/report-timeline-tooltip.js";
 
   const $ = <T extends HTMLElement = HTMLInputElement>(id: string) => document.getElementById(id) as T;
   const list = $<HTMLElement>("list");
@@ -72,26 +97,36 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   const base = list.dataset.base!, PAGE = Number(list.dataset.page), types = JSON.parse(list.dataset.types!);
   const fields = ["q", "type", "country", "year", "month"];
   const params = new URLSearchParams(location.search);
+  let day = "";
+  const hideTimelineTooltip = timelineTooltip($("months"), types);
   for (const f of fields) if (params.get(f)) $(f).value = params.get(f)!;
-  // The time range switch on the map (index.astro): the last 7 or 30 days, the last year, or all.
-  // The map opens on the last 30 days; another choice is kept in the address (?range=7d|1y|all).
-  // A page without the switch (Reports) shows everything.
+  // One Time control owns both rolling periods and calendar selections.
   const RANGES: Record<string, number> = { "7d": 7, "30d": 30, "1y": 365, all: 0 };
-  const DEFAULT_RANGE = "30d";
-  const hasSwitch = document.querySelector("[data-range]") != null;
-  let range = !hasSwitch ? "all" : params.get("range") && params.get("range")! in RANGES ? params.get("range")! : DEFAULT_RANGE;
+  const DEFAULT_RANGE = list.closest(".compact") ? "30d" : "all";
+  let period = readPeriod(params, DEFAULT_RANGE, { allowRelative: !byYear });
+  let range = period.range;
+  const setPeriod = (next: ReturnType<typeof readPeriod>) => {
+    period = next; range = next.range; day = next.date;
+    $("year").value = next.year; $("month").value = next.month;
+    $("period").value = next.mode;
+    $("calendar-filters").hidden = next.mode !== "calendar";
+    document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.range === next.mode));
+    });
+  };
+  setPeriod(period);
   const since = () => (RANGES[range] ? new Date(Date.now() - RANGES[range] * 864e5).toISOString().slice(0, 10) : "");
-  const showRange = () => document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.range === range)));
 
   function showCustomSearch() {
     const banner = document.getElementById("map-search");
     if (!banner) return;
     const active = fields.filter((f) => $(f).value.trim());
-    banner.hidden = active.length === 0;
+    banner.hidden = active.length === 0 && !day;
     const labels = active.map((f) => {
       const field = $(f);
       return field instanceof HTMLSelectElement ? field.selectedOptions[0].textContent!.trim() : `“${field.value.trim()}”`;
     });
+    if (day) labels.push(fmtDate(day));
     $("map-search-summary").textContent = labels.join(" · ");
   }
 
@@ -100,7 +135,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   const flag = (id: string) => { const cc = id.split("/")[0].toUpperCase(); return /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map((ch) => 0x1f1a5 + ch.charCodeAt(0))) : ""; };
 
   let rows: Row[] = [], countries: Record<string, string> = {}, haystack = new Map<Row, string>();
-  let shown: Row[] = [], limit = PAGE;
+  let shown: Row[] = [], limit = PAGE, renderedCount = 0;
+  let scrollObserver: IntersectionObserver | null = null;
 
   const item = (r: Row) => `<li class="report-item" data-id="${r.i}">
     <div class="meta"><span class="type" style="--c:${types[r.t].color}">${esc(types[r.t].label)}</span>
@@ -111,53 +147,83 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     ${r.f.length ? `<div class="figs-inline">${r.f.map(([l, v]) => `<span>${esc(l)} <b>${esc(v)}</b></span>`).join("")}</div>` : ""}
   </li>`;
 
-  function matches(r: Row, skipDate = false) {
+  function matches(r: Row, skipDay = false) {
     const q = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const type = $("type").value, country = $("country").value, year = $("year").value, month = $("month").value;
     return (!type || r.t === type || r.a.includes(type))
       && (!country || inCountry(r, country))
-      && (skipDate || ((!year || r.d.startsWith(year)) && (!month || r.d.slice(5, 7) === month) && (!since() || (r.d >= since() && r.d <= new Date().toISOString().slice(0, 10)))))
+      && (!year || r.d.startsWith(year)) && (!month || r.d.slice(5, 7) === month)
+      && (!since() || (r.d >= since() && r.d <= new Date().toISOString().slice(0, 10)))
+      && (skipDay || !day || r.d === day)
       && q.every((w) => haystack.get(r)!.includes(w));
   }
 
-  function render() {
-    list.innerHTML = byYear ? yearsHTML(shown.slice(0, limit), shown, item, base) : shown.slice(0, limit).map(item).join("");
+  function render(append = false) {
+    if (append) {
+      const batch = shown.slice(renderedCount, limit);
+      if (byYear) appendYears(list, batch, shown, item, base);
+      else list.insertAdjacentHTML("beforeend", batch.map(item).join(""));
+    } else {
+      list.innerHTML = byYear ? yearsHTML(shown.slice(0, limit), shown, item, base) : shown.slice(0, limit).map(item).join("");
+    }
+    renderedCount = Math.min(limit, shown.length);
     document.dispatchEvent(new CustomEvent("reports:drawn"));
-    $("more").hidden = shown.length <= limit;
+    const finished = renderedCount >= shown.length;
+    $("more").hidden = finished || !!scrollObserver;
+    const sentinel = document.getElementById("report-scroll-sentinel");
+    if (sentinel) {
+      sentinel.hidden = !scrollObserver || finished;
+      if (scrollObserver) {
+        scrollObserver.unobserve(sentinel);
+        if (!finished) requestAnimationFrame(() => scrollObserver?.observe(sentinel));
+      }
+    }
+    const status = document.getElementById("scroll-status");
+    if (status) status.textContent = !shown.length ? "" : finished
+      ? `All ${shown.length.toLocaleString("en-GB")} ${shown.length === 1 ? "report" : "reports"} shown`
+      : `${renderedCount.toLocaleString("en-GB")} of ${shown.length.toLocaleString("en-GB")} reports shown · scroll for more`;
     $("empty").hidden = shown.length > 0;
-    const active = fields.some((f) => $(f).value) || range !== "all";
+    $("day-filter").hidden = !day;
+    $("day-filter-label").textContent = day ? `Day: ${fmtDate(day)}` : "";
+    const active = fields.some((f) => $(f).value) || !!day || range !== "all";
+    $("clear-filters").hidden = !active && period.mode !== "calendar";
     const n = shown.length.toLocaleString("en-GB"), all = rows.length.toLocaleString("en-GB");
-    const when = ({ "7d": "in the last 7 days", "30d": "in the last 30 days", "1y": "in the last year" } as Record<string, string>)[range];
-    const other = fields.some((f) => $(f).value);
+    const when = ({ "7d": "in the last 7 days", "30d": "in the last 30 days", "1y": "in the last 12 months" } as Record<string, string>)[range];
+    const other = fields.some((f) => $(f).value) || !!day;
     $("count").textContent = !active ? `${all} reports · newest first`
       : when && !other ? `${n} ${shown.length === 1 ? "report" : "reports"} ${when} · ${all} in all`
-      : `${n} of ${all} reports${when ? ` ${when}` : ""}`;
+      : `${n} of ${all} reports${day ? ` · ${fmtDate(day)}` : when ? ` ${when}` : ""}`;
   }
 
   // The chart shares the map's filters, including its selected time window.
   function months() {
-    const daily = range === "7d" || range === "30d" || !!$("month").value;
+    const daily = range === "7d" || range === "30d" || !!$("month").value || !!day;
     const yearly = range === "all" && !$("year").value && !daily;
-    const series = reportTimeline(shown, {
+    const dayCalendar = day && range !== "7d" && range !== "30d";
+    const series = reportTimeline(rows.filter((r) => matches(r, true)), {
       start: since(), end: new Date().toISOString().slice(0, 10),
-      year: $("year").value, month: $("month").value, daily, yearly,
+      year: $("year").value || (dayCalendar ? day.slice(0, 4) : ""),
+      month: $("month").value || (dayCalendar ? day.slice(5, 7) : ""), daily, yearly,
     });
     const box = $("months");
     box.hidden = !series.length;
     if (!series.length) { box.innerHTML = ""; return; }
     const max = Math.max(1, ...series.map(b => b.total));
-    box.setAttribute("aria-label", `Reports per ${yearly ? "year" : daily ? "day" : "month"}, stacked by primary category; choose a bar to filter by ${yearly ? "year" : "month"}`);
+    box.dataset.caption = `Reports per ${yearly ? "year" : daily ? "day" : "month"}`;
+    box.setAttribute("aria-label", `Reports per ${yearly ? "year" : daily ? "day" : "month"}, stacked by primary category; choose a bar to filter by ${yearly ? "year" : daily ? "day" : "month"}`);
     box.innerHTML = series.map(({ key, total, categories }) => {
       const label = new Date(`${yearly ? `${key}-01-01` : daily ? key : `${key}-01`}T00:00:00Z`).toLocaleDateString("en-GB", {
         ...(daily ? { day: "numeric" as const } : {}), ...(!yearly ? { month: "short" as const } : {}), year: "numeric", timeZone: "UTC",
       });
       const breakdown = Object.entries(types).filter(([id]) => categories[id]).map(([id, value]: [string, any]) => `${value.label}: ${categories[id]}`).join(", ");
       const description = `${label}: ${total} report${total === 1 ? "" : "s"}${breakdown ? ` (${breakdown})` : ""}`;
-      return `<button type="button" data-m="${key}" title="${esc(description)}" aria-label="${esc(description)}"><span class="month-stack" style="height:${total / max * 100}%">${Object.entries(types).filter(([id]) => categories[id]).map(([id, value]: [string, any]) => `<i data-category="${id}" style="height:${categories[id] / total * 100}%;background:${value.color}"></i>`).join("")}</span></button>`;
-    }).join("") + `<span class="months-axis"><span>${series[0].key}</span><span>${series.at(-1)!.key}</span></span>`;
+      const selected = daily ? day === key : yearly ? $("year").value === key : `${$("year").value}-${$("month").value}` === key;
+      return `<button type="button" data-m="${key}" data-period="${yearly ? "year" : daily ? "day" : "month"}" data-period-label="${esc(label)}" data-total="${total}" data-categories="${esc(JSON.stringify(categories))}" aria-pressed="${selected}" aria-label="${esc(description)}"><span class="month-stack" style="height:${total / max * 100}%">${Object.entries(types).filter(([id]) => categories[id]).map(([id, value]: [string, any]) => `<i data-category="${id}" style="height:${categories[id] / total * 100}%;background:${value.color}"></i>`).join("")}</span></button>`;
+    }).join("") + (byYear ? `<span class="months-scale" aria-hidden="true">${max.toLocaleString("en-GB")}</span>` : "") + `<span class="months-axis"><span>${series[0].key}</span><span>${series.at(-1)!.key}</span></span>`;
   }
 
   function apply(resetLimit = true) {
+    hideTimelineTooltip();
     if (resetLimit) limit = PAGE;
     showCustomSearch();
     shown = rows.filter((r) => matches(r));
@@ -167,7 +233,8 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     document.dispatchEvent(new CustomEvent("reports:filter", { detail: (window as any).__reportsShown }));
     const p = new URLSearchParams();
     for (const f of fields) if ($(f).value) p.set(f, $(f).value);
-    if (hasSwitch && range !== DEFAULT_RANGE) p.set("range", range);
+    if (day) p.set("date", day);
+    if (period.mode !== DEFAULT_RANGE) p.set("range", period.mode);
     history.replaceState(null, "", (p.size ? `?${p}` : location.pathname) + location.hash); // the hash is the map's view
   }
 
@@ -187,7 +254,7 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
     limit = Math.max(limit, at + PAGE);
     render();
     document.getElementById(a.hash.slice(1))?.scrollIntoView({ behavior: "instant" });
-    history.replaceState(null, "", a.hash);
+    history.replaceState(null, "", location.pathname + location.search + a.hash);
   });
   // pointing at a report in the list rings its marker on the map
   const hover = (id: string | null) => document.dispatchEvent(new CustomEvent("reports:hover", { detail: id }));
@@ -197,24 +264,56 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
   loadIndex(base).then((idx) => {
     rows = idx.reports; countries = idx.countries;
     haystack = new Map(rows.map((r) => [r, [r.ti, r.s, r.p, countries[r.c], types[r.t].label, r.k].join(" ").toLowerCase()]));
-    for (const f of fields) $(f).addEventListener("input", () => apply());
-    $("more").addEventListener("click", () => { limit += PAGE; render(); });
+    for (const f of fields) $(f).addEventListener("input", () => {
+      if (f === "year" || f === "month") setPeriod({ mode: "calendar", range: "all", year: $("year").value, month: $("month").value, date: "" });
+      apply();
+    });
+    $("period").addEventListener("change", () => {
+      setPeriod(changePeriod($("period").value, { year: $("year").value, month: $("month").value, date: day }, $("year").querySelectorAll("option")[1]?.value || ""));
+      apply();
+    });
+    $("clear-day").addEventListener("click", () => { day = ""; period.date = ""; apply(); $("q").focus({ preventScroll: true }); });
+    const loadMore = () => {
+      if (renderedCount >= shown.length) return;
+      limit = Math.min(shown.length, limit + PAGE);
+      render(true);
+    };
+    $("more").addEventListener("click", loadMore);
+    if (byYear && "IntersectionObserver" in window) {
+      scrollObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) loadMore();
+      }, { rootMargin: "600px 0px" });
+      window.addEventListener("pagehide", () => scrollObserver?.disconnect());
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted && renderedCount < shown.length) scrollObserver?.observe($("report-scroll-sentinel"));
+      });
+    }
     $("months").addEventListener("click", (e) => {
       const b = (e.target as HTMLElement).closest("button");
       if (!b) return;
-      const [y, m] = b.dataset.m!.split("-");
-      const same = $("year").value === y && $("month").value === (m || "");
-      $("year").value = same ? "" : y; $("month").value = same ? "" : (m || "");
+      const key = b.dataset.m!;
+      const selection = timelineSelection(key, { year: $("year").value, month: $("month").value, date: day });
+      if (!selection) return;
+      if (selection.date) { selection.year = selection.date.slice(0, 4); selection.month = selection.date.slice(5, 7); }
+      setPeriod({ mode: "calendar", range: "all", ...selection });
       apply();
+      ($("months").querySelector<HTMLButtonElement>(`button[data-m="${key}"]`) || $("months").querySelector<HTMLButtonElement>("button"))?.focus({ preventScroll: true });
+      hideTimelineTooltip();
     });
-    document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((b) => b.addEventListener("click", () => { range = b.dataset.range!; showRange(); apply(); }));
-    document.getElementById("clear-map-search")?.addEventListener("click", () => {
-      for (const f of fields) $(f).value = "";
+    document.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((button) => button.addEventListener("click", () => {
+      setPeriod(changePeriod(button.dataset.range!, { year: $("year").value, month: $("month").value, date: day }, $("year").querySelectorAll("option")[1]?.value || ""));
+      apply();
+      if (period.mode === "calendar") $("year").focus();
+    }));
+    const clearFilters = () => {
+      for (const field of fields) $(field).value = "";
+      setPeriod(changePeriod("all", {}));
       apply();
       $("q").focus({ preventScroll: true });
-    });
-    showRange();
-    if (fields.some((f) => $(f).value) || range !== "all") apply();
+    };
+    $("clear-filters").addEventListener("click", clearFilters);
+    document.getElementById("clear-map-search")?.addEventListener("click", clearFilters);
+    if (fields.some((f) => $(f).value) || day || period.mode === "calendar" || params.has("range") || range !== "all") apply();
     else { shown = rows; if (byYear) render(); months(); } // by year: the counts and months of all reports
   });
 </script>

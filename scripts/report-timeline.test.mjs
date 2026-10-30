@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { reportTimeline } from '../src/scripts/report-timeline.js';
+import { reportTimeline, isReportDay, timelineSelection } from '../src/scripts/report-timeline.js';
 
 const rows = [
   { d: '2023-01-01', t: 'raid' },
@@ -48,4 +48,20 @@ test('current year and month end at today, without future empty buckets', () => 
   assert.equal(days.length, 29);
   assert.deepEqual(reportTimeline(rows, { ...options, month: '11', daily: true }), []);
   assert.deepEqual(reportTimeline(rows, { year: '2027', end: '2026-10-29' }), []);
+});
+
+test('day selection preserves the calendar and toggles the exact day', () => {
+  const calendar = { year: '2026', month: '10' };
+  assert.deepEqual(timelineSelection('2026-10-27', calendar), { ...calendar, date: '2026-10-27' });
+  assert.deepEqual(timelineSelection('2026-10-27', { ...calendar, date: '2026-10-27' }), { ...calendar, date: '' });
+  assert.deepEqual(timelineSelection('2026-10-28', { ...calendar, date: '2026-10-27' }), { ...calendar, date: '2026-10-28' });
+});
+test('calendar selection clears a narrower day and rejects invalid dates', () => {
+  assert.deepEqual(timelineSelection('2025', { year: '2026', month: '10', date: '2026-10-27' }), { year: '2025', month: '', date: '' });
+  assert.deepEqual(timelineSelection('2026-10', { year: '2026', month: '10', date: '2026-10-27' }), { year: '', month: '', date: '' });
+  assert.equal(isReportDay('2024-02-29'), true);
+  for (const invalid of ['2026-02-29', '2026-10-32', '2026-13-01', '2026-10', '', null]) {
+    assert.equal(isReportDay(invalid), false);
+    if (invalid && invalid !== "2026-10") assert.equal(timelineSelection(invalid), null);
+  }
 });

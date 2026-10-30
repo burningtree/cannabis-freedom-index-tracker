@@ -63,8 +63,6 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
       <h1 class="p-name" itemprop="headline">{r.title}</h1>
       <p class="lead p-summary" itemprop="description">{r.summary}</p>
       <p class="muted">{flagOf(r.country)} {where}</p>
-      {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
-      {r.updated_by_models?.length > 0 && <p class="report-model"><span>Updated with</span> {r.updated_by_models.map(model => <code>{model}</code>)}</p>}
     </header>
 
     {r.cover && (
@@ -111,6 +109,10 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
       <h2 id="open-questions">Open questions the AI reported</h2>
       <ul>{r.open_questions.map(question => <li>{question}</li>)}</ul>
     </section>}
+    <footer class="report-provenance" aria-label="Model attribution">
+      {r.created_by_model !== "unknown" ? <p class="report-model"><span>Created with</span> <code>{r.created_by_model}</code></p> : <p class="report-model">Creator model: not recorded</p>}
+      {r.updated_by_models?.length > 0 && <p class="report-model"><span>Updated with</span> {r.updated_by_models.map(model => <code>{model}</code>)}</p>}
+    </footer>
   </article>
 
   <aside class="report-side">
@@ -163,7 +165,9 @@ const where = r.place?.endsWith(r.countryName) ? r.place : [r.place, r.countryNa
 </Base>
 
 <style>
-.report-model { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 12px 0 0; font-size: 12px; color: var(--text-2); }
+.report-provenance { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
+.report-model { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0; font-size: 12px; color: var(--text-2); }
+.report-model + .report-model { margin-top: 6px; }
 .report-model code { font: 11px/1.6 var(--mono); overflow-wrap: anywhere; }
 .report-questions { margin-top: 24px; padding: 18px 20px; background: color-mix(in srgb, #d9a43c 12%, transparent); border-radius: 10px; }
 .report-questions h2 { margin: 0 0 10px; font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.5; text-transform: none; letter-spacing: normal; }
