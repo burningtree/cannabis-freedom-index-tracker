@@ -119,7 +119,7 @@ Write it as docs/WRITING.md and the add-report skill say, like the examples:
   (two letters) if not English.
 
 Return a single JSON object, no Markdown fences or commentary, with exactly these fields:
-{"outcome":"new_event|existing_case|not_relevant|insufficient_evidence|routed_to_cfi|needs_review",
+{"outcome":"new_event|existing_case|additional_source|not_relevant|insufficient_evidence|routed_to_cfi|needs_review",
 "country":"CFI id or empty", "incident_date":"YYYY-MM-DD or empty", "type":"type or empty",
 "also":["other types"], "place":"place as named", "coordinates":[lat, lon],
 "precision":"exact|locality|district|region|country",
@@ -131,7 +131,8 @@ Return a single JSON object, no Markdown fences or commentary, with exactly thes
 "proposed_slug":"lower-case-hyphens or empty","title":"up to 90 characters","summary":"up to 400 characters",
 "existing_report":"existing slug or empty","decision_title":"Short public outcome title, up to 120 characters",
 "explanation":"Detailed public explanation of the outcome, up to 1500 characters",
-"uncertainties":[]}
+"uncertainties":[],
+"report_updates":[{"report":"existing slug","facts":[{"text":"the existing report's sentence this supports, or a new sentence","source":1,"quote":"Exact supporting passage"}],"uncertainties":[],"title":"corrected title, only to correct it","summary":"corrected summary, only to correct it"}]}
 In figures, include only the keys a source gives a number for; omit the rest. Omit also, tags, media or
 a source's date and language when there are none. For outcomes other than new_event and
 existing_case, the report fields may be empty.
@@ -141,6 +142,20 @@ images or unsupported figures. Every fact needs its source index and a verbatim 
 quotation copied from source.txt (or from the page you opened), in the source's language. The
 service independently fetches all sources and checks quotes. Only produce claims and event matches
 supported by those sources. Preserve unresolved questions in uncertainties; they do not block an otherwise sourced report.
+
+When the submitted page is another account of the same event and step an existing report already
+records (another outlet, the agency's statement, a translation), use additional_source, not a
+rejection: set existing_report to its slug and give the opened sources and facts that show the
+match. Each fact's text is the existing report's sentence the source supports, copied exactly
+(the service adds the new source to that sentence's citation), or a new sentence when the source
+adds a detail; the report's other text, title and figures stay. Put discrepancies with the report
+in uncertainties. Report fields (title, summary, figures…) may be empty.
+
+report_updates (optional, at most five; omit when none) changes other existing reports in the same
+run, with sources this answer cites: an article that also covers a related recorded event, or a
+source that corrects one. Give the report's slug and facts as for additional_source; add title or
+summary only to correct a wrong one, and uncertainties for discrepancies. Never use it for the
+report this answer writes or updates, or without a clear, sourced match.
 
 For an unambiguous later step in an existing case, use existing_case with the existing_report
 and proposed_slug both set to the existing stable slug. Supply full country/date/type/title/summary,

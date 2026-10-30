@@ -365,6 +365,31 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if err = research.SaveEvidence(dir, evidence); err != nil {
 		return err
 	}
+	// a source already cited by a report this answer updates is not an overlap: adding to that
+	// report is the point
+	targets := map[string]bool{}
+	if result.Outcome == "additional_source" {
+		targets[result.ExistingReport] = true
+	}
+	for _, u := range result.Updates {
+		targets[u.Report] = true
+	}
+	known := map[string]bool{}
+	if len(targets) > 0 {
+		reports, err := Coverage(w.Config.RepoPath)
+		if err != nil {
+			return err
+		}
+		for _, r := range reports {
+			if targets[r.Slug] {
+				for _, source := range r.Sources {
+					if u, err := safeurl.Normalize(source.URL); err == nil {
+						known[u] = true
+					}
+				}
+			}
+		}
+	}
 	for _, e := range evidence {
 		sum := sha256.Sum256([]byte(e.Content))
 		_, err = w.Store.DB.ExecContext(ctx, "INSERT INTO source_urls(url,case_id,final_url,digest,fetched_at) VALUES(?,?,?,?,?) ON CONFLICT(url) DO UPDATE SET final_url=excluded.final_url,digest=excluded.digest,fetched_at=excluded.fetched_at", e.URL, j.Ref, e.FinalURL, hex.EncodeToString(sum[:]), time.Now().Unix())
@@ -375,11 +400,11 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 		if err = w.Store.DB.QueryRowContext(ctx, "SELECT case_id FROM source_urls WHERE url=?", e.URL).Scan(&sourceCase); err != nil {
 			return err
 		}
-		if sourceCase != j.Ref {
+		if sourceCase != j.Ref && !known[e.URL] && !known[e.FinalURL] {
 			return w.rejectSourceOverlap(ctx, j.Ref, sourceCase, e.URL, check)
 		}
 	}
-	if result.Outcome != "new_event" && result.Outcome != "existing_case" {
+	if !result.Drafts() {
 		outcome := result.Outcome
 		if outcome == "needs_review" {
 			outcome = "insufficient_evidence"
@@ -393,12 +418,38 @@ func (w *Worker) process(ctx context.Context, j store.Job) error {
 	if ctx.Err() != nil {
 		return ctx.Err()
 	}
-	if err != nil {
-		return w.Store.Transition(ctx, j.Ref, "failed", "The draft did not pass the report build ("+err.Error()+"). Restart to try again.", "", "")
+	if errors.Is(err, research.ErrUnchanged) {
+		return w.Store.Transition(ctx, j.Ref, "duplicate", "The existing report already cites these sources, so nothing was added.", result.ExistingReport, "")
 	}
-	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"draft_path": draft.Path, "draft_markdown": draft.Content})
+	if err != nil {
+		var build *research.BuildError
+		if errors.As(err, &build) {
+			why := "The AI's draft did not pass the report build (" + build.Step + ")."
+			if build.Detail != "" {
+				why += " The build reported:\n\n" + build.Detail
+			}
+			return w.Store.Transition(ctx, j.Ref, "failed", why+"\n\nRestart to research and draft it again.", "", "")
+		}
+		return w.Store.Transition(ctx, j.Ref, "failed", "The draft could not be prepared for the report build ("+err.Error()+"). Restart to try again.", "", "")
+	}
+	// the request page lists the reports this run changes: keep only the updates that change something
+	applied := map[string]bool{}
+	updates := []fileJob{}
+	for _, u := range draft.Updates {
+		applied[u.Slug] = true
+		sum := sha256.Sum256([]byte(u.Content))
+		updates = append(updates, fileJob{Rel: u.Path, Slug: u.Slug, Title: u.Title, Digest: hex.EncodeToString(sum[:])})
+	}
+	kept := result.Updates[:0]
+	for _, u := range result.Updates {
+		if applied[u.Report] {
+			kept = append(kept, u)
+		}
+	}
+	result.Updates = kept
+	_ = w.Store.SetCaseOutput(ctx, j.Ref, map[string]string{"ai_result": store.JSON(result), "draft_path": draft.Path, "draft_markdown": draft.Content})
 	digest := sha256.Sum256([]byte(draft.Content))
-	payload := draftJob{Dir: dir, Rel: draft.Path, PreviousRel: draft.PreviousPath, Slug: result.Slug, Title: result.Title, Digest: hex.EncodeToString(digest[:])}
+	payload := draftJob{Dir: dir, Rel: draft.Path, PreviousRel: draft.PreviousPath, Slug: draft.Slug, Title: draft.Title, Digest: hex.EncodeToString(digest[:]), SourceOnly: result.Outcome == "additional_source", Updates: updates}
 	tx, err := w.Store.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return err
@@ -417,7 +468,14 @@ type researchCheckpoint struct {
 	Dir, Model, ArtifactDir string
 }
 
-type draftJob struct{ Dir, Rel, PreviousRel, Slug, Title, Digest string }
+type draftJob struct {
+	Dir, Rel, PreviousRel, Slug, Title, Digest string
+	SourceOnly                                 bool      `json:",omitempty"` // sources added to an existing report
+	Updates                                    []fileJob `json:",omitempty"` // other existing reports changed
+}
+
+// fileJob is another existing report a run changes, checked like the main draft.
+type fileJob struct{ Rel, Slug, Title, Digest string }
 
 func (w *Worker) publish(ctx context.Context, j store.Job) error {
 	var status string
@@ -447,6 +505,15 @@ func (w *Worker) publish(ctx context.Context, j store.Job) error {
 	if hex.EncodeToString(sum[:]) != d.Digest {
 		return errors.New("validated draft changed")
 	}
+	for _, u := range d.Updates {
+		b, err := os.ReadFile(filepath.Join(d.Dir, u.Rel))
+		if err != nil {
+			return err
+		}
+		if sum := sha256.Sum256(b); hex.EncodeToString(sum[:]) != u.Digest {
+			return errors.New("validated report update changed")
+		}
+	}
 	if err = w.Store.Transition(ctx, j.Ref, "publishing", "Committing the validated report to the local repository.", d.Slug, ""); err != nil {
 		return err
 	}
@@ -459,6 +526,16 @@ func (w *Worker) publish(ctx context.Context, j store.Job) error {
 		return err
 	}
 	explanation := "The report was committed to the local repository (" + sha[:12] + ")."
+	if d.SourceOnly {
+		explanation = "The source was added to the existing report “" + d.Title + "” and committed to the local repository (" + sha[:12] + ")."
+	}
+	if len(d.Updates) > 0 {
+		titles := []string{}
+		for _, u := range d.Updates {
+			titles = append(titles, "“"+u.Title+"”")
+		}
+		explanation += " It also updated " + strings.Join(titles, ", ") + "."
+	}
 	if w.Config.AutoPush {
 		// the commit goes to GitHub straight away, so its link works; a failed push leaves the
 		// commit in place and says so

@@ -119,6 +119,8 @@
 .sx-card { padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 .sx-card h2 { margin: 0 0 10px; font: 600 12px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--text-2); }
 .sx-out-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.sx-changed { margin: 14px 0 0; }
+.sx-changed h3 { margin: 0; font: 600 12px/1.5 Inter, system-ui, sans-serif; color: var(--text-2); }
 .sx-attempt { border-top: 1px solid var(--border); }
 .sx-attempt:first-of-type { border-top: 0; }
 .sx-attempt summary { display: flex; align-items: center; gap: 10px; padding: 9px 0; cursor: pointer; list-style: none; font-size: 13.5px; }

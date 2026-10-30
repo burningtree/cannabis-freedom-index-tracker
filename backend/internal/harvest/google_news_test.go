@@ -67,7 +67,7 @@ func TestGoogleScanResolvesAndDurablyDeduplicates(t *testing.T) {
 			return newsResponse(r, redirectResponse("https://publisher.example/cannabis-raid")), nil
 		}
 	})}
-	g := GoogleNews{Store: s, Queries: []string{"cannabis raid when:1d"}, MaxArticles: 5, client: client}
+	g := GoogleNews{Store: s, Queries: []GoogleNewsQuery{{"US:en", "cannabis raid when:1d"}}, MaxArticles: 5, client: client}
 	stats, err := g.Scan(context.Background())
 	if err != nil || stats.Queued != 1 || stats.Known != 1 {
 		t.Fatal(stats, err)
@@ -92,7 +92,7 @@ func TestGoogleScanDoesNotMarkUnresolvedCandidateSeen(t *testing.T) {
 	}
 	defer s.DB.Close()
 	calls := 0
-	g := GoogleNews{Store: s, Queries: []string{"cannabis"}, client: &http.Client{Transport: newsTransport(func(r *http.Request) (*http.Response, error) {
+	g := GoogleNews{Store: s, Queries: []GoogleNewsQuery{{"US:en", "cannabis"}}, client: &http.Client{Transport: newsTransport(func(r *http.Request) (*http.Response, error) {
 		if r.URL.Path == "/rss/search" {
 			return newsResponse(r, `<rss><channel><item><link>https://news.google.com/rss/articles/broken</link></item></channel></rss>`), nil
 		}
@@ -113,7 +113,7 @@ func TestGoogleSchedulerRepeatsAndStops(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	calls := 0
-	g := GoogleNews{Queries: []string{"cannabis"}, Interval: time.Millisecond, client: &http.Client{Transport: newsTransport(func(r *http.Request) (*http.Response, error) {
+	g := GoogleNews{Queries: []GoogleNewsQuery{{"US:en", "cannabis"}}, Interval: time.Millisecond, client: &http.Client{Transport: newsTransport(func(r *http.Request) (*http.Response, error) {
 		calls++
 		if calls == 2 {
 			cancel()
@@ -129,5 +129,93 @@ func TestGoogleSchedulerRepeatsAndStops(t *testing.T) {
 		}
 	case <-time.After(3 * time.Second):
 		t.Fatal("scheduler did not stop")
+	}
+}
+
+func TestGoogleNewsQueryEditions(t *testing.T) {
+	q, err := ParseGoogleNewsQuery(" [IN:hi] (गांजा OR चरस) when:1d ")
+	if err != nil || q != (GoogleNewsQuery{"IN:hi", "(गांजा OR चरस) when:1d"}) {
+		t.Fatal(q, err)
+	}
+	if p := q.params(); p.Get("hl") != "hi" || p.Get("gl") != "IN" || p.Get("ceid") != "IN:hi" {
+		t.Fatal(p)
+	}
+	if p := (GoogleNewsQuery{"HK:zh-Hant", "大麻"}).params(); p.Get("hl") != "zh-HK" || p.Get("gl") != "HK" {
+		t.Fatal(p)
+	}
+	if p := (GoogleNewsQuery{"KE:en", "bhang"}).params(); p.Get("hl") != "en-KE" {
+		t.Fatal(p)
+	}
+	if q, err = ParseGoogleNewsQuery("cannabis when:1d"); err != nil || q.Edition != "US:en" {
+		t.Fatal(q, err)
+	}
+	for _, bad := range []string{"[IN:hi", "[india] ganja", "[IN:hi]", "[IN:hi&x=1] ganja"} {
+		if _, err = ParseGoogleNewsQuery(bad); err == nil {
+			t.Fatal("invalid query accepted", bad)
+		}
+	}
+	editions := map[GoogleNewsQuery]bool{}
+	for _, q := range DefaultGoogleNewsQueries {
+		if !googleEdition.MatchString(q.Edition) || !strings.Contains(q.Query, "when:1d") || editions[q] {
+			t.Fatal("invalid default query", q)
+		}
+		editions[q] = true
+	}
+}
+func TestGoogleScanSharesBudgetAcrossEditions(t *testing.T) {
+	s, err := store.Open(filepath.Join(t.TempDir(), "news.sqlite"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.DB.Close()
+	client := &http.Client{Transport: newsTransport(func(r *http.Request) (*http.Response, error) {
+		switch {
+		case r.URL.Path == "/rss/search":
+			ed := strings.ReplaceAll(r.URL.Query().Get("ceid"), ":", "-")
+			items := ""
+			for i := range 3 {
+				items += "<item><link>https://news.google.com/rss/articles/" + ed + "-" + string(rune('a'+i)) + "</link></item>"
+			}
+			return newsResponse(r, "<rss><channel>"+items+"</channel></rss>"), nil
+		case strings.HasPrefix(r.URL.Path, "/rss/articles/"):
+			id := strings.TrimPrefix(r.URL.Path, "/rss/articles/")
+			return newsResponse(r, `<html><div data-n-a-sg="s" data-n-a-ts="1793362567" data-n-a-id="`+id+`"></div></html>`), nil
+		default:
+			r.ParseForm()
+			var rows [][]any
+			json.Unmarshal([]byte(r.Form.Get("f.req")), &rows)
+			var inner []any
+			json.Unmarshal([]byte(rows[0][0].([]any)[1].(string)), &inner)
+			return newsResponse(r, redirectResponse("https://publisher.example/"+inner[2].(string))), nil
+		}
+	})}
+	g := GoogleNews{Store: s, Queries: []GoogleNewsQuery{{"US:en", "cannabis"}, {"IN:hi", "गांजा"}}, MaxArticles: 2, client: client}
+	stats, err := g.Scan(context.Background())
+	if err != nil || stats.Found != 6 || stats.Queued != 2 {
+		t.Fatal(stats, err)
+	}
+	var editions []string
+	rows, _ := s.DB.Query("SELECT json_extract(payload,'$.edition') FROM jobs WHERE kind='research' ORDER BY json_extract(payload,'$.edition')")
+	for rows.Next() {
+		var e string
+		rows.Scan(&e)
+		editions = append(editions, e)
+	}
+	rows.Close()
+	if strings.Join(editions, ",") != "IN:hi,US:en" {
+		t.Fatal("budget not shared across editions", editions)
+	}
+}
+func TestGoogleQueriesRotate(t *testing.T) {
+	g := GoogleNews{Queries: []GoogleNewsQuery{{"US:en", "a"}, {"US:en", "b"}, {"US:en", "c"}}, QueriesPerScan: 2}
+	if b := g.batch(0); b[0].Query != "a" || b[1].Query != "b" {
+		t.Fatal(b)
+	}
+	if b := g.batch(1); b[0].Query != "c" || b[1].Query != "a" {
+		t.Fatal(b)
+	}
+	g.QueriesPerScan = 0
+	if len(g.batch(5)) != 3 {
+		t.Fatal("all queries expected")
 	}
 }

@@ -92,6 +92,8 @@ type Result struct {
 	Explanation    string    `json:"explanation"`
 	DecisionTitle  string    `json:"decision_title,omitempty"`
 	Uncertainties  []string  `json:"uncertainties"`
+	// Other existing reports this run changes (additional sources, open questions, corrections).
+	Updates []ReportUpdate `json:"report_updates,omitempty"`
 }
 
 var slug = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
@@ -116,7 +118,7 @@ func Strict(data []byte) (Result, error) {
 }
 func (r Result) Validate(countries map[string]bool) error {
 	switch r.Outcome {
-	case "new_event", "existing_case", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review":
+	case "new_event", "existing_case", "additional_source", "not_relevant", "insufficient_evidence", "routed_to_cfi", "needs_review":
 	default:
 		return errors.New("invalid outcome")
 	}
@@ -153,8 +155,39 @@ func (r Result) Validate(countries map[string]bool) error {
 	if (r.Outcome == "not_relevant" || r.Outcome == "routed_to_cfi") && len(r.Sources) == 0 {
 		return errors.New("classification requires an opened source")
 	}
-	if r.Outcome != "new_event" && r.Outcome != "existing_case" {
+	if !r.Drafts() {
+		if len(r.Updates) > 0 {
+			return errors.New("report updates need a drafted outcome")
+		}
 		return nil
+	}
+	if len(r.Updates) > 5 {
+		return errors.New("too many report updates")
+	}
+	updated := map[string]bool{r.Slug: r.Outcome != "additional_source", r.ExistingReport: r.Outcome == "additional_source"}
+	cited := map[int]bool{}
+	for _, f := range r.Facts {
+		cited[f.Source] = true
+	}
+	for _, u := range r.Updates {
+		if err := u.validate(len(r.Sources), cited); err != nil {
+			return err
+		}
+		if updated[u.Report] {
+			return errors.New("a report is updated twice")
+		}
+		updated[u.Report] = true
+	}
+	if r.Outcome == "additional_source" {
+		// another account of an event a report already records: its facts are the report's
+		// sentences the new sources support
+		if !slug.MatchString(r.ExistingReport) || len(r.Sources) == 0 {
+			return errors.New("an additional source needs its existing report")
+		}
+		if err := r.validateMedia(); err != nil {
+			return err
+		}
+		return r.Primary().validate(len(r.Sources), nil)
 	}
 	if strings.TrimSpace(r.CreatedByModel) == "" {
 		return errors.New("creator model is required")
@@ -215,6 +248,13 @@ func (r Result) Validate(countries map[string]bool) error {
 	}
 	return nil
 }
+
+// Drafts says whether the answer changes the repository: a new report, an update of the existing
+// case, or sources added to an existing report.
+func (r Result) Drafts() bool {
+	return r.Outcome == "new_event" || r.Outcome == "existing_case" || r.Outcome == "additional_source"
+}
+
 func (r Result) Verify(ctx context.Context, initial safeurl.Evidence) ([]safeurl.Evidence, error) {
 	_, evidence, _, err := r.Confirm(ctx, initial, safeurl.Fetch)
 	return evidence, err
@@ -298,6 +338,24 @@ func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch fun
 		v.LeftOut = append(v.LeftOut, f.Text)
 		r.Uncertainties = append(r.Uncertainties, fmt.Sprintf("Left out, as its quotation was not found in %s: %s", r.Sources[f.Source-1].Publisher, f.Text))
 	}
+	// the facts of updates to other reports: their quotations are checked the same way; an update
+	// that loses all its facts is dropped
+	updates := []ReportUpdate{}
+	for _, u := range r.Updates {
+		facts := []Fact{}
+		for _, f := range u.Facts {
+			if e := opened[f.Source-1]; e != nil && !e.Supports(f.Quote) {
+				v.LeftOut = append(v.LeftOut, f.Text)
+				r.Uncertainties = append(r.Uncertainties, fmt.Sprintf("Not added to %s, as its quotation was not found in %s: %s", u.Report, r.Sources[f.Source-1].Publisher, f.Text))
+				continue
+			}
+			facts = append(facts, f)
+		}
+		if len(facts) > 0 {
+			u.Facts = facts
+			updates = append(updates, u)
+		}
+	}
 	missing := v.Checked - v.Confirmed
 	switch {
 	case v.Confirmed == 0 && v.Checked > 0:
@@ -321,6 +379,20 @@ func (r Result) Confirm(ctx context.Context, initial safeurl.Evidence, fetch fun
 	}
 	for i := range kept {
 		kept[i].Source = renumber[kept[i].Source]
+	}
+	r.Updates = nil
+	for _, u := range updates {
+		facts := []Fact{}
+		for _, f := range u.Facts {
+			if n := renumber[f.Source]; n != 0 {
+				f.Source = n
+				facts = append(facts, f)
+			}
+		}
+		if len(facts) > 0 {
+			u.Facts = facts
+			r.Updates = append(r.Updates, u)
+		}
 	}
 	r.Sources, r.Facts = order, kept
 	v.Passed = true
@@ -949,11 +1021,43 @@ func SaveEvidence(dir string, values []safeurl.Evidence) error {
 	return nil
 }
 
-type Draft struct{ Path, PreviousPath, Content string }
+// Draft is a report file the run writes; Updates are the other existing reports it changes.
+type Draft struct {
+	Path, PreviousPath, Content, Slug, Title string
+	Updates                                  []Draft
+}
 
-// PrepareDraft changes only a proposed report in the disposable checkout. Existing-case
-// updates retain source numbering, original prose, assets and the report's stable slug.
+// PrepareDraft changes only the proposed report and the reports the answer updates, in the
+// disposable checkout. An update that would change nothing is left out; for an additional source
+// that is ErrUnchanged.
 func PrepareDraft(dir string, r Result) (Draft, error) {
+	var d Draft
+	var err error
+	if r.Outcome == "additional_source" {
+		d, err = UpdateReport(dir, r.Primary(), r.Sources, r.Media)
+	} else {
+		d, err = prepareReport(dir, r)
+		d.Slug, d.Title = r.Slug, r.Title
+	}
+	if err != nil {
+		return d, err
+	}
+	for _, u := range r.Updates {
+		update, err := UpdateReport(dir, u, r.Sources, nil)
+		if errors.Is(err, ErrUnchanged) {
+			continue
+		}
+		if err != nil {
+			return d, err
+		}
+		d.Updates = append(d.Updates, update)
+	}
+	return d, nil
+}
+
+// prepareReport writes a new report, or updates the existing case. Existing-case updates retain
+// source numbering, original prose, assets and the report's stable slug.
+func prepareReport(dir string, r Result) (Draft, error) {
 	if strings.TrimSpace(r.CreatedByModel) == "" {
 		return Draft{}, errors.New("creator model is required")
 	}
@@ -1187,6 +1291,11 @@ func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
 			return d, err
 		}
 	}
+	for _, u := range d.Updates {
+		if err = os.WriteFile(filepath.Join(dir, u.Path), []byte(u.Content), 0644); err != nil {
+			return d, err
+		}
+	}
 	for _, args := range [][]string{{"ci", "--ignore-scripts", "--no-audit", "--no-fund"}, {"run", "build"}} {
 		cmd := exec.CommandContext(ctx, "npm", args...)
 		cmd.Dir = dir
@@ -1196,8 +1305,65 @@ func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
 		cmd.Stderr = out
 		if err := cmd.Run(); err != nil {
 			_ = os.WriteFile(filepath.Join(dir, "validation.log"), out.Bytes(), 0600)
-			return d, errors.New("draft did not pass repository build")
+			return d, &BuildError{Step: "npm " + strings.Join(args, " "), Detail: BuildFailure(out.Bytes(), dir)}
 		}
 	}
 	return d, nil
+}
+
+// BuildError is a draft that failed the repository build; Detail is the failing lines of its log,
+// made safe to show publicly.
+type BuildError struct{ Step, Detail string }
+
+func (e *BuildError) Error() string {
+	if e.Detail == "" {
+		return "draft did not pass repository build (" + e.Step + ")"
+	}
+	return "draft did not pass repository build (" + e.Step + "):\n" + e.Detail
+}
+
+var (
+	ansiCodes   = regexp.MustCompile(`\x1b\[[0-9;?]*[A-Za-z]`)
+	hostPath    = regexp.MustCompile(`(?:file://)?(?:/[^\s/:'"()]+)+/`)
+	failureHead = regexp.MustCompile(`^(?:\[\w*Error\]|not ok \d+|npm (?:ERR!|error)|\S*Error:|error(?:\s|:|\[)|✖|✗|×)`)
+	failureEnd  = regexp.MustCompile(`^(?:Hint:|Error reference:|Location:|Stack trace:|stack:|at |---|\.\.\.$)`)
+	failureSkip = regexp.MustCompile(`^(?:duration_ms|failureType|location|code|type):\s*['\d]`) // node test runner's own fields
+)
+
+// BuildFailure picks the error lines out of a build log (an Astro schema error, a failing test, an
+// npm error) without the workspace's paths, stack traces or the rest of the output.
+func BuildFailure(log []byte, dir string) string {
+	var lines []string
+	size, open := 0, false
+	for _, line := range strings.Split(string(log), "\n") {
+		line = ansiCodes.ReplaceAllString(strings.TrimRight(line, "\r "), "")
+		if dir != "" {
+			line = strings.ReplaceAll(line, dir+string(filepath.Separator), "")
+		}
+		line = hostPath.ReplaceAllString(line, "")
+		text := strings.TrimSpace(line)
+		switch {
+		case text == "":
+			continue
+		case failureHead.MatchString(text):
+			open = true
+		case !open || failureEnd.MatchString(text):
+			open = false
+			continue
+		case failureSkip.MatchString(text):
+			continue
+		case line == text: // a new unindented line ends the error
+			open = false
+			continue
+		}
+		if len(text) > 300 {
+			text = text[:300] + "…"
+		}
+		if size+len(text) > 1200 || len(lines) == 12 {
+			lines = append(lines, "…")
+			break
+		}
+		lines, size = append(lines, text), size+len(text)
+	}
+	return strings.Join(lines, "\n")
 }

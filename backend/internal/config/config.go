@@ -9,11 +9,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/harvest"
 )
 
 type Config struct {
 	GoogleNewsEnabled                                                           bool
-	GoogleNewsQueries                                                           []string
+	GoogleNewsQueries                                                           []harvest.GoogleNewsQuery
+	GoogleNewsQueriesPerScan                                                    int
 	GoogleNewsInterval                                                          time.Duration
 	GoogleNewsMaxArticles                                                       int
 	Addr, Database, PublicURL, RepoPath, Workspaces, IngestToken                string
@@ -57,16 +60,24 @@ func Load() (Config, error) {
 	if discoveryErr != nil || c.GoogleNewsMaxArticles < 1 || c.GoogleNewsMaxArticles > 100 {
 		return c, errors.New("HARVEST_GOOGLE_NEWS_MAX_ARTICLES must be 1 to 100")
 	}
-	for _, query := range strings.Split(os.Getenv("HARVEST_GOOGLE_NEWS_QUERIES"), "|") {
-		if query = strings.TrimSpace(query); query != "" {
-			if len(query) > 1000 {
+	c.GoogleNewsQueriesPerScan, discoveryErr = strconv.Atoi(env("HARVEST_GOOGLE_NEWS_QUERIES_PER_SCAN", "12"))
+	if discoveryErr != nil || c.GoogleNewsQueriesPerScan < 1 || c.GoogleNewsQueriesPerScan > 50 {
+		return c, errors.New("HARVEST_GOOGLE_NEWS_QUERIES_PER_SCAN must be 1 to 50")
+	}
+	for _, raw := range strings.Split(os.Getenv("HARVEST_GOOGLE_NEWS_QUERIES"), "|") {
+		if raw = strings.TrimSpace(raw); raw != "" {
+			if len(raw) > 1000 {
 				return c, errors.New("Google News query exceeds 1000 characters")
+			}
+			query, err := harvest.ParseGoogleNewsQuery(raw)
+			if err != nil {
+				return c, err
 			}
 			c.GoogleNewsQueries = append(c.GoogleNewsQueries, query)
 		}
 	}
-	if len(c.GoogleNewsQueries) > 10 {
-		return c, errors.New("at most 10 Google News queries")
+	if len(c.GoogleNewsQueries) > 50 {
+		return c, errors.New("at most 50 Google News queries")
 	}
 	c.SourceBrowser = env("SOURCE_BROWSER", "true") == "true"
 	c.DevControls = env("DEV_CONTROLS", "false") == "true"

@@ -166,3 +166,37 @@ func TestLocalCommitMovesExistingReportAndRefusesConcurrentEdits(t *testing.T) {
 		})
 	}
 }
+
+func TestLocalCommitIncludesUpdatedReports(t *testing.T) {
+	repo, d := commitFixture(t)
+	other := "reports/2026/08/other-report.md"
+	os.MkdirAll(filepath.Dir(filepath.Join(repo, other)), 0755)
+	os.WriteFile(filepath.Join(repo, other), []byte("original other report"), 0644)
+	testGit(t, repo, "add", other)
+	testGit(t, repo, "commit", "-m", "Other report")
+	snapshot := filepath.Join(t.TempDir(), "snapshot")
+	testGit(t, repo, "clone", "--local", repo, snapshot)
+	content, _ := os.ReadFile(filepath.Join(d.Dir, d.Rel))
+	d.Dir = snapshot
+	os.MkdirAll(filepath.Dir(filepath.Join(snapshot, d.Rel)), 0755)
+	os.WriteFile(filepath.Join(snapshot, d.Rel), content, 0644)
+	os.WriteFile(filepath.Join(snapshot, other), []byte("other report with a new source"), 0644)
+	d.Updates = []fileJob{{Rel: other, Slug: "other-report", Title: "Other report"}}
+	sha, err := commitReport(context.Background(), repo, "case-update", d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := testGit(t, repo, "diff-tree", "--no-commit-id", "--name-only", "-r", sha); !strings.Contains(got, other) || !strings.Contains(got, d.Rel) {
+		t.Fatal(got)
+	}
+	if b, _ := os.ReadFile(filepath.Join(repo, other)); string(b) != "other report with a new source" {
+		t.Fatal(string(b))
+	}
+	if msg := testGit(t, repo, "log", "-1", "--format=%s"); msg != "Add report: Fixture report (and update other-report)" {
+		t.Fatal(msg)
+	}
+	d.Updates[0].Rel = "../outside.md"
+	if _, err = commitReport(context.Background(), repo, "case-bad", d); err == nil {
+		t.Fatal("invalid update path accepted")
+	}
+}

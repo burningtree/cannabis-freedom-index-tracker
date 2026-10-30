@@ -2,7 +2,7 @@
 // the AI run with its live chat, the history grouped by attempt, and the details of the request.
 // Called by submissions.js on every refresh; the parts are redrawn in place except the AI panel,
 // which updates itself (src/lib/ai-activity.js) so its chat keeps its place.
-import { submissionDecision } from "../lib/submission-decision.js";
+import { submissionDecision, changedReports } from "../lib/submission-decision.js";
 import { restartControl } from "../lib/submission-restart.js";
 import { renderAIActivity } from "../lib/ai-activity.js";
 import { renderDraft, readResult } from "./draft-report.js";
@@ -60,7 +60,7 @@ function hero(box, v, run) {
     why.append(el("h2", decision.title, "sx-why-main"));
     for (const paragraph of decision.details.split(/\n\s*\n/).filter(Boolean)) why.append(el("p", paragraph, "sx-why-detail"));
     if (decision.modelAssessment) {
-      why.append(el("h3", "Model assessment", "sx-why-label"));
+      why.append(el("h3", "What the AI had concluded", "sx-why-label"));
       for (const paragraph of decision.modelAssessment.split(/\n\s*\n/).filter(Boolean)) why.append(el("p", paragraph, "sx-why-detail"));
     }
     if (decision.links.length) {
@@ -107,6 +107,25 @@ function output(box, v) {
   else if (isRunning(v.status)) box.append(el("p", "Nothing yet: the request is still being worked on. This page updates by itself.", "sx-muted"));
   else if (!items.childElementCount) box.append(el("p", OUTCOME_HELP[v.status] ?? v.explanation, "sx-muted"));
   if (items.childElementCount) box.append(items);
+  box.append(...changed(v, base));
+}
+
+// the existing reports this run adds sources to or corrects: changed once committed, to be changed
+// while it runs, and not changed if it stopped
+function changed(v, base) {
+  const reports = changedReports(v);
+  if (!reports.length) return [];
+  const done = ["committed", "published"].includes(v.status), running = isRunning(v.status);
+  const wrap = el("div", undefined, "sx-changed");
+  wrap.append(el("h3", done ? "Existing reports changed" : running ? "Existing reports this will change" : "Existing reports it would have changed (not changed)"));
+  const list = el("ul", undefined, "sx-why-links");
+  for (const r of reports) {
+    const li = el("li");
+    li.append(link(r.slug, `${base}report/${r.slug}/`), document.createTextNode(` — ${r.change}`));
+    list.append(li);
+  }
+  wrap.append(list);
+  return [wrap];
 }
 
 // how the AI's answer was checked: every source opened again by the service and each fact's

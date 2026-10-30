@@ -50,6 +50,17 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 	if !reportPath.MatchString(d.Rel) || (d.PreviousRel != "" && !reportPath.MatchString(d.PreviousRel)) {
 		return "", errors.New("invalid report path")
 	}
+	updates := map[string][]byte{}
+	for _, u := range d.Updates {
+		if !reportPath.MatchString(u.Rel) || u.Rel == d.Rel || u.Rel == d.PreviousRel || updates[u.Rel] != nil {
+			return "", errors.New("invalid report update path")
+		}
+		data, err := os.ReadFile(filepath.Join(d.Dir, u.Rel))
+		if err != nil {
+			return "", err
+		}
+		updates[u.Rel] = data
+	}
 	gitWithContext := func(callCtx context.Context, args ...string) ([]byte, error) {
 		cmd := exec.CommandContext(callCtx, "git", args...)
 		cmd.Dir = repo
@@ -96,6 +107,9 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 	if d.PreviousRel != "" && d.PreviousRel != d.Rel {
 		paths = append(paths, d.PreviousRel)
 	}
+	for _, u := range d.Updates {
+		paths = append(paths, u.Rel)
+	}
 	for _, path := range paths {
 		// Reject symlinked report directories/files even when their target is inside the repo.
 		for at := path; at != "."; at = filepath.Dir(at) {
@@ -112,9 +126,17 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 			return "", fmt.Errorf("report path has local edits: %s", path)
 		}
 	}
-	// An existing-case update may not replace a version changed since research began.
-	basePath := d.PreviousRel
-	if basePath != "" {
+	// An update of an existing report may not replace a version changed since research began.
+	bases := []string{}
+	if d.PreviousRel != "" {
+		bases = append(bases, d.PreviousRel)
+	} else if _, e := os.Stat(filepath.Join(repo, d.Rel)); !os.IsNotExist(e) {
+		return "", errors.New("new report would overwrite an existing file")
+	}
+	for _, u := range d.Updates {
+		bases = append(bases, u.Rel)
+	}
+	for _, basePath := range bases {
 		baseCmd := exec.CommandContext(ctx, "git", "show", "HEAD:"+basePath)
 		baseCmd.Dir = d.Dir
 		base, e := baseCmd.Output()
@@ -122,8 +144,6 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 		if e != nil || e2 != nil || !bytes.Equal(base, current) {
 			return "", errors.New("existing report changed since research; restart this submission")
 		}
-	} else if _, e := os.Stat(filepath.Join(repo, d.Rel)); !os.IsNotExist(e) {
-		return "", errors.New("new report would overwrite an existing file")
 	}
 	original := map[string][]byte{}
 	for _, path := range paths {
@@ -152,7 +172,13 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 	if err = os.WriteFile(filepath.Join(repo, d.Rel), content, 0644); err != nil {
 		return "", err
 	}
-	if len(paths) > 1 {
+	for rel, data := range updates {
+		if err = os.WriteFile(filepath.Join(repo, rel), data, 0644); err != nil {
+			rollback()
+			return "", err
+		}
+	}
+	if d.PreviousRel != "" && d.PreviousRel != d.Rel {
 		if err = os.Remove(filepath.Join(repo, d.PreviousRel)); err != nil {
 			rollback()
 			return "", err
@@ -162,7 +188,7 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 		rollback()
 		return "", err
 	}
-	args := []string{"-c", "user.name=Submission service", "-c", "user.email=submissions@localhost", "-c", "commit.gpgsign=false", "commit", "--only", "-m", "Add report: " + d.Title + "\n\n" + marker, "--"}
+	args := []string{"-c", "user.name=Submission service", "-c", "user.email=submissions@localhost", "-c", "commit.gpgsign=false", "commit", "--only", "-m", commitTitle(d) + "\n\n" + marker, "--"}
 	if _, err = git(append(args, paths...)...); err != nil {
 		// A cancellation can race with a successful commit. Inspect Git using a fresh
 		// context before restoring files, so an already committed report stays intact.
@@ -186,4 +212,17 @@ func commitReport(ctx context.Context, repo, cid string, d draftJob) (string, er
 		return "", err
 	}
 	return strings.TrimSpace(string(sha)), nil
+}
+
+func commitTitle(d draftJob) string {
+	title := "Add report: " + d.Title
+	if d.SourceOnly {
+		title = "Add source to report: " + d.Title
+	}
+	if n := len(d.Updates); n == 1 {
+		title += " (and update " + d.Updates[0].Slug + ")"
+	} else if n > 1 {
+		title += fmt.Sprintf(" (and update %d reports)", n)
+	}
+	return title
 }
