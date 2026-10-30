@@ -27,27 +27,31 @@ sources:
     url: https://www.nationaltribune.com.au/police-make-arrest-stealing-as-servant/
     publisher: The National Tribune
     date: 2026-10-30
+  - title: Police Make Arrest - Stealing As Servant
+    url: https://www.miragenews.com/police-make-arrest-stealing-as-servant-1769409/
+    publisher: Mirage News
+    date: 2026-10-30
 open_questions:
   - The police release says the man was charged with 83 offences but lists 83 counts of stealing as a servant plus one count of possessing cannabis, 84 counts in total.
   - No quantity of cannabis, location of the cannabis or circumstances of the possession charge were published.
   - The sources do not report what happened at the Rockingham Magistrates Court appearance on 30 October 2026.
   - The accused was not named in the sources.
   - No photograph of the cannabis, the accused or the court appearance was published; Coast FM's only image was a file picture of a car dealership.
+  - Mirage News publishes the same Western Australia Police public release as The National Tribune, so it repeats the police account rather than adding independent confirmation.
 ---
 
 A 34-year-old man from Piara Waters, Western Australia, was charged on 6 October
-2026. [@1] The charges were 83 counts of stealing as a servant and one count of
-possessing cannabis. [@2] Detectives from the Financial Crimes Squad laid the
+2026. [@1,4] The charges were 83 counts of stealing as a servant and one count of
+possessing cannabis. [@2,4] Detectives from the Financial Crimes Squad laid the
 charges after an investigation into his work as a sales manager at a car
-dealership. [@1] He was due to appear before the Rockingham Magistrates Court on
-30 October 2026. [@1]
+dealership. [@1,4] He was due to appear before the Rockingham Magistrates Court on
+30 October 2026. [@1,4]
 
 Police allege he maintained 21 bank accounts used to receive fraudulent customer
-refunds and vehicle deposits. [@3] They allege he altered contracts and receipts
+refunds and vehicle deposits. [@3,4] They allege he altered contracts and receipts
 and created fraudulent cheque requisition forms and supporting emails to divert
 money from the business. [@3] Between November 2023 and September 2025,
 A$96,029.93 in customer deposit refunds and a further A$23,000 in customer
-deposits were paid into accounts held by the accused, police allege. [@3] Coast
+deposits were paid into accounts held by the accused, police allege. [@3,4] Coast
 FM, a local radio station, described him as a former sales manager at a
 Rockingham car dealership and put the alleged theft at nearly A$120,000. [@2]
-
