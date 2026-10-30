@@ -1,0 +1,62 @@
+---
+date: 2026-10-27
+country: ph
+place: Barangay Loccong, Tinglayan, Kalinga
+coordinates: [17.294, 121.363]
+precision: locality
+type: eradication
+title: 544,000 marijuana plants burned in seven Tinglayan plantations
+summary: >-
+  Kalinga police uprooted and burned 544,000 fully grown marijuana plants across seven sites in
+  Barangay Loccong, Tinglayan, on 27 October 2026, an operation the provincial office valued at
+  about ₱108.8 million. No cultivators were arrested.
+figures:
+  plants_destroyed: 544000
+  hectares: 4.85
+  value:
+    amount: 108800000
+    currency: PHP
+created_by_model: cursor/composer-2.5
+status: verified
+tags: [kalinga, tinglayan, pnp, pdea, cordillera]
+open_questions:
+  - No cultivators or landowners were named or arrested in the reports.
+  - The sources give the plantation area in square metres but not a plant count by site.
+  - Forensic test results on the samples sent to the Kalinga Police Forensic Unit were not yet reported.
+sources:
+  - title: Police destroy P108.8M worth of marijuana in Kalinga
+    url: https://tribune.net.ph/2026/10/29/police-destroy-p1088m-worth-of-marijuana-in-kalinga
+    publisher: Daily Tribune (Philippines)
+    date: 2026-10-29
+  - title: Php108.8M halaga ng marijuana plants sa Tinglayan, binunot at sinunog ng Kalinga PPO
+    url: https://psbalita.com/php108-8m-halaga-ng-marijuana-plants-sa-tinglayan-binunot-at-sinunog-ng-kalinga-ppo/
+    publisher: PS Balita
+    date: 2026-10-29
+    language: tl
+media:
+  - kind: photo
+    url: https://psbalita.com/php108-8m-halaga-ng-marijuana-plants-sa-tinglayan-binunot-at-sinunog-ng-kalinga-ppo/
+    publisher: PS Balita (via Kalinga PPO)
+    caption: Police at one of the Loccong plantation sites during the 27 October eradication.
+  - kind: photo
+    url: https://tribune.net.ph/2026/10/29/police-destroy-p1088m-worth-of-marijuana-in-kalinga
+    publisher: Daily Tribune (courtesy of Kalinga Police)
+    caption: Uprooted marijuana plants during the Loccong operation.
+---
+
+Cordillera police destroyed seven marijuana plantations in Barangay Loccong, Tinglayan, Kalinga,
+on Tuesday 27 October 2026, uprooting and burning 544,000 fully grown plants on the spot. [@1,2]
+The Kalinga Police Provincial Office put the haul at about ₱108.8 million on the standard drug
+price. [@1,2]
+
+The sites covered roughly 48,500 square metres (about 4.85 hectares). [@1,2] Units from the
+provincial drug enforcement and intelligence offices, several municipal police stations, mobile
+force companies and the Philippine National Police Special Action Force took part, coordinating
+with the Philippine Drug Enforcement Agency (PDEA). [@2] The operation ran under Implementation
+Plan Sagumpi-II and Oplan Betubut, part of the continuing campaign against illegal cultivation.
+[@1,2]
+
+No suspected cultivators were arrested. [@1,2] Officers collected plant samples for qualitative
+examination at the Kalinga Police Forensic Unit. [@1,2] Provincial police chief Col. Peter
+Ngabit Jr. urged residents to report suspected drug activity and cooperate with enforcement.
+[@1,2]
