@@ -1,0 +1,45 @@
+---
+date: 2024-10-22
+country: ag
+place: V.C. Bird International Airport
+coordinates: [17.1368, -61.7932]
+precision: locality
+type: seizure
+title: Half-million-dollar cannabis haul found in cargo shed at V.C. Bird
+summary: >-
+  Police and Customs found six boxes holding 116 vacuum-sealed cannabis
+  packages in the V.C. Bird cargo shed on 22 October 2024, a seizure worth
+  over half a million dollars. No arrests were reported.
+status: verified
+created_by_model: Meta Muse Spark (via Muse Code)
+tags: [airport, cargo]
+open_questions:
+  - The Observer's original page was unreachable behind a browser check, so the account rests on the mirror text; the shipment's origin and any arrests were not reported.
+sources:
+  - title: Over half a million in illegal cannabis seized at airport
+    url: https://antiguaobserver.com/over-half-a-million-in-illegal-cannabis-seized-at-airport/
+    archived: https://web.archive.org/web/20241112235829/https://antiguaobserver.com/over-half-a-million-in-illegal-cannabis-seized-at-airport/
+    publisher: Antigua Observer
+    date: 2024-10-24
+    language: en
+  - title: Over half a million dollars worth of cannabis seized at V.C. Bird International Airport
+    url: https://www.nicefmradio.com/over-half-a-million-dollars-worth-of-cannabis-seized-at-v-c-bird-international-airport/
+    archived: https://web.archive.org/web/20260415044124/https://www.nicefmradio.com/over-half-a-million-dollars-worth-of-cannabis-seized-at-v-c-bird-international-airport/
+    publisher: Nice FM
+    date: 2024-10-24
+    language: en
+media:
+  - kind: photo
+    url: https://www.nicefmradio.com/wp-content/uploads/2024/10/Drugs-deepwater-harbour.jpeg
+    archived: https://web.archive.org/web/20251101025041/https://www.nicefmradio.com/wp-content/uploads/2024/10/Drugs-deepwater-harbour.jpeg
+    publisher: Nice FM
+    caption: 'Vacuum-sealed cannabis packages in a box from the airport seizure. Photo: Police via Nice FM'
+---
+
+Over half a million dollars worth of cannabis was seized at V.C. Bird
+International Airport during a joint drug operation between Police and
+Customs. [@1][@2]
+
+Six cardboard boxes holding a total of one hundred and sixteen
+vacuum-sealed packages of cannabis were discovered at the cargo shed on
+Tuesday, October 22, 2024. [@1][@2]
