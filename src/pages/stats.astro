@@ -1,81 +1,139 @@
 ---
 import Base from "../layouts/Base.astro";
 import { submissionsAPI as api } from "../lib/submissions-config.js";
-import { reports, totals, countByType, countriesWithReports, monthSeries, monthName, years } from "../lib/reports.js";
+import { reports, totals, countByType, countriesWithReports, monthName, years } from "../lib/reports.js";
 import { sourcesByDomain } from "../lib/source-domains.js";
-import { TYPES } from "../lib/types.js";
-import { countryOf, flagOf } from "../lib/countries.js";
+import { TYPES, STATUS } from "../lib/types.js";
+import { countryOf, flagOf, countryName } from "../lib/countries.js";
+import { fmt, compact, headlineFigures, periodColumns, typeRows, reportsByModel, topCountriesBy } from "../lib/stats.js";
 const base = import.meta.env.BASE_URL;
-const t = totals(reports);
 const domains = sourcesByDomain(reports);
-const fmt = (n) => n.toLocaleString("en-GB");
+const countries = countriesWithReports();
+const figures = headlineFigures(reports);
+const verified = reports.filter((r) => r.status === "verified").length;
+const first = years.at(-1), last = years[0];
 const byType = Object.entries(countByType(reports)).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
 const maxType = Math.max(1, ...byType.map(([, n]) => n));
 const regions = Object.entries(Object.groupBy(reports, (r) => countryOf(r.country)?.region ?? "Other")).map(([k, v]) => [k, v.length]).sort((a, b) => b[1] - a[1]);
 const maxRegion = Math.max(1, ...regions.map(([, n]) => n));
-const top = countriesWithReports().slice(0, 25);
-// every month from the first report to the last, as bars
-const series = monthSeries();
-const maxMonth = Math.max(1, ...series.map((m) => m.count));
-const W = 900, H = 140, bw = series.length ? W / series.length : W;
+const top = countries.slice(0, 15);
+const maxTop = Math.max(1, ...top.map((c) => c.count));
+// columns: every year from the first report, and the last 24 months
+const yearCols = periodColumns(reports, (r) => r.year, Array.from({ length: (last ?? 0) - (first ?? 0) + 1 }, (_, i) => first + i));
+const now = new Date(), months = Array.from({ length: 24 }, (_, i) => new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 23 + i, 1)).toISOString().slice(0, 7));
+const monthCols = periodColumns(reports, (r) => r.month, months);
+const chart = (cols, label, href) => { const max = Math.max(1, ...cols.map((c) => c.total)); return { max, cols: cols.map((c) => ({ ...c, h: (c.total / max) * 100, label: label(c.key), href: href(c.key), tip: JSON.stringify({ t: label(c.key), s: `${fmt(c.total)} ${c.total === 1 ? "report" : "reports"}`, rows: typeRows(c.types) }) })) }; };
+const yearChart = chart(yearCols, (y) => String(y), (y) => `${base}${y}/`);
+const monthChart = chart(monthCols, (m) => monthName(m), (m) => `${base}${m.replace("-", "/")}/`);
+const models = reportsByModel(reports);
+const maxModel = Math.max(1, models.unrecorded, ...models.rows.map((m) => m.count));
+const recorded = reports.length - models.unrecorded;
+const leaders = [
+  { title: "Most people arrested", figure: "arrested", unit: "" },
+  { title: "Most plants destroyed", figure: "plants_destroyed", unit: "" },
+  { title: "Most cannabis seized", figure: "kg_seized", unit: " kg" },
+].map((l) => ({ ...l, rows: topCountriesBy(reports, l.figure) })).filter((l) => l.rows.length);
 const yearRows = years.map((y) => { const list = reports.filter((r) => r.year === y); return { y, list, t: totals(list), types: countByType(list) }; });
+const pct = (n, of) => `${((n / Math.max(1, of)) * 100).toFixed(1)}%`;
+const sections = [["overview", "Overview"], ["time", "Over time"], ["what", "What happened"], ["where", "Where"], ["leaders", "Biggest figures"], ["models", "AI models"], ["ai-usage", "AI usage"], ["years", "By year"], ["sources", "Sources"]];
 ---
-<Base title="Statistics" description="Totals and a timeline of the cannabis enforcement reports.">
+<Base title="Statistics" description="Totals, timelines and breakdowns of the cannabis enforcement reports.">
   <h1>Statistics</h1>
   <p class="lead">What the {fmt(reports.length)} reports in the tracker add up to. These are only the figures the sources state, not estimates of all enforcement.</p>
+  <nav class="stats-nav" aria-label="On this page">{sections.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}</nav>
 
-  <div class="tiles">
-    <div class="tile"><div class="big">{fmt(t.reports)}</div><div class="label">Reports</div></div>
-    <div class="tile"><div class="big">{countriesWithReports().length}</div><div class="label">Countries and states</div></div>
-    <div class="tile"><div class="big">{fmt(t.arrested)}</div><div class="label">People arrested</div></div>
-    <div class="tile"><div class="big">{fmt(t.plants_destroyed)}</div><div class="label">Plants destroyed</div></div>
-    <div class="tile"><div class="big">{fmt(Math.round(t.hectares))}</div><div class="label">Hectares destroyed</div></div>
-    <div class="tile"><div class="big">{fmt(t.deaths)}</div><div class="label">Deaths</div></div>
-  </div>
+  <section id="overview" class="overview" aria-label="Overview">
+    <div class="headline">
+      <div class="headline-main"><span class="headline-num">{fmt(reports.length)}</span><span class="headline-label">reports</span></div>
+      <p class="headline-facts">
+        <span><b>{fmt(countries.length)}</b> countries and states</span>
+        {first && <span><b>{first}–{last}</b></span>}
+        <span><b>{pct(verified, reports.length).replace(/\.\d%/, "%")}</b> checked against the sources</span>
+        <span><b>{fmt(domains.length)}</b> source domains</span>
+      </p>
+    </div>
+    <div class="figure-cards">
+      {figures.map((f) => (
+        <div class="figure-card">
+          <div class="fc-num" title={`${f.value.toLocaleString("en-GB", { maximumFractionDigits: 1 })}${f.unit ? ` ${f.unit}` : ""}`}>{compact(f.value)}{f.unit === "tonnes" && <small> t</small>}{f.unit === "kg" && <small> kg</small>}</div>
+          <div class="fc-label">{f.label}</div>
+          <div class="fc-note">{f.value >= 10000 && <>{f.value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}{f.unit ? ` ${f.unit}` : ""} · </>}from {fmt(f.reports)} {f.reports === 1 ? "report" : "reports"}</div>
+        </div>
+      ))}
+    </div>
+  </section>
 
-  <h2>Reports per month</h2>
-  {series.length > 0 && (
-    <figure class="month-chart">
-      <svg viewBox={`0 0 ${W} ${H + 18}`} role="img" aria-label={`Reports per month, ${monthName(series[0].month)} to ${monthName(series.at(-1).month)}`}>
-        {series.map((m, i) => (
-          <a href={`${base}${m.month.replace("-", "/")}/`}>
-            <rect x={i * bw + 0.5} y={H - (m.count / maxMonth) * H} width={Math.max(1, bw - 1)} height={Math.max(m.count ? 1 : 0, (m.count / maxMonth) * H)}><title>{monthName(m.month)}: {m.count}</title></rect>
-          </a>
-        ))}
-        <text x="0" y={H + 14}>{monthName(series[0].month, "short")}</text>
-        <text x={W} y={H + 14} text-anchor="end">{monthName(series.at(-1).month, "short")}</text>
-      </svg>
-    </figure>
-  )}
+  <section id="time" aria-labelledby="time-title">
+    <h2 id="time-title">Over time</h2>
+    <div class="chart-pair">
+      {[["Reports per year", "by the date of the event", yearChart, 5], ["The last 24 months", "reports per month", monthChart, 6]].map(([title, sub, c, every]) => (
+        <figure class="col-chart" data-chart>
+          <figcaption><b>{title}</b> <span>{sub} · highest {fmt(c.max)}</span></figcaption>
+          <div class="cols" style={`--n:${c.cols.length}`}>
+            {c.cols.map((col) => <a class="col" href={col.href} data-tip={col.tip} aria-label={`${col.label}: ${col.total} reports`}><i style={`height:${col.h}%`}></i></a>)}
+          </div>
+          <div class="col-axis" style={`--n:${c.cols.length}`}>
+            {c.cols.map((col, i) => <span>{((i % every === 0 && c.cols.length - 1 - i >= every / 2) || i === c.cols.length - 1) && (c === yearChart ? col.key : monthName(col.key, "short").replace(" 20", " ’"))}</span>)}
+          </div>
+        </figure>
+      ))}
+    </div>
+  </section>
 
-  <div class="side-grid">
-    <section>
-      <h2>By type</h2>
-      <ul class="bars">{byType.map(([id, n]) => <li><span>{TYPES[id].plural}</span><span class="bar" style={`--c:${TYPES[id].color}`}><i style={`width:${(n / maxType) * 100}%`}></i></span><span class="num">{n}</span></li>)}</ul>
-    </section>
-    <section>
-      <h2>By region</h2>
-      <ul class="bars">{regions.map(([k, n]) => <li><span>{k}</span><span class="bar"><i style={`width:${(n / maxRegion) * 100}%`}></i></span><span class="num">{n}</span></li>)}</ul>
-    </section>
-  </div>
+  <section id="what" aria-labelledby="what-title">
+    <h2 id="what-title">What happened</h2>
+    <div class="side-grid">
+      <div>
+        <h3>By type</h3>
+        <ol class="hbars">{byType.map(([id, n]) => <li><span class="hb-label"><i class="dot" style={`--c:${TYPES[id].color}`}></i>{TYPES[id].plural}</span><span class="hb-track"><i style={`width:${(n / maxType) * 100}%`}></i></span><span class="hb-num">{fmt(n)}</span></li>)}</ol>
+      </div>
+      <div>
+        <h3>How far each report is checked</h3>
+        <div class="share" role="img" aria-label={Object.keys(STATUS).map((s) => `${s}: ${reports.filter((r) => r.status === s).length}`).join(", ")}>
+          {Object.keys(STATUS).map((s, i) => { const n = reports.filter((r) => r.status === s).length; return n > 0 && <i class={`share-${i}`} style={`width:${pct(n, reports.length)}`} title={`${STATUS[s]}: ${fmt(n)}`}></i>; })}
+        </div>
+        <ul class="share-key">{Object.keys(STATUS).map((s, i) => { const n = reports.filter((r) => r.status === s).length; return n > 0 && <li><i class={`share-${i}`}></i><b>{fmt(n)}</b> {s} <span class="muted">· {STATUS[s].toLowerCase()} ({pct(n, reports.length)})</span></li>; })}</ul>
+      </div>
+    </div>
+  </section>
 
-  <h2>By year</h2>
-  <div class="table-wrap">
-    <table class="table">
-      <thead><tr><th>Year</th><th class="num">Reports</th>{byType.map(([id]) => <th class="num">{TYPES[id].plural}</th>)}<th class="num">Arrested</th><th class="num">Hectares</th></tr></thead>
-      <tbody>{yearRows.map((r) => <tr><td><a href={`${base}${r.y}/`}>{r.y}</a></td><td class="num">{fmt(r.list.length)}</td>{byType.map(([id]) => <td class="num">{r.types[id] || "–"}</td>)}<td class="num">{fmt(r.t.arrested)}</td><td class="num">{fmt(Math.round(r.t.hectares))}</td></tr>)}</tbody>
-    </table>
-  </div>
+  <section id="where" aria-labelledby="where-title">
+    <h2 id="where-title">Where</h2>
+    <div class="side-grid">
+      <div>
+        <h3>Countries with the most reports</h3>
+        <ol class="hbars">{top.map((c) => <li><a class="hb-label" href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a><span class="hb-track"><i style={`width:${(c.count / maxTop) * 100}%`}></i></span><span class="hb-num">{fmt(c.count)}</span></li>)}</ol>
+        <p class="more-links"><a href={`${base}country/`}>All {fmt(countries.length)} countries →</a></p>
+      </div>
+      <div>
+        <h3>By region</h3>
+        <ol class="hbars">{regions.map(([k, n]) => <li><span class="hb-label">{k}</span><span class="hb-track"><i style={`width:${(n / maxRegion) * 100}%`}></i></span><span class="hb-num">{fmt(n)}</span></li>)}</ol>
+      </div>
+    </div>
+  </section>
 
-  <h2>Countries with the most reports</h2>
-  <div class="table-wrap">
-    <table class="table">
-      <thead><tr><th>Country</th><th class="num">Reports</th></tr></thead>
-      <tbody>{top.map((c) => <tr><td><a href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a></td><td class="num">{c.count}</td></tr>)}</tbody>
-    </table>
-  </div>
-  <p><a href={`${base}country/`}>All countries →</a> · <a href={`${base}${years[0] ?? ""}/`}>Browse by month →</a></p>
-  <section data-ai-stats data-api={api} aria-labelledby="ai-stats-title">
+  <section id="leaders" aria-labelledby="leaders-title">
+    <h2 id="leaders-title">Biggest figures by country</h2>
+    <p class="muted">Totals of what the reports state; one large operation can lead a list.</p>
+    <div class="leader-grid">
+      {leaders.map((l) => { const max = l.rows[0].value; return (
+        <div>
+          <h3>{l.title}</h3>
+          <ol class="hbars compact">{l.rows.map((c) => <li><a class="hb-label" href={`${base}country/${c.id}/`}>{flagOf(c.id)} {countryName(c.id)}</a><span class="hb-track"><i style={`width:${(c.value / max) * 100}%`}></i></span><span class="hb-num" title={`${c.value.toLocaleString("en-GB")}${l.unit}`}>{compact(c.value)}{l.unit && <small>{l.unit}</small>}</span></li>)}</ol>
+        </div>
+      ); })}
+    </div>
+  </section>
+
+  <section id="models" aria-labelledby="models-title" data-chart>
+    <h2 id="models-title">Reports by AI model</h2>
+    <p>The model recorded in each report's <code>created_by_model</code>, grouped without provider and reasoning setting. {fmt(recorded)} of {fmt(reports.length)} reports ({pct(recorded, reports.length)}) record it; older reports were imported before it was recorded.</p>
+    <ol class="hbars models">{models.rows.map((m) => <li tabindex="0" data-tip={JSON.stringify({ t: m.name, s: `${fmt(m.count)} ${m.count === 1 ? "report" : "reports"}`, rows: m.variants.map(([id, n]) => ["", id, n]) })}><span class="hb-label">{m.name}</span><span class="hb-track"><i style={`width:${(m.count / maxModel) * 100}%`}></i></span><span class="hb-num">{fmt(m.count)}</span></li>)}
+      {models.unrecorded > 0 && <li class="unrecorded"><span class="hb-label">Not recorded</span><span class="hb-track"><i style={`width:${(models.unrecorded / maxModel) * 100}%`}></i></span><span class="hb-num">{fmt(models.unrecorded)}</span></li>}
+    </ol>
+  </section>
+
+  <section id="ai-usage" data-ai-stats data-api={api} aria-labelledby="ai-stats-title">
     <h2 id="ai-stats-title">AI research usage</h2>
     <p>Recorded research runs, including retries and interrupted attempts. Usage updates while research is running.</p>
     <label for="ai-stats-period">Period</label>{" "}
@@ -94,7 +152,19 @@ const yearRows = years.map((y) => { const list = reports.filter((r) => r.year ==
     <noscript><p>Enable JavaScript to load recorded AI usage.</p></noscript>
   </section>
   <script>import "../scripts/ai-stats.js";</script>
-  <section aria-labelledby="source-domains-title" class="source-domains">
+
+  <section id="years" aria-labelledby="years-title">
+    <h2 id="years-title">By year</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>Year</th><th class="num">Reports</th>{byType.map(([id]) => <th class="num">{TYPES[id].plural}</th>)}<th class="num">Arrested</th><th class="num">Hectares</th></tr></thead>
+        <tbody>{yearRows.map((r) => <tr><td><a href={`${base}${r.y}/`}>{r.y}</a></td><td class="num">{fmt(r.list.length)}</td>{byType.map(([id]) => <td class="num">{r.types[id] || "–"}</td>)}<td class="num">{fmt(r.t.arrested)}</td><td class="num">{fmt(Math.round(r.t.hectares))}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="more-links"><a href={`${base}${years[0] ?? ""}/`}>Browse by month →</a></p>
+  </section>
+
+  <section id="sources" aria-labelledby="source-domains-title" class="source-domains">
     <h2 id="source-domains-title">Sources by domain</h2>
     <p>{fmt(domains.length)} domains, ranked by distinct source URLs. The report count shows how many tracker reports cite each domain. Addresses with and without <code>www.</code> are combined.</p>
     <div class="source-domain-table">
@@ -121,9 +191,70 @@ const yearRows = years.map((y) => { const list = reports.filter((r) => r.year ==
       });
     }
   </script>
+  <script>import "../scripts/chart-tooltip.js";</script>
 </Base>
 
 <style>
+  .stats-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 28px; }
+  .stats-nav a { padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; font-size: 13px; color: var(--text-2); text-decoration: none; background: var(--surface); }
+  .stats-nav a:hover { color: var(--text); border-color: var(--text-2); }
+  section[id] { scroll-margin-top: 80px; }
+  section + section { margin-top: 3rem; }
+  h3 { margin: 0 0 10px; font: 600 14px/1.4 Inter, system-ui, sans-serif; }
+
+  .headline { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; padding: 28px 28px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px 10px 0 0; }
+  .headline-main { display: flex; align-items: baseline; gap: 14px; }
+  .headline-num { font: 400 clamp(56px, 10vw, 104px)/0.9 var(--display); letter-spacing: -0.01em; }
+  .headline-label { font: 400 clamp(22px, 3vw, 32px) var(--display); color: var(--text-2); }
+  .headline-facts { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 6px; font-size: 14px; color: var(--text-2); }
+  .headline-facts b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .figure-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-top: 0; border-radius: 0 0 10px 10px; overflow: hidden; }
+  .figure-card { padding: 18px 20px 16px; background: var(--surface); min-width: 0; }
+  @media (max-width: 860px) { .figure-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .figure-card:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+  .fc-num { font: 400 clamp(34px, 4.4vw, 46px)/1 var(--display); white-space: nowrap; }
+  .fc-num small { font-size: .5em; color: var(--text-2); }
+  .fc-label { margin-top: 8px; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
+  .fc-note { margin-top: 4px; font: 11px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .chart-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .chart-pair { grid-template-columns: 1fr; } }
+  .col-chart { margin: 0; padding: 16px 18px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; min-width: 0; }
+  .col-chart figcaption { margin-bottom: 14px; font-size: 14px; }
+  .col-chart figcaption span { color: var(--muted); font-size: 12.5px; }
+  .cols { display: grid; grid-template-columns: repeat(var(--n), 1fr); align-items: end; gap: 2px; height: 160px; border-bottom: 1px solid var(--border); }
+  .col { display: flex; align-items: flex-end; height: 100%; min-width: 0; }
+  .col i { display: block; width: 100%; min-height: 0; background: var(--text-2); border-radius: 3px 3px 0 0; transition: background .15s; }
+  .col:hover i, .col:focus-visible i { background: var(--text); }
+  .col-axis { display: grid; grid-template-columns: repeat(var(--n), 1fr); margin-top: 6px; font: 10.5px var(--mono); color: var(--muted); }
+  .col-axis span { white-space: nowrap; overflow: visible; }
+
+  .hbars { list-style: none; margin: 0; padding: 0; }
+  .hbars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label num" "bar bar"; align-items: baseline; gap: 3px 12px; padding: 5px 0; font-size: 13.5px; }
+  .hbars.compact li { font-size: 13px; }
+  .hb-label { grid-area: label; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); text-decoration: none; }
+  a.hb-label:hover { text-decoration: underline; }
+  .hb-track { grid-area: bar; height: 8px; background: var(--surface-2); border-radius: 3px; }
+  .hb-track i { display: block; height: 100%; min-width: 2px; background: var(--text-2); border-radius: 3px; }
+  .hb-num { grid-area: num; text-align: right; font: 12.5px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); white-space: nowrap; }
+  .hb-num small { font-size: 10px; }
+  .dot { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 1px; background: var(--c); }
+  .hbars.models li { grid-template-columns: minmax(0, 16rem) 1fr 4.5rem; grid-template-areas: "label bar num"; align-items: center; cursor: default; }
+  @media (max-width: 600px) { .hbars.models li { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label num" "bar bar"; } }
+  .hbars .unrecorded { color: var(--muted); }
+  .hbars .unrecorded .hb-label { color: var(--muted); font-style: italic; }
+  .hbars .unrecorded .hb-track i { background: repeating-linear-gradient(135deg, var(--muted) 0 2px, transparent 2px 5px); }
+  .leader-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 16px; }
+  .more-links { margin-top: 10px; font-size: 14px; }
+
+  .share { display: flex; gap: 2px; height: 14px; margin: 4px 0 12px; }
+  .share i { display: block; height: 100%; border-radius: 3px; }
+  .share-key { list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+  .share-key li { margin: 6px 0; }
+  .share-key i { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 2px; vertical-align: -1px; }
+  .share-0 { background: var(--text-2); }
+  .share-1 { background: repeating-linear-gradient(135deg, var(--text-2) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--text-2); }
+  .share-2 { background: var(--muted); }
+
   #ai-stats-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   #ai-stats-period { padding: .4rem .65rem; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); }
   @media (max-width: 600px) { #ai-stats-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
