@@ -1,12 +1,17 @@
 // How a report's photo or video is shown on its page: a photo with a direct address as a picture, a
 // video file as a player, a YouTube or Vimeo video as their embedded player; anything else stays a
 // link. Nothing is copied: pictures and videos load from their publishers (docs/WRITING.md §7).
+// Every outside picture is loaded through DuckDuckGo's image proxy: readers' browsers never contact
+// the publisher (no address or referrer reaches it), and sites that refuse hotlinking still show.
+// Our own images (a path on this site) are left as they are.
+export const imageProxy = (url) => (/^https?:\/\//.test(url ?? "") ? `https://external-content.duckduckgo.com/iu/?u=${encodeURIComponent(url)}&f=1` : url);
+
 const web = (u) => { try { const url = new URL(u); return /^https?:$/.test(url.protocol) ? url : null; } catch { return null; } };
 
 export function mediaView(m) {
   const url = web(m?.media_url || "");
   if (!url) return null;
-  if (m.kind === "photo") return { type: "photo", src: url.href };
+  if (m.kind === "photo") return { type: "photo", src: imageProxy(url.href) };
   if (m.kind !== "video") return null;
   if (/\.(mp4|webm|ogv|mov|m4v)$/i.test(url.pathname)) return { type: "video", src: url.href };
   const host = url.hostname.replace(/^(www|m)\./, "");

@@ -3,21 +3,25 @@
 import { formatDate, isoDate } from "../lib/reports.js";
 import { Image } from "astro:assets";
 import { flagOf } from "../lib/countries.js";
+import { imageProxy } from "../lib/media.js";
 const { r, search = true, zoom = false } = Astro.props;
 // zoom: a button beside the title that shows the report on the page's map (the map's side pane)
 const base = import.meta.env.BASE_URL;
 const ZOOM_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/><path d="M8 0.5v3M8 12.5v3M0.5 8h3M12.5 8h3" stroke="currentColor" stroke-width="1.5"/></svg>';
 const haystack = [r.title, r.summary, r.place, r.countryName, r.typeLabel, ...(r.tags ?? [])].join(" ").toLowerCase();
 ---
-<li class:list={["report-item", { "has-thumb": r.cover }]} data-id={r.id} data-type={r.type} data-also={(r.also ?? []).join(" ")}
+<li class:list={["report-item", { "has-thumb": r.cover || r.photo }]} data-id={r.id} data-type={r.type} data-also={(r.also ?? []).join(" ")}
   data-country={r.country} data-parent={r.parent ?? undefined} data-year={r.year} data-text={search ? haystack : undefined}>
-  {r.cover && <Image class="thumb" src={r.cover.image} alt="" width={264} height={184} fit="cover" loading="lazy" />}
   <div class="meta">
     <span class="type" style={`--c:${r.color}`}>{r.typeLabel}</span>
     <time datetime={isoDate(r.date)}>{formatDate(r.date)}</time>
     <a href={`${base}country/${r.country}/`}>{flagOf(r.country)} {r.countryName}</a>
   </div>
   <h3><a href={`${base}${r.url}`}>{r.title}</a>{zoom && r.coordinates && <button type="button" class="zoom-to" data-zoom={r.id} aria-label="Show on the map" title="Show on the map"><Fragment set:html={ZOOM_ICON} /></button>}</h3>
+  {/* the photo floats right after the title; the summary wraps around it */}
+  {r.cover
+    ? <Image class="thumb" src={r.cover.image} alt="" width={264} height={184} fit="cover" loading="lazy" />
+    : r.photo && <img class="thumb" src={imageProxy(r.photo)} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.classList.remove('has-thumb');this.remove()" />}
   <p>{r.summary}</p>
   {r.figureRows.length > 0 && (
     <div class="figs-inline">

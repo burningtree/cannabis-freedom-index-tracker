@@ -232,9 +232,12 @@ sup.cite { font: 600 10.5px var(--mono); margin-left: 1px; }
 sup.cite a { color: var(--cite); text-decoration: none; }
 .media { padding-left: 18px; font-size: 14.5px; }
 .media li { margin-bottom: 6px; }
-.report-item.has-thumb { display: grid; grid-template-columns: 1fr 132px; gap: 0 18px; }
-.report-item .thumb { grid-column: 2; grid-row: 1 / span 4; width: 132px; height: 92px; object-fit: cover; border-radius: var(--r); margin-top: 4px; }
-@media (max-width: 560px) { .report-item.has-thumb { grid-template-columns: 1fr 84px; } .report-item .thumb { width: 84px; height: 64px; } }
+/* a report's photo: after its type line and title, floated right, the summary wrapping around it */
+.report-item.has-thumb::after { content: ""; display: block; clear: both; }
+.report-item .thumb { float: right; width: 132px; height: 92px; margin: 4px 0 6px 18px; object-fit: cover; border-radius: var(--r); background: var(--surface-2); }
+@media (max-width: 560px) { .report-item .thumb { width: 96px; height: 70px; margin-left: 12px; } }
+/* the home page's map pane: smaller thumbnails */
+.browser.compact .report-item .thumb, .home-pane .report-item .thumb { width: 84px; height: 60px; margin-left: 12px; }
 .sources { padding-left: 22px; font-size: 14px; color: var(--text-2); }
 .sources li { margin-bottom: 8px; scroll-margin-top: 80px; }
 .sources li:target { color: var(--text); }
@@ -295,8 +298,6 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .home-pane .filters input { grid-column: 1 / -1; }
 .home-pane .report-item h3 { font-size: 18px; }
 .home-pane .report-item p { font-size: 13.5px; }
-.home-pane .report-item.has-thumb { grid-template-columns: 1fr 84px; }
-.home-pane .report-item .thumb { width: 84px; height: 64px; }
 .pane-foot { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
 .pane-foot a { color: var(--text-2); }
 @media (max-width: 860px) {
@@ -492,3 +493,9 @@ sup.cite a { color: var(--cite); text-decoration: none; }
 .media-viewer .mv-prev { left: 8px; }
 .media-viewer .mv-next { right: 8px; }
 .media-viewer button[hidden] { display: none; }
+
+/* a page heading with an RSS button beside it (Reports, country pages) */
+.reports-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.rss-button { display: inline-flex; align-items: center; gap: 7px; flex: none; padding: 7px 10px; border: 1px solid var(--border); border-radius: var(--r); color: var(--text-2); font: 12px var(--mono); }
+.rss-button:hover { color: var(--text); background: var(--surface); text-decoration: none; }
+.rss-button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }

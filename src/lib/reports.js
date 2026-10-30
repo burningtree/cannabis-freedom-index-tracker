@@ -27,6 +27,9 @@ export const reports = entries.map(({ id, data, body }) => {
     coordinates,
     precision: data.coordinates ? data.precision : coordinates ? "country" : null,
     figureRows: figureRows(data.figures),
+    // the first photo with a direct address, shown beside the report in lists (loaded from its
+    // publisher, never copied); a report's own cover image comes first where there is one
+    photo: data.media?.find((m) => m.kind === "photo" && /^https?:\/\//.test(m.media_url ?? ""))?.media_url ?? null,
   };
 }).sort((a, b) => b.date - a.date || a.title.localeCompare(b.title));
 
@@ -101,6 +104,7 @@ export function indexRow(r) {
     pr: r.precision ?? null, // how precise ll is (types.js PRECISION)
     f: r.figureRows.filter((f) => f.key !== "value").slice(0, 4).map((f) => [f.label, f.value]),
     k: [`cet-${r.code}`, r.code, ...(r.tags ?? [])].join(" ").toLowerCase(),
+    ...(r.cover || r.photo ? { im: r.cover?.image.src ?? r.photo } : {}), // the list thumbnail
   };
 }
 
