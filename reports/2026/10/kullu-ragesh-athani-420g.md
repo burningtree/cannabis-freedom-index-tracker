@@ -1,0 +1,59 @@
+---
+date: 2026-10-30
+country: in
+place: Kullu, Himachal Pradesh
+coordinates: [31.9578974, 77.1089232]
+precision: district
+type: arrest
+also: [seizure]
+title: Fugitive held in Kullu over 420 g cannabis seized at Athani
+summary: >-
+  Nedumbassery police arrested Ragesh, 32, in Kullu, Himachal Pradesh, after he spent two years on the run as a tourist guide. He is accused of financing a June 2024 car seizure at Athani that included 420 grams of cannabis, along with MDMA.
+figures:
+  arrested: 1
+  kg_seized: 0.42
+status: reported
+created_by_model: xai/grok-4.7#medium
+submission: 91c4c1066e56dea17b2ccac414657345
+tags: [kullu, athani, ganja, kerala, nedumbassery]
+sources:
+  - title: രണ്ട് വർഷത്തെ ഒളിവ് ജിവിതം ഹിമാചൽ പ്രദേശിലെ കുളുവിൽ ടൂറിസ്റ്റ് ഗൈഡായി മയക്കുമരുന്ന് കേസിലെ പ്രതി; വേഷമാറിയെത്തി പൊലീസ്, ഒടുവിൽ പിടിയിൽ
+    url: https://www.asianetnews.com/kerala-news/drug-case-accused-arrested-after-two-years-on-the-run-in-himachal-pradesh-articleshow-a1brg1d
+    publisher: Asianet News Malayalam
+    date: 2026-10-30
+    language: ml
+  - title: Accused in drug case, absconding for two years, held from Kullu in Himachal Pradesh
+    url: https://www.thehindu.com/news/national/kerala/accused-in-drug-case-absconding-for-two-years-held-from-kullu-in-himachal-pradesh/article71645021.ece
+    publisher: The Hindu
+    date: 2026-10-30
+open_questions:
+  - Neither account gives the calendar date of the Kullu arrest; 30 October 2026 is the publication date of both.
+  - Asianet News alone reported two LSD stamps, the date 27 June 2024, the unnamed resort, the tourist disguise, the junior officers and seizure of the car. The Hindu described the MDMA and ganja as suspected and did not mention LSD.
+  - The arrest figure counts only Ragesh. Azad and Harikrishnan were arrested earlier in the same case and are not included.
+  - No court name, charge or sentence was reported; he was remanded.
+  - The cited pages show a portrait and a representational image, not the arrest or the seizure, so no photo is included.
+  - The resort 20 kilometres above the base camp is not named, so the coordinates are for Kullu town, the district centre.
+---
+
+Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in
+a drug case, a 32-year-old from Painkulam in Thalappilly, Thrissur, from Kullu
+in Himachal Pradesh. [@1] He had been absconding for two years. [@2] He had
+allegedly provided financial assistance to buy the narcotics, fled to Kullu on
+learning of the earlier arrests, and had been working as a tourist guide there.
+[@2] Police said he had been staying at a resort 20 kilometres above the base
+camp in Kullu. [@1]
+
+On 27 June 2024, police seized 316 grams of MDMA, two LSD stamps and 420 grams
+of cannabis from a car at Athani that was carrying the drugs from Bengaluru.
+[@1] Police described the MDMA and the ganja from that car seizure as suspected.
+[@2] Azad, 38, of Chalakkal, Aluva, and Harikrishnan, 28, of Tirurangadi,
+Malappuram, had been arrested earlier. [@1] The car was taken into custody. [@1]
+
+An investigation team led by Ernakulam Rural district police chief K.S.
+Sudarshan tracked him down. [@2] The team stayed for several days disguised as
+tourists before taking him into custody. [@1] With Sudarshan were deputy
+superintendent Baiju Paulose, circle inspector B.K. Arun, sub-inspectors Arun
+Raj and Rony Augustine, assistant sub-inspector M.V. Binu and civil police
+officer Sajaz. [@1] Ragesh was produced before a court and remanded in judicial
+custody. [@2]
+
