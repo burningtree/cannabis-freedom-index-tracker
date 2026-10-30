@@ -33,11 +33,22 @@ sources:
     date: 2026-10-07
     language: es
     locator: Second-wave arrests and network structure; total given as 10,881 kilos
+  - title: راتب يتجاوز 5000 يورو دون عمل فعلي.. تفاصيل شبكة حشيش امتدت بين إسبانيا والمغرب
+    url: https://espanaenarabe.com/%D8%B1%D8%A7%D8%AA%D8%A8-%D9%8A%D8%AA%D8%AC%D8%A7%D9%88%D8%B2-5000-%D9%8A%D9%88%D8%B1%D9%88-%D8%AF%D9%88%D9%86-%D8%B9%D9%85%D9%84-%D9%81%D8%B9%D9%84%D9%8A-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-%D8%B4/
+    publisher: إسبانيا بالعربي
+    date: 2026-10-30
+    language: ar
+open_questions:
+  - The Arabic account puts the marijuana seizure at more than 21.8 kg, while ABC reported 20 kg of buds; the report keeps the 20 kg figure.
+  - The Arabic account dates the first wave of arrests to March 2026, while the existing report describes two waves beginning in September 2025.
+  - The operation's name, Sauron, the 33 searches and the €466,000 cash seizure appear only in the Arabic account; no Spanish source opened here reports them.
+  - 'No photograph of the raids is linked: the Arabic page''s only image is a library picture of a dismantled laboratory, and ABC''s seized-bale visual is a Brightcove video whose stream address could not be recovered.'
+  - 'Left out, as its quotation was not found in ABC: Police dismantled seven drug storage sites and seized 10.8 tonnes of hashish along with 20 kilos of marijuana buds.'
 ---
 
 Spain's National Police confirmed on 27 October 2026 the detention in Tangier, Morocco, of Juan
 Carlos T.B., alias Moreno, the alleged leader of one of the largest hashish-trafficking networks
-in Spain. [@1,2] He had been on the run since March and was located and arrested on 8 October
+in Spain. [@1,2,4] He had been on the run since March and was located and arrested on 8 October
 under an international detention order; he was in prison in Morocco awaiting extradition to
 Spain. [@1,2]
 
@@ -46,7 +57,7 @@ kilos of drugs a month from North Africa for distribution in Spain and the rest 
 In total 86 people were detained in Spain on charges of criminal organisation, drug trafficking
 and money laundering, 65 of them in Madrid, ten in Guadalajara and five in Valencia, with further
 arrests in Malaga, Burgos, Almeria and Girona; 18 were remanded in custody by the Audiencia
-Nacional judge directing the case. [@1,2]
+Nacional judge directing the case. [@1,2,4]
 
 Police dismantled seven drug storage sites, including flats in Madrid and an industrial unit in
 Silla, Valencia, and seized 10.8 tonnes of hashish along with 20 kilos of marijuana buds. [@1,2]
@@ -63,3 +74,5 @@ narcolanchas, trucks and stash properties across Huelva, Cádiz, Almería, Alica
 Madrid, laundering proceeds through the company Artecar Solución Grafica. [@3] El Español
 put the total haul at 10,881 kilos of hashish plus 12.30 kilos of marijuana, slightly above
 the 10.8 tonnes in the police account. [@3]
+
+The Interior Ministry said the operation was named Sauron. [@4] The final phase of the operation involved 33 searches across several Spanish regions. [@4] Police also seized about €466,000 in cash. [@4]

@@ -37,6 +37,11 @@ sources:
     publisher: La Vanguardia
     date: 2026-10-28
     language: es
+  - title: راتب يتجاوز 5000 يورو دون عمل فعلي.. تفاصيل شبكة حشيش امتدت بين إسبانيا والمغرب
+    url: https://espanaenarabe.com/%D8%B1%D8%A7%D8%AA%D8%A8-%D9%8A%D8%AA%D8%AC%D8%A7%D9%88%D8%B2-5000-%D9%8A%D9%88%D8%B1%D9%88-%D8%AF%D9%88%D9%86-%D8%B9%D9%85%D9%84-%D9%81%D8%B9%D9%84%D9%8A-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-%D8%B4/
+    publisher: إسبانيا بالعربي
+    date: 2026-10-30
+    language: ar
 open_questions:
   - Barlamane and El Diario de Málaga report 18 detainees in pre-trial detention; La Vanguardia says 'almost 20'. The report uses 18.
   - El Diario de Málaga describes all 86 detainees as accused of the three offences, while Barlamane says the 18 jailed were charged with them; the figures count 18 as charged.
@@ -49,10 +54,10 @@ Spain's National Police announced on 27 October that Juan Carlos T. B., alias
 Tangier. [@1] He had left his luxury residence in Madrid in March to avoid
 justice and was out of sight for more than six months. [@1] Moroccan authorities
 detained him in Tangier on 8 October through international police cooperation.
-[@3] He is held in Morocco awaiting extradition to Spain. [@1] Rabat has
+[@3] He is held in Morocco awaiting extradition to Spain. [@1,4] Rabat has
 accepted the extradition request. [@3]
 
-The police operation concluded with 86 arrests. [@2] Eighteen of them were
+The police operation concluded with 86 arrests. [@2,4] Eighteen of them were
 placed in pre-trial detention, accused of criminal organisation, drug
 trafficking and money laundering. [@1] UDYCO, Spain's central unit for drugs and
 organised crime, opened the case in early 2025. [@1] It uncovered seven drug
@@ -64,10 +69,9 @@ each in Burgos, Almería and Girona. [@1]
 The resin came from Morocco through Spanish coastal routes to Madrid, the
 network's hub for storage and redistribution in Spain and Europe, police said.
 [@1] The leader had been on a graphics company's payroll at more than €5,000 net
-a month without doing any real work. [@1] The network put its profits back into
+a month without doing any real work. [@1,4] The network put its profits back into
 the legal economy through fraudulent loans, fake payslips and invoices from
 shell companies. [@1] Half of those arrested were Spanish and the rest Moroccan.
 [@3] The case is before the Audiencia Nacional, the Madrid court competent for
 major crime. [@1] Investigating judge Francisco de Jorge has led the case with
 the Special Anti-Drug Prosecutor's Office. [@3]
-
