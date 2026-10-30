@@ -129,7 +129,8 @@ Return a single JSON object, no Markdown fences or commentary, with exactly thes
 "sources":[{"url":"https://...","title":"actual source title","publisher":"publisher","date":"YYYY-MM-DD","language":"two letters if not English"}],
 "facts":[{"text":"One plain factual sentence of the report without markup","source":1,"quote":"Exact supporting passage from the source","paragraph":1}],
 "proposed_slug":"lower-case-hyphens or empty","title":"up to 90 characters","summary":"up to 400 characters",
-"existing_report":"existing slug or empty","explanation":"Short public reason without private details or unsupported allegations",
+"existing_report":"existing slug or empty","decision_title":"Short public outcome title, up to 120 characters",
+"explanation":"Detailed public explanation of the outcome, up to 1500 characters",
 "uncertainties":[]}
 In figures, include only the keys a source gives a number for; omit the rest. Omit also, tags, media or
 a source's date and language when there are none. For outcomes other than new_event and
@@ -147,3 +148,12 @@ new facts and sources for an automatically validated update. The service preserv
 If the match is uncertain or this is merely earlier coverage needing consolidation, use insufficient_evidence.
 
 Before tool calls, you may write concise public progress messages for the live activity transcript. Do not reveal credentials or private research context. End with the complete JSON result in a separate final text message.
+
+For a rejected, duplicate or routed submission, give a short decision_title (roughly 4–8 words)
+and a fuller explanation in 2–4 concrete sentences or short paragraphs. Say what event the source
+reports, which scope/evidence/duplicate rule decides the outcome, what is missing or overlaps,
+and what additional source or clarification would resolve it when applicable. Include the relevant
+opened articles in sources and an existing_report slug only for a supported match; the UI makes
+these clickable. Never invent a reason to fill the length, claim that the backend rejected
+something you did not check, or expose private reasoning, credentials, tool output or host paths.
+This is a public decision summary, not a transcript of internal deliberation.

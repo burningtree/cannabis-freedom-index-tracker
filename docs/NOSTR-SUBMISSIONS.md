@@ -176,6 +176,14 @@ untrustworthy (`insufficient_evidence`), routed to CFI (`routed_to_cfi`), inacce
 (`source_unavailable`) and technical/schema/build errors (`failed`). Minor discrepancies such as
 vegetable type or a missing court outcome belong in `open_questions`, not a failed outcome.
 Every factual claim still needs a quotation independently confirmed in an opened source.
+Rejection/outcome messages use an optional short `decision_title` and a fuller public
+`explanation` (up to 1,500 characters), with relevant opened articles in `sources`. The request
+page shows the short heading, detailed reason and source/report links. Backend validation stops
+show the service's reason separately from the saved model assessment. Source-overlap stops also
+record the shared article and related public submission/report, rather than imply the model
+rejected the event. Older results fall back to the status label and their saved explanation;
+no longer model explanation is fabricated for historical attempts.
+
 Automated report status remains `reported`, never automatically `verified`.
 Each newly collected photo or video requires its own media entry with `url` (the cited source page),
 `media_url` (the direct absolute HTTP(S) photo/video address), publisher and caption/credit. OpenCode
