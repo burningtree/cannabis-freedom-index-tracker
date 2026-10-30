@@ -1,0 +1,56 @@
+---
+date: 2026-10-27
+country: ni
+place: El Guasaule border post, Chinandega
+coordinates: [13.063, -86.946]
+precision: locality
+type: seizure
+also: [arrest]
+title: 1.9 tonnes of cannabis found in a truck at El Guasaule
+summary: >-
+  On 27 October 2026, Nicaraguan police at El Guasaule found 608 packages with
+  1,907 kg of cannabis hidden in a Mexico-to-Costa Rica truck. They arrested
+  Guatemalan driver Fredy Bladimiro Recinos Vargas, 52, and seized the tractor and
+  trailer.
+figures:
+  arrested: 1
+  kg_seized: 1907
+status: verified
+created_by_model: cursor/grok-4.7
+tags: [guasaule, border, transit]
+sources:
+  - title: Incautan 1.9 toneladas de marihuana y arresta a un guatemalteco en frontera de Nicaragua
+    url: https://www.infobae.com/nicaragua/2026/10/28/incautan-19-toneladas-de-marihuana-y-arresta-a-un-guatemalteco-en-frontera-de-nicaragua/
+    publisher: Infobae
+    date: 2026-10-28
+    language: es
+  - title: Incautan 1.9 toneladas de marihuana en El Guasaule
+    url: https://radio580.com.ni/incautan-1-9-toneladas-de-marihuana-en-el-guasaule/
+    publisher: Radio 580
+    date: 2026-10-28
+    language: es
+media:
+  - kind: photo
+    url: https://www.infobae.com/nicaragua/2026/10/28/incautan-19-toneladas-de-marihuana-y-arresta-a-un-guatemalteco-en-frontera-de-nicaragua/
+    media_url: https://www.infobae.com/resizer/v2/YLAZK7QNAZBMDAGVIGYB6GN7WI.jpg?auth=c2b13ae43ec9eabbe1a98002b74fd93edaffda0afcc60e1acf7c2d20dd31a0bd&smart=true&width=1200&height=630&quality=85
+    publisher: Infobae (Policía de Nicaragua)
+    caption: Packages of cannabis seized at El Guasaule, credited to Nicaragua's police
+open_questions:
+  - Police said the truck reached the border on 26 October and the seizure followed inspection work on 27 October; the exact hour is not given.
+  - The declared load was ceramic goods, lead sulphate and vehicle parts from Hidalgo, Mexico, bound for Costa Rica.
+  - Police presented Recinos Vargas on 28 October; no court outcome was reported.
+  - On 29 October police said they had incinerated the cannabis; this report follows the seizure on 27 October.
+---
+
+On 27 October 2026, Nicaragua's National Police said officers at the El Guasaule
+border post in Chinandega found 608 rectangular packages with about 1,907 kg
+(4,204 lb) of cannabis in a freight truck. [@1,2] The drugs were hidden among
+heat-insulation sheets and plastic strapping on a red Freightliner tractor with a
+white Great Dane trailer. [@1,2]
+
+Field tests and forensic tests confirmed marijuana, the police said. [@1,2] They
+arrested the driver, Fredy Bladimiro Recinos Vargas, 52, from Guatemala, and
+seized the tractor and trailer. [@1,2] Police said he had entered Mexico on 23
+October, loaded at a logistics warehouse in Hidalgo, left Mexico on 24 October
+and was taking the cargo toward Costa Rica. [@1,2] They presented him for
+organised crime and drug trafficking offences. [@2]
