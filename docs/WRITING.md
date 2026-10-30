@@ -110,8 +110,9 @@ copied** to this site.
   missing media in `open_questions` instead of inventing a media entry. A media URL does not grant
   permission to copy the asset: it is never downloaded into the site. Old entries without `media_url`
   remain valid.
-  Under the text, "Photos and video" shows each photo with a `media_url` in a grid, loaded from the
-  publisher's own server (click to enlarge), plays a direct video file or a YouTube/Vimeo video in
+  Under the text, "Photos and video" shows each photo with a `media_url` in a grid, loaded through
+  DuckDuckGo's image proxy so readers never contact the publisher (click to enlarge); report lists show
+  the first photo as a thumbnail; plays a direct video file or a YouTube/Vimeo video in
   place, each with its caption and source; a photo the publisher no longer serves, and any other
   entry, stays a link (`src/lib/media.js`).
 - Never publish a newspaper's photo, a stock photo, or a picture of a different event or of a building

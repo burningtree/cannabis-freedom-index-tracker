@@ -175,6 +175,29 @@ const types = Object.fromEntries(Object.entries(TYPES).map(([k, v]) => [k, { lab
       addReports();
       addAccuracy();
       addLandrace();
+      addMask();
+    }
+
+    // a country page: everything but the country greyed out and its border highlighted, under the
+    // markers. The outline is a small static file (/api/mask/<id>.json); a state has none.
+    let maskData: any = null;
+    async function addMask() {
+      if (!country || country.includes("/") || map.getSource("mask")) return;
+      if (!maskData) maskData = await fetch(`${base}api/mask/${country}.json`).then((r) => (r.ok ? r.json() : false)).catch(() => false);
+      if (!maskData || map.getSource("mask")) return;
+      const c = INK[theme()];
+      // the world with each part of the country cut out as a hole (lakes and enclaves stay grey), and
+      // the country's outline for its border
+      const world = [[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]];
+      map.addSource("mask", { type: "geojson", data: { type: "FeatureCollection", features: [
+        { type: "Feature", properties: { kind: "mask" }, geometry: { type: "Polygon", coordinates: [world, ...maskData.geometry.coordinates.map((p: number[][][]) => p[0])] } },
+        { ...maskData, properties: { kind: "border" } },
+      ] } as any });
+      const below = map.getLayer("accuracy-fill") ? "accuracy-fill" : LAYERS.area.find((id) => map.getLayer(id)) ?? "clusters";
+      map.addLayer({ id: "mask", type: "fill", source: "mask", filter: ["==", ["get", "kind"], "mask"], paint: { "fill-color": c.bg, "fill-opacity": theme() === "dark" ? 0.6 : 0.62 } }, below);
+      // the country's border, highlighted: a soft wide halo under a crisp line
+      map.addLayer({ id: "border-halo", type: "line", source: "mask", filter: ["==", ["get", "kind"], "border"], layout: { "line-join": "round" }, paint: { "line-color": c.ink, "line-width": 6, "line-opacity": 0.12, "line-blur": 2 } }, below);
+      map.addLayer({ id: "border", type: "line", source: "mask", filter: ["==", ["get", "kind"], "border"], layout: { "line-join": "round" }, paint: { "line-color": c.ink, "line-width": 1.6, "line-opacity": 0.85 } }, below);
     }
 
     // the area the report may have happened in: a shaded circle with a dashed edge, under the markers

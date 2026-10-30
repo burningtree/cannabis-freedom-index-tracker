@@ -31,23 +31,31 @@ const hasCfi = Boolean(cfiOf(id));
 ---
 <Base title={`${name}: cannabis enforcement`} description={`${list.length} sourced reports of cannabis eradication, seizures, raids, arrests and sentences in ${name}.`} wide>
   <nav class="crumbs"><a href={`${base}country/`}>Countries</a>{c.parent && <> / <a href={`${base}country/${c.parent}/`}>{countryName(c.parent)}</a></>}</nav>
-  <h1>{flagOf(id)} {name}</h1>
+  <link slot="head" rel="alternate" type="application/rss+xml" href={`${base}feed/${id}.xml`} title={`${name}: new reports (RSS)`} />
+  <div class="reports-heading">
+    <h1>{flagOf(id)} {name}</h1>
+    <a class="rss-button" href={`${base}feed/${id}.xml`} type="application/rss+xml" aria-label={`Follow new reports in ${name} via RSS`} title={`New reports in ${name}, as an RSS feed`}>
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="4" cy="16" r="1.2" fill="currentColor" stroke="none"/><path d="M3 9a8 8 0 0 1 8 8M3 3a14 14 0 0 1 14 14"/></svg>
+      RSS
+    </a>
+  </div>
   <p class="lead">{list.length} {list.length === 1 ? "report" : "reports"} of cannabis enforcement.</p>
+
+  {figures.length > 0 && (
+    <>
+      <dl class="country-figures" style={`--n:${figures.length}`}>
+        {figures.map(([label, v]) => <div><dt>{label}</dt><dd title={v.toLocaleString("en-GB")}>{compact(v)}</dd></div>)}
+      </dl>
+      <p class="note">Only what the reports state; most operations are never reported in numbers.</p>
+    </>
+  )}
 
   <div class:list={["country-top", { "no-cfi": !hasCfi }]}>
     <div class="country-map">
       <WorldMap country={id} label={`Map of reports in ${name}`} />
       <ul class="legend">{byType.map(([tid, n]) => <li class="type"><Fragment set:html={typeIcon(tid, 16)} />{TYPES[tid].label} · {n}</li>)}</ul>
     </div>
-    <div class="country-side">
-      {figures.length > 0 && (
-        <dl class="country-figures">
-          {figures.map(([label, v]) => <div><dt>{label}</dt><dd title={v.toLocaleString("en-GB")}>{compact(v)}</dd></div>)}
-        </dl>
-      )}
-      {figures.length > 0 && <p class="note">Only what the reports state; most operations are never reported in numbers.</p>}
-      <CfiWidget id={id} />
-    </div>
+    {hasCfi && <div class="country-side"><CfiWidget id={id} /></div>}
   </div>
 
   {states.length > 0 && (
@@ -67,14 +75,15 @@ const hasCfi = Boolean(cfiOf(id));
   /* the map fills its column down to the bottom of the figures and the CFI beside it */
   .country-map { display: flex; flex-direction: column; min-width: 0; }
   .country-map :global(.map) { flex: 1; height: auto; min-height: clamp(320px, 52vw, 480px); }
-  .country-top.no-cfi { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+  .country-top.no-cfi { grid-template-columns: 1fr; }
+  .country-top.no-cfi .country-map :global(.map) { flex: none; height: clamp(320px, 45vw, 520px); }
   .country-side :global(.cfi) { margin: 0; }
   .country-side :global(.cfi-segs li) { grid-template-columns: minmax(0, 1fr) 1fr 22px; }
-  .country-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
-  .country-figures div { padding: 12px 14px; background: var(--surface); }
-  .country-figures div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .country-figures { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 1px; margin: 20px 0 0; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  .country-figures div { padding: 16px 18px; background: var(--surface); min-width: 0; }
+  @media (max-width: 700px) { .country-figures { grid-template-columns: repeat(2, minmax(0, 1fr)); } .country-figures div:last-child:nth-child(odd) { grid-column: 1 / -1; } }
   .country-figures dt { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-  .country-figures dd { margin: 4px 0 0; font: 400 30px/1.1 var(--display); }
-  .country-side .note { margin: 8px 0 16px; }
+  .country-figures dd { margin: 6px 0 0; font: 400 clamp(28px, 3.4vw, 40px)/1.05 var(--display); }
+  .country-figures + .note { margin: 8px 0 0; }
   @media (max-width: 860px) { .country-top, .country-top.no-cfi { grid-template-columns: 1fr; } .country-map :global(.map) { flex: none; height: clamp(300px, 70vw, 440px); } }
 </style>
