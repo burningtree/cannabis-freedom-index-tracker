@@ -32,11 +32,21 @@ sources:
     publisher: Europa Press
     date: 2026-10-30
     language: es
+  - title: 'Operación hachís Francia: ocho detenidos y 2,5 toneladas intervenidas en Málaga, Valencia y Girona'
+    url: https://www.moncloa.com/2026/10/30/operacion-hachis-francia-banda-desarticulada-3458414/
+    publisher: Moncloa
+    date: 2026-10-30
+    language: es
 open_questions:
   - The police account, as reported by Europa Press, places the searches in September 2026 but gives no day; 1 September marks that month only.
   - Which of the searched houses in Málaga or Valencia held the drugs is not stated.
   - No street value was published, and no final sentence is known beyond the remand of three suspects.
   - The National Police press note itself was not opened; both articles cite that statement.
+  - The exact day of the searches and arrests was not published; Europa Press says they took place in September 2026, and the existing report dates the operation to 1 September 2026.
+  - Europa Press places the six searched homes and the commercial premises in Málaga and Valencia, while Moncloa says they were spread across Málaga, Valencia and Girona.
+  - The reports do not say what happened to the five detainees who were not remanded in custody.
+  - No street value for the 2.5 tonnes of hashish was published.
+  - The Moncloa page's cover image is uncaptioned and uncredited, so it was not added; the media entry is the police-credited photo on the Europa Press page.
 ---
 
 Eight men, aged 24 to 58, were arrested in Málaga, Valencia and Girona after the
@@ -63,3 +73,4 @@ Málaga and Valencia, and moved them by road toward European markets, mainly
 France, in high-end cars stolen in France and Belgium and fitted with forged
 plates. [@1]
 
+Eight men aged between 24 and 58 were arrested in Cullera, Marbella, Torremolinos and Girona. [@3] Three of the eight were remanded in provisional custody, and the police account did not detail the status of the other five. [@3] Officers searched six homes and one commercial premises and seized 2.5 tonnes of hashish and 600 kg of cocaine. [@3] The investigation began in May 2026 and was carried out jointly by the Udyco units of Torremolinos-Benalmádena and Valencia. [@2] Police said the group obtained cocaine and hashish in Portugal and used Málaga and Valencia as intermediate storage and distribution points before taking the drugs to France. [@2] Officers also seized a rifle, €13,000 in cash, five stolen vehicles, 14 sets of false number plates, plate-stamping tools, signal jammers and false identity documents. [@2] The eight were held on charges of drug trafficking, membership of a criminal organisation, unlawful possession of firearms, vehicle theft and forgery. [@1] None of the eight has been tried, and all retain the presumption of innocence. [@3]
