@@ -26,6 +26,11 @@ sources:
     url: https://www.thehindu.com/news/national/kerala/accused-in-drug-case-absconding-for-two-years-held-from-kullu-in-himachal-pradesh/article71645021.ece
     publisher: The Hindu
     date: 2026-10-30
+  - title: മയക്കുമരുന്ന് വാങ്ങുന്നതിന് സാമ്പത്തികസഹായം; കുളുവില്‍ ടൂറിസ്റ്റ് ഗൈഡായി ഒളിവില്‍ കഴിയവേ പ്രതി പിടിയില്‍
+    url: https://marunadanmalayalee.com/news/keralam/news-868256
+    publisher: Marunadan Malayalee
+    date: 2026-10-30
+    language: ml
 open_questions:
   - Neither account gives the calendar date of the Kullu arrest; 30 October 2026 is the publication date of both.
   - Asianet News alone reported two LSD stamps, the date 27 June 2024, the unnamed resort, the tourist disguise, the junior officers and seizure of the car. The Hindu described the MDMA and ganja as suspected and did not mention LSD.
@@ -33,11 +38,17 @@ open_questions:
   - No court name, charge or sentence was reported; he was remanded.
   - The cited pages show a portrait and a representational image, not the arrest or the seizure, so no photo is included.
   - The resort 20 kilometres above the base camp is not named, so the coordinates are for Kullu town, the district centre.
+  - 'The note that Asianet News alone carried the LSD stamps, the 27 June 2024 date, the resort, the tourist disguise, the junior officers and the car seizure is now out of date: this Marunadan Malayalee account carries them too.'
+  - The article gives no calendar date for the Kullu arrest; 30 October 2026 is its publication date.
+  - The resort is not named, only described as about 20 kilometres above the base camp in Kullu.
+  - The article does not say what happened to Azad and Harikrishnan after their 2024 arrest.
+  - The page's lead picture is a close-up portrait of the accused, not a photograph of the arrest or the seizure, so no media entry is added.
+  - 'Left out, as its quotation was not found in Marunadan Malayalee: With Sudarshan were deputy superintendent Baiju Paulose, circle inspector B.K. Arun, sub-inspectors Arun Raj and Rony Augustine, assistant sub-inspector M.V. Binu and civil police officer Sajaz.'
 ---
 
 Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in
 a drug case, a 32-year-old from Painkulam in Thalappilly, Thrissur, from Kullu
-in Himachal Pradesh. [@1] He had been absconding for two years. [@2] He had
+in Himachal Pradesh. [@1] He had been absconding for two years. [@2,3] He had
 allegedly provided financial assistance to buy the narcotics, fled to Kullu on
 learning of the earlier arrests, and had been working as a tourist guide there.
 [@2] Police said he had been staying at a resort 20 kilometres above the base
@@ -47,7 +58,7 @@ On 27 June 2024, police seized 316 grams of MDMA, two LSD stamps and 420 grams
 of cannabis from a car at Athani that was carrying the drugs from Bengaluru.
 [@1] Police described the MDMA and the ganja from that car seizure as suspected.
 [@2] Azad, 38, of Chalakkal, Aluva, and Harikrishnan, 28, of Tirurangadi,
-Malappuram, had been arrested earlier. [@1] The car was taken into custody. [@1]
+Malappuram, had been arrested earlier. [@1] The car was taken into custody. [@1,3]
 
 An investigation team led by Ernakulam Rural district police chief K.S.
 Sudarshan tracked him down. [@2] The team stayed for several days disguised as
@@ -57,3 +68,4 @@ Raj and Rony Augustine, assistant sub-inspector M.V. Binu and civil police
 officer Sajaz. [@1] Ragesh was produced before a court and remanded in judicial
 custody. [@2]
 
+Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in a drug case, a 32-year-old from Painkulam in Thalappilly, Thrissur, from Kullu in Himachal Pradesh. [@3] Police said he had been staying at a resort 20 kilometres above the base camp in Kullu. [@3] On 27 June 2024, police seized 316 grams of MDMA, two LSD stamps and 420 grams of cannabis from a car at Athani that was carrying the drugs from Bengaluru. [@3] Azad, 38, of Chalakkal, Aluva, and Harikrishnan, 28, of Tirurangadi, Malappuram, had been arrested earlier. [@3] The team stayed for several days disguised as tourists before taking him into custody. [@3] Ragesh was produced before a court and remanded in judicial custody. [@3]
