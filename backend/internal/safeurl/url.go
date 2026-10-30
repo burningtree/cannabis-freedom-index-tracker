@@ -69,29 +69,31 @@ func Normalize(raw string) (string, error) {
 	return u.String(), nil
 }
 
-func Client() *http.Client {
-	dialer := &net.Dialer{Timeout: 10 * time.Second}
-	tr := &http.Transport{Proxy: nil, TLSHandshakeTimeout: 10 * time.Second, ResponseHeaderTimeout: 15 * time.Second, MaxIdleConns: 16, IdleConnTimeout: 30 * time.Second}
-	tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
-		host, port, err := net.SplitHostPort(addr)
-		if err != nil {
-			return nil, err
-		}
-		ips, err := net.DefaultResolver.LookupNetIP(ctx, "ip", host)
-		if err != nil {
-			return nil, err
-		}
-		if len(ips) == 0 {
-			return nil, errors.New("no addresses")
-		}
-		for _, ip := range ips {
-			if !PublicIP(ip) {
-				return nil, ErrUnsafeDestination
-			}
-		}
-		// Dial the checked literal address: a second DNS lookup cannot rebind it.
-		return dialer.DialContext(ctx, network, net.JoinHostPort(ips[0].String(), port))
+// dialPublic connects only to hosts whose every address is public, at the checked literal address:
+// a second DNS lookup cannot rebind it. Used by the HTTP fetcher and the capture browser's proxy.
+func dialPublic(ctx context.Context, network, addr string) (net.Conn, error) {
+	host, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		return nil, err
 	}
+	ips, err := net.DefaultResolver.LookupNetIP(ctx, "ip", host)
+	if err != nil {
+		return nil, err
+	}
+	if len(ips) == 0 {
+		return nil, errors.New("no addresses")
+	}
+	for _, ip := range ips {
+		if !PublicIP(ip) {
+			return nil, ErrUnsafeDestination
+		}
+	}
+	return (&net.Dialer{Timeout: 10 * time.Second}).DialContext(ctx, network, net.JoinHostPort(ips[0].String(), port))
+}
+
+func Client() *http.Client {
+	tr := &http.Transport{Proxy: nil, TLSHandshakeTimeout: 10 * time.Second, ResponseHeaderTimeout: 15 * time.Second, MaxIdleConns: 16, IdleConnTimeout: 30 * time.Second}
+	tr.DialContext = dialPublic
 	return &http.Client{Transport: tr, Timeout: 30 * time.Second, CheckRedirect: func(req *http.Request, via []*http.Request) error {
 		if len(via) >= 5 {
 			return errors.New("redirect limit")
