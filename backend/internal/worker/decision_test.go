@@ -3,11 +3,13 @@ package worker
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/research"
 	"github.com/burningtree/cannabis-freedom-index-tracker/backend/internal/store"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestOverlapReasonKeepsModelAssessmentAndPublicLinks(t *testing.T) {
@@ -86,5 +88,29 @@ func TestSourceOfACaseWithoutAReportPassesOn(t *testing.T) {
 	}
 	if owner, err := w.claimSource(ctx, ids[2], shared, shared, "d"); err != nil || owner != ids[1] {
 		t.Fatal("a committed case lost its source", owner, err)
+	}
+}
+
+func TestFailedAttemptWaitingToRetryShowsAsQueued(t *testing.T) {
+	s, err := store.Open(filepath.Join(t.TempDir(), "retry.sqlite"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.DB.Close()
+	ctx := context.Background()
+	id, _ := s.Accept(ctx, store.Intake{Origin: "web", URL: "https://news.example/a", CanonicalURL: "https://news.example/a"})
+	v, _ := s.Get(ctx, id)
+	j, err := s.Claim(ctx, "jobs", time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s.Transition(ctx, v.CaseID, "researching", "OpenCode is researching.", "", "")
+	cause := errors.New("OpenCode exited with code 1")
+	if err = s.Finish(ctx, "jobs", j, cause); err != nil {
+		t.Fatal(err)
+	}
+	(&Worker{Store: s}).waitingToRetry(ctx, j, cause)
+	if v, _ = s.Get(ctx, id); v.Status != "queued" || !strings.Contains(v.Explanation, "retried automatically") {
+		t.Fatal("a request waiting to retry still shows as researching", v.Status, v.Explanation)
 	}
 }

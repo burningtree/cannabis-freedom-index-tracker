@@ -25,6 +25,7 @@ type ProcessingInfo struct {
 	AutomaticPublication  bool                     `json:"automatic_publication"`
 	PublicationConfigured bool                     `json:"publication_configured"`
 	Plan                  *Plan                    `json:"plan,omitempty"`
+	MaxRunning            int                      `json:"max_running"` // research jobs worked on at once (WORKER_CONCURRENCY)
 }
 
 // Plan is a subscription the runs are paid from: its monthly price and the usage it includes at
@@ -36,7 +37,7 @@ type Plan struct {
 
 func (s *Server) processingInfo(ctx context.Context) ProcessingInfo {
 	c := s.Config
-	p := ProcessingInfo{Budget: s.budgetInfo(ctx, time.Now()), RestartAvailable: s.localControls(), PublicationMode: "local_commit", RawLogsAvailable: c.RawAILogs, Mode: "automatic", Model: c.ResearchModel, Runner: "OpenCode (" + c.ResearchRunner + ")", Enabled: c.ResearchEnabled(), AutomaticPublication: true, PublicationConfigured: c.RepoPath != ""}
+	p := ProcessingInfo{Budget: s.budgetInfo(ctx, time.Now()), RestartAvailable: s.localControls(), PublicationMode: "local_commit", RawLogsAvailable: c.RawAILogs, Mode: "automatic", Model: c.ResearchModel, Runner: "OpenCode (" + c.ResearchRunner + ")", Enabled: c.ResearchEnabled(), AutomaticPublication: true, PublicationConfigured: c.RepoPath != "", MaxRunning: max(1, c.WorkerConcurrency)}
 	if c.PlanUSD > 0 && c.PlanAllowanceUSD > 0 {
 		p.Plan = &Plan{PriceUSD: c.PlanUSD, AllowanceUSD: c.PlanAllowanceUSD}
 	}
