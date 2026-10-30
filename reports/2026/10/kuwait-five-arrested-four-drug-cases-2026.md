@@ -1,0 +1,52 @@
+---
+date: 2026-10-29
+country: kw
+place: Kuwait
+coordinates: [29.3759, 47.9774]
+precision: country
+type: arrest
+also: [seizure]
+title: Five held in Kuwait drug cases; 5 grams of hashish among seizures
+summary: >-
+  Kuwait's Interior Ministry said its General Department for Drug Control arrested five suspects in four separate cases involving trafficking in and use of narcotics and psychotropic substances. The only cannabis listed was 5 grams of hashish, seized with 4,000 Lyrica capsules, 4 kilograms of Lyrica powder, 170 grams of shabu (methamphetamine), 'chemical'-soaked papers and a gram of cocaine.
+figures:
+  arrested: 5
+  kg_seized: 0.005
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: 790556cc4691700685f6eea0b780743d
+tags: [kuwait, hashish, drug-control, lyrica, shabu]
+sources:
+  - title: «مكافحة المخدرات» تضبط 5 متهمين بالاتجار بالمواد المخدرة والمؤثرات العقلية
+    url: https://www.alraimedia.com/ampArticle/1784384
+    publisher: الراي
+    date: 2026-10-29
+    language: ar
+  - title: MoI arrests 5 in drug cases, holds Jahra campaign and targets delivery bikes
+    url: https://kuwaittimes.com/article/52669/kuwait/moi-arrests-5-in-drug-cases-holds-jahra-campaign-and-targets-delivery-bikes/
+    publisher: Kuwait Times
+    date: 2026-10-30
+open_questions:
+  - The ministry gave no date for the arrests themselves; 29 October 2026 is the day it announced them.
+  - The ministry announced four separate cases together, so the drug figures are totals for all four rather than for one case.
+  - No names, ages or nationalities of the five suspects, and no street value for the drugs, were published.
+  - The statement does not say where in Kuwait the arrests took place or which of the four cases the 5 grams of hashish belonged to.
+  - The same ministry statement reported a security campaign in Jahra governorate and traffic campaigns against delivery riders, separate events left out of this report.
+  - 'Neither page carried a photograph that could be confirmed to show the seized items: Al-Rai''s picture is of a government building, and Kuwait Times ran four uncaptioned images beside the drug item.'
+---
+
+Kuwait's General Department for Drug Control arrested five suspects in four
+separate cases involving trafficking in narcotics and psychotropic substances
+and their use, the Interior Ministry said. [@1] It announced them in a press
+statement on Thursday 29 October 2026. [@1] It said officers detained the five
+in continuing security efforts against drug activity and against those involved
+in it. [@1] The ministry referred the suspects and the seized items to the
+competent authorities for the necessary action. [@1]
+
+The only cannabis in the haul was 5 grams of hashish, listed among the seizures
+from the four cases. [@2] The other seizures were 4,000 capsules of Lyrica,
+which the ministry described as psychotropic, 4 kilograms of Lyrica powder and
+170 grams of shabu (methamphetamine). [@1] Officers also seized 15 sheets of
+paper soaked in a drug known locally as 'chemical' with 1 gram of the same
+substance, 1 gram of cocaine and four precision scales. [@1]
+
