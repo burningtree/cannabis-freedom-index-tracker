@@ -16,7 +16,7 @@ figures:
   arrested: 5
   kg_seized: 90
   value: { amount: 4450000, currency: INR }
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [stf, odisha-route]
 sources:

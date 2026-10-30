@@ -9,7 +9,7 @@ summary: >-
   flowers and packaging them for sale amounted to drug production. He had collected flowers near the
   Morava and later carried the prepared cannabis to Kraljevo for sale. The court distinguished this
   processing from growing a plant, which then had a separate six-month-to-five-year penalty.
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: serbia-cannabis-drying-sentence-2019
 tags:

@@ -15,7 +15,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 1027
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [expressway, patrol, skunk]
 sources:

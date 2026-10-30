@@ -26,7 +26,7 @@ media:
     archived: https://web.archive.org/web/20260825034441/https://acritica.net/meio-ambiente/operacao-nova-alianca-maconha-reservas-paraguai/
     publisher: A Crítica
     caption: A helicopter lands beside a cannabis field among tree stumps
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [nueva-alianza, brazil, protected-areas, joint-operation, deforestation]
 sources:

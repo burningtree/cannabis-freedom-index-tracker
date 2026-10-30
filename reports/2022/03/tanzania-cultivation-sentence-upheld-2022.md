@@ -10,7 +10,7 @@ summary: >-
   because the uprooted plants proved cultivation, not the additional possession offence charged.
   His confession, though retracted, was supported by other evidence linking him to the field, so
   the…
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: tanzania-cultivation-sentence-upheld-2022
 tags:

@@ -17,7 +17,7 @@ figures:
   charged: 1
   prison: 5 months 24 days (time served)
   fine: { amount: 500000, currency: GEL }
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [trafficking, foreigners, plea-deal, thailand]
 sources:

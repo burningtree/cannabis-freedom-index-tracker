@@ -8,7 +8,7 @@ summary: >-
   The Supreme Court upheld Senad Makaji’s three-year prison sentence for holding about 372 grams of
   cannabis, even though it was for his own use. An appeal had increased his original thirteen-month
   sentence by applying the large-quantity offence introduced in 2019.
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: serbia-large-personal-stock-sentence-2024
 tags:

@@ -9,7 +9,7 @@ summary: >-
   sixty hours of community work and six months’ supervision. Brightly Kaiding had already spent
   three months and two days in custody before bail, which the court deducted from a nine-month term,
   leaving five months and twenty-eight days suspended for two years. The court treated the grow…
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: vanuatu-five-plants-remand-2024
 tags:

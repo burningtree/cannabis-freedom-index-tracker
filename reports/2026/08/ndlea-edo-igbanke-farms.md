@@ -15,7 +15,7 @@ summary: >-
 figures:
   hectares: 1.85
   arrested: 11
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [ndlea, farmers, legalisation-debate]
 sources:

@@ -16,7 +16,7 @@ figures:
   plants_destroyed: 89257
   arrested: 24
   value: { amount: 104000000, currency: USD }
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [ucetf, unlicensed-market, pesticides]
 sources:

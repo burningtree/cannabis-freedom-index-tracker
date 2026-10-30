@@ -9,7 +9,7 @@ summary: >-
   Kaminieli Naqeleca’s eighteen years to fourteen. The Court of Appeal applied its newer plant-count
   and role guidelines to the men’s older case, involving a remote plantation with at least 208 whole
   plants confirmed in the analyst’s report.
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: fiji-growers-sentences-reduced-2024
 tags:

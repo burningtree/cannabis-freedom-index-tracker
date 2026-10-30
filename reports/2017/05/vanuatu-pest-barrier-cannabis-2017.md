@@ -10,7 +10,7 @@ summary: >-
   was intended for horticultural use, but ruled that this purpose did not provide a defence to
   unlawful cultivation. Applying the 2013 guidance, he placed the case at the lower end of the
   personal-growing…
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: vanuatu-pest-barrier-cannabis-2017
 tags:

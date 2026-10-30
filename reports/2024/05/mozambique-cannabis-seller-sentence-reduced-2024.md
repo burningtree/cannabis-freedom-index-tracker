@@ -9,7 +9,7 @@ summary: >-
   30,000-metical fine after police found 590 grams of cannabis in 232 portions at his Maputo home.
   The judges rejected his personal-use argument but treated his simple, direct sales without an
   organisation as small-scale trafficking.
-created_by_model: unknown
+created_by_model: openai/gpt-6
 status: verified
 cfi_id: mozambique-cannabis-seller-sentence-reduced-2024
 tags:

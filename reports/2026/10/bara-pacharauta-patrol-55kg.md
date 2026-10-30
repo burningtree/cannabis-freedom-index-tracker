@@ -16,7 +16,7 @@ summary: >-
 figures:
   arrested: 1
   kg_seized: 55
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [patrol, night]
 sources:

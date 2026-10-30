@@ -14,7 +14,7 @@ figures:
   plants_destroyed: 97000
   hectares: 6.5
   kg_seized: 69000
-created_by_model: unknown
+created_by_model: anthropic/opus-5.5
 status: verified
 tags: [bnn, aceh]
 sources:
