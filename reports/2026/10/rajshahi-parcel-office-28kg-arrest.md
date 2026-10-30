@@ -1,0 +1,61 @@
+---
+date: 2026-10-29
+country: bd
+place: Boalia thana area, Rajshahi
+coordinates: [24.3667, 88.6]
+precision: locality
+type: arrest
+also: [seizure]
+title: Man arrested with 28 kg of cannabis at Rajshahi parcel office
+summary: >-
+  Police arrested Prevel Islam, 28, at a parcel service office in Rajshahi on the night of 29 October 2026 as he came to collect a cannabis consignment. The Special Response Battalion-5 said it seized 28 kg of cannabis and two mobile phones; a case was filed and he was handed to Boalia police with the drugs.
+figures:
+  arrested: 1
+  kg_seized: 28
+media:
+  - kind: photo
+    url: https://www.dailykaratoa.com/article/189210
+    media_url: https://www.dailykaratoa.com//public/images/2026-10/11_original_1793373700.jpg
+    publisher: Daily Karatoa
+    caption: A man and packages of seized cannabis displayed in front of SRB-5 banners, in the image published with the report. No photo credit was given.
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: 394daf759b2eae27ab2c429353625a23
+tags: [rajshahi, parcel-service, srb-5, ganja, bangladesh]
+sources:
+  - title: রাজশাহীতে ২৮ কেজি গাঁজাসহ মাদক ব্যবসায়ী গ্রেপ্তার
+    url: https://www.eimattro.com/news/details/1793384285124/
+    publisher: Eimattro
+    date: 2026-10-31
+    language: bn
+  - title: রাজশাহীতে পার্সেল সার্ভিস থেকে গাঁজার চালান নিতে গিয়ে ২৮ কেজিসহ শিবগঞ্জের যুবক গ্রেপ্তার
+    url: https://www.barindpost.com/news/WITtWCiu5m
+    publisher: Barind Post
+    date: 2026-10-30
+    language: bn
+  - title: One arrested with 28kg of cannabis in Rajshahi
+    url: https://www.dailytribunal24.com/one-arrested-with-28kg-of-cannabis-in-rajshahi
+    publisher: The Daily Tribunal
+    date: 2026-10-30
+open_questions:
+  - Only the Daily Karatoa says a case was filed; the other accounts describe the handover to Boalia police without giving details of the case or next legal steps.
+  - No charge, case number or court date was published.
+  - No estimated value was given for the 28 kg of cannabis.
+  - The reports do not say whether anyone at the parcel company was investigated or whether other suspects were involved.
+  - 'Left out, as its quotation was not found in Ajker Patrika: The Special Response Battalion-5 (SRB-5) said he was caught as he came to collect a cannabis consignment that had arrived at SR Parcel Services Limited.'
+  - 'Left out, as its quotation was not found in Eimattro: Officers also seized two mobile phones.'
+  - 'Left out, as its quotation was not found in Daily Karatoa: The unit announced the arrest in a press release on the morning of 30 October.'
+  - 'Left out, as its quotation was not found in Daily Karatoa: He was handed over to Boalia police station with the cannabis, and a case was filed.'
+  - 'Left out, as its quotation was not found in Eimattro: SRB-5 said the handover followed a preliminary health check and was made for further legal action.'
+---
+
+Police arrested a man at a parcel service office in Rajshahi's Boalia thana area
+on Thursday night. [@3] The arrest took place around 8:30 pm on 29 October 2026.
+[@2] The arrested man was Prevel Islam, 28, son of Nazmul Haque of Rasunchak
+village in Shibganj upazila, Chapainawabganj district. [@3]
+
+SRB-5 said it seized 28 kg of cannabis from his possession. [@3] The unit said
+its team had acted on a tip-off before the raid. [@1]
+
+The sender and origin of the parcel were not disclosed. [@2]
+
