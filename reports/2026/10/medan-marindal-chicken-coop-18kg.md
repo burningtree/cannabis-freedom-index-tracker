@@ -23,6 +23,11 @@ media:
     media_url: https://cdn25.metrotvnews.com/dynamic/content/2026/10/30/bw6CAPVW/a_6ae40f0eef191.jpeg?w=720
     publisher: Metro TV
     caption: 'The dried cannabis seized in the Deli Serdang case, displayed by police. Photo: Metro TV'
+  - kind: photo
+    url: https://sumut.antaranews.com/berita/675351/polisi-gerebek-gudang-ganja-berkedok-kandang-ayam-di-deli-serdang-dua-pelaku-ditangkap
+    media_url: https://cdn.antaranews.com/cache/1200x800/2026/10/30/188729.jpg
+    publisher: ANTARA News Sumatera Utara
+    caption: 'Medan city police narcotics chief AKBP Rafli Yusuf Nugraha (centre) shows dried cannabis seized in the raid on a chicken-coop warehouse in Desa Marindal I, Deli Serdang. Photo: ANTARA/HO-Polrestabes Medan'
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: a91d23f548df4a7ac85a9132b06e4459
@@ -48,6 +53,11 @@ sources:
     publisher: Metro TV
     date: 2026-10-30
     language: id
+  - title: Polisi gerebek gudang ganja berkedok kandang ayam di Deli Serdang, dua pelaku ditangkap
+    url: https://sumut.antaranews.com/berita/675351/polisi-gerebek-gudang-ganja-berkedok-kandang-ayam-di-deli-serdang-dua-pelaku-ditangkap
+    publisher: ANTARA News Sumatera Utara
+    date: 2026-10-30
+    language: id
 open_questions:
   - No court date or formal charge was reported; the two arrested men are described as suspects.
   - No estimate of the cannabis's street value was published.
@@ -56,19 +66,20 @@ open_questions:
 
 Narcotics detectives at Medan city police raided a warehouse disguised as a
 chicken coop in Deli Serdang on the night of Wednesday 28 October 2026. [@1] The
-coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3] Police arrested two
-close friends and seized 18 kg of dried cannabis. [@1] Police identified the two
+coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5] Police arrested two
+close friends and seized 18 kg of dried cannabis. [@1,5] Police identified the two
 as MF, 28, of Jalan Cinta Karya in Medan Polonia, and DS, 19, of Jalan Bajak V
 in Medan. [@3] MF was caught in the parking area of a fast-food restaurant on
 Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1] DS
-was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1] Officers found
-another 17 kg of dried cannabis in a safety box inside the coop. [@3]
+was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5] Officers found
+another 17 kg of dried cannabis in a safety box inside the coop. [@3,5]
 
 The coop was remote and far from houses. [@2] Police said the building did not
-look suspicious from outside because it resembled an ordinary house. [@2] Police
+look suspicious from outside because it resembled an ordinary house. [@2,5] Police
 said the cannabis came from Aceh and the operation had run for about three
 months, supplying Medan and the surrounding area. [@2] Police named a third man,
-FS, as the suspected controller of MF and DS. [@1] FS was placed on a wanted
+FS, as the suspected controller of MF and DS. [@1,5] FS was placed on a wanted
 list and was being hunted, police said. [@1] The two detained men face more than
 five years in prison over the trafficking allegation, Metro TV reported. [@4]
 
+Police put the total cannabis seized in the case at about 18.2 kg. [@5] Police said DS was suspected of acting as a distributor who stored cannabis before it was supplied to several locations. [@5]
