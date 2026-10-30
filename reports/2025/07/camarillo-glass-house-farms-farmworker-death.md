@@ -1,0 +1,67 @@
+---
+date: 2025-07-12
+country: us/ca
+place: Glass House Farms, near Camarillo, Ventura County
+coordinates: [34.1975, -119.0194]
+precision: locality
+type: death
+also: [raid]
+title: Farmworker dies two days after a 30-foot fall during an ICE raid on a Camarillo cannabis farm
+summary: >-
+  Mexican farmworker Jaime Alanís García died on 12 July 2025, two days after falling about 30 feet
+  from a greenhouse during a federal immigration raid on the licensed Glass House Farms cannabis
+  farm near Camarillo. DHS said he was neither in custody nor pursued; his family filed a federal
+  claim alleging an illegal search and excessive force, and Mexico weighed its own legal action.
+figures:
+  deaths: 1
+media:
+  - kind: photo
+    url: https://abc7.com/post/jaime-alans-garcia-death-farmworker-injured-during-ventura-county-immigration-raid-glass-house-farms-dies-family-says/17092373/
+    archived: https://web.archive.org/web/20261006032939/https://abc7.com/post/jaime-alans-garcia-death-farmworker-injured-during-ventura-county-immigration-raid-glass-house-farms-dies-family-says/17092373/
+    publisher: ABC7 Los Angeles
+    caption: Image published with ABC7's report on the raid at Glass House Farms and the farmworker's death
+  - kind: photo
+    url: https://abc7.com/post/jaime-alans-garcia-death-family-files-federal-court-claim-demanding-accountability-farm-workers-ice-raid/17457697/
+    archived: https://web.archive.org/web/20260809110241/https://abc7.com/post/jaime-alans-garcia-death-family-files-federal-court-claim-demanding-accountability-farm-workers-ice-raid/17457697/
+    publisher: ABC7 Los Angeles
+    caption: Still from ABC7's July 2025 video report of the injury during the Camarillo raid
+created_by_model: alibaba-token-plan/qwen3.8-flash
+status: verified
+tags: [ice, cbp, glass-house-farms, wrongful-death-claim, licensed-farm, ufw]
+open_questions:
+  - "The circumstances of the fall are contested: DHS says García was not pursued and climbed to the roof himself, while his family and the UFW describe workers chased and met with chaos and fear; this report attributes each account to its source."
+  - No cause-of-death report, inquest or autopsy finding was published in the sources.
+  - The other critically injured workers the UFW reported are not named, and some workers "remain unaccounted for".
+  - "The report is dated to a July 2025 event, older than the usual twelve months, kept for its notability: a death during enforcement at a licensed cannabis farm that drew a federal claim and a warning of Mexican legal action."
+sources:
+  - title: Farmworker critically injured during Ventura County immigration raid dies, family says
+    url: https://abc7.com/post/jaime-alans-garcia-death-farmworker-injured-during-ventura-county-immigration-raid-glass-house-farms-dies-family-says/17092373/
+    archived: https://web.archive.org/web/20261006032939/https://abc7.com/post/jaime-alans-garcia-death-farmworker-injured-during-ventura-county-immigration-raid-glass-house-farms-dies-family-says/17092373/
+    publisher: ABC7 Los Angeles (KABC)
+    date: 2025-07-13
+  - title: Family files federal court claim, demanding accountability in farm worker's death after ICE raid
+    url: https://abc7.com/post/jaime-alans-garcia-death-family-files-federal-court-claim-demanding-accountability-farm-workers-ice-raid/17457697/
+    archived: https://web.archive.org/web/20260809110241/https://abc7.com/post/jaime-alans-garcia-death-family-files-federal-court-claim-demanding-accountability-farm-workers-ice-raid/17457697/
+    publisher: ABC7 Los Angeles (KABC)
+    date: 2025-08-07
+---
+
+Jaime Alanís García, a Mexican farmworker supporting a wife and daughter in Mexico, died on Saturday,
+12 July 2025 at Ventura County Medical Center, two days after falling about 30 feet (some 9 metres)
+from a building at the Glass House Farms cannabis farm near Camarillo during a federal immigration
+raid there on Thursday, 10 July. His family said he had been taken to hospital with a broken neck and
+skull. [@1]
+
+The raid was one of two simultaneous operations at cannabis farms near Camarillo and in Carpinteria;
+homeland security secretary Kristi Noem announced 319 arrests across them. [@1] The Department of
+Homeland Security said García "was not in and has not been in CBP or ICE custody" and, though "not
+being pursued by law enforcement", had climbed to the roof of a greenhouse and fallen, with a medevac
+called immediately. [@1] The United Farm Workers confirmed workers were critically injured — injuries
+not believed life-threatening — and said other workers, including US citizens, remained unaccounted
+for; the family said workers "were met not with protection, but with chaos and fear". [@1]
+
+On 7 August 2025 the family's attorneys filed a federal claim alleging ICE agents carried out an
+illegal search and seizure and used excessive force, seeking damages for García's pre-death suffering
+and for his family's loss; they may sue in federal court if ICE denies or ignores the claim within six
+months. [@2] President Claudia Sheinbaum said Mexico was considering a legal complaint over the death.
+[@2]
