@@ -42,6 +42,11 @@ sources:
     publisher: Dainik Bhaskar
     date: 2026-10-30
     language: hi
+  - title: 'Bareily News: चौकी के सामने चरस बेचने वाले पिता-पुत्र को भेजा जेल'
+    url: https://www.livehindustan.com/uttar-pradesh/bareily/story-father-and-son-jailed-for-selling-charas-outside-hardaspur-police-outpost-201793374517063.amp.html
+    publisher: Hindustan
+    date: 2026-10-30
+    language: hi
 open_questions:
   - Dainik Bhaskar gave the charas weight as 95 g in one report and about 100 g in others; this report uses about 100 g.
   - Hindustan named the father Ganga Singh, while Dainik Bhaskar named him Ganga Sahay.
@@ -49,17 +54,18 @@ open_questions:
   - The reports give no quantity for the illegal liquor seized.
   - The reports do not say when the case will be heard or whether the men have been formally charged in court.
   - The submitted page's only image is a generic Uttar Pradesh map graphic, not a photograph of the raid, so no media entry is included.
+  - Hindustan reports villagers complaining that local police were not paying attention, while the report, following Dainik Bhaskar, says villagers alleged the trade ran with police support.
 ---
 
 The Meerganj Circle Officer (CO), a sub-district police officer, raided a
 roadside kiosk outside the Hardaspur police outpost in Sirauli police station
-area, Bareilly district, on the evening of Thursday 29 October 2026. [@1] Police
+area, Bareilly district, on the evening of Thursday 29 October 2026. [@1,6] Police
 detained two people at the kiosk and said action was being taken against them.
 [@2] Officers seized about 100 grams (0.1 kg) of charas, a hand-made cannabis
 resin, and some illegal liquor. [@3] The two were identified as Chandrapal, who
-ran the kiosk, and his father. [@4]
+ran the kiosk, and his father. [@4,6]
 
-The kiosk stood a few steps from the Hardaspur police check post. [@5] Charas,
+The kiosk stood a few steps from the Hardaspur police check post. [@5,6] Charas,
 illegal liquor and other intoxicants had been sold there for a long time. [@1]
 Villagers alleged the trade ran with the local police's support. [@3] Police
 also seized an electronic scale and ₹2,500 in cash. [@5]
@@ -67,6 +73,5 @@ also seized an electronic scale and ₹2,500 in cash. [@5]
 Police registered a first information report (FIR), the document that starts a
 criminal case in India, against Chandrapal and his father under the NDPS Act,
 India's main anti-drug law, and the Excise Act. [@3] They were produced in court
-on Friday and sent to jail. [@4] People in the area said police removed the
-kiosk the next day. [@4]
-
+on Friday and sent to jail. [@4,6] People in the area said police removed the
+kiosk the next day. [@4,6]
