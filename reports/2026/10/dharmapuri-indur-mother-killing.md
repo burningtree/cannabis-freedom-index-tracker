@@ -1,0 +1,77 @@
+---
+date: 2026-10-29
+country: in
+place: Pazhaya Indur, Indur, Dharmapuri district, Tamil Nadu
+coordinates: [12.1327, 78.0577]
+precision: locality
+type: arrest
+also: [death]
+title: 19-year-old held after cannabis-linked killing of his mother in Dharmapuri
+summary: >-
+  Police in Indur, in Tamil Nadu's Dharmapuri district, arrested 19-year-old Devaraj after he allegedly killed his mother, Chinnapappa, at their home on the night of 29 October 2026. Several Tamil outlets reported that he was high on cannabis; Thanthi TV said he had been freed on bail shortly before, and Dinamalar said he was drunk.
+figures:
+  arrested: 1
+  deaths: 1
+media:
+  - kind: video
+    url: https://www.thanthitv.com/news/tamilnadu/son-high-on-cannabis-kills-mother-near-dharmapuri-arrested
+    media_url: https://www.dailymotion.com/video/koqm15ba5sRN1AMdz7c
+    publisher: Thanthi TV
+    caption: 'Thanthi TV video report on the killing of Chinnapappa in Indur and the arrest of her son Devaraj. Video: Thanthi TV'
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: b3cb7f9797a4f28bb513dfed274559f5
+tags: [dharmapuri, tamil-nadu, ganja, homicide, bail]
+sources:
+  - title: தருமபுரி அருகே கஞ்சா போதையில் தாயை கொன்ற மகன் கைது
+    url: https://www.thanthitv.com/news/tamilnadu/son-high-on-cannabis-kills-mother-near-dharmapuri-arrested
+    publisher: Thanthi TV
+    date: 2026-10-30
+    language: ta
+  - title: 19-year-old youth murders mother in Dharmapuri
+    url: https://www.thehindu.com/news/cities/Coimbatore/19-year-old-youth-murders-mother-in-dharmapuri/article71645603.ece
+    publisher: The Hindu
+    date: 2026-10-30
+  - title: தருமபுரி மாவட்டம் பழைய இண்டூரில் கஞ்சா போதையில் பெற்ற தாயை கொலை செய்த கொடூரன் கைது!
+    url: https://www.dinakaran.com/news/dharmapuri-old-indur-man-murdered-mother-arrested/
+    publisher: Dinakaran
+    date: 2026-10-30
+    language: ta
+  - title: தாய் அடித்து கொலை போதை மகன் கைது
+    url: https://www.dinamalar.com/news/tamil-nadu-district-news-dharmapuri/mother-beaten-to-death-by-addicted-son-arrested/4363435
+    publisher: Dinamalar
+    date: 2026-10-30
+    language: ta
+open_questions:
+  - 'The accounts differ on the date and time: Thanthi TV placed the killing on the morning of 30 October, The Hindu and Dinakaran late on 29 October, and Dinamalar on the night of 28 October; this report uses the night of 29 October.'
+  - Chinnapappa's age is given as 42 by Thanthi TV and 45 by The Hindu, Dinakaran and Dinamalar; Devaraj's age is given as 19 by Thanthi TV, The Hindu and Dinakaran and 20 by Dinamalar.
+  - Thanthi TV and Dinakaran said Devaraj was under the influence of cannabis; Dinamalar said he was drunk, and The Hindu did not identify the substance involved in the killing.
+  - The weapon is given as a knife by Thanthi TV, an iron rod by The Hindu, and an iron rod and a knife by Dinakaran.
+  - No charge, court appearance or sentence was reported, and no police statement was opened.
+---
+
+Police in Indur, in Tamil Nadu's Dharmapuri district, arrested 19-year-old
+Devaraj after he allegedly killed his mother at their home in Pazhaya Indur.
+[@1] Thanthi TV reported that he stabbed Chinnapappa, 42, with a knife while
+under the influence of cannabis, known locally as ganja, and that she died at
+the scene. [@1] The Hindu said he attacked her with an iron rod around 11:30
+p.m. on Thursday, 29 October, after she refused him money. [@2] The Hindu gave
+her age as 45. [@2]
+
+The Hindu reported that Devaraj had been arrested three months earlier after he
+was filmed threatening the public with a sword near the Indur police station
+while wearing a traffic policeman's cap. [@2] His mother secured his release on
+bail on Wednesday, 28 October, by depositing ₹50,000 she had borrowed, according
+to the same report. [@2] Dinakaran reported that he had been addicted to alcohol
+and cannabis since childhood and had been released on bail shortly before the
+killing. [@3] On the night of 29 October he came home under the influence of
+ganja and asked his mother for money, Dinakaran reported. [@3] When she refused,
+he stabbed her with an iron rod and a knife, Dinakaran reported. [@3] Neighbours
+who heard her screams found her dead and Devaraj standing nearby with an iron
+rod, according to Dinakaran. [@3]
+
+Dinamalar, which gave his age as 20 and his mother's as 45, said he was drunk.
+[@4] The Hindu described him as inebriated at the earlier arrest. [@2] Indur
+police sent Chinnapappa's body to Dharmapuri government hospital for
+post-mortem, Dinakaran reported. [@3]
+
