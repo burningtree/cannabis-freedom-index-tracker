@@ -67,6 +67,11 @@ sources:
     publisher: O Norte de Goiás
     date: 2026-10-30
     language: pt
+  - title: Cães farejadores localizaram 3,5 toneladas de skunk em carga de caminhão
+    url: https://www.metropoles.com/distrito-federal/entorno/policia-apreende-35-toneladas-de-skunk-escondidas-em-carga-de-caminhao
+    publisher: Metrópoles
+    date: 2026-10-30
+    language: pt
 open_questions:
   - The reports give the weight as about 3.5 tonnes and publish no exact figure.
   - Neither report says who valued the load at R$3.5 million.
@@ -79,21 +84,26 @@ open_questions:
   - This article says the skunk was hidden under pallets; the existing report says the bales were hidden behind wooden pallets.
   - The page photo is not captioned as showing the seizure, only credited to the newsroom with PRF and PCDF information and to Glaucio Teixeira, so it is unclear whether it is the same handout already linked from other outlets.
   - The O Norte de Goiás page is a truncated republication of the Mais Goiás article already cited, and its visible text does not independently state the weight, the arrest booking, or the date of the stop.
+  - Metrópoles says the PRF stopped the truck after information from other institutions, while the existing report says the stop followed an exchange with Federal District civil police.
+  - This account says the drug was hidden among a pallet load and found after the pallets were unloaded; it does not say the bales were hidden behind wooden pallets.
+  - The body once spells the drug “sunk”; the headline and captions say skunk.
+  - Metrópoles does not mention the R$3.5 million valuation, a trafficking charge, or booking in Brasília.
+  - Two PRF handout photos on the page were not added again because the seizure is already illustrated from other outlets.
 ---
 
 The Federal Highway Police and the Civil Police of the Federal District seized
 about 3.5 tonnes of skunk from a truck on the BR-153 at Morrinhos, in southern
-Goiás, on the afternoon of Thursday 29 October 2026. [@2,3,4] The bales of skunk
+Goiás, on the afternoon of Thursday 29 October 2026. [@2,3,4,6] The bales of skunk
 were hidden behind wooden pallets and were found by sniffer dogs. [@1] The
-driver was arrested. [@2,3,4]
+driver was arrested. [@2,3,4,6]
 
 The stop followed an exchange of information between the highway police and
 Civil Police officers in the Federal District. [@1,3,4] When approached, the driver
 could not explain where he had come from or where he was going, and stayed
 silent. [@1,5] After the pallets were unloaded, officers found the skunk in the
-cargo compartment. [@2,3,4]
+cargo compartment. [@2,3,4,6]
 
-He was taken to the Civil Police with the seized drug. [@2,3,4] At the Civil Police
+He was taken to the Civil Police with the seized drug. [@2,3,4,6] At the Civil Police
 station in Brasília, he was booked on a charge of interstate drug trafficking.
 [@1] The PRF did not name him and released only his age, 40. [@1,3]
 
@@ -101,6 +111,8 @@ The load was valued at R$3.5 million and, according to the investigation, was to
 be sold in the Federal District. [@1] Skunk, known in Brazil as 'super maconha'
 (super marijuana), is a cannabis product. [@1]
 
-The PRF said the driver's behaviour and the circumstances of the transport prompted a closer inspection, but did not say which signs raised suspicion. [@3] Sniffer dogs from the PRF's dog-operations group indicated drugs in the truck. [@3,4]
+The PRF said the driver's behaviour and the circumstances of the transport prompted a closer inspection, but did not say which signs raised suspicion. [@3] Sniffer dogs from the PRF's dog-operations group indicated drugs in the truck. [@3,4,6]
 
 Investigations were continuing to identify the origin and destination of the load. [@4]
+
+Conrad Munis, a delegate with the Federal District civil police drug-repression unit, said criminal groups have been using the Federal District as a logistics route to distribute drugs to other parts of the country. [@6]
