@@ -42,6 +42,10 @@ sources:
     publisher: Prabhasakshi
     date: 2026-10-31
     language: hi
+  - title: 'दिल्ली : हवाई अड्डे पर 26.6 किलोग्राम हाइड्रोपोनिक गांजा जब्त, दो लोग गिरफ्तार'
+    url: https://www.liveaaryaavart.com/2026/10/ganza-seized-delhi-airport.html
+    publisher: Live Aaryaavart (लाईव आर्यावर्त)
+    language: hi
 open_questions:
   - PTI reported that the two passengers arrived on two separate flights from Bangkok, while the Delhi Customs post names a single flight, AI2335; the report does not resolve the difference.
   - Customs gave no names, ages or other identifying details for the two passengers.
@@ -52,24 +56,27 @@ open_questions:
   - This page is an unedited PTI-Bhasha reprint, so it is not an independent account of the seizure.
   - It repeats the PTI claim that the two passengers arrived on separate flights on 28 October, which remains unresolved against the customs post naming a single flight.
   - The page image is labelled a representative photo and AI-generated, so it does not show the seizure.
+  - The page does not give its own publication date; it says only that officials gave the information on Friday.
+  - The only image is labelled with a filename and has no caption identifying it as this seizure, so it was not added as media.
+  - The wording matches the same official-statement account already cited and does not independently settle the existing discrepancy over one flight versus two separate flights.
 ---
 
 Customs officials at Delhi's Indira Gandhi International Airport seized 26.67 kg
 of suspected hydroponic ganja from two Indian passengers arriving from Bangkok.
-[@1,4,5] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
+[@1,4,5,6] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
 Channel for X-ray screening after profiling. [@3] The two passengers were
 arrested on 28 October under Section 43(b) of the Narcotic Drugs and
-Psychotropic Substances Act, 1985. [@1,4,5] The substance was seized under Section
-43(a) of the same act. [@1,4,5]
+Psychotropic Substances Act, 1985. [@1,4,5,6] The substance was seized under Section
+43(a) of the same act. [@1,4,5,6]
 
 Officers found 26 polythene pouches of a green substance suspected to be
 marijuana or hydroponic weed. [@2] Customs valued the haul at about Rs 9.33
-crore. [@1,4,5] A diagnostic test indicated prima facie that the substance was
-marijuana or hydroponic weed. [@2,5]
+crore. [@1,4,5,6] A diagnostic test indicated prima facie that the substance was
+marijuana or hydroponic weed. [@2,5,6]
 
 Customs said cases were booked against the two under sections 8, 20, 23 and 29
 of the NDPS Act and that its investigation was in progress. [@3] Hydroponic
 ganja is a high-potency variety of cannabis grown in nutrient-rich water instead
-of soil. [@1,4,5]
+of soil. [@1,4,5,6]
 
-The pouches were packed 13 to each of two black trolley bags. [@5]
+The pouches were packed 13 to each of two black trolley bags. [@5,6]
