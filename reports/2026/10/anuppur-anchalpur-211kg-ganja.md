@@ -49,6 +49,11 @@ sources:
     publisher: Patrika News
     date: 2026-10-30
     language: hi
+  - title: 'अनूपपुर: रात के अंधेरे में नशे पर प्रहार 211 किलो 21.19 लाख रुपये का गांजा जब्त, चालक फरार'
+    url: https://vocaltv.in/crime/crackdown-on-drugs-in-the-deadphp/cid19470108.htm
+    publisher: Vocal TV
+    date: 2026-10-30
+    language: hi
 open_questions:
   - 'The reports differ on the time: Amar Ujala and Hindusthan Samachar place the interception in the night between 29 and 30 October, while Dainik Bhaskar says Friday afternoon.'
   - No arrests, charges or court step were reported; police were still looking for the driver, other suspects and the car's owner.
@@ -56,18 +61,19 @@ open_questions:
   - Only the opening paragraph of the Hindusthan Samachar report could be read; the rest was behind a subscription notice.
   - The reports do not say where the ganja was loaded or where it was being taken.
   - 'Left out, as its quotation was not found in Amar Ujala: A car driver abandoned the vehicle and ran into the fields when Rajendragram police tried to stop him near Anchalpur village on the night of 29–30 October 2026.'
+  - Hindusthan Samachar's syndicated text gives the car's registration as CG 18 CA 9735, while the report's Dainik Bhaskar source gives CG 16 CA 9735; the report keeps CG 16.
 ---
 
 Anchalpur lies in the Rajendragram police station area of Anuppur district,
 Madhya Pradesh. [@3] Rajendragram station house officer Virendra Kumar Barkare
-led the blockade with his team. [@2] Officers chased him but he escaped into
+led the blockade with his team. [@2,5] Officers chased him but he escaped into
 dense forest in the dark. [@2] Police registered a case against an unknown
 accused under the NDPS Act. [@2] Police were looking for the car's real owner
 and the absconding accused. [@1,4]
 
 The car was a Duster with a Chhattisgarh number plate, CG 16 CA 9735. [@2] A
-search found 211 kg 99 g of ganja. [@1,4] Police estimated the value at 21.19 lakh
-rupees (2,119,900 rupees). [@1,4] The bags were on the rear seat and in the boot,
+search found 211 kg 99 g of ganja. [@1,4,5] Police estimated the value at 21.19 lakh
+rupees (2,119,900 rupees). [@1,4,5] The bags were on the rear seat and in the boot,
 and police also seized the car, a mobile phone and a purse. [@2] The number
 plate was registered in Chhattisgarh to a two-wheeler. [@1,4] The chassis and
 engine numbers had been wiped with chemicals to hide the car's identity. [@1,4]
