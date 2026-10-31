@@ -45,6 +45,11 @@ sources:
     publisher: The Manila Times
     date: 2026-10-30
     language: en
+  - title: Cops destroy P108.8-M marijuana plants in Tinglayan, Kalinga
+    url: https://newsinfo.inquirer.net/2333521/cops-destroy-p108-8-m-marijuana-plants-in-tinglayan-kalinga
+    publisher: INQUIRER.net
+    date: 2026-10-31
+    language: en
 media:
   - kind: photo
     url: https://psbalita.com/php108-8m-halaga-ng-marijuana-plants-sa-tinglayan-binunot-at-sinunog-ng-kalinga-ppo/
@@ -54,23 +59,28 @@ media:
     url: https://tribune.net.ph/2026/10/29/police-destroy-p1088m-worth-of-marijuana-in-kalinga
     publisher: Daily Tribune (courtesy of Kalinga Police)
     caption: Uprooted marijuana plants during the Loccong operation.
+  - kind: photo
+    url: https://newsinfo.inquirer.net/2333521/cops-destroy-p108-8-m-marijuana-plants-in-tinglayan-kalinga
+    media_url: https://newsinfo.inquirer.net/files/2026/10/kalinga-marijuana-31oct2026.jpg.avif
+    publisher: INQUIRER.net
+    caption: 'Police at the Loccong sites after uprooting and destroying 544,000 fully grown marijuana plants. Photo: Kalinga police'
 ---
 
 Cordillera police destroyed seven marijuana plantations in Barangay Loccong, Tinglayan, Kalinga,
-on Tuesday 27 October 2026, uprooting and burning 544,000 fully grown plants on the spot. [@1,2,3]
+on Tuesday 27 October 2026, uprooting and burning 544,000 fully grown plants on the spot. [@1,2,3,5]
 The Kalinga Police Provincial Office put the haul at about ₱108.8 million on the standard drug
 price. [@1,2]
 
-The sites covered roughly 48,500 square metres (about 4.85 hectares). [@1,2] Units from the
+The sites covered roughly 48,500 square metres (about 4.85 hectares). [@1,2,5] Units from the
 provincial drug enforcement and intelligence offices, several municipal police stations, mobile
 force companies and the Philippine National Police Special Action Force took part, coordinating
 with the Philippine Drug Enforcement Agency (PDEA). [@2] The operation ran under Implementation
 Plan Sagumpi-II and Oplan Betubut, part of the continuing campaign against illegal cultivation.
 [@1,2]
 
-No suspected cultivators were arrested. [@1,2] Officers collected plant samples for qualitative
-examination at the Kalinga Police Forensic Unit. [@1,2] Provincial police chief Col. Peter
+No suspected cultivators were arrested. [@1,2,5] Officers collected plant samples for qualitative
+examination at the Kalinga Police Forensic Unit. [@1,2,5] Provincial police chief Col. Peter
 Ngabit Jr. urged residents to report suspected drug activity and cooperate with enforcement.
-[@1,2]
+[@1,2,5]
 
 Regional Mobile Force Battalion 15 and the 1st Special Action Battalion of the Philippine National Police Special Action Force were among the units that carried out the operation. [@3,4] Police said the investigation was ongoing to identify other possible marijuana plantations in nearby areas and hold cultivators accountable. [@3,4]
