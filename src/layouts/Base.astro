@@ -35,6 +35,12 @@ const here = Astro.url.pathname.replace(base, "/");
     <link rel="alternate" type="application/rss+xml" href={`${base}feed.xml`} title="New reports (RSS)" />
     <link rel="alternate" type="application/json" href={`${base}api/reports.json`} title="All reports (JSON)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script is:inline async src="https://x.pp0.co/js/pa-pXxzt8f14aSw4WXjIzIvp.js"></script>
+    <script is:inline>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
   </head>
   <body class:list={{ "app-body": app }}>
     <header class="topbar">
