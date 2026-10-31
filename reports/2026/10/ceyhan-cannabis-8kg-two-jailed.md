@@ -37,6 +37,11 @@ sources:
     publisher: Habertürk Yerel Haberler
     date: 2026-10-30
     language: tr
+  - title: 'Adana''da uyuşturucu operasyonu: 2 zanlı tutuklandı'
+    url: https://www.milliyet.com.tr/gundem/adanada-uyusturucu-operasyonu-2-zanli-tutuklandi-7690433
+    publisher: Milliyet
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the raid or the court hearing; 29 October 2026 is the publication date of the earliest account, so both happened on or before that evening.
   - No charge, court date, names of the two suspects or estimated value of the cannabis was published.
@@ -47,11 +52,11 @@ open_questions:
 Police in Ceyhan, a district of Adana province, mounted an operation against
 drug trafficking at a specified address in the Çiftlikler neighbourhood. [@2,4] A
 police search of the address turned up 8 kg 562 g of cannabis, the drug known in
-Turkey as esrar, hidden in various places, together with a precision scale. [@1,4]
-Officers detained two suspects. [@1,4] After questioning at the police station the
+Turkey as esrar, hidden in various places, together with a precision scale. [@1,4,5]
+Officers detained two suspects. [@1,4,5] After questioning at the police station the
 pair were taken to the courthouse, where a magistrates' court ordered them held
 in pre-trial detention — tutuklama, the order that keeps a suspect in custody
-pending trial. [@1,4] Both were then sent to prison to await trial. [@3]
+pending trial. [@1,4,5] Both were then sent to prison to await trial. [@3]
 
 The operation was run by the narcotics bureau of the Ceyhan district police
 directorate, the Narkotik Suçlarla Mücadele Büro Amirliği. [@2] The cannabis was
