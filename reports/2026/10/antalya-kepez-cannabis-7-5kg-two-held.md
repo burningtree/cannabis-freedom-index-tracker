@@ -43,6 +43,11 @@ sources:
     publisher: Saray Medya
     date: 2026-10-31
     language: tr
+  - title: Antalya'da uyuşturucu operasyonunda yakalanan şüpheli tutuklandı
+    url: https://yerel-haberler.haberturk.com/antalya-haberleri/antalyada-uyusturucu-operasyonunda-yakalanan-supheli-tutuklandi-119508869
+    publisher: Habertürk Yerel Haberler
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no separate date or time for the operation; 31 October 2026 is the publication date of both accounts.
   - No full names, estimated value for the 7.5 kg of cannabis, court date or trial outcome were published.
@@ -51,21 +56,23 @@ open_questions:
   - 'Left out, as its quotation was not found in Sabah: A court ordered M.S.K. held in pre-trial detention — tutuklama, custody pending trial — while O.Ü. was released under judicial control, a supervision order that falls short of custody.'
   - The article names the trafficking charge only against O.Ü. and does not say on what charge M.S.K. was held.
   - The gallery republishes İHA's police-camera stills, which appear to be the same handout frames already linked from the agency's page in this report, so its copies were not listed as separate pictures.
+  - The Habertürk page is an unedited Anadolu Agency wire copy, so it corroborates the account already in the report rather than adding independent reporting.
+  - The only image on the submitted page is a generic Antalya local-news graphic, not a photograph of the operation, so no media entry was added.
 ---
 
 Police in Antalya detained two men in an operation against drug trafficking
 after information that they were selling and distributing drugs brought into the
-city. [@1] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
-Kepez district. [@1,3] A search of their homes found 7 kg 500 g of cannabis, known
-in Turkey as esrar, divided into 15 packets. [@1,3] The pair were referred to the
+city. [@1,4] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
+Kepez district. [@1,3,4] A search of their homes found 7 kg 500 g of cannabis, known
+in Turkey as esrar, divided into 15 packets. [@1,3,4] The pair were referred to the
 judicial authorities over trading and supplying narcotic or psychotropic
 substances. [@1]
 
 The operation was run by the narcotics crimes branch of the Antalya provincial
-police directorate. [@1] Sabah reported that it followed intelligence that the
+police directorate. [@1,4] Sabah reported that it followed intelligence that the
 two men were bringing drugs obtained outside the province into the city for sale
 and distribution. [@2] Officers identified the suspects and their addresses
 before launching the raid, the paper said. [@2] Police camera footage recorded
 the operation and the material seized in the searches. [@1]
 
-M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3]
+M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4]
