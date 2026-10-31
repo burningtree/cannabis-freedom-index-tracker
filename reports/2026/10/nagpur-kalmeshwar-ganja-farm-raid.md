@@ -29,6 +29,11 @@ sources:
     publisher: Nagpur Today
     date: 2026-10-31
     language: en
+  - title: 'नागपुर: CA के खेत में उगाए जा रहे थे गांजे के पौधे, केयरटेकर गिरफ्तार; 9 पौधे जब्त'
+    url: https://www.nagpurtoday.in/nagpur-ganja-cultivation-kalmeshwar-caretaker-arrested/
+    publisher: Nagpur Today
+    date: 2026-10-31
+    language: hi
 media:
   - kind: photo
     url: https://www.thehitavada.com/Encyc/2026/10/28/ganja-plants-found-in-farm-owned-by-ca-caretaker-arrested-.html
@@ -42,20 +47,22 @@ media:
 open_questions:
   - Nagpur Today spells the caretaker Bablu Budh Sahu; the existing report, from The Hitavada, uses Bablu Buddh Sahu.
   - Nagpur Today gives no separate date for the raid; the recorded date remains 28 October 2026 from The Hitavada.
+  - This Hindi Nagpur Today page spells the caretaker बबलू बुद्ध साहू, matching The Hitavada's Bablu Buddh Sahu, while the already cited English Nagpur Today page was recorded as spelling him Bablu Budh Sahu.
+  - The page is Nagpur Today's Hindi version of the English article already cited, not an independent account.
 ---
 
 Acting on a tip-off, the Anti-Narcotics Cell of Nagpur Rural Police's Local
 Crime Branch raided farmland in the Gangaji Dareli area under Kalmeshwar Police
 Station limits and found nine ganja plants growing on a farm owned by Nagpur
-chartered accountant Nitesh Sakhleja. [@1,2] The plants weighed 1.358 kg and were
+chartered accountant Nitesh Sakhleja. [@1,2,3] The plants weighed 1.358 kg and were
 valued at Rs 27,120; a chilam and a mobile phone were also seized, taking the
-total haul to Rs 40,210. [@1,2]
+total haul to Rs 40,210. [@1,2,3]
 
 Police arrested the farm's caretaker, 40-year-old Bablu Buddh Sahu, who had
 lived on the farm for two years, and registered a case under Sections 8(c) and
-20(a) of the NDPS Act. [@1,2] Officers are investigating why the plants were
+20(a) of the NDPS Act. [@1,2,3] Officers are investigating why the plants were
 grown there and whether the cultivation was linked to a ganja smuggling
-racket. [@1,2] The team was led by Local Crime Branch inspector Ankush Mane
-under Senior Superintendent of Police Dr Harsh A Poddar. [@1,2]
+racket. [@1,2,3] The team was led by Local Crime Branch inspector Ankush Mane
+under Senior Superintendent of Police Dr Harsh A Poddar. [@1,2,3]
 
-Additional Superintendent of Police Anil Mhaske also guided the operation, and Assistant Police Inspector Purushottam Mahekar was on the team. [@2]
+Additional Superintendent of Police Anil Mhaske also guided the operation, and Assistant Police Inspector Purushottam Mahekar was on the team. [@2,3]
