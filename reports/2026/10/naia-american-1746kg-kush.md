@@ -34,17 +34,24 @@ sources:
     url: https://tribune.net.ph/2026/10/30/p174m-worth-of-kush-seized-at-naia
     publisher: Daily Tribune
     date: 2026-10-30
+  - title: NATIONWIDE PNP OPERATIONS YIELD ₱30.8-MILLION WORTH OF SUSPECTED ILLEGAL DRUGS; SEVEN ARRESTED
+    url: https://www.facebook.com/pnp.pio/posts/nationwide-pnp-operations-yield-308-million-worth-of-suspected-illegal-drugs-sev/1694734766031247/
+    publisher: Philippine National Police
 open_questions:
   - Both opened sources are Daily Tribune reports of the same event; no independent statement from PDEA or another outlet could be opened.
   - The two Tribune reports give the weight as approximately 17.46 kg and 17,464 grams; the report uses 17.46 kg.
   - The suspect was identified only by the alias “Henry”; his full name was not published.
   - PDEA said the suspect faces formal charges under Republic Act 9165, but no charge sheet, court date or outcome was reported.
+  - The PNP statement valued the 17,464 grams at ₱26.196 million at the standard drug price, while the report's PDEA-based sources give ₱17.46 million; the report keeps the PDEA figure.
+  - The PNP statement places the arrest between 8:45 p.m. and 10 p.m., while the report's PDEA account says it happened around 8:35 p.m.
+  - The PNP post also reports four shabu operations in Bataan, Iloilo, Tondo and Pagadian, separate events left out of this report.
+  - The Facebook post shows only a relative posting time ('13 hours ago'), so its exact publication date is not recorded.
 ---
 
 A 62-year-old American citizen was arrested at Ninoy Aquino International
 Airport (NAIA) Terminal 3 after authorities intercepted about 17.46 kilograms of
 high-grade marijuana in his luggage, the Philippine Drug Enforcement Agency
-(PDEA) reported. [@1] The suspect, identified only by the alias “Henry,” had
+(PDEA) reported. [@1,3] The suspect, identified only by the alias “Henry,” had
 arrived from Bangkok, Thailand, and was intercepted at the airport's customs
 secondary inspection area on Thursday 29 October. [@2] The interception happened
 around 8:35 p.m. [@1]
@@ -65,4 +72,3 @@ Group, the National Bureau of Investigation, the Bureau of Immigration and the
 Office for Transportation Security. [@1] The suspect remains in custody and
 faces formal charges for violating Republic Act 9165, the Comprehensive
 Dangerous Drugs Act of 2002. [@1]
-
