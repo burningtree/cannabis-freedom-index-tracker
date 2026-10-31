@@ -18,6 +18,11 @@ media:
     media_url: https://www.dailykaratoa.com//public/images/2026-10/11_original_1793373700.jpg
     publisher: Daily Karatoa
     caption: A man and packages of seized cannabis displayed in front of SRB-5 banners, in the image published with the report. No photo credit was given.
+  - kind: photo
+    url: https://www.agrajatrapratidin.com/country/news/28239
+    media_url: https://www.agrajatrapratidin.com/media/imgAll/2026October/WhatsApp-Image-2026-10-30-at-103122-AM-2610300444.jpeg
+    publisher: Agrajatra Pratidin
+    caption: Lead image published with the report of the SRB arrest of a cannabis dealer in Rajshahi. No separate photo credit was given.
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 394daf759b2eae27ab2c429353625a23
@@ -47,6 +52,11 @@ sources:
     publisher: Silkcity News
     date: 2026-10-30
     language: bn
+  - title: রাজশাহীতে এসআরবির অভিযানে গাঁজাসহ মাদক কারবারি গ্রেপ্তার
+    url: https://www.agrajatrapratidin.com/country/news/28239
+    publisher: Agrajatra Pratidin
+    date: 2026-10-30
+    language: bn
 open_questions:
   - Only the Daily Karatoa says a case was filed; the other accounts describe the handover to Boalia police without giving details of the case or next legal steps.
   - No charge, case number or court date was published.
@@ -62,18 +72,20 @@ open_questions:
   - The page photo shows packages and a blurred person in front of SRB banners and looks like the same agency handout already linked from Daily Karatoa, so it was not added again.
   - This Silkcity account does not mention a tip-off, two mobile phones, a health check or a case being filed, which other sources already cited on the report describe.
   - The page photo has no caption and matches the SRB handout already linked from Daily Karatoa, so it was not added again.
+  - This account names the unit only as the Special Response Battalion (SRB), not SRB-5.
+  - The handover is described as to the relevant police station, not named as Boalia police station.
 ---
 
 Police arrested a man at a parcel service office in Rajshahi's Boalia thana area
 on Thursday night. [@3,5] The arrest took place around 8:30 pm on 29 October 2026.
-[@2,5] The arrested man was Prevel Islam, 28, son of Nazmul Haque of Rasunchak
+[@2,5,6] The arrested man was Prevel Islam, 28, son of Nazmul Haque of Rasunchak
 village in Shibganj upazila, Chapainawabganj district. [@3,5]
 
 SRB-5 said it seized 28 kg of cannabis from his possession. [@3,4,5] The unit said
-its team had acted on a tip-off before the raid. [@1,4]
+its team had acted on a tip-off before the raid. [@1,4,6]
 
 The sender and origin of the parcel were not disclosed. [@2]
 
-The tip said a dealer was waiting at SR Parcel Services Limited, under Boalia Model Thana, to collect illegal drugs, and an SRB team arrested Md. Prevel Islam there. [@4] Officers seized two mobile phones with the 28 kg of cannabis, in the presence of neutral witnesses. [@4] After a preliminary health check, he was handed to the relevant police station with the recovered evidence and a case was filed. [@4] Last News BD names the arresting unit as CPSC, SRB-5, Rajshahi, and the arrested man as Md. Prevel Islam, 28, son of Nazmul Haque of Rasunchak in Shibganj thana, Chapainawabganj. [@4]
+The tip said a dealer was waiting at SR Parcel Services Limited, under Boalia Model Thana, to collect illegal drugs, and an SRB team arrested Md. Prevel Islam there. [@4,6] Officers seized two mobile phones with the 28 kg of cannabis, in the presence of neutral witnesses. [@4,6] After a preliminary health check, he was handed to the relevant police station with the recovered evidence and a case was filed. [@4,6] Last News BD names the arresting unit as CPSC, SRB-5, Rajshahi, and the arrested man as Md. Prevel Islam, 28, son of Nazmul Haque of Rasunchak in Shibganj thana, Chapainawabganj. [@4]
 
 SRB-5 announced the arrest in a press release on Friday morning. [@5] SRB-5 said Prevel was later handed to Boalia police station with the cannabis. [@5]
