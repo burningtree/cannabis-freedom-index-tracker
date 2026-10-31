@@ -41,6 +41,11 @@ sources:
     publisher: Metro Vaartha
     date: 2026-10-30
     language: ml
+  - title: കുളുവിൽ ടൂറിസ്റ്റ് ഗൈഡായി ഒളിവിൽക്കഴിഞ്ഞ മയക്കുമരുന്ന് കേസ് പ്രതി പിടിയിൽ
+    url: https://pathanamthittamedia.com/news-about-mdma-drug-case-accused-arrested-himachal-pradesh/
+    publisher: Pathanamthitta Media
+    date: 2026-10-30
+    language: ml
 open_questions:
   - Neither account gives the calendar date of the Kullu arrest; 30 October 2026 is the publication date of both.
   - Asianet News alone reported two LSD stamps, the date 27 June 2024, the unnamed resort, the tourist disguise, the junior officers and seizure of the car. The Hindu described the MDMA and ganja as suspected and did not mention LSD.
@@ -59,11 +64,12 @@ open_questions:
   - The page's only image is an uncaptioned close-up of handcuffs that does not show the arrest, so no media entry is given.
   - The page does not name the resort in Kullu where the accused was staying.
   - 'Left out, as its quotation was not found in Metro Vaartha: With Sudarshan were deputy superintendent Baiju Paulose, circle inspector B.K. Arun, sub-inspectors Arun Raj and Rony Augustine, assistant sub-inspector M.V. Binu and civil police officer Sajaz.'
+  - This account describes Ragesh as hiding for years and gives no count of LSD stamps, while the report records two years on the run and two LSD stamps; the report keeps its earlier, more specific details.
 ---
 
 Nedumbassery police arrested Ragesh, also known as Jumanchi, the main accused in
 a drug case, a 32-year-old from Painkulam in Thalappilly, Thrissur, from Kullu
-in Himachal Pradesh. [@1,5] He had been absconding for two years. [@2,3,5] He had
+in Himachal Pradesh. [@1,5,6] He had been absconding for two years. [@2,3,5] He had
 allegedly provided financial assistance to buy the narcotics, fled to Kullu on
 learning of the earlier arrests, and had been working as a tourist guide there.
 [@2] Police said he had been staying at a resort 20 kilometres above the base
@@ -71,9 +77,9 @@ camp in Kullu. [@1,5]
 
 On 27 June 2024, police seized 316 grams of MDMA, two LSD stamps and 420 grams
 of cannabis from a car at Athani that was carrying the drugs from Bengaluru.
-[@1,5] Police described the MDMA and the ganja from that car seizure as suspected.
+[@1,5,6] Police described the MDMA and the ganja from that car seizure as suspected.
 [@2] Azad, 38, of Chalakkal, Aluva, and Harikrishnan, 28, of Tirurangadi,
-Malappuram, had been arrested earlier. [@1,5] The car was taken into custody. [@1,3,5]
+Malappuram, had been arrested earlier. [@1,5,6] The car was taken into custody. [@1,3,5,6]
 
 An investigation team led by Ernakulam Rural district police chief K.S.
 Sudarshan tracked him down. [@2] The team stayed for several days disguised as
