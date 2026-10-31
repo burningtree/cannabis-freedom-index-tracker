@@ -1,0 +1,58 @@
+---
+date: 2026-10-30
+country: tr
+place: Konak, İzmir
+coordinates: [38.4189, 27.1287]
+precision: district
+type: seizure
+also: [raid, arrest]
+title: Two detained as İzmir police find 1 kg 855 g of skunk in Konak
+summary: >-
+  Police searched an address in Konak, İzmir, on 30 October 2026 and found 1 kg 855 g of skunk and 4 g of cocaine. Two suspects were detained in the operation, which the İzmir chief public prosecutor's office coordinated.
+figures:
+  arrested: 2
+  kg_seized: 1.855
+media:
+  - kind: photo
+    url: https://www.hurriyet.com.tr/yerel-haberler/izmir/konak/izmirde-uyusturucu-operasyonu-2-gozalti-43361540
+    media_url: https://image.hurimg.com/i/hurriyet/90/750x422/6ae5ba57ca1b1c846c742cf9.jpg
+    publisher: Hürriyet
+    caption: 'Evidence bags of skunk and a packet labelled ''KOKAİN'' laid out beneath the sign of the İzmir police narcotics branch, in the photo published with the report. Photo: DHA'
+status: reported
+created_by_model: opencode-go/deepseek-v4.1-flash#max
+submission: 7f748aed5850d368b5b958c3b3a8dba0
+tags: [turkey, izmir, konak, skunk]
+sources:
+  - title: 'İzmir''de uyuşturucu operasyonu: 2 gözaltı'
+    url: https://www.hurriyet.com.tr/yerel-haberler/izmir/konak/izmirde-uyusturucu-operasyonu-2-gozalti-43361540
+    publisher: Hürriyet
+    date: 2026-10-31
+    language: tr
+  - title: 'İzmir''de uyuşturucu operasyonu: 2 gözaltı'
+    url: https://www.dha.com.tr/yerel-haberler/izmir/konak/izmirde-uyusturucu-operasyonu-2-gozalti-2972886
+    publisher: DHA (Demirören Haber Ajansı)
+    date: 2026-10-31
+    language: tr
+open_questions:
+  - The reports say only that the raid took place 'yesterday' (dün) relative to their 31 October 2026 publication, and give no time of day or street.
+  - No charge, court date or outcome was reported for the two suspects, who were not named.
+  - No estimated street value was published for the 1 kg 855 g of skunk or the 4 g of cocaine.
+  - Hürriyet's local-news page carries the DHA byline and the same wording as the agency's own report, so the two accounts are not independent.
+  - The photograph published with the report shows the seized drugs beneath the İzmir narcotics branch sign, but not the address or the suspects.
+---
+
+Police in İzmir searched an address in Konak, one of the city's central
+districts, on 30 October 2026. [@1] Two suspects were detained and held in
+gözaltı, the police custody in which a person is kept for questioning while
+prosecutors decide whether to bring charges or release them. [@2] The searches
+turned up 1 kg 855 g of skunk, a high-potency herbal cannabis preparation that
+Turkish police and newspapers call skunk, and 4 g of cocaine. [@1]
+
+The operation was carried out by teams from the narcotics crimes branch of the
+İzmir provincial police directorate, the Narkotik Suçlarla Mücadele Şube
+Müdürlüğü, the unit that investigates drug supply across the province. [@2] The
+İzmir chief public prosecutor's office, the Cumhuriyet Başsavcılığı, which
+oversees criminal investigations in the province, coordinated the work,
+described by the police as aimed at preventing the trafficking of narcotics.
+[@1] Officers had identified the address in Konak before the raid. [@2]
+
