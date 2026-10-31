@@ -53,6 +53,11 @@ sources:
     publisher: Tribuna Online
     date: 2026-10-30
     language: pt
+  - title: VÍDEO – PM apreende mais de 700 quilos de maconha em apartamento; três pessoas são detidas
+    url: https://nortenoticia.com.br/video-pm-apreende-mais-de-700-quilos-de-maconha-em-apartamento-tres-pessoas-sao-detidas/
+    publisher: Norte Notícia
+    date: 2026-10-30
+    language: pt
 open_questions:
   - Folha Vitória, published on the night of the raid, reported that two men were detained, while G1 and ES Hoje, citing the Military Police, named three people, including Cleidileia Firmino; this report uses the three-person account.
   - No charge or court outcome for the three has been reported.
@@ -61,6 +66,8 @@ open_questions:
   - Citing TV Tribuna/Band, Tribuna Online said the seizure followed complaints, while Folha Vitória said it began with information received by the 17th Independent Company's intelligence service.
   - Tribuna Online did not name the Terceiro Comando Puro or the Primeiro Comando de Vitória; it quoted the Military Police as saying the three were not tied to a specific faction but stored the drugs and distributed them to neighbourhoods where factions operate.
   - The page's photos of the cannabis and of the three detainees appear to be the same police images already linked from Folha Vitória and ES Hoje, so they were not added again.
+  - Norte Notícia's initial estimate of more than 700 kg was published while the count was still under way; later reports used 1,340 kg, which the existing record already uses.
+  - The image on the Norte Notícia page is a funeral-home sponsor graphic, not a photograph of the seizure.
 ---
 
 Military police arrested three people and found more than 1.3 tonnes of cannabis
@@ -88,3 +95,5 @@ another state to be sold in Espírito Santo; the three did not say where it came
 from. [@2]
 
 The three were arrested in the act. [@4]
+
+Norte Notícia, reporting while officers were still counting, put the initial estimate at more than 700 kg of cannabis. [@5] That outlet said the total could still be updated once the count was finished. [@5]
