@@ -51,6 +51,11 @@ sources:
     publisher: Інформатор Кривий Ріг
     date: 2026-10-30
     language: uk
+  - title: В Кривом Роге у мужчины изъяли 118 растений конопли
+    url: https://1kr.ua/news-114682.html
+    publisher: Первый Криворожский
+    date: 2026-10-30
+    language: ru
 open_questions:
   - No weight was given for the 118 dried plants, the bags or the box of plant remains, so the report records only the plant count.
   - No suspicion notice, detention or court step was reported; the regional police said a pre-trial investigation was continuing, and the submitted headline's statement that police detained the man is not repeated in its own text or in the police-based accounts.
@@ -58,11 +63,11 @@ open_questions:
 ---
 
 Police found 118 dried cannabis plants, bags and a box of plant remains at the
-home of a 35-year-old man in Kryvyi Rih. [@3] The plants were in the yard and
+home of a 35-year-old man in Kryvyi Rih. [@3,5] The plants were in the yard and
 inside the house. [@1] Detectives and officers from police station No. 5 of the
 Kryvyi Rih district police department searched the property on 27 October 2026
 under a ruling by an investigating judge. [@3] The search was carried out within
-criminal proceedings opened under article 310 of the Criminal Code. [@3]
+criminal proceedings opened under article 310 of the Criminal Code. [@2,3]
 
 Everything found was seized and sent for expert examination to establish its
 composition and the quantity of narcotics. [@4] Investigators entered the case
@@ -72,5 +77,6 @@ fine or up to three years in prison. [@1]
 
 The Dnipropetrovsk regional police said its officers had uncovered the man's
 illegal storage of cannabis and cannabis products. [@2] The regional police said
-the pre-trial investigation was continuing. [@2]
+the pre-trial investigation was continuing. [@2,5]
 
+The fine under the article ranges from 34,000 to 85,000 hryvnia. [@5]
