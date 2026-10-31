@@ -39,35 +39,40 @@ sources:
     publisher: Radio-Acton
     date: 2026-10-30
     language: fr
+  - title: Importantes perquisitions en Mauricie et au Centre-du-Québec
+    url: https://ici.radio-canada.ca/nouvelle/2296938/saisi-cannabis-surete-police-haschisch
+    publisher: Radio-Canada
+    date: 2026-10-29
+    language: fr
 open_questions:
   - 'No charges had been laid: the three men were interviewed and released, and police said only that they could eventually face cannabis-smuggling charges.'
   - The Sûreté du Québec gave no market value for the seized drugs and did not say how the quantities were divided among the three municipalities.
   - 'No combined weight was given: police reported about 1,950 kg of dried cannabis buds and nearly 6 kg of hashish separately.'
   - Radio-Acton, published on 30 October, says the searches took place "yesterday", which would put them on 29 October; the report uses 28 October, the Wednesday date given by Vingt55 and implied by L'Express's 29 October publication.
   - Radio-Acton reported about 500 methamphetamine tablets where L'Express and Vingt55 reported about 480; the report uses 480.
+  - Radio-Canada names the Sûreté du Québec's smuggling investigations service and MRC d'Acton police as carrying out the searches, while the report, following Radio-Acton, also lists the Escouade régionale mixte, Trois-Rivières police and transport-ministry road controllers.
 ---
 
 Quebec's provincial police, the Sûreté du Québec, carried out searches in
 Saint-Théodore-d'Acton, Drummondville and Trois-Rivières on Wednesday 28 October
-2026. [@2] They searched five homes and farm fields and three vehicles. [@2]
+2026. [@2,4] They searched five homes and farm fields and three vehicles. [@2,4]
 Three men — one aged 31 and two aged 46 — were arrested, interviewed and
-released. [@1] Police said they could eventually face cannabis-smuggling
-charges. [@2]
+released. [@1,4] Police said they could eventually face cannabis-smuggling
+charges. [@2,4]
 
 Officers seized more than 600 cannabis plants, about 1,950 kg of dried cannabis
 buds and nearly 6 kg of hashish. [@1] They also found about 480 methamphetamine
 tablets and seized four vehicles as offence-related property. [@2] About 60
-police officers took part in the operation. [@1] The warrants were executed by
+police officers took part in the operation. [@1,4] The warrants were executed by
 MRC d'Acton officers, the Escouade régionale mixte (ERM, a joint regional
 squad), Trois-Rivières police and road controllers from the transport ministry
 (MTMD). [@3]
 
 The searches followed an investigation opened in summer 2026 into a criminal
 organisation of producers said to work under the cover of several Health Canada
-medical cannabis production certificates. [@1] The operation was run under
+medical cannabis production certificates. [@1,4] The operation was run under
 ACCES-Cannabis (Actions concertées pour contrer les économies souterraines), a
 provincial programme set up in 2018 to fight cannabis smuggling at every stage
 of the supply chain, from illegal production to neighbourhood dealing. [@1] The
 Sûreté du Québec gave no market value for the drugs and did not say how the
 quantities were divided among the three municipalities. [@2]
-
