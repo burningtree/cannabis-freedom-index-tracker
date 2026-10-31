@@ -52,23 +52,34 @@ sources:
     publisher: Medya Gazete
     date: 2026-10-30
     language: tr
+  - title: Malatya'da sokak satıcılarına yönelik baskında 2 kilo 50 gram esrar ve ruhsatsız tüfek bulundu
+    url: https://www.aksiyon.com.tr/malatya-da-sokak-saticilarina-yonelik-baskinda-2-kilo-50-gram-esrar-ve-ruhsatsiz-tufek-bulundu-385109
+    publisher: Aksiyon
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the searches; 30 October 2026 is the date the first accounts were published, so the operation happened on or before that evening.
   - No suspect name, age, district or neighbourhood within Malatya, charge, court date or estimated value for the drugs was published.
   - The three accounts appear to restate the same provincial police statement, so they are not independent corroboration of its details.
   - The reports do not say whether the rifle was found on the man or at his address.
   - The page's only picture repeats the headline as its caption and carries no credit, so it could not be confirmed to show this seizure; no photo or video of the operation could be verified.
+media:
+  - kind: photo
+    url: https://www.aksiyon.com.tr/malatya-da-sokak-saticilarina-yonelik-baskinda-2-kilo-50-gram-esrar-ve-ruhsatsiz-tufek-bulundu-385109
+    media_url: https://cdn.aksiyon.com.tr/uploads/1280x720/images/202610/malatya-da-sokak-saticilarina-yonelik-baskinda-2-kilo-50-gram-esrar-ve-ruhsatsiz-tufek-bulundu-1200-413958.jpg
+    publisher: Aksiyon
+    caption: Cannabis and an unlicensed rifle displayed on a table with an ESRAR evidence placard and the Malatya police emblem. No photo credit given.
 ---
 
 Police in Malatya detained a suspected street-level cannabis dealer after
 searching his person and his address. [@1,5,6,7] The searches turned up 2 kg 50 g of
-esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7] The suspect
+esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8] The suspect
 was taken into custody and his processing at the police station was continuing.
-[@2,5]
+[@2,5,8]
 
 The Malatya provincial police directorate said in a statement that its Narkotik
 Suçlarla Mücadele Şube Müdürlüğü — the narcotics branch — had searched the man
-after physical and technical surveillance of street sellers. [@2,4,5,6] The statement
+after physical and technical surveillance of street sellers. [@2,4,5,6,8] The statement
 put the seizure at 2 kg 50 g of cannabis and one unlicensed rifle. [@2,4] Malatya
 Haber, a local news site, reported that police had confiscated the cannabis and
 the rifle. [@3]
