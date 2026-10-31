@@ -30,6 +30,11 @@ sources:
     publisher: detikSumut
     date: 2026-10-28
     language: id
+  - title: Aparat Gabungan Bongkar Ladang Ganja 18 Hektare di Aceh Utara, Empat Orang Ditangkap
+    url: https://news.okezone.com/read/2026/10/30/340/3251031/aparat-gabungan-bongkar-ladang-ganja-18-hektare-di-aceh-utara-empat-orang-ditangkap
+    publisher: Okezone.com
+    date: 2026-10-30
+    language: id
 media:
   - kind: photo
     url: https://www.antaranews.com/berita/5816651/bnnp-aceh-dan-tim-gabungan-ungkap-temuan-ladang-ganja-18-hektare
@@ -41,12 +46,19 @@ media:
     media_url: https://awsimages.detik.net.id/api/wm/2026/10/28/ladang-ganja-1793163410514_169.jpeg?wid=54&w=1200&v=1&t=jpeg
     publisher: detikSumut (dok. BNNP Aceh)
     caption: BNNP Aceh handout of the Teupin Reusep plantation, October 2026.
+  - kind: photo
+    url: https://news.okezone.com/read/2026/10/30/340/3251031/aparat-gabungan-bongkar-ladang-ganja-18-hektare-di-aceh-utara-empat-orang-ditangkap
+    media_url: https://img.okezone.com/content/2026/10/30/340/3251031/aparat_gabungan_bongkar_ladang_ganja-QZrs_large.jpg
+    publisher: Okezone.com
+    caption: 'Officers at a red banner at the eradication site in North Aceh, in Okezone''s lead image, credited as a screenshot (tangkapan layar). Photo: Okezone.'
 open_questions:
   - ANTARA and Detik give plant counts only as height and spacing, not a total number of stalks destroyed.
   - Detik published on 28 October but describes destruction on Wednesday 28 in one line and Tuesday 27 in others; field work is dated to 27 October.
   - The November 2025 BNN raid on a smaller plot near Teupin Rusep is a separate event.
   - The map uses Teupin Reusep village; the fields were in Alue Garut and Cot Mancang hamlets at about 207 metres elevation.
   - Four suspects were transferred to Lhokseumawe police; full names were not published in these outlets.
+  - Okezone quotes Aceh police spokesman Joko Krisdiyanto saying the plants were uprooted and secured to be destroyed later, while the report says they were burned on site.
+  - Okezone's lead image is credited only as a screenshot (tangkapan layar), so the photographer is not named.
 ---
 
 On Tuesday 27 October 2026 Indonesia's Aceh provincial narcotics agency (BNNP Aceh), Aceh
@@ -60,3 +72,5 @@ Tabrani said four suspected growers were handed to Lhokseumawe police for furthe
 [@1,2]
 
 Both outlets published BNNP photographs of the eradication. [@1,2]
+
+The operation ran over two days, on 27 and 28 October 2026, and targeted two sites. [@3] The four detained men were identified by the initials MW, HM, SF and WD. [@3]
