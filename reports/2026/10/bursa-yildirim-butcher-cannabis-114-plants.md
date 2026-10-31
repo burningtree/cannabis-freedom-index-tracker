@@ -38,6 +38,11 @@ sources:
     publisher: Aksiyon
     date: 2026-10-31
     language: tr
+  - title: Bursa Yıldırım'da kasap bodrumundaki kenevir serasında 114 kök ele geçirildi
+    url: https://www.sondakika.com/3-sayfa/haber-bursa-yildirim-da-kasap-bodrumundaki-kenevir-seras-20383365/
+    publisher: Son Dakika
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The sources give no separate date for the operation, detention or court appearance; 31 October 2026 is the publication date of the earliest accounts.
   - No charge, trial date, sentence or estimated value of the cannabis was published; tutuklama is pre-trial detention, not a conviction.
@@ -67,23 +72,28 @@ media:
     media_url: https://images.afyonturkeligazetesi.com/habergaleri/2026/10/getfile-2026-10-31t144857655-6ae5d5ddcf2b2.jpg
     publisher: Afyon Türkeli Gazetesi
     caption: Cannabis plants under artificial lighting in the grow room; photo published with the İHA report on the raid, no individual credit given.
+  - kind: video
+    url: https://www.sondakika.com/3-sayfa/haber-bursa-yildirim-da-kasap-bodrumundaki-kenevir-seras-20383365/
+    media_url: https://izle.sondakika.com/2026/10/31/bursa-yildirim-da-kasap-dukkaninin-bodrumunda-2641-20383363_sd.mp4
+    publisher: Son Dakika
+    caption: The 31-second news video published with the SonDakika article, previewed by a still of the cannabis plants under grow lights in the grow room; the article credits İHA as its source. No separate video credit given.
 ---
 
 Police in Yıldırım, a district of Bursa, found a cannabis grow in the basement
 of a butcher's shop converted into a grow room with climate-control and lighting
-equipment. [@2,3,4] They detained a suspect identified only by the initials A.T.;
+equipment. [@2,3,4,5] They detained a suspect identified only by the initials A.T.;
 after questioning at the police station he was taken to court, where a judge
-ordered him held in pre-trial detention, known in Turkey as tutuklama. [@1,3] He
+ordered him held in pre-trial detention, known in Turkey as tutuklama. [@1,3,5] He
 was sent to prison after the court order. [@2,3,4]
 
 Officers seized 114 cannabis plants in pots, 1 kg 885 g of esrar (cannabis) in
 four transparent bags, another 105 g in two bags and 924 g of cannabis left to
 dry, along with the climate-control and lighting equipment, liquid fertilisers
-and chemicals. [@1,3,4] İhlas Haber Ajansı put the esrar total at 1 kg 990 g. [@2]
+and chemicals. [@1,3,4,5] İhlas Haber Ajansı put the esrar total at 1 kg 990 g. [@2,5]
 
 The operation followed about a month of physical surveillance, after which
 police said the basement had been converted into a cannabis greenhouse and
 cannabis grown there was prepared for sale at another address. [@1] It was run
 by Yıldırım district police teams working against drug manufacture and
-trafficking. [@2,3,4] Searches were carried out at several addresses under a
+trafficking. [@2,3,4,5] Searches were carried out at several addresses under a
 decision by judicial authorities. [@2,3,4]
