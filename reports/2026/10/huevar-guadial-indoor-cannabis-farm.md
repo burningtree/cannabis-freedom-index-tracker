@@ -39,6 +39,11 @@ sources:
     publisher: Teleprensa
     date: 2026-10-30
     language: es
+  - title: Desmantelada una plantación de marihuana en una nave en Huévar del Aljarafe
+    url: https://www.sevillaactualidad.com/provincia/600403-desmantelada-una-plantacion-de-marihuana-en-una-nave-en-huevar-del-aljarafe/
+    publisher: Sevilla Actualidad
+    date: 2026-10-30
+    language: es
 open_questions:
   - The reports date the operation only as “last Tuesday”; 27 October 2026 is taken from their 30 October publication date.
   - No figure for the number of plants seized, their weight or the value of the crop was published.
@@ -49,18 +54,19 @@ open_questions:
   - Guadial is described only as an urbanización; the reports do not say whether the nave stands in a residential or an industrial area.
   - 'Left out, as its quotation was not found in Aionsur: It said it hoped the residents of Guadial, and of Huévar more widely, would no longer have “narcodelincuentes”, drug traffickers, near their homes.'
   - Europa Press's headline calls the dismantled site a marijuana sales point, while its text describes an indoor plantation and gives no detail of retail sales.
+  - The only image on the Sevilla Actualidad page is captioned as a Guardia Civil arrest of an alleged romance scammer in Estepa, not this plantation.
 ---
 
 The Guardia Civil dismantled a marijuana plantation inside a building in the
-town of Huévar del Aljarafe, in Seville province. [@1,4,5] Officers detained the
-people described as responsible for the crop. [@1,4,5] The plantation was indoors,
+town of Huévar del Aljarafe, in Seville province. [@1,4,5,6] Officers detained the
+people described as responsible for the crop. [@1,4,5,6] The plantation was indoors,
 in a nave — an industrial unit or warehouse — in Guadial, an urbanización, or
 planned development, within the municipality. [@2] The operation took place on
 Tuesday 27 October 2026. [@2,4] The Guardia Civil officers travelled to the town
-from Pilas. [@3,4]
+from Pilas. [@3,4,6]
 
 The deputy mayor, Manuel Ruiz, and the councillor for Guadial, Isabel María
-Romero, attended the operation. [@1,4] Ruiz said such operations showed “la
+Romero, attended the operation. [@1,4,6] Ruiz said such operations showed “la
 importancia de contar con cuerpos y fuerzas de seguridad del Estado”, the
 importance of having state security forces. [@1] He said the officers had told
 him that “aunque Huévar no tenga cuartel, la Guardia Civil está pendiente del
@@ -68,4 +74,6 @@ pueblo y pendiente de la llamada de cualquier persona que lo necesite” — tha
 although Huévar has no barracks, the Guardia Civil keeps watch on the town and
 answers anyone who calls. [@1]
 
-The town hall publicly thanked the Guardia Civil for the operation. [@2,4,5]
+The town hall publicly thanked the Guardia Civil for the operation. [@2,4,5,6]
+
+The town hall said it hoped the operation would keep Guadial residents from again living alongside drug-trafficking activity. [@6]
