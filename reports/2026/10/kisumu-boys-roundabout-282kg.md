@@ -52,6 +52,10 @@ sources:
     url: https://peopledaily.digital/news/police-intercept-a-car-in-kisumu-seize-282kg-of-suspected-cannabis
     publisher: People Daily
     date: 2026-10-31
+  - title: Five Arrested as DCI Seizes 582kg of Suspected Cannabis in Kisumu, Kisii and Nairobi
+    url: https://uzalendonews.co.ke/five-arrested-as-dci-seizes-582kg-of-suspected-cannabis-in-kisumu-kisii-and-nairobi
+    publisher: Uzalendo News
+    date: 2026-10-31
 open_questions:
   - No charge, court date or outcome for the arrested woman was reported; the DCI said suspects in the operations remained in custody pending arraignment.
   - 'The accounts differ on how the car was stopped: The Daily Post and Capital FM say officers deflated a tyre, while the DCI statement quoted by The Eastleigh Voice says an officer fired a shot at the front left tyre, and the reports do not say whether these describe the same action.'
@@ -61,21 +65,22 @@ open_questions:
   - People Daily attributes the account to a National Police Service statement, while earlier reporting names the DCI; the accounts do not say whether these were separate statements or one joint police statement.
   - The same article reports a separate operation on 29 October 2026 in which two men suspected of robbery with violence were arrested in Kisumu, an unrelated event left out here.
   - People Daily's page carries only an illustrative police vehicle photo, a screengrab of the police statement and an unrelated image, so it adds no photograph of the interception.
+  - 'The Uzalendo News photographs are uncaptioned and carry no credit: one shows three unidentified people and the other shows rolls of bhang without saying which raid they came from, so neither is listed as a photograph of the Kisumu interception.'
 ---
 
 Police arrested 21-year-old Frida Night Odour after intercepting a car carrying
-suspected bhang in Kisumu. [@3] Detectives stopped the Toyota Axio at the Kisumu
-Boys Roundabout. [@3] The stop came during an intelligence-led operation on
+suspected bhang in Kisumu. [@3,5] Detectives stopped the Toyota Axio at the Kisumu
+Boys Roundabout. [@3,5] The stop came during an intelligence-led operation on
 Friday 30 October 2026. [@2,4] The driver ignored orders to stop and tried to
 flee, so officers deflated one of the tyres to bring the car to a halt. [@1,4] In
 the commotion the driver escaped, leaving the passenger behind. [@1,4]
 
 A search of the car found the suspected cannabis sativa packed in sacks,
 weighing 282.55 kg. [@1,4] The Directorate of Criminal Investigations (DCI) valued
-the cannabis at Sh8.65 million. [@3] Investigators had not established where the
+the cannabis at Sh8.65 million. [@3,5] Investigators had not established where the
 consignment was headed or the wider network behind it. [@2]
 
 In its statement, the DCI said the driver escaped during a scuffle and that the
 woman was arrested while fleeing. [@3] The woman and the bhang were taken into
-police custody, and detectives were still tracing the driver. [@1,4] She remained
-in custody pending arraignment. [@3]
+police custody, and detectives were still tracing the driver. [@1,2,4] She remained
+in custody pending arraignment. [@3,5]
