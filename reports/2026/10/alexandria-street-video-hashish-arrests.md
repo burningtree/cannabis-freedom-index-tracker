@@ -37,6 +37,11 @@ sources:
     publisher: بوابة مولانا
     date: 2026-10-30
     language: ar
+  - title: سقوط "ديلر" كشفه موظف وعامل توصيل يتعاطون الحشيش في الشارع بالإسكندرية
+    url: https://gate.ahram.org.eg/News/5975183.aspx
+    publisher: بوابة الأهرام
+    date: 2026-10-31
+    language: ar
 open_questions:
   - The reports give no date for the arrests; 30 October 2026, when both were published, is used as the incident date.
   - Neither report gives the weight of the hashish found with the employee or with the supplier.
@@ -45,22 +50,23 @@ open_questions:
   - 'Left out, as its quotation was not found in Cairo 24: Hashish was also found with the supplier, who admitted holding it for trafficking.'
   - The existing report's open question says the supplier's trafficking admission was not found in Cairo 24, but the Cairo 24 article contains that passage and this account repeats it.
   - The Mawlana page's lead image is an uncredited composite that mixes a still from the street video with other footage, so it is not listed as media.
+  - The Al-Ahram photograph shows the Interior Ministry headquarters, not the arrests or the hashish, so it was not added as media.
 ---
 
 The case began with a social-media post, backed by a video, in which the person
 who published it complained about two men, one of them riding a motorcycle,
-using drugs on a street in Alexandria. [@2,3] Egypt's Interior Ministry said its
+using drugs on a street in Alexandria. [@2,3,4] Egypt's Interior Ministry said its
 security services identified and arrested the pair and seized the motorcycle,
-which had valid licence plates. [@1,3] The two were a company employee and a
-delivery worker, both living in Alexandria Governorate. [@1,3]
+which had valid licence plates. [@1,3,4] The two were a company employee and a
+delivery worker, both living in Alexandria Governorate. [@1,3,4]
 
-Hashish was found with the employee. [@1,3] Questioned, the two admitted the
-offence and said they held the drugs to use them. [@1,3] The employee said he had
+Hashish was found with the employee. [@1,3,4] Questioned, the two admitted the
+offence and said they held the drugs to use them. [@1,3,4] The employee said he had
 obtained the hashish from an unemployed man with a criminal record living in the
-First Montazah police district, and police arrested that man. [@1,3]
+First Montazah police district, and police arrested that man. [@1,3,4]
 
 The ministry said no reports had been filed about the incident before the video
-spread online. [@1,3] The public prosecution has taken over the investigation.
-[@2,3]
+spread online. [@1,3,4] The public prosecution has taken over the investigation.
+[@2,3,4]
 
-The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3]
+The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4]
