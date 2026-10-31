@@ -62,6 +62,11 @@ sources:
     publisher: Diário Goianiense
     date: 2026-10-30
     language: pt
+  - title: PRF apreende “super maconha” avaliada em R$ 3,5 milhões em Morrinhos
+    url: https://onortedegoias.com.br/prf-apreende-super-maconha-avaliada-em-r-35-milhoes-em-morrinhos/
+    publisher: O Norte de Goiás
+    date: 2026-10-30
+    language: pt
 open_questions:
   - The reports give the weight as about 3.5 tonnes and publish no exact figure.
   - Neither report says who valued the load at R$3.5 million.
@@ -73,6 +78,7 @@ open_questions:
   - Diário Goianiense says the driver was arrested after giving contradictory accounts of the load’s origin and destination, while the existing report, citing Mais Goiás, says he could not explain the trip and stayed silent.
   - This article says the skunk was hidden under pallets; the existing report says the bales were hidden behind wooden pallets.
   - The page photo is not captioned as showing the seizure, only credited to the newsroom with PRF and PCDF information and to Glaucio Teixeira, so it is unclear whether it is the same handout already linked from other outlets.
+  - The O Norte de Goiás page is a truncated republication of the Mais Goiás article already cited, and its visible text does not independently state the weight, the arrest booking, or the date of the stop.
 ---
 
 The Federal Highway Police and the Civil Police of the Federal District seized
@@ -84,7 +90,7 @@ driver was arrested. [@2,3,4]
 The stop followed an exchange of information between the highway police and
 Civil Police officers in the Federal District. [@1,3,4] When approached, the driver
 could not explain where he had come from or where he was going, and stayed
-silent. [@1] After the pallets were unloaded, officers found the skunk in the
+silent. [@1,5] After the pallets were unloaded, officers found the skunk in the
 cargo compartment. [@2,3,4]
 
 He was taken to the Civil Police with the seized drug. [@2,3,4] At the Civil Police
