@@ -24,23 +24,38 @@ sources:
     url: https://www.thehitavada.com/Encyc/2026/10/28/ganja-plants-found-in-farm-owned-by-ca-caretaker-arrested-.html
     publisher: The Hitavada
     date: 2026-10-28
+  - title: Ganja Plants Found Growing on CA’s Farm in Nagpur; Caretaker Arrested, 9 Plants Seized
+    url: https://www.nagpurtoday.in/ganja-plants-found-growing-on-cas-farm-in-nagpur-caretaker-arrested-9-plants-seized/
+    publisher: Nagpur Today
+    date: 2026-10-31
+    language: en
 media:
   - kind: photo
     url: https://www.thehitavada.com/Encyc/2026/10/28/ganja-plants-found-in-farm-owned-by-ca-caretaker-arrested-.html
     publisher: The Hitavada
     caption: Uprooted ganja plants held up after the raid on the Gangaji Dareli farm
+  - kind: photo
+    url: https://www.nagpurtoday.in/ganja-plants-found-growing-on-cas-farm-in-nagpur-caretaker-arrested-9-plants-seized/
+    media_url: https://www.nagpurtoday.in/wp-content/uploads/2026/10/IMG-20261031-WA0001.webp
+    publisher: Nagpur Today
+    caption: 'Image published with the report that ganja plants were grown on a chartered accountant''s farm in Nagpur, the caretaker was arrested and nine plants were seized. Photo: Nagpur Today'
+open_questions:
+  - Nagpur Today spells the caretaker Bablu Budh Sahu; the existing report, from The Hitavada, uses Bablu Buddh Sahu.
+  - Nagpur Today gives no separate date for the raid; the recorded date remains 28 October 2026 from The Hitavada.
 ---
 
 Acting on a tip-off, the Anti-Narcotics Cell of Nagpur Rural Police's Local
 Crime Branch raided farmland in the Gangaji Dareli area under Kalmeshwar Police
 Station limits and found nine ganja plants growing on a farm owned by Nagpur
-chartered accountant Nitesh Sakhleja. [@1] The plants weighed 1.358 kg and were
+chartered accountant Nitesh Sakhleja. [@1,2] The plants weighed 1.358 kg and were
 valued at Rs 27,120; a chilam and a mobile phone were also seized, taking the
-total haul to Rs 40,210. [@1]
+total haul to Rs 40,210. [@1,2]
 
 Police arrested the farm's caretaker, 40-year-old Bablu Buddh Sahu, who had
 lived on the farm for two years, and registered a case under Sections 8(c) and
-20(a) of the NDPS Act. [@1] Officers are investigating why the plants were
+20(a) of the NDPS Act. [@1,2] Officers are investigating why the plants were
 grown there and whether the cultivation was linked to a ganja smuggling
-racket. [@1] The team was led by Local Crime Branch inspector Ankush Mane
-under Senior Superintendent of Police Dr Harsh A Poddar. [@1]
+racket. [@1,2] The team was led by Local Crime Branch inspector Ankush Mane
+under Senior Superintendent of Police Dr Harsh A Poddar. [@1,2]
+
+Additional Superintendent of Police Anil Mhaske also guided the operation, and Assistant Police Inspector Purushottam Mahekar was on the team. [@2]
