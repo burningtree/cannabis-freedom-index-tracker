@@ -15156,6 +15156,7 @@
   "name": "Abkhazia",
   "region": "Asia",
   "iso_numeric": null,
+  "flag": "🏳️",
   "recreational": "death",
   "medical": "none",
   "cfi": {
@@ -15232,6 +15233,7 @@
   "name": "Northern Cyprus",
   "region": "Europe",
   "iso_numeric": null,
+  "flag": "🏳️",
   "recreational": "illegal",
   "medical": "none",
   "cfi": {
@@ -15266,6 +15268,7 @@
   "name": "Somaliland",
   "region": "Africa",
   "iso_numeric": null,
+  "flag": "🏳️",
   "recreational": "illegal",
   "medical": "limited",
   "cfi": {
@@ -15372,6 +15375,7 @@
   "name": "Transnistria",
   "region": "Europe",
   "iso_numeric": null,
+  "flag": "🏳️",
   "recreational": "illegal",
   "medical": "none",
   "cfi": {

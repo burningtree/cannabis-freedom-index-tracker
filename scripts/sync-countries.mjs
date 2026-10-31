@@ -52,6 +52,7 @@ const rankOf = (id) => { const i = latest.findIndex(([x]) => x === id); return i
 
 const place = (id, d, extra = {}) => ({
   id, name: d.name, ...extra,
+  ...(d.flag ? { flag: d.flag } : {}),
   recreational: d.recreational, medical: d.medical,
   cfi: {
     ...(shown.get(id) ?? { score: null, tier: null, note: null }),

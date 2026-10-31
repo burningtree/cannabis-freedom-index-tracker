@@ -13,8 +13,11 @@ export const countryName = (id) => {
 };
 // the CFI profile of a country or state
 export const cfiUrl = (id) => `${CFI}/country/${id}/`;
-// a flag emoji from the two-letter id (a state gets its country's flag)
+// Use the CFI's explicit flags for territories; states inherit their country's flag.
 export const flagOf = (id) => {
-  const cc = id.split("/")[0].toUpperCase();
+  const country = id.toLowerCase().split("/")[0];
+  const flag = byId.get(id.toLowerCase())?.flag ?? byId.get(country)?.flag;
+  if (flag) return flag;
+  const cc = country.toUpperCase();
   return /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map((ch) => 0x1f1a5 + ch.charCodeAt(0))) : "";
 };

@@ -9,6 +9,14 @@ const groups = [
   { title: null, list: list.filter((c) => !c.parent) },
   { title: "States and provinces", list: list.filter((c) => c.parent) },
 ];
+const columns = [
+  { label: "Country", numeric: false },
+  { label: "Region", numeric: false },
+  { label: "Reports", numeric: true },
+  { label: "Arrested", numeric: true },
+  { label: "Plants", numeric: true },
+  { label: "Hectares", numeric: true },
+];
 const fmt = (n) => (n ? n.toLocaleString("en-GB") : "–");
 ---
 <Base title="Countries and territories" description="Cannabis enforcement reports across all countries and territories covered by the Cannabis Freedom Index.">
@@ -17,21 +25,69 @@ const fmt = (n) => (n ? n.toLocaleString("en-GB") : "–");
   {groups.map((group) => <>
   {group.title && <h2>{group.title}</h2>}
   <div class="table-wrap">
-    <table class="table">
-      <thead><tr><th>Country</th><th>Region</th><th class="num">Reports</th><th class="num">Arrested</th><th class="num">Plants</th><th class="num">Hectares</th></tr></thead>
+    <table class="table countries-table" aria-label={group.title ?? "Countries and territories"}>
+      <thead><tr>{columns.map((column, index) => (
+        <th scope="col" class:list={{ num: column.numeric }} aria-sort={index === 0 ? "ascending" : undefined}>
+          <button type="button" class="country-sort" data-column={index} data-numeric={column.numeric} title={`Sort by ${column.label.toLowerCase()}`}>
+            {column.label}<span class="sort-arrow" aria-hidden="true"></span>
+          </button>
+        </th>
+      ))}</tr></thead>
       <tbody>
         {group.list.map((c) => (
           <tr>
-            <td><a href={`${base}country/${c.id}/`}>{flagOf(c.id)} {c.name}</a></td>
-            <td class="muted">{c.region}</td>
-            <td class="num">{c.count}</td>
-            <td class="num">{fmt(c.t.arrested)}</td>
-            <td class="num">{fmt(c.t.plants_destroyed)}</td>
-            <td class="num">{fmt(c.t.hectares)}</td>
+            <td data-sort-value={c.name}><a class="country-name" href={`${base}country/${c.id}/`}><span class="country-flag" aria-hidden="true">{flagOf(c.id)}</span>{c.name}</a></td>
+            <td class="muted" data-sort-value={c.region}>{c.region}</td>
+            <td class="num" data-sort-value={c.count}>{c.count}</td>
+            <td class="num" data-sort-value={c.t.arrested || ""}>{fmt(c.t.arrested)}</td>
+            <td class="num" data-sort-value={c.t.plants_destroyed || ""}>{fmt(c.t.plants_destroyed)}</td>
+            <td class="num" data-sort-value={c.t.hectares || ""}>{fmt(c.t.hectares)}</td>
           </tr>
         ))}
       </tbody>
     </table>
   </div>
   </>)}
+  <script>
+    const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
+    document.querySelectorAll<HTMLTableElement>(".countries-table").forEach((table) => {
+      const body = table.tBodies[0];
+      const headers = [...table.querySelectorAll<HTMLTableCellElement>("th")];
+      table.querySelectorAll<HTMLButtonElement>(".country-sort").forEach((button) => {
+        button.addEventListener("click", () => {
+          const column = Number(button.dataset.column);
+          const numeric = button.dataset.numeric === "true";
+          const header = headers[column];
+          const direction = header.getAttribute("aria-sort") === "ascending" ? "descending"
+            : header.getAttribute("aria-sort") === "descending" ? "ascending"
+            : numeric ? "descending" : "ascending";
+          const valueOf = (row: HTMLTableRowElement) => row.cells[column].dataset.sortValue ?? "";
+          const rows = [...body.rows].sort((a, b) => {
+            const av = valueOf(a), bv = valueOf(b);
+            // Missing figures stay below known values in either direction.
+            if (av === "" && bv !== "") return 1;
+            if (bv === "" && av !== "") return -1;
+            const order = numeric ? Number(av) - Number(bv) : collator.compare(av, bv);
+            return (direction === "ascending" ? order : -order)
+              || collator.compare(a.cells[0].dataset.sortValue!, b.cells[0].dataset.sortValue!);
+          });
+          headers.forEach((th) => th.removeAttribute("aria-sort"));
+          header.setAttribute("aria-sort", direction);
+          body.append(...rows);
+        });
+      });
+    });
+  </script>
 </Base>
+
+<style>
+  .country-name { display: flex; align-items: center; gap: 10px; }
+  .country-flag { flex: none; width: 26px; font-size: 20px; line-height: 1; text-align: center; }
+  .country-sort { width: 100%; padding: 4px 0; border: 0; background: none; color: inherit; font: inherit; text-transform: inherit; letter-spacing: inherit; text-align: inherit; white-space: nowrap; cursor: pointer; }
+  .country-sort:hover, th[aria-sort] { color: var(--text); }
+  .country-sort:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  .sort-arrow { display: inline-block; width: 1em; margin-left: 4px; }
+  .sort-arrow::after { content: "↕"; }
+  th[aria-sort="ascending"] .sort-arrow::after { content: "↑"; }
+  th[aria-sort="descending"] .sort-arrow::after { content: "↓"; }
+</style>
