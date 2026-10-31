@@ -39,6 +39,11 @@ sources:
     publisher: İhlas Haber Ajansı
     date: 2026-10-30
     language: tr
+  - title: 'Alanya''da narkotik operasyonu: 2 şüpheli tutuklandı'
+    url: https://www.sabah.com.tr/yasam/alanyada-narkotik-operasyonu-2-supheli-tutuklandi-7691660
+    publisher: Sabah
+    date: 2026-10-30
+    language: tr
 open_questions:
   - Neither account gives a separate date for the searches or the court appearance; 30 October 2026 is the publication date of both reports.
   - The sources count 25 pots of cannabis plants rather than individual plants, so the number of plants may be higher.
@@ -50,19 +55,21 @@ open_questions:
 ---
 
 Police detained five people in two searches in Alanya, a district of Antalya
-province, and a court ordered two of them held in pre-trial detention. [@1] The
+province, and a court ordered two of them held in pre-trial detention. [@1,4] The
 first search targeted a hotel staff residence — a lojman, housing provided by an
 employer — in the Saray neighbourhood, where officers found 46 grams of esrar,
-the cannabis preparation known in Turkey. [@1,3] They detained M.A. (22), E.Y.
-(26), M.K.Y. (33) and S.S. (24) at that address. [@1,3]
+the cannabis preparation known in Turkey. [@1,3,4] They detained M.A. (22), E.Y.
+(26), M.K.Y. (33) and S.S. (24) at that address. [@1,3,4]
 
 A second search, at a house in the Kızlarpınarı neighbourhood, found 25 cannabis
-plants growing in pots. [@1,3] Officers detained O.Ö. (45), who was in the house.
-[@1,3] Police described the house as one the suspect had turned into a cannabis
+plants growing in pots. [@1,3,4] Officers detained O.Ö. (45), who was in the house.
+[@1,3,4] Police described the house as one the suspect had turned into a cannabis
 garden. [@2] All five were questioned at the police station and taken to the
 courthouse, where they were processed on allegations of drug trafficking and
-drug use. [@1,3]
+drug use. [@1,3,4]
 
 The court released E.Y., M.K.Y. and S.S. under judicial control, a measure that
-leaves a suspect free while the case proceeds. [@1,3] M.A. and O.Ö. were ordered
-held in pre-trial detention and sent to Alanya's L-type closed prison. [@1,3]
+leaves a suspect free while the case proceeds. [@1,3,4] M.A. and O.Ö. were ordered
+held in pre-trial detention and sent to Alanya's L-type closed prison. [@1,3,4]
+
+The Alanya public prosecutor's office coordinated the two searches, which were carried out by the narcotics unit of the Alanya district police directorate. [@4]
