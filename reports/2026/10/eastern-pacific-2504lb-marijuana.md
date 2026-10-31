@@ -26,6 +26,11 @@ sources:
     url: https://www.theepochtimes.com/us/3600-pounds-of-cocaine-2500-pounds-of-marijuana-seized-in-maritime-interdictions-6111002
     publisher: The Epoch Times
     date: 2026-10-30
+  - title: 美国参与海上拦截 查获超过六千磅毒品
+    url: https://www.epochtimes.com/gb/26/10/30/n14880216.htm
+    publisher: 大纪元
+    date: 2026-10-31
+    language: zh
 open_questions:
   - 29 October 2026 is the date of the JIATFS post, not a confirmed date for the interception itself.
   - The partner nation and the boat’s position were not named, so the seizure is filed under the United States because JIATFS is a US task force; the coordinates only mark the Eastern Pacific region, not a located intercept.
@@ -36,20 +41,19 @@ open_questions:
 ---
 
 Three people were detained after a go-fast boat carrying marijuana was
-intercepted in the Eastern Pacific. [@2] The Joint Interagency Task Force South
+intercepted in the Eastern Pacific. [@2,3] The Joint Interagency Task Force South
 (JIATFS), a US task force, said it helped authorities from a partner nation
-detect, monitor and support the interception. [@2] JIATFS announced the result
-on 29 October 2026. [@1] It said the seizure was 2,504 pounds of marijuana,
-about 1,136 kilograms. [@1]
+detect, monitor and support the interception. [@2,3] JIATFS announced the result
+on 29 October 2026. [@1,3] It said the seizure was 2,504 pounds of marijuana,
+about 1,136 kilograms. [@1,3]
 
 It described itself as an alliance of 20 international partners and 13 domestic
-partners. [@1] In this case its published role was detection, monitoring and
+partners. [@1,3] In this case its published role was detection, monitoring and
 support alongside the unnamed partner. [@1]
 
 The marijuana interception was one of two separate Eastern Pacific actions
-reported together. [@2] The other, announced on 28 October, was a Costa Rica
+reported together. [@2,3] The other, announced on 28 October, was a Costa Rica
 Coast Guard recovery of about 70 floating packages, about 3,675 pounds of
 cocaine, near Costa Rica, with a US maritime patrol aircraft and JIATFS helping
-to locate the cargo. [@2] The two seizures together were put at about 6,179
-pounds, about 2,803 kilograms, of narcotics. [@1]
-
+to locate the cargo. [@2,3] The two seizures together were put at about 6,179
+pounds, about 2,803 kilograms, of narcotics. [@1,3]
