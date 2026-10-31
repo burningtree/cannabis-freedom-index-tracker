@@ -44,6 +44,11 @@ sources:
     url: https://timesofindia.indiatimes.com/city/hyderabad/hyderabad-eagle-force-urges-central-university-vice-chancellor-to-hold-parent-student-meet-after-24-identified-as-ganja-users/articleshow/135373131.cms
     publisher: The Times of India
     date: 2026-10-30
+  - title: గంజాయి అడ్డాలుగా ప్రముఖ యూనివర్సిటీలు.. దాడులలో సంచలన విషయాలు!
+    url: https://www.prime9news.com/telangana-news/drug-issues-in-universities
+    publisher: Prime9 News
+    date: 2026-10-31
+    language: te
 open_questions:
   - The two students questioned on 29 October were described as picked up or apprehended for enquiry, not arrested, and their legal status after screening is not reported.
   - The reports do not say whether the 24 students identified as alleged consumers face charges, and no court appearance or charge sheet was reported for Singh.
@@ -56,11 +61,13 @@ open_questions:
   - This account says the peddler was caught near the campus on Friday, 30 October, and gives his alias as Jang, while the report and The Hindu date his arrest to 29 October and give Jung.
   - The article does not say whether the case against the two students will go ahead or be closed once they attend the de-addiction programme.
   - The Times of India page's only image is an uncaptioned illustrative picture titled 'students drug use', so it was not added to the report's media.
+  - The page presents the 24 University of Hyderabad students as identified in the recent searches, while the report's other sources count them across this inquiry and an earlier case in August.
+  - The page's only picture is captioned with the headline alone and could not be confirmed to show this case, so it was not added as media.
 ---
 
 A security guard accused of supplying marijuana to University of Hyderabad
-students was arrested by the Telangana EAGLE Force. [@1] The force seized 150
-grams of ganja packed in 24 small sachets. [@1] The accused, Bikash Singh alias
+students was arrested by the Telangana EAGLE Force. [@1,6] The force seized 150
+grams of ganja packed in 24 small sachets. [@1,6] The accused, Bikash Singh alias
 Jung, 30, a Nepali native living in Gowlidoddi, Gachibowli, was apprehended on
 29 October after information through the EAGLE Force toll-free number. [@1] A
 mobile phone was also seized. [@3] EAGLE director Sandeep Shandilya said Singh
@@ -79,7 +86,7 @@ also reportedly named 23 people, including seven students, who he said had
 bought marijuana from him. [@1] The force said the disclosures were being
 verified. [@1] Across this inquiry and an earlier one in August, EAGLE Force
 said 24 University of Hyderabad students had been identified as alleged
-consumers. [@2,5] The force plans to write to the Vice-Chancellor seeking meetings
+consumers. [@2,5,6] The force plans to write to the Vice-Chancellor seeking meetings
 with parents to counsel them and arrange de-addiction treatment where needed.
 [@1,5]
 
