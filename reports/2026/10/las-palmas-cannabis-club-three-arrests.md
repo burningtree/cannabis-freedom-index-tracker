@@ -63,6 +63,11 @@ sources:
     publisher: La Provincia
     date: 2026-10-30
     language: es
+  - title: 'DESMANTELADO UN PUNTO DE VENTA DE DROGAS EN UNA ASOCIACIÓN CANNÁBICA DEL CENTRO DE LAS PALMAS DE GRAN CANARIA: TRES DETENIDOS, 1,5 KILOS DE MARIHUANA Y HACHÍS Y 5.600 EUROS'
+    url: https://www.grancanariatv.com/2026/10/desmantelado-un-punto-de-venta-de.html
+    publisher: Gran Canaria TV
+    date: 2026-10-30
+    language: es
 open_questions:
   - The reports do not say whether the three detainees were charged or what a court decided; they were handed over to the competent court.
   - The reports do not name the association, its street or the detainees, giving the location only as the centre of Las Palmas de Gran Canaria.
@@ -70,25 +75,27 @@ open_questions:
   - Canarias7's account sat partly behind a registration prompt, so only its opening summary of the operation could be read.
   - 'Left out, as its quotation was not found in Canarias7: In total, officers seized 1,563 grams, more than a kilo and a half.'
   - The submitted address is the AMP edition of the La Provincia article already cited; it should not be stored as a separate source unless the AMP URL itself needs to be recorded.
+  - The page photo has no caption or credit, so it was not listed as media.
+  - The headline rounds the seizure to 1.5 kilos; the body, like the existing report, gives 437 grams of marijuana and 1,126 grams of hashish.
 ---
 
 Three people were arrested when Spain's National Police and the Customs
 Surveillance Service (Servicio de Vigilancia Aduanera) dismantled a drug sales
 point operating under the appearance of a cannabis association in central Las
-Palmas de Gran Canaria. [@1,3,4,5] Officers carried out two searches in the city on 21
-October 2026. [@1,4,5] Police alleged that the premises were being used as a point
+Palmas de Gran Canaria. [@1,3,4,5,6] Officers carried out two searches in the city on 21
+October 2026. [@1,4,5,6] Police alleged that the premises were being used as a point
 of sale and distribution of drugs. [@1,3,4] The searches turned up 437 grams of
-marijuana and 1,126 grams of hashish, part of it already prepared for sale. [@1,3,4,5]
+marijuana and 1,126 grams of hashish, part of it already prepared for sale. [@1,3,4,5,6]
 In total, officers seized 1,563 grams, more than a kilo and a half. [@1] They
-also found more than €5,600 in cash. [@1,4,5]
+also found more than €5,600 in cash. [@1,4,5,6]
 
 At the investigators' request, the establishment was placed under judicial seal,
-ending the activity carried out inside. [@1,3,4] The three detainees were handed
-over to the competent court. [@1,3,4] The investigation, named Operación Quito,
+ending the activity carried out inside. [@1,3,4,6] The three detainees were handed
+over to the competent court. [@1,3,4,6] The investigation, named Operación Quito,
 began in the summer after the Customs Surveillance Service learned of possible
-sales of marijuana, hashish and other cannabis derivatives at the premises. [@1,4,5]
+sales of marijuana, hashish and other cannabis derivatives at the premises. [@1,4,5,6]
 Neighbours had complained about the constant stream of people arriving to buy
-drugs. [@2,3,4,5] The National Police said citizen cooperation is essential to
+drugs. [@2,3,4,5,6] The National Police said citizen cooperation is essential to
 detecting and fighting drug trafficking. [@1]
 
-Group III of the National Police's drugs and organised crime unit (UDYCO), part of the provincial judicial police brigade, and Customs Surveillance officers ran the joint inquiry, and investigators also examined the economic activity linked to the premises. [@3]
+Group III of the National Police's drugs and organised crime unit (UDYCO), part of the provincial judicial police brigade, and Customs Surveillance officers ran the joint inquiry, and investigators also examined the economic activity linked to the premises. [@3,6]
