@@ -46,28 +46,36 @@ sources:
     publisher: Kelo Pravah
     date: 2026-10-30
     language: hi
+  - title: 'Raigarh News: एक सप्ताह के भीतर खरसिया पुलिस की दूसरी बड़ी कार्रवाई, 90 हजार के गांजा के साथ आरोपी गिरफ्तार'
+    url: https://raigarhtopnews.com/second-major-action-by-kharsia-police-within-a-week/
+    publisher: Raigarh Top News
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The articles also report a separate raid on 28 October 2026 in Chote Devgaon, where Mohan Lal Gupta was arrested with 5.025 kg of ganja; that is a different event and is left out of this report.
   - Dainik Bhaskar described this arrest as the second raid in four days, while RIG24 and RNS India said it came within a week; the report follows the week wording.
   - The suspect's surname is spelt Patail in RIG24 and RNS India and Patel in Dainik Bhaskar.
   - No court date or outcome beyond the judicial remand was reported.
   - Coordinates are for Kharsia town; the reports do not give the exact location of Kunkuni village.
+  - The page's lead photograph carried only the headline as its caption and no credit, so it could not be confirmed to show this arrest and no media entry was added for it.
 ---
 
 Kharsia station house officer Sitaram Dhruv received a tip on 29 October 2026
 that Bhagirathi Patail was bringing ganja, or cannabis, into Kunkuni village to
-sell, and officers stopped him near Yogesh Chicken Centre. [@2,4] Patail, 42, of
-Saraipali in Kunkuni, admitted the bag contained ganja, police said. [@1] He
+sell, and officers stopped him near Yogesh Chicken Centre. [@2,4,5] Patail, 42, of
+Saraipali in Kunkuni, admitted the bag contained ganja, police said. [@1,5] He
 told officers he had brought it to the village to sell. [@3]
 
-A search of the bag found 1.805 kg of ganja, or 1 kg 805 grams. [@2,4] Police
-estimated the seized ganja's value at about 90,000 rupees. [@1,4] They arrested
+A search of the bag found 1.805 kg of ganja, or 1 kg 805 grams. [@2,4,5] Police
+estimated the seized ganja's value at about 90,000 rupees. [@1,4,5] They arrested
 Patail and registered a case against him under Section 20(B) of the NDPS Act.
-[@3,4] He was sent to judicial remand, or custody while the case continues. [@1,4]
+[@3,4,5] He was sent to judicial remand, or custody while the case continues. [@1,4,5]
 
 Kharsia is in Raigarh district, Chhattisgarh. [@3] The raid was part of
 Operation Aghaat, a police campaign against the illegal narcotics trade. [@2,4]
 Police described it as the second big cannabis raid in Kharsia within a week.
-[@1,4] Sub-divisional police officer Satish Bhargav supervised the operation,
+[@1,4,5] Sub-divisional police officer Satish Bhargav supervised the operation,
 police said. [@1,4] The investigation into the trafficking network was continuing,
 police said. [@1,4]
+
+Police also named ASI Umashankar Ghritant, head constables Mahendra Khare and Ramnath Banerjee and constables Satyanarayan Sidar and Anoop Minj as officers involved in the operation. [@5]
