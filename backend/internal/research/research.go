@@ -1210,8 +1210,12 @@ func PruneWorkspace(dir string) error {
 	return nil
 }
 
+// ValidateBuild writes the draft and the reports it updates into the disposable checkout and checks
+// each file as the site will read it (CheckReport): the front matter against the content schema's
+// rules and the text against the report tests. The site itself is not built: a report is valid on
+// its own, and the rest of the site (its tests, its dev server) has no say in it.
 func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
-	defer PruneBuild(dir) // the check is over either way: its dependencies and output go
+	defer PruneBuild(dir) // leftovers of an earlier build check, if any
 	d, err := PrepareDraft(dir, r)
 	if err != nil {
 		return d, err
@@ -1233,95 +1237,27 @@ func ValidateBuild(ctx context.Context, dir string, r Result) (Draft, error) {
 			return d, err
 		}
 	}
-	npm := func(args ...string) ([]byte, error) {
-		cmd := exec.CommandContext(ctx, "npm", args...)
-		cmd.Dir = dir
-		cmd.Env = []string{"PATH=" + os.Getenv("PATH"), "HOME=" + dir, "CI=true"}
-		out := &capped{Max: 2 * 1024 * 1024}
-		cmd.Stdout = out
-		cmd.Stderr = out
-		err := cmd.Run()
-		return out.Bytes(), err
+	var problems []string
+	for _, f := range append([]Draft{d}, d.Updates...) {
+		if err := CheckReport(dir, f.Path, f.Content); err != nil {
+			problems = append(problems, f.Path+": "+err.Error())
+		}
 	}
-	for _, args := range [][]string{{"ci", "--ignore-scripts", "--no-audit", "--no-fund"}, {"run", "build"}} {
-		out, err := npm(args...)
-		if err == nil {
-			continue
-		}
-		_ = os.WriteFile(filepath.Join(dir, "validation.log"), out, 0600)
-		failure := &BuildError{Step: "npm " + strings.Join(args, " "), Detail: BuildFailure(out, dir)}
-		// A draft is only to blame if the repository builds without it: build the untouched
-		// checkout again, so a broken repository is not reported as a bad draft.
-		if args[0] == "run" && ctx.Err() == nil {
-			restore := exec.CommandContext(ctx, "sh", "-c", "git checkout --quiet -- reports && git clean -fdq -- reports")
-			restore.Dir = dir
-			if restore.Run() == nil {
-				if _, err := npm(args...); err != nil && ctx.Err() == nil {
-					failure.Repository = true
-				}
-			}
-		}
-		return d, failure
+	if len(problems) > 0 {
+		detail := strings.Join(problems, "\n")
+		_ = os.WriteFile(filepath.Join(dir, "validation.log"), []byte(detail+"\n"), 0600)
+		return d, &BuildError{Step: "report check", Detail: detail}
 	}
 	return d, nil
 }
 
-// BuildError is a draft that failed the repository build; Detail is the failing lines of its log,
-// made safe to show publicly. Repository: the checkout fails the build without the draft too.
-type BuildError struct {
-	Step, Detail string
-	Repository   bool
-}
+// BuildError is a draft whose report files failed the report check; Detail says which fields and
+// citations, per file.
+type BuildError struct{ Step, Detail string }
 
 func (e *BuildError) Error() string {
 	if e.Detail == "" {
-		return "draft did not pass repository build (" + e.Step + ")"
+		return "draft did not pass the " + e.Step
 	}
-	return "draft did not pass repository build (" + e.Step + "):\n" + e.Detail
-}
-
-var (
-	ansiCodes   = regexp.MustCompile(`\x1b\[[0-9;?]*[A-Za-z]`)
-	hostPath    = regexp.MustCompile(`(^|[\s'"(])(?:file://)?(?:/[^\s/:'"()]+)+/`) // absolute paths only
-	failureHead = regexp.MustCompile(`^(?:\[\w*Error\]|not ok \d+|npm (?:ERR!|error)|\S*Error:|error(?:\s|:|\[)|✖|✗|×)`)
-	failureEnd  = regexp.MustCompile(`^(?:Hint:|Error reference:|Location:|Stack trace:|stack:|at |---|\.\.\.$)`)
-	failureSkip = regexp.MustCompile(`^(?:duration_ms|failureType|location|code|type):\s*['\d]`) // node test runner's own fields
-)
-
-// BuildFailure picks the error lines out of a build log (an Astro schema error, a failing test, an
-// npm error) without the workspace's paths, stack traces or the rest of the output.
-func BuildFailure(log []byte, dir string) string {
-	var lines []string
-	size, open := 0, false
-	for _, line := range strings.Split(string(log), "\n") {
-		line = ansiCodes.ReplaceAllString(strings.TrimRight(line, "\r "), "")
-		if dir != "" {
-			line = strings.ReplaceAll(line, dir+string(filepath.Separator), "")
-		}
-		line = hostPath.ReplaceAllString(line, "$1")
-		text := strings.TrimSpace(line)
-		switch {
-		case text == "":
-			continue
-		case failureHead.MatchString(text):
-			open = true
-		case !open || failureEnd.MatchString(text):
-			open = false
-			continue
-		case failureSkip.MatchString(text):
-			continue
-		case line == text: // a new unindented line ends the error
-			open = false
-			continue
-		}
-		if len(text) > 300 {
-			text = text[:300] + "…"
-		}
-		if size+len(text) > 1200 || len(lines) == 12 {
-			lines = append(lines, "…")
-			break
-		}
-		lines, size = append(lines, text), size+len(text)
-	}
-	return strings.Join(lines, "\n")
+	return "draft did not pass the " + e.Step + ":\n" + e.Detail
 }
