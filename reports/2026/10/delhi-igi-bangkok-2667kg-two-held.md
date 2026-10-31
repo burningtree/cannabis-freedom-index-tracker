@@ -46,6 +46,11 @@ sources:
     url: https://www.liveaaryaavart.com/2026/10/ganza-seized-delhi-airport.html
     publisher: Live Aaryaavart (लाईव आर्यावर्त)
     language: hi
+  - title: IGI Airport पर 9.33 करोड़ रुपये का Hydroponic Ganja जब्त, बैंकॉक से आए दो गिरफ्तार
+    url: https://www.prabhasakshi.com/amp/news/customs-seize-hydroponic-ganja-worth-rs-9-crore-at-delhi-igi-airport
+    publisher: Prabhasakshi
+    date: 2026-10-31
+    language: hi
 open_questions:
   - PTI reported that the two passengers arrived on two separate flights from Bangkok, while the Delhi Customs post names a single flight, AI2335; the report does not resolve the difference.
   - Customs gave no names, ages or other identifying details for the two passengers.
@@ -63,20 +68,20 @@ open_questions:
 
 Customs officials at Delhi's Indira Gandhi International Airport seized 26.67 kg
 of suspected hydroponic ganja from two Indian passengers arriving from Bangkok.
-[@1,4,5,6] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
+[@1,4,5,6,7] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
 Channel for X-ray screening after profiling. [@3] The two passengers were
 arrested on 28 October under Section 43(b) of the Narcotic Drugs and
-Psychotropic Substances Act, 1985. [@1,4,5,6] The substance was seized under Section
-43(a) of the same act. [@1,4,5,6]
+Psychotropic Substances Act, 1985. [@1,4,5,6,7] The substance was seized under Section
+43(a) of the same act. [@1,4,5,6,7]
 
 Officers found 26 polythene pouches of a green substance suspected to be
 marijuana or hydroponic weed. [@2] Customs valued the haul at about Rs 9.33
-crore. [@1,4,5,6] A diagnostic test indicated prima facie that the substance was
-marijuana or hydroponic weed. [@2,5,6]
+crore. [@1,4,5,6,7] A diagnostic test indicated prima facie that the substance was
+marijuana or hydroponic weed. [@2,5,6,7]
 
 Customs said cases were booked against the two under sections 8, 20, 23 and 29
 of the NDPS Act and that its investigation was in progress. [@3] Hydroponic
 ganja is a high-potency variety of cannabis grown in nutrient-rich water instead
-of soil. [@1,4,5,6]
+of soil. [@1,4,5,6,7]
 
-The pouches were packed 13 to each of two black trolley bags. [@5,6]
+The pouches were packed 13 to each of two black trolley bags. [@5,6,7]
