@@ -37,6 +37,9 @@ sources:
   - title: NATIONWIDE PNP OPERATIONS YIELD ₱30.8-MILLION WORTH OF SUSPECTED ILLEGAL DRUGS; SEVEN ARRESTED
     url: https://www.facebook.com/pnp.pio/posts/nationwide-pnp-operations-yield-308-million-worth-of-suspected-illegal-drugs-sev/1694734766031247/
     publisher: Philippine National Police
+  - title: Philippine Star - A 62-year-old American citizen was... | Facebook
+    url: https://www.facebook.com/PhilippineSTAR/posts/a-62-year-old-american-citizen-was-arrested-upon-arrival-at-ninoy-aquino-interna/1677492301081309/
+    publisher: Philippine Star
 open_questions:
   - Both opened sources are Daily Tribune reports of the same event; no independent statement from PDEA or another outlet could be opened.
   - The two Tribune reports give the weight as approximately 17.46 kg and 17,464 grams; the report uses 17.46 kg.
@@ -46,12 +49,16 @@ open_questions:
   - The PNP statement places the arrest between 8:45 p.m. and 10 p.m., while the report's PDEA account says it happened around 8:35 p.m.
   - The PNP post also reports four shabu operations in Bataan, Iloilo, Tondo and Pagadian, separate events left out of this report.
   - The Facebook post shows only a relative posting time ('13 hours ago'), so its exact publication date is not recorded.
+  - The Facebook post shows only a relative time (“11 hours ago”), so its publication date is not known.
+  - Philippine Star valued the kush at “over P17 million,” which is compatible with but less precise than the report’s PDEA figure of P17.46 million; the report keeps the PDEA figure.
+  - The attached image is captioned as possibly an image of text and is not identified as a photo of the seizure, so it was not added.
+  - No full Philippine Star article of this arrest could be opened; the Facebook post is the Star text used.
 ---
 
 A 62-year-old American citizen was arrested at Ninoy Aquino International
 Airport (NAIA) Terminal 3 after authorities intercepted about 17.46 kilograms of
 high-grade marijuana in his luggage, the Philippine Drug Enforcement Agency
-(PDEA) reported. [@1,3] The suspect, identified only by the alias “Henry,” had
+(PDEA) reported. [@1,3,4] The suspect, identified only by the alias “Henry,” had
 arrived from Bangkok, Thailand, and was intercepted at the airport's customs
 secondary inspection area on Thursday 29 October. [@2] The interception happened
 around 8:35 p.m. [@1]
@@ -72,3 +79,5 @@ Group, the National Bureau of Investigation, the Bureau of Immigration and the
 Office for Transportation Security. [@1] The suspect remains in custody and
 faces formal charges for violating Republic Act 9165, the Comprehensive
 Dangerous Drugs Act of 2002. [@1]
+
+The Philippine Star, citing Rudy Santos, said authorities valued the kush at over P17 million. [@4]
