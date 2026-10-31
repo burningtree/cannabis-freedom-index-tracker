@@ -11,7 +11,8 @@ summary: >-
   police caught him on a road in Manshiyat al-Qanatir with four large pieces of
   resin; the prosecution investigated and sent him for trial.
 figures:
-  sentenced: 1
+  charged: 1
+  prison: 5 years
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [giza, hashish, court]

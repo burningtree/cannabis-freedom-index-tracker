@@ -13,9 +13,10 @@ summary: >-
   2026; two men allegedly attacked officers with bush knives when the house was
   raided at 4 a.m.
 figures:
-  sentenced: 5
   arrested: 5
+  charged: 5
   kg_seized: 56.5
+  prison: 10 years
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [menyamya, morobe, lae-court]

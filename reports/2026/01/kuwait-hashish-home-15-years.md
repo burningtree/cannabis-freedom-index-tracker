@@ -11,7 +11,11 @@ summary: >-
   KD10,000 fine for cultivating, trafficking and using hashish after drug-control
   officers raided her home; a co-defendant was not sentenced for use alone.
 figures:
-  sentenced: 1
+  charged: 1
+  prison: 15 years
+  fine:
+    amount: 10000
+    currency: KWD
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [criminal-court, hashish, cultivation]

@@ -11,7 +11,8 @@ summary: >-
   manager and a Brazilian guest who had mixed hashish into a cake and served it
   to a Chinese friend; she fell ill in May and toxicology confirmed cannabis.
 figures:
-  sentenced: 2
+  charged: 2
+  prison: 1 year
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [cairo, hashish, court]

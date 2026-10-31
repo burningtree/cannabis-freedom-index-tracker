@@ -13,8 +13,12 @@ summary: >-
   about seven kilograms of marijuana in their luggage; a third woman was exempted
   after helping identify another suspect.
 figures:
-  sentenced: 2
+  charged: 2
   kg_seized: 7
+  prison: 15 years
+  fine:
+    amount: 10000
+    currency: BHD
 created_by_model: cursor/composer-2.5
 status: verified
 tags: [airport, hashish, court]
