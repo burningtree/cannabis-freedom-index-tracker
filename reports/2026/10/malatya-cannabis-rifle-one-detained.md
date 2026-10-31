@@ -67,12 +67,19 @@ sources:
     publisher: Malatya Güncel
     date: 2026-10-30
     language: tr
+  - title: Malatya’da sokak satıcılarına yönelik operasyonda esrar ele geçirildi
+    url: https://gazetepano.com/asayis/malatyada-uyusturucu-operasyonu-esrar-ve-tufek-ele-gecirildi/59542/
+    publisher: Gazete Pano
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the searches; 30 October 2026 is the date the first accounts were published, so the operation happened on or before that evening.
   - No suspect name, age, district or neighbourhood within Malatya, charge, court date or estimated value for the drugs was published.
   - The three accounts appear to restate the same provincial police statement, so they are not independent corroboration of its details.
   - The reports do not say whether the rifle was found on the man or at his address.
   - The page's only picture repeats the headline as its caption and carries no credit, so it could not be confirmed to show this seizure; no photo or video of the operation could be verified.
+  - Gazete Pano does not state a separate date for the searches; its publication date is 30 October 2026.
+  - The featured image is labelled only “malatya” and is not confirmed to show this seizure.
 media:
   - kind: photo
     url: https://www.aksiyon.com.tr/malatya-da-sokak-saticilarina-yonelik-baskinda-2-kilo-50-gram-esrar-ve-ruhsatsiz-tufek-bulundu-385109
@@ -82,10 +89,10 @@ media:
 ---
 
 Police in Malatya detained a suspected street-level cannabis dealer after
-searching his person and his address. [@1,5,6,7,9,10] The searches turned up 2 kg 50 g of
-esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9,10] The suspect
+searching his person and his address. [@1,5,6,7,9,10,11] The searches turned up 2 kg 50 g of
+esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9,10,11] The suspect
 was taken into custody and his processing at the police station was continuing.
-[@2,5,8]
+[@2,5,8,11]
 
 The Malatya provincial police directorate said in a statement that its Narkotik
 Suçlarla Mücadele Şube Müdürlüğü — the narcotics branch — had searched the man
