@@ -42,6 +42,11 @@ sources:
     publisher: Milliyet
     date: 2026-10-30
     language: tr
+  - title: 'Ceyhan’da uyuşturucu operasyonu: 8 kilo 562 gram esrar ele geçirildi'
+    url: https://www.adanapost.com/adana-gundem/ceyhanda-uyusturucu-operasyonu-8-kilo-562-gram-esrar-ele-gecirildi-224788h
+    publisher: Adana Post
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the raid or the court hearing; 29 October 2026 is the publication date of the earliest account, so both happened on or before that evening.
   - No charge, court date, names of the two suspects or estimated value of the cannabis was published.
@@ -50,16 +55,16 @@ open_questions:
 ---
 
 Police in Ceyhan, a district of Adana province, mounted an operation against
-drug trafficking at a specified address in the Çiftlikler neighbourhood. [@2,4] A
+drug trafficking at a specified address in the Çiftlikler neighbourhood. [@2,4,6] A
 police search of the address turned up 8 kg 562 g of cannabis, the drug known in
-Turkey as esrar, hidden in various places, together with a precision scale. [@1,4,5]
-Officers detained two suspects. [@1,4,5] After questioning at the police station the
+Turkey as esrar, hidden in various places, together with a precision scale. [@1,4,5,6]
+Officers detained two suspects. [@1,4,5,6] After questioning at the police station the
 pair were taken to the courthouse, where a magistrates' court ordered them held
 in pre-trial detention — tutuklama, the order that keeps a suspect in custody
-pending trial. [@1,4,5] Both were then sent to prison to await trial. [@3]
+pending trial. [@1,4,5,6] Both were then sent to prison to await trial. [@3,6]
 
 The operation was run by the narcotics bureau of the Ceyhan district police
-directorate, the Narkotik Suçlarla Mücadele Büro Amirliği. [@2] The cannabis was
+directorate, the Narkotik Suçlarla Mücadele Büro Amirliği. [@2,6] The cannabis was
 packed in three bidons (large plastic containers) holding 1,600 g, four black
 bin bags holding 6,800 g and seven packets holding 162 g, which together make up
-the 8 kg 562 g total. [@2] The investigation into the case was continuing. [@3]
+the 8 kg 562 g total. [@2,6] The investigation into the case was continuing. [@3]
