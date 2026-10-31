@@ -38,6 +38,11 @@ sources:
     publisher: Gobernantes.com
     date: 2026-10-30
     language: es
+  - title: 'Operativos coordinados: 33 detenidos y seis presuntas víctimas de privación ilegal de la libertad'
+    url: https://imagendelgolfo.mx/policiaca/operativos-coordinados-33-detenidos-y-seis-presuntas-victimas-de-privacion-ilegal-de-la-libertad-20261030-0078.html
+    publisher: Imagen del Golfo
+    date: 2026-10-30
+    language: es
 open_questions:
   - The bulletin dates the operations only as Wednesday and Thursday before a Friday 30 October 2026 dateline, so the report uses 29 October as the second day and 28 October as the first.
   - No weight was given for the bags, doses, cigarettes, package or plant of marijuana-like material outside the 4 kg Cotaxtla seizure.
@@ -48,6 +53,7 @@ open_questions:
   - This reprint does not date the operations as Wednesday and Thursday; only the separate Banderilla mobilization is placed on Friday afternoon 30 October 2026.
   - The page photo pairs the same SSP “acciones operativas” collage already linked from Foro Coatza with a street scene that matches the Banderilla mobilization, so no new media entry was added.
   - 'Left out, as its quotation was not found in Gobernantes.com: The people detained, and the seized items and vehicles, were turned over to the competent authorities.'
+  - The page’s lead photo is captioned only with the article headline and is not described as showing the marijuana, so it was not added; it may be the same SSP collage already linked from Foro Coatza.
 ---
 
 On Wednesday and Thursday, the Veracruz Public Security Secretariat, with the
@@ -57,21 +63,23 @@ of herb the authorities said had the characteristics of marijuana. [@1] In
 actions the secretariat linked to alleged crimes against health, officers seized
 31 small bags of that herb and 60 doses of a substance they compared to crystal
 methamphetamine, along with cash, mobile phones, a bicycle, two motorcycles and
-two cars that were not reported stolen. [@2,3]
+two cars that were not reported stolen. [@2,3,4]
 
 In Perote, men detained over alleged illegal possession of a firearm were also
 found with seven small bags of marijuana-like herb, a short firearm and live
-cartridges. [@1,3] In Cotaxtla, during operations at businesses that ship parcels,
+cartridges. [@1,3,4] In Cotaxtla, during operations at businesses that ship parcels,
 officers seized 4 kilograms of green herb with the characteristics of marijuana.
-[@2,3]
+[@2,3,4]
 
 In searches supporting the state prosecutor’s office in Tlapacoyan, Tepetzintla,
 Ixhuatlán de Madero, Álamo Temapache, Misantla, Cerro Azul, Yanga, Altotonga,
 Jalacingo, Huatusco, Perote, Tehuipango, Boca del Río, Tierra Blanca, Carlos A.
 Carrillo, Isla, Saltabarranca, San Andrés Tuxtla and Coatzacoalcos, officers
 seized two doses, 22 small bags, six bags, four cigarettes, one plant and one
-package of green herb they said resembled marijuana. [@1,3] Those same searches
+package of green herb they said resembled marijuana. [@1,3,4] Those same searches
 also produced crystal-like doses, weapons, ammunition, magazines, jewellery,
 cash, phones, radios, tactical equipment, vehicle plates and motorcycles. [@1]
 The people detained, and the seized items and vehicles, were turned over to the
-competent authorities. [@2]
+competent authorities. [@2,4]
+
+Imagen del Golfo dated the searches as 28 and 29 October 2026. [@4]
