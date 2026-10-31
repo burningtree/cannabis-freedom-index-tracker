@@ -41,6 +41,11 @@ sources:
     publisher: Kompas.com
     date: 2026-10-30
     language: id
+  - title: قرية بونكوس تتعرض لاعتداء آخر ، واعتقال 3 أشخاص مع أدلة على المخدرات والماريجوانا والسجيم
+    url: https://voi.id/ar/amp/600727
+    publisher: VOI
+    date: 2026-10-30
+    language: ar
 open_questions:
   - VOI lists the three people as coming from Surabaya, East Java, Slipi Palmerah and Aceh, while Kompas quotes Nasriadi naming Surabaya, Jatipi and Temanggung and saying they were not local residents.
   - VOI describes marijuana remnants in an empty boarding room; Kompas describes one still-wrapped cannabis packet seized in the raid. No weight was published.
@@ -52,26 +57,25 @@ open_questions:
 
 West Jakarta Metro Police, led by chief Kombes Pol Nasriadi, raided Kampung
 Boncos in Palmerah, West Jakarta, on the afternoon of Friday 30 October 2026.
-[@2] The operation targeted points suspected of drug dealing and use, and
+[@2,4] The operation targeted points suspected of drug dealing and use, and
 hundreds of officers searched houses, wooden sheds and boarding rooms along
-alleys about 1.5 metres wide. [@1] Police secured three people. [@1] Nasriadi
+alleys about 1.5 metres wide. [@1,4] Police secured three people. [@1,4] Nasriadi
 told Kompas the three were caught using drugs inside the sheds, were not local
 residents, and came from Surabaya, Jatipi and Temanggung. [@3] VOI reported that
 the three came from Surabaya, East Java, the Slipi Palmerah area and Aceh, and
 that two men found in a wooden bed on vacant land were suspected of having just
-used methamphetamine. [@1]
+used methamphetamine. [@1,4]
 
 In a boarding room of about 2 by 3 metres, still air-conditioned but empty of
 occupants, officers found parang and badik blades, remnants of methamphetamine
-and marijuana, an empty safe and paper. [@2] Kompas reported that police seized
+and marijuana, an empty safe and paper. [@2,4] Kompas reported that police seized
 packets of methamphetamine, one still-wrapped packet of cannabis, smoking tools
 and an empty safe. [@3] Nasriadi said investigators had not yet decided whether
-those held were part of a network, dealers, couriers or users. [@1]
+those held were part of a network, dealers, couriers or users. [@1,4]
 
 He said the action would not stop at the raid, and that Palmerah police and the
 narcotics unit would keep watch so the vacant land was not used again for drug
 stalls. [@1] He warned that anyone who rebuilt a bed there would be treated as
 part of the drug network and arrested. [@2] He compared the handling of Kampung
 Boncos with Kampung Ambon in Cengkareng and said officers had found a great many
-bongs. [@2]
-
+bongs. [@2,4]
