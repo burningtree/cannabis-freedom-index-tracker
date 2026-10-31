@@ -36,11 +36,18 @@ sources:
     publisher: Ei Samay
     date: 2026-10-30
     language: bn
+  - title: West Bengal में गांजा तस्करी का हुआ भंडाफोड़, 30 किलो खेप के साथ 4 आरोपी पकड़े गए
+    url: https://www.hindusthanpost.com/social/cannabis-smuggling-busted-in-west-bengal-4-arrested-with-30-kg-consignment/
+    publisher: Hindusthan Post
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The articles date the raid only as Thursday night; 29 October 2026 is the calendar date before the Friday 30 October publications.
   - TheWall says the four had already been sent to court on Friday, while Onkar Bangla, published the same day, said they would be produced and that police would seek custody. No later court outcome is reported.
   - The weight and the 2.5 lakh-rupee market value are police estimates described as approximate. Onkar Bangla's headline says the cannabis was worth lakhs, while its text gives the same 2.5 lakh figure.
   - TheWall's photo caption repeats the headline and does not say what the picture shows, so it was not included.
+  - This account says the 30 kg was found in a total of 10 school bags and shoulder bags, while the report, following Onkar Bangla, says a school bag and ten shoulder bags.
+  - This account, like Onkar Bangla, says the four were to be produced in court on Friday and that police would seek custody; it does not confirm TheWall's report that they had already been sent to court.
 ---
 
 Police arrested four young men late on Thursday night inside an abandoned
@@ -48,7 +55,7 @@ factory at Hindmotor, a neighbourhood of Uttarpara in Hooghly district, West
 Bengal. [@1] Officers said they found the men standing in near-total darkness
 with several bags and detained them at once. [@1] The four are Pintu Basak,
 Laltu Hazra, Rajkumar Mistri and Shubham Mukherjee, who police said live in
-Chandannagar and Bhadreswar. [@1]
+Chandannagar and Bhadreswar. [@1,4]
 
 Acting on a confidential tip, the detective department of the Chandannagar
 Police Commissionerate and Uttarpara police station searched the disused plant,
@@ -61,11 +68,10 @@ Bangla, published the same day, said they were to be produced in court that day
 and that police would seek custody for further questioning. [@2]
 
 Investigators said the cannabis had been carried by train from Odisha for sale
-in the Chandannagar commissionerate area. [@1] A handover of the bags at
+in the Chandannagar commissionerate area. [@1,4] A handover of the bags at
 Hindmotor was planned, and police said they stopped it before it happened. [@1]
 They put the market value of the seized ganja at about 2.5 lakh rupees, roughly
-250,000 rupees. [@1] Biswas said officers were still checking who else was
+250,000 rupees. [@1,4] Biswas said officers were still checking who else was
 involved in the trade and whether the arrested men had earlier criminal records.
 [@1] Chandannagar police called the seizure a major success ahead of Kali Puja
-and Jagaddhatri Puja. [@1]
-
+and Jagaddhatri Puja. [@1,4]
