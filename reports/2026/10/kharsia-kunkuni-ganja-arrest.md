@@ -51,6 +51,11 @@ sources:
     publisher: Raigarh Top News
     date: 2026-10-30
     language: hi
+  - title: 'रायगढ़ में गांजा बेचने पहुंचा तस्कर गिरफ्तार: 90 हजार का गांजा जब्त, 4 दिन में खरसिया में गांजा तस्करी के दो मामले'
+    url: https://www.bhaskar.com/local/chhattisgarh/raigarh/video/raigarh-kharsia-ganja-smuggling-arrest-police-operation-kunkuni-139537392.html?type=video
+    publisher: Dainik Bhaskar
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The articles also report a separate raid on 28 October 2026 in Chote Devgaon, where Mohan Lal Gupta was arrested with 5.025 kg of ganja; that is a different event and is left out of this report.
   - Dainik Bhaskar described this arrest as the second raid in four days, while RIG24 and RNS India said it came within a week; the report follows the week wording.
@@ -58,16 +63,18 @@ open_questions:
   - No court date or outcome beyond the judicial remand was reported.
   - Coordinates are for Kharsia town; the reports do not give the exact location of Kunkuni village.
   - The page's lead photograph carried only the headline as its caption and no credit, so it could not be confirmed to show this arrest and no media entry was added for it.
+  - The opened capture is a video player page; the article body was not in the readable text, only the headline.
+  - A 16-second video address appears in the page metadata, but the clip could not be confirmed from the text capture, so no media entry was added.
 ---
 
 Kharsia station house officer Sitaram Dhruv received a tip on 29 October 2026
 that Bhagirathi Patail was bringing ganja, or cannabis, into Kunkuni village to
 sell, and officers stopped him near Yogesh Chicken Centre. [@2,4,5] Patail, 42, of
 Saraipali in Kunkuni, admitted the bag contained ganja, police said. [@1,5] He
-told officers he had brought it to the village to sell. [@3]
+told officers he had brought it to the village to sell. [@3,6]
 
 A search of the bag found 1.805 kg of ganja, or 1 kg 805 grams. [@2,4,5] Police
-estimated the seized ganja's value at about 90,000 rupees. [@1,4,5] They arrested
+estimated the seized ganja's value at about 90,000 rupees. [@1,4,5,6] They arrested
 Patail and registered a case against him under Section 20(B) of the NDPS Act.
 [@3,4,5] He was sent to judicial remand, or custody while the case continues. [@1,4,5]
 
