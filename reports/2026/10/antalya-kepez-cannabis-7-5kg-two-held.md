@@ -58,6 +58,11 @@ sources:
     publisher: Cumhuriyet
     date: 2026-10-31
     language: tr
+  - title: 'Antalya''da Kepez baskını polis kamerasına yansıdı: 7 kilo 500 gram esrar ele geçirildi'
+    url: https://www.aksiyon.com.tr/antalya-da-kepez-baskini-polis-kamerasina-yansidi-7-kilo-500-gram-esrar-ele-gecirildi-385468
+    publisher: Aksiyon
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no separate date or time for the operation; 31 October 2026 is the publication date of both accounts.
   - No full names, estimated value for the 7.5 kg of cannabis, court date or trial outcome were published.
@@ -68,21 +73,22 @@ open_questions:
   - The gallery republishes İHA's police-camera stills, which appear to be the same handout frames already linked from the agency's page in this report, so its copies were not listed as separate pictures.
   - The Habertürk page is an unedited Anadolu Agency wire copy, so it corroborates the account already in the report rather than adding independent reporting.
   - The only image on the submitted page is a generic Antalya local-news graphic, not a photograph of the operation, so no media entry was added.
+  - The Aksiyon page carries a headline still and an inline 'Şüpheli Araç' image that appear to be the same police-camera handout already linked from İHA, so they were not added as separate media entries.
 ---
 
 Police in Antalya detained two men in an operation against drug trafficking
 after information that they were selling and distributing drugs brought into the
 city. [@1,4] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
-Kepez district. [@1,3,4,5] A search of their homes found 7 kg 500 g of cannabis, known
-in Turkey as esrar, divided into 15 packets. [@1,3,4,5] The pair were referred to the
+Kepez district. [@1,3,4,5,7] A search of their homes found 7 kg 500 g of cannabis, known
+in Turkey as esrar, divided into 15 packets. [@1,3,4,5,7] The pair were referred to the
 judicial authorities over trading and supplying narcotic or psychotropic
-substances. [@1,5]
+substances. [@1,5,7]
 
 The operation was run by the narcotics crimes branch of the Antalya provincial
-police directorate. [@1,4] Sabah reported that it followed intelligence that the
+police directorate. [@1,4,7] Sabah reported that it followed intelligence that the
 two men were bringing drugs obtained outside the province into the city for sale
 and distribution. [@2] Officers identified the suspects and their addresses
 before launching the raid, the paper said. [@2] Police camera footage recorded
-the operation and the material seized in the searches. [@1]
+the operation and the material seized in the searches. [@1,7]
 
-M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4,6]
+M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4,6,7]
