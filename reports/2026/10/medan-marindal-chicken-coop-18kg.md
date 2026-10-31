@@ -78,27 +78,33 @@ sources:
     publisher: KitaKini News
     date: 2026-10-30
     language: id
+  - title: Kandang Ayam Jadi Kedok Gudang Ganja, Polisi Sita 18 Kilogram
+    url: https://www.analisamedan.com/hukum-kriminal/kandang-ayam-jadi-kedok-gudang-ganja-polisi-sita-18-kilogram/
+    publisher: Analisa Medan
+    date: 2026-10-30
+    language: id
 open_questions:
   - No court date or formal charge was reported; the two arrested men are described as suspects.
   - No estimate of the cannabis's street value was published.
   - Metro TV describes all 18 kg as stored in the safety box, while the other reports say 17 kg was in the box and the total was 18 kg; the individual amounts (2 ons, 1 kg and 17 kg) add up to 18.2 kg.
+  - Analisa Medan dates MF's arrest to the night of Wednesday 28 October 2026 but gives no separate date for the search of the chicken coop, so the raid date rests on the other accounts.
 ---
 
 Narcotics detectives at Medan city police raided a warehouse disguised as a
 chicken coop in Deli Serdang on the night of Wednesday 28 October 2026. [@1] The
-coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5,6] Police arrested two
-close friends and seized 18 kg of dried cannabis. [@1,5,6,7] Police identified the two
+coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5,6,8] Police arrested two
+close friends and seized 18 kg of dried cannabis. [@1,5,6,7,8] Police identified the two
 as MF, 28, of Jalan Cinta Karya in Medan Polonia, and DS, 19, of Jalan Bajak V
 in Medan. [@3] MF was caught in the parking area of a fast-food restaurant on
 Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1] DS
 was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5] Officers found
-another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6]
+another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6,8]
 
-The coop was remote and far from houses. [@2,7] Police said the building did not
-look suspicious from outside because it resembled an ordinary house. [@2,5,6] Police
+The coop was remote and far from houses. [@2,7,8] Police said the building did not
+look suspicious from outside because it resembled an ordinary house. [@2,5,6,8] Police
 said the cannabis came from Aceh and the operation had run for about three
-months, supplying Medan and the surrounding area. [@2,6,7] Police named a third man,
-FS, as the suspected controller of MF and DS. [@1,5,6,7] FS was placed on a wanted
+months, supplying Medan and the surrounding area. [@2,6,7,8] Police named a third man,
+FS, as the suspected controller of MF and DS. [@1,5,6,7,8] FS was placed on a wanted
 list and was being hunted, police said. [@1] The two detained men face more than
 five years in prison over the trafficking allegation, Metro TV reported. [@4,7]
 
