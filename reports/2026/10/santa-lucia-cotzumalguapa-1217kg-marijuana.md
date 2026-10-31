@@ -49,11 +49,22 @@ sources:
     publisher: INFO7
     date: 2026-10-29
     language: es
+  - title: Droga decomisada en Escuintla está valorada en más de Q18 millones
+    url: https://emisorasunidas.com/nacional/2026/10/29/droga-decomisada-en-escuintla-esta-valorada-en-mas-de-q18-millones/
+    publisher: Emisoras Unidas
+    date: 2026-10-29
+    language: es
+  - title: Decomisan 880 bolsas de marihuana en Escuintla
+    url: https://emisorasunidas.com/nacional/2026/10/28/pnc-decomisan-marihuana-escuintla/
+    publisher: Emisoras Unidas
+    date: 2026-10-28
+    language: es
 open_questions:
   - No arrests, charges or court steps were reported; the sources name no suspect or organisation.
   - The Interior Ministry's statement of 28 October put the load at about 1,005 pounds (453 kilograms); the PNC's later update gave 1,217 kilograms, and the report uses the later figure.
   - The ministry says the load was to be taken from Escuintla to Guatemala City, while Infobae describes the rolls as abandoned at the roadside; the sources do not explain how the load came to be there.
   - The sources give no count of the people involved and do not say where the load was loaded or who was to receive it.
+  - The same article briefly reports a September attack in Alta Verapaz in which one security force member was killed and two were wounded during eradication work, but gives no exact date or community; that separate event is not part of this report.
 ---
 
 Guatemalan police seized 880 packages of suspected marijuana in El Socorro, a
@@ -70,10 +81,10 @@ planned to move them from Escuintla to Guatemala City. [@2,4] The find stopped t
 load from continuing its journey, the ministry said. [@2]
 
 The PNC put the load's weight at 1,217 kilograms and valued it at 18,573,854
-quetzales. [@1,4] The force said it fixed the weight and the value after finishing
+quetzales. [@1,4,5] The force said it fixed the weight and the value after finishing
 its count of the packages. [@1] An initial Interior Ministry statement had given
 about 1,005 pounds, or 453 kilograms. [@2] The ministry said investigators were
 still trying to establish the drug's origin and any links to trafficking
-structures. [@2]
+structures. [@2,5]
 
-The investigation that led to the find began after a citizen complaint. [@4]
+The investigation that led to the find began after a citizen complaint. [@4,6]
