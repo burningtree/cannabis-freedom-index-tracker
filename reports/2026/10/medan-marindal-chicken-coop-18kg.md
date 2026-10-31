@@ -83,6 +83,11 @@ sources:
     publisher: Analisa Medan
     date: 2026-10-30
     language: id
+  - title: Dua Sekawan di Medan Ditangkap Bersama 18 Kg Ganja dari Kandang Ayam
+    url: https://mistar.id/news/hukum-peristiwa/dua-sekawan-di-medan-ditangkap-bersama-18-kg-ganja-dari-kandang-ayam
+    publisher: Mistar.id
+    date: 2026-10-30
+    language: id
 open_questions:
   - No court date or formal charge was reported; the two arrested men are described as suspects.
   - No estimate of the cannabis's street value was published.
@@ -96,16 +101,18 @@ coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5,6,8] Police arreste
 close friends and seized 18 kg of dried cannabis. [@1,5,6,7,8] Police identified the two
 as MF, 28, of Jalan Cinta Karya in Medan Polonia, and DS, 19, of Jalan Bajak V
 in Medan. [@3] MF was caught in the parking area of a fast-food restaurant on
-Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1] DS
-was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5] Officers found
-another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6,8]
+Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1,9] DS
+was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5,9] Officers found
+another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6,8,9]
 
-The coop was remote and far from houses. [@2,7,8] Police said the building did not
+The coop was remote and far from houses. [@2,7,8,9] Police said the building did not
 look suspicious from outside because it resembled an ordinary house. [@2,5,6,8] Police
 said the cannabis came from Aceh and the operation had run for about three
-months, supplying Medan and the surrounding area. [@2,6,7,8] Police named a third man,
-FS, as the suspected controller of MF and DS. [@1,5,6,7,8] FS was placed on a wanted
+months, supplying Medan and the surrounding area. [@2,6,7,8,9] Police named a third man,
+FS, as the suspected controller of MF and DS. [@1,5,6,7,8,9] FS was placed on a wanted
 list and was being hunted, police said. [@1] The two detained men face more than
 five years in prison over the trafficking allegation, Metro TV reported. [@4,7]
 
-Police put the total cannabis seized in the case at about 18.2 kg. [@5] Police said DS was suspected of acting as a distributor who stored cannabis before it was supplied to several locations. [@5,6]
+Police put the total cannabis seized in the case at about 18.2 kg. [@5] Police said DS was suspected of acting as a distributor who stored cannabis before it was supplied to several locations. [@5,6,9]
+
+After MF's arrest, officers developed the case and then arrested DS, the narcotics chief said. [@9] Rafli said the 200 grams found on MF was about to be distributed when officers stopped him. [@9] After questioning, DS directed officers to the chicken coop in Desa Marindal, Patumbak. [@9]
