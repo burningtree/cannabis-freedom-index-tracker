@@ -38,33 +38,41 @@ sources:
     publisher: МВД Медиа
     date: 2026-10-29
     language: ru
+  - title: 'Братья из Советска и Ленобласти, курьеры и 10 тысяч сделок: в Калининградской области накрыли наркомагазин'
+    url: https://klops.ru/proisshestviya/2026-10-30/394018-bratya-iz-sovetska-i-lenoblasti-kuriery-i-10-tysyach-sdelok-v-kaliningradskoy-oblasti-nakryli-narkomagazin
+    publisher: Klops.ru
+    date: 2026-10-30
+    language: ru
 open_questions:
   - The reports give no separate date for the arrests; 29 October 2026 is the date of the Kaliningrad police statement and 30 October that of the news report.
   - No weight or street value was given for the hashish, cannabis or amphetamine seized, and no total is given for the drugs sold.
   - The statements say criminal cases were opened but do not say how many of the ten were charged, what each is accused of, or whether any was remanded.
   - The ten detainees were not named, and the reports do not say how the detentions were divided between the Kaliningrad, Moscow and Leningrad regions.
   - The police statement names colleagues from the 'Moscow region' where the news report says the Moscow oblast; the reports do not explain the difference.
+  - The Klops headline refers to 10,000 deals, but the article body does not state that figure.
+  - A related line on the page says police detained a Kaliningrad resident for advertising an online drug shop; the article does not say whether that person is one of the ten.
 ---
 
 Kaliningrad region's drug-control police, with colleagues from the Moscow and
 Leningrad regions and Rosgvardia's SOBR and OMON units, broke up an organised
 group selling drugs through an online shop, the regional interior ministry said.
 [@2] Ten people were detained in three regions. [@1] Police said the arrest
-operations ran simultaneously in the three regions. [@1] The organiser and an
-accomplice were taken to Kaliningrad, where they gave confessions. [@1]
+operations ran simultaneously in the three regions. [@1,3] The organiser and an
+accomplice were taken to Kaliningrad, where they gave confessions. [@1,3]
 
 The organiser lived in Leningrad region and coordinated the shop, while his
-brother in Sovetsk administered the website. [@1] An accomplice from the Moscow
+brother in Sovetsk administered the website. [@1,3] An accomplice from the Moscow
 region bought wholesale batches, and another member, from Nemansky district,
-grew cannabis and made marijuana from it. [@1] Couriers placed the finished
-goods in hiding places, known in Russia as zakladki, for contactless sales. [@1]
+grew cannabis and made marijuana from it. [@1,3] Couriers placed the finished
+goods in hiding places, known in Russia as zakladki, for contactless sales. [@1,3]
 Police say the group sold marijuana, hashish, mephedrone, alpha-PVP, methadone
 and LSD in the Kaliningrad and Moscow regions. [@1]
 
 The shop handled about 10,000 drug sales, according to preliminary police
 figures. [@1] Searches of the detainees' homes found three cannabis bushes, 21
-stashes containing hashish, and cannabis. [@1] Officers also found caches
-holding packages of amphetamine and hashish. [@1] Criminal cases were opened
+stashes containing hashish, and cannabis. [@1,3] Officers also found caches
+holding packages of amphetamine and hashish. [@1,3] Criminal cases were opened
 under article 228.1 of Russia's Criminal Code, which covers drug trafficking.
-[@1]
+[@1,3]
 
+The cases also include an attempted offence under part 3 of article 30, and the article 228.1 charges specify production, sale or sending of drugs by a group acting by prior conspiracy, including in a significant amount. [@3]
