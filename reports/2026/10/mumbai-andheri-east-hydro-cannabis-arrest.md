@@ -53,6 +53,11 @@ sources:
     publisher: News Danka
     date: 2026-10-30
     language: mr
+  - title: 'मुंबई: अंधेरी एमआईडीसी में 66 लाख रुपए का हाइड्रो गांजा बरामद, तस्करी के दो आरोपी गिरफ्तार'
+    url: https://www.m.khaskhabar.com/news/crime-news-mumbai-hydro-ganja-worth-%25E2%2582%25B966-lakh-seized-in-andheri-midc-two-arrested-for-trafficking-news-hindi-1-857523-KKN.html
+    publisher: Khaskhabar
+    date: 2026-10-30
+    language: hi
 open_questions:
   - Mid-Day dates the arrests to Thursday, 29 October; the Rediff report says a Mumbai police official spoke on Friday and its summary dates the arrest to Friday.
   - No charge sheet, court date or court outcome has been reported.
@@ -66,10 +71,11 @@ open_questions:
   - Dainik Bhaskar Hindi carries the article as an automated feed item credited to IANS, the same wire copy already cited here from Punjab Kesari, so it adds no independent confirmation of the police account.
   - The page's only picture is a thumbnail captioned with the headline and carries no credit, and it could not be confirmed to show the seizure, so no media link was added from it.
   - 'Left out, as its quotation was not found in News Danka: Sub-Inspector Ranjit Gondkupe of the MIDC police station and the anti-narcotics squad were patrolling on the night of 29 October and spotted the two men at about 7.45 pm.'
+  - The Khaskhabar headline rounds the seizure's value to Rs 66 lakh, while its text gives Rs 66.36 lakh, the figure used in the report.
 ---
 
 MIDC police in Mumbai arrested two men for allegedly possessing and attempting
-to sell 1.896 kg of hydroponic cannabis in Andheri East. [@1,3,4,6,7] Police identified
+to sell 1.896 kg of hydroponic cannabis in Andheri East. [@1,3,4,6,7,8] Police identified
 the men as Omkar Rajendra Pawar, 28, and Piyush Madhukar Ghongade, 22, and said
 they were apprehended near JK Industrial Estate on Paper Box Road on Thursday.
 [@1,7] The arrests followed a tip-off that two men would arrive near the
@@ -77,16 +83,16 @@ industrial estate to sell the contraband, and officers laid a trap, an MIDC
 police station official said. [@2]
 
 A search recovered 1.896 kg of hydroponic cannabis from a red bag. [@2,3,7] Police
-valued the cannabis at Rs 66.36 lakh, about 6.6 million rupees. [@1,3,5,6] The men had
+valued the cannabis at Rs 66.36 lakh, about 6.6 million rupees. [@1,3,5,6,8] The men had
 travelled from Satara district to Mumbai to sell the contraband, police said.
-[@1,3,5,6] Police said both were residents of Koregaon in Satara district. [@2]
+[@1,3,5,6,8] Police said both were residents of Koregaon in Satara district. [@2]
 
 A case was registered under the NDPS Act. [@1,3,7] Police said further investigation
-would examine the supply and distribution network. [@2,3,5,6] Hydroponic cannabis is
+would examine the supply and distribution network. [@2,3,5,6,8] Hydroponic cannabis is
 grown in a water-based mineral nutrient solution rather than in soil. [@2]
 
-Sub-Inspector Ranjit Gondkupe of the MIDC police station and the anti-narcotics squad were patrolling on the night of 29 October and spotted the two men at about 7.45 pm. [@3] Police gave the men's addresses as Bhakarwadi and Wathar Station in Koregaon, Satara district. [@3,5,6]
+Sub-Inspector Ranjit Gondkupe of the MIDC police station and the anti-narcotics squad were patrolling on the night of 29 October and spotted the two men at about 7.45 pm. [@3] Police gave the men's addresses as Bhakarwadi and Wathar Station in Koregaon, Satara district. [@3,5,6,8]
 
-When police approached, the two men tried to hide a red plastic bag and flee, and officers caught them at the scene. [@5,6]
+When police approached, the two men tried to hide a red plastic bag and flee, and officers caught them at the scene. [@5,6,8]
 
 The case was registered on the complaint of police constable Gautam Bade. [@7]
