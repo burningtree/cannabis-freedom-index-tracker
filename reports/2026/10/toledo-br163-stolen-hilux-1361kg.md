@@ -21,6 +21,11 @@ media:
     media_url: https://radarbo.com.br/wp-content/uploads/2026/10/2026-10-29-15-06-47-6d099463-de41-4efb-a5f7-f184c1ae8d7bj.jpeg
     publisher: Radar BO
     caption: The abandoned Toyota Hilux in the crop field where the driver fled; Radar BO gives no separate credit.
+  - kind: photo
+    url: https://portalguaira.com/br-163-hilux-e-apreendida-com-mais-de-13-tonelada-de-maconha-em-toledo
+    media_url: https://portalguaira.com/publico/uploads/2026/10/6ae36581ba1c4-17932793796ae3459328de1-medium.webp
+    publisher: Portal Guaíra
+    caption: Photo published with the Portal Guaíra account of the Hilux cannabis seizure on the BR-163 in Toledo. No separate photo credit is given.
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 0a8b1fd8c03516bef48aabd39f40c5c7
@@ -41,6 +46,11 @@ sources:
     publisher: Radar BO
     date: 2026-10-29
     language: pt
+  - title: BR 163 - Hilux é apreendida com mais de 1,3 tonelada de maconha em Toledo
+    url: https://portalguaira.com/br-163-hilux-e-apreendida-com-mais-de-13-tonelada-de-maconha-em-toledo
+    publisher: Portal Guaíra
+    date: 2026-10-30
+    language: pt
 open_questions:
   - The driver remained at large and no one had been arrested when the reports were published.
   - The origin and destination of the cannabis were not disclosed.
@@ -48,6 +58,9 @@ open_questions:
   - The roundup's featured photo has no caption or credit and could not be tied to this seizure, so no media entry uses it.
   - 'Left out, as its quotation was not found in O Paraná: Federal highway police and military police seized 1,361.7 kg of cannabis on the BR-163 in Toledo, western Paraná, on the morning of 29 October 2026.'
   - 'Left out, as its quotation was not found in O Paraná: After weighing, the load came to 1,361.7 kg.'
+  - Portal Guaíra states 1,361 kg, while the existing report uses 1,361.7 kg from other outlets.
+  - Portal Guaíra credits the story to Catve, so it may not be independent reporting.
+  - This account says military police on patrol saw a suspicious vehicle and called other teams; other cited outlets describe a high-speed sighting in rain and a federal highway police inspection stop.
 ---
 
 The driver of the Toyota Hilux refused an order to stop and fled, starting a
@@ -62,5 +75,6 @@ inspection on the road. [@2] Officers found bales of cannabis in the abandoned
 vehicle. [@1] The pickup's plate did not match its chassis number. [@3] Checks
 showed the Hilux had been stolen in Corbélia on 4 September 2026. [@1] Police
 took the cannabis and the recovered Hilux to the 20th Police Subdivision in
-Toledo. [@1]
+Toledo. [@1,4]
 
+Military police on patrol saw the Hilux acting suspiciously, followed it for a stop, and called other teams when the driver fled. [@4] Military police aspirant Clenilson Souza said the driver turned into a crop area and fled, leaving about 1.3 tonnes of cannabis in a pickup stolen in Corbélia. [@4]
