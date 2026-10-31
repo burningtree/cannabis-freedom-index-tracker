@@ -52,6 +52,11 @@ sources:
     publisher: Infobae
     date: 2026-10-30
     language: es
+  - title: Tres detenidos en Cullera en una operación contra una red de narcotráfico con 600 kilos de cocaína y 2,5 toneladas de hachís
+    url: https://www.elperiodic.com/cullera/tres-detenidos-cullera-operacion-contra-narcotrafico-kilos-cocaina-toneladas-hachis_1100077
+    publisher: elperiodic.com
+    date: 2026-10-30
+    language: es
 open_questions:
   - The police account, as reported by Europa Press, places the searches in September 2026 but gives no day; 1 September marks that month only.
   - Which of the searched houses in Málaga or Valencia held the drugs is not stated.
@@ -65,27 +70,29 @@ open_questions:
   - La Opinión de Málaga's headline highlights four detainees in Málaga and its breakdown adds to seven (four on the Costa del Sol, two in Cullera and one in Girona), although its text says eight; the report keeps the police count of eight reported by Europa Press and Sur in English.
   - The page's photo captioned 'Parte de la droga intervenida' carries no credit and appears to repeat the National Police handout already linked in the report, so it was not listed twice.
   - The Infobae page carries no photograph of the operation; its images are unrelated news thumbnails, so no media entry was added.
+  - The elperiodic.com page's two photographs carry no caption or credit beyond the headline, so what they show could not be established and no media entry was added; they may repeat the National Police handout already linked from Sur in English.
+  - The elperiodic.com piece is an unsigned local account based on the National Police statement, as the other coverage is, so it corroborates the police figures rather than adding independent confirmation.
 ---
 
 Eight men, aged 24 to 58, were arrested in Málaga, Valencia and Girona after the
 National Police dismantled an international cocaine and hashish trafficking
 organisation operating from the Costa del Sol. [@2,4,5] Two were detained in
 Marbella, two in Torremolinos, three in Cullera in Valencia and one in Girona.
-[@1,5] After they appeared in court, a judge remanded three of them in custody.
-[@1,4,5] The men were held as suspected authors of drug trafficking, membership of a
+[@1,5,6] After they appeared in court, a judge remanded three of them in custody.
+[@1,4,5,6] The men were held as suspected authors of drug trafficking, membership of a
 criminal organisation, unlawful possession of firearms, vehicle theft and
-document forgery. [@1,5]
+document forgery. [@1,5,6]
 
 Searches of six homes and one commercial premises in Málaga and Valencia,
 carried out in September, yielded 2.5 tonnes of hashish and 600 kilograms of
 cocaine from a single house, the National Police said in a statement reported by
 Europa Press. [@2,4] Officers also seized a rifle, 13,000 euros in cash, five
 stolen high-end vehicles, 14 sets of fake number plates, plate-stamping
-equipment, signal jammers and fraudulent identity documents. [@1,4,5]
+equipment, signal jammers and fraudulent identity documents. [@1,4,5,6]
 
 The inquiry was run jointly by the Drugs and Organised Crime Unit (UDYCO, the
 National Police unit for drugs and organised crime) in Torremolinos-Benalmádena
-and its counterpart in Valencia, and began in May. [@1,4,5] Detectives said the
+and its counterpart in Valencia, and began in May. [@1,4,5,6] Detectives said the
 group bought cocaine and hashish in Portugal, stored and prepared shipments in
 Málaga and Valencia, and moved them by road toward European markets, mainly
 France, in high-end cars stolen in France and Belgium and fitted with forged
