@@ -27,6 +27,11 @@ media:
     media_url: https://s3.ap-south-1.amazonaws.com/static.dynamitenews.com/wp-content/uploads/sites/2/2026/10/file_42975-e1793446955438.jpg
     publisher: Dynamite News
     caption: 'Photo published with the seizure report, captioned ''they were carrying ₹6 crore of ganja hidden in the truck''. Photo: Dynamite News'
+  - kind: photo
+    url: https://www.patrika.com/mirzapur-news/mirzapur-police-seized-6-crore-ganja-two-interstate-smugglers-arrested-21021163
+    media_url: https://cms.patrika.com/wp-content/uploads/2026/10/IMG-20261031-WA0050_copy_1200x800.webp
+    publisher: Patrika News
+    caption: 'Police personnel with a man seated in front, published as a photo of the arrested accused. Photo: Mirzapur Police'
 status: reported
 created_by_model: opencode-go/deepseek-v4.1-flash#max
 submission: ed23a692cf816ca6f5e144e869c7b064
@@ -52,6 +57,11 @@ sources:
     publisher: Dynamite News
     date: 2026-10-31
     language: hi
+  - title: उड़ीसा से गांजा लाकर पूर्वांचल में करते थे सप्लाई, एमपी के दो आरोपी पकड़ाए, मिर्जापुर में ₹6 करोड़ का माल बरामद
+    url: https://www.patrika.com/mirzapur-news/mirzapur-police-seized-6-crore-ganja-two-interstate-smugglers-arrested-21021163
+    publisher: Patrika News
+    date: 2026-10-31
+    language: hi
 open_questions:
   - 'Reports differ on the value: Bharat Samachar put it at ₹4–5 crore, while Dainik Bhaskar, Amar Ujala and Dynamite News reported about ₹6 crore, the figure used here.'
   - No court appearance, charge sheet or outcome was reported; police said the two men were being produced in court to be sent to jail.
@@ -59,6 +69,8 @@ open_questions:
   - The reports do not say where in Odisha the consignment was loaded, who owns the truck, or how long the route had operated.
   - The submitted page's only photo and Dainik Bhaskar's photos carry no caption or credit, so they could not be confirmed as showing the seizure and are not listed; the two captioned Dynamite News photos are.
   - The submitted article gives no separate date for the check; 30 October 2026 comes from Dainik Bhaskar's account, and 31 October is the publication and press-conference date.
+  - Patrika gives the truck's registration as MP 09 HH 8980, while the existing report gives MP 09 HH 8908; the report keeps 8908.
+  - 'Left out, as its quotation was not found in Patrika News: Police valued the consignment at about ₹6 crore, or 60 million rupees.'
 ---
 
 Kotwali Dehat police in Uttar Pradesh's Mirzapur district arrested two truck
@@ -72,13 +84,12 @@ crore, or 60 million rupees. [@4] Bharat Samachar put the value at ₹4–5 cror
 [@1]
 
 City police officer Yogendra Singh gave the details at a press conference at the
-police lines. [@2] Police said the consignment had come from Odisha. [@4] It was
-meant for supply in Mirzapur, Prayagraj, Varanasi and nearby districts. [@4] A
+police lines. [@2] Police said the consignment had come from Odisha. [@4,5] It was
+meant for supply in Mirzapur, Prayagraj, Varanasi and nearby districts. [@4,5] A
 case was registered against both men under the Narcotic Drugs and Psychotropic
 Substances (NDPS) Act at Kotwali Dehat police station, and they were being
-produced in court to be sent to jail. [@4] The truck was seized too. [@3]
+produced in court to be sent to jail. [@4] The truck was seized too. [@3,5]
 
 Officers also found three mobile phones and ₹1,900 in cash, according to Amar
 Ujala. [@2] Police said they were checking the men's criminal records and
 looking for others in the network. [@4]
-
