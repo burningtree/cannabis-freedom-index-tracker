@@ -32,6 +32,11 @@ sources:
     url: https://x.com/AirportGenCus/status/2116235353942331448
     publisher: Delhi Customs (Airport & General)
     date: 2026-10-30
+  - title: 'Delhi Airport: 26.6 kg Hydroponic Ganja Seized, Two Arrested'
+    url: https://www.lokmattimes.com/national/delhi-airport-266-kg-hydroponic-ganja-seized-two-arrested-a001-w03/amp/
+    publisher: Lokmat Times
+    date: 2026-10-30
+    language: en
 open_questions:
   - PTI reported that the two passengers arrived on two separate flights from Bangkok, while the Delhi Customs post names a single flight, AI2335; the report does not resolve the difference.
   - Customs gave no names, ages or other identifying details for the two passengers.
@@ -43,19 +48,18 @@ open_questions:
 
 Customs officials at Delhi's Indira Gandhi International Airport seized 26.67 kg
 of suspected hydroponic ganja from two Indian passengers arriving from Bangkok.
-[@1] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
+[@1,4] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
 Channel for X-ray screening after profiling. [@3] The two passengers were
 arrested on 28 October under Section 43(b) of the Narcotic Drugs and
-Psychotropic Substances Act, 1985. [@1] The substance was seized under Section
-43(a) of the same act. [@1]
+Psychotropic Substances Act, 1985. [@1,4] The substance was seized under Section
+43(a) of the same act. [@1,4]
 
 Officers found 26 polythene pouches of a green substance suspected to be
 marijuana or hydroponic weed. [@2] Customs valued the haul at about Rs 9.33
-crore. [@1] A diagnostic test indicated prima facie that the substance was
+crore. [@1,4] A diagnostic test indicated prima facie that the substance was
 marijuana or hydroponic weed. [@2]
 
 Customs said cases were booked against the two under sections 8, 20, 23 and 29
 of the NDPS Act and that its investigation was in progress. [@3] Hydroponic
 ganja is a high-potency variety of cannabis grown in nutrient-rich water instead
-of soil. [@1]
-
+of soil. [@1,4]
