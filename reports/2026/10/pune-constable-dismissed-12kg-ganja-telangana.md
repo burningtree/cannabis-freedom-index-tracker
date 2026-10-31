@@ -32,6 +32,10 @@ sources:
     url: https://timesofindia.indiatimes.com/city/pune/police-constable-arrested-in-drug-case/articleshow/135218978.cms
     publisher: The Times of India
     date: 2026-10-27
+  - title: Pune Policeman Dismissed From Service After Arrest With 12 Kg Ganja In Telangana
+    url: https://www.freepressjournal.in/pune/pune-policeman-dismissed-from-service-after-arrest-with-12-kg-ganja-in-telangana
+    publisher: Free Press Journal
+    date: 2026-10-31
 open_questions:
   - The order dismissing Shinde is not dated in these reports; the report is dated to the 25 October 2026 arrest after which he was suspended and then dismissed.
   - No court appearance or outcome of the NDPS case has been reported.
@@ -41,23 +45,22 @@ open_questions:
 
 Nitin Dnyanu Shinde, a constable in the Pune city police, was dismissed from
 government service after Telangana police arrested him with 12 kg of ganja in
-Warangal district. [@1] Shinde had been serving in the force's Vishrambaug
+Warangal district. [@1,4] Shinde had been serving in the force's Vishrambaug
 traffic division and had been on leave citing illness since 7 October 2026. [@1]
 He had held that posting for about one and a half years. [@3] Additional Police
-Commissioner (Administration) Sanjay Patil issued the dismissal order. [@1] The
+Commissioner (Administration) Sanjay Patil issued the dismissal order. [@1,4] The
 order said Shinde's conduct had sullied the image of the police force and broken
-public trust. [@1]
+public trust. [@1,4]
 
 On 25 October 2026, police caught him with 12 kg of ganja within the limits of
-Nekkonda police station in Warangal district, Telangana. [@1] Warangal district
+Nekkonda police station in Warangal district, Telangana. [@1,4] Warangal district
 police had received information that a man was standing at a bus stop with a
 large quantity of ganja, and officers searched his bag and recovered 12 kg. [@3]
 According to police, Shinde had gone to Odisha after securing sick leave. [@3] A
 case was registered against him under the Narcotic Drugs and Psychotropic
-Substances Act, India's main drug law, and he was arrested. [@3]
+Substances Act, India's main drug law, and he was arrested. [@3,4]
 
 Pune police commissioner Amitesh Kumar suspended him with immediate effect after
 learning of the arrest, and the force began preparations to dismiss him. [@3]
 The constable was engaged in smuggling ganja between states. [@2] The head of
-the Vishrambaug traffic division reported the arrest to senior officers. [@1]
-
+the Vishrambaug traffic division reported the arrest to senior officers. [@1,4]
