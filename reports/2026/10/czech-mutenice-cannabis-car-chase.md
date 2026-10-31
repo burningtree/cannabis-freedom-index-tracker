@@ -40,6 +40,11 @@ sources:
     publisher: Noviny kraje
     date: 2026-10-29
     language: cs
+  - title: Mladíci na Hodonínsku ujížděli policii rychlostí až 200 km/h. Divokou jízdu ukazuje video
+    url: https://cnn.iprima.cz/mladici-na-hodoninsku-ujizdeli-policii-rychlosti-az-200-km-h-divokou-jizdu-ukazuje-video-525662
+    publisher: CNN Prima NEWS
+    date: 2026-10-28
+    language: cs
 open_questions:
   - No weight or plant count was given; police described a larger quantity of cannabis and sent the plants for expert examination.
   - No charges or court date have been announced; Hodonín police said they were still investigating.
@@ -48,6 +53,8 @@ open_questions:
   - No figure for the number of plants or their weight was published; both accounts say only 'a larger quantity of cannabis'.
   - The article gives no calendar date for the chase, only 'the night from Saturday to Sunday'; 24 October 2026 follows from its 29 October publication date.
   - The Noviny kraje page reproduces the police statement almost verbatim and adds no independent reporting or new figures.
+  - CNN Prima reports that the cannabis was in the boot, while the police statement cited in the report says officers found it in the boot and the cabin.
+  - 'Left out, as its quotation was not found in Policie České republiky: After several kilometres he slowed, accelerated again, left the road, broke a tree stump on a slope and partly drove onto the tracks, where the car became stuck after a few metres.'
 media:
   - kind: photo
     url: https://www.novinykraje.cz/jihomoravsky/2026/10/29/video-ridic-ujizdel-policistum-rychlosti-az-200-kilometru-v-hodine/
@@ -66,7 +73,7 @@ cannabis in the car. [@2] The chase began shortly before midnight on Saturday 24
 October 2026, when a Dubňany patrol spotted a suspicious car at a petrol station
 in Mutěnice. [@3] When the officers turned around, the driver sped through the
 village toward Hodonín. [@2] During the pursuit he overtook other cars
-dangerously and wove between them, reaching 200 km/h at times. [@2] After
+dangerously and wove between them, reaching 200 km/h at times. [@2,6] After
 several kilometres he slowed, accelerated again, left the road, broke a tree
 stump on a slope and partly drove onto the tracks, where the car became stuck
 after a few metres. [@2] Officers used force to detain the driver and his
@@ -74,9 +81,9 @@ passenger. [@2]
 
 The driver had never held a driving licence; his breath test was negative but a
 preliminary drug test was positive for amphetamine and methamphetamine. [@2] The
-car's registration plates belonged to another vehicle. [@1] In the boot and
+car's registration plates belonged to another vehicle. [@1,6] In the boot and
 cabin, officers found a larger quantity of cannabis, which Hodonín detectives
-seized and sent for expert examination. [@1] Video of the pursuit showed the
+seized and sent for expert examination. [@1,2] Video of the pursuit showed the
 boot packed almost to bursting with plants. [@4]
 
 Rail traffic was stopped for more than an hour while firefighters winched the
