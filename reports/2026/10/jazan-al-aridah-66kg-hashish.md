@@ -27,17 +27,28 @@ sources:
     publisher: صحيفة صُبرة الإلكترونية
     date: 2026-10-30
     language: ar
+  - title: حرس الحدود يقبض على (5) مخالفين في جازان لتهريب (66) كيلوجرامًا من الحشيش
+    url: https://www.sra7h.com/%D8%AD%D8%B1%D8%B3-%D8%A7%D9%84%D8%AD%D8%AF%D9%88%D8%AF-%D9%8A%D9%82%D8%A8%D8%B6-%D8%B9%D9%84%D9%89-5-%D9%85%D8%AE%D8%A7%D9%84%D9%81%D9%8A%D9%86-%D9%81%D9%8A-%D8%AC%D8%A7%D8%B2%D8%A7%D9%86-%D9%84/
+    publisher: صحيفة صراحة الالكترونية
+    date: 2026-10-30
+    language: ar
 open_questions:
   - Both articles are dated 30 October 2026, the day the Border Guard announced the case; neither gives a separate date for the interception itself.
   - Al-Hadath describes the five only as violators of the border security law; their Ethiopian nationality comes from Sobra News's account of the same announcement.
   - The same announcement covered two khat-smuggling cases, 80 kg in Al-Daer and 193 kg in Asir; khat is not cannabis and those cases are left out of this report.
   - No names, ages, charges or court outcome for the five were reported.
   - 'No captioned photograph of the seizure was found: the Al-Hadath page shows the Border Guard emblem and the Sobra page''s featured image is uncaptioned.'
+media:
+  - kind: photo
+    url: https://www.sra7h.com/%D8%AD%D8%B1%D8%B3-%D8%A7%D9%84%D8%AD%D8%AF%D9%88%D8%AF-%D9%8A%D9%82%D8%A8%D8%B6-%D8%B9%D9%84%D9%89-5-%D9%85%D8%AE%D8%A7%D9%84%D9%81%D9%8A%D9%86-%D9%81%D9%8A-%D8%AC%D8%A7%D8%B2%D8%A7%D9%86-%D9%84/
+    media_url: https://www.sra7h.com/wp-content/uploads/2026/10/HV4CZqmXsAA2R68.jpg
+    publisher: صحيفة صراحة الالكترونية
+    caption: Five detainees stand with their backs to the camera before a General Directorate of Border Guards, Jazan region command banner, with packages and other seized items laid out in front of them.
 ---
 
 Border Guard land patrols in the Al-Aridah sector of Saudi Arabia's Jazan region
 detained five Ethiopian nationals who were accused of smuggling 66 kilograms of
-hashish, the directorate said. [@2] The five were described as violators of the
+hashish, the directorate said. [@2,3] The five were described as violators of the
 kingdom's border security law. [@1] The General Directorate of Border Guards
 published the announcement on Friday 30 October 2026. [@2]
 
@@ -50,4 +61,3 @@ involving Ethiopian nationals. [@2]
 The Border Guard again urged citizens and residents to report drug smuggling and
 trafficking through its 994 hotline or the anti-narcotics directorate's 995
 line, saying all reports are handled in strict confidence. [@2]
-
