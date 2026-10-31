@@ -42,6 +42,11 @@ sources:
     publisher: Hindustan
     date: 2026-10-30
     language: hi
+  - title: 'Bagaha News: टेम्पो से 10 किलो गांजा किया बरामद'
+    url: https://www.livehindustan.com/bihar/bagaha/story-shikarpur-police-seize-10-4-kg-of-cannabis-from-tempo-in-narkatiaganj-201793384775930.amp.html
+    publisher: Hindustan
+    date: 2026-10-30
+    language: hi
 open_questions:
   - Neither report gives a calendar date for the stop; 30 October 2026 is the publication date of both accounts.
   - Jagran says officers signalled the tempo to stop and the occupants jumped into the field; Bhaskar says they rammed a police vehicle before fleeing. Both accounts are stated.
@@ -61,8 +66,8 @@ Bhaskar reported a different flight: the occupants rammed a police vehicle
 before running into the cane field. [@2]
 
 A search of the abandoned tempo found packets of ganja hidden under the seat.
-[@1] Police weighed the cannabis at 10 kilograms 400 grams. [@1,3] They seized the
-tempo and a mobile phone. [@1,3] Bhaskar said the search was carried out under
+[@1] Police weighed the cannabis at 10 kilograms 400 grams. [@1,3,4] They seized the
+tempo and a mobile phone. [@1,3,4] Bhaskar said the search was carried out under
 magistrate and block development officer Suraj Kumar Singh, and that the
 cannabis was in a black bag under the seat. [@2]
 
@@ -71,4 +76,4 @@ Substances Act against unknown smugglers. [@1] Police were identifying the
 vehicle owner and others from the seized tempo and phone, and were raiding to
 arrest the fugitives. [@1] Bhaskar quoted him saying further legal action was
 under way and that officers were tracing the people who fled and others linked
-to the smuggling. [@2] No one had been named or arrested in either account. [@2,3]
+to the smuggling. [@2] No one had been named or arrested in either account. [@2,3,4]
