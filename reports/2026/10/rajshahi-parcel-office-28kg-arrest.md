@@ -37,6 +37,11 @@ sources:
     url: https://www.dailytribunal24.com/one-arrested-with-28kg-of-cannabis-in-rajshahi
     publisher: The Daily Tribunal
     date: 2026-10-30
+  - title: রাজশাহীতে ২৮ কেজি গাঁজাসহ মাদক ব্যবসায়ী গ্রেপ্তার
+    url: https://www.lastnewsbd.com/news-details/PST37758
+    publisher: Last News BD
+    date: 2026-10-30
+    language: bn
 open_questions:
   - Only the Daily Karatoa says a case was filed; the other accounts describe the handover to Boalia police without giving details of the case or next legal steps.
   - No charge, case number or court date was published.
@@ -47,6 +52,9 @@ open_questions:
   - 'Left out, as its quotation was not found in Daily Karatoa: The unit announced the arrest in a press release on the morning of 30 October.'
   - 'Left out, as its quotation was not found in Daily Karatoa: He was handed over to Boalia police station with the cannabis, and a case was filed.'
   - 'Left out, as its quotation was not found in Eimattro: SRB-5 said the handover followed a preliminary health check and was made for further legal action.'
+  - This account does not give the 8:30 pm time stated in the existing report, and it does not say the arrest was at night.
+  - It places his home in Rasunchak under Shibganj thana, Chapainawabganj, rather than calling it a village in Shibganj upazila.
+  - The page photo shows packages and a blurred person in front of SRB banners and looks like the same agency handout already linked from Daily Karatoa, so it was not added again.
 ---
 
 Police arrested a man at a parcel service office in Rajshahi's Boalia thana area
@@ -54,8 +62,9 @@ on Thursday night. [@3] The arrest took place around 8:30 pm on 29 October 2026.
 [@2] The arrested man was Prevel Islam, 28, son of Nazmul Haque of Rasunchak
 village in Shibganj upazila, Chapainawabganj district. [@3]
 
-SRB-5 said it seized 28 kg of cannabis from his possession. [@3] The unit said
-its team had acted on a tip-off before the raid. [@1]
+SRB-5 said it seized 28 kg of cannabis from his possession. [@3,4] The unit said
+its team had acted on a tip-off before the raid. [@1,4]
 
 The sender and origin of the parcel were not disclosed. [@2]
 
+The tip said a dealer was waiting at SR Parcel Services Limited, under Boalia Model Thana, to collect illegal drugs, and an SRB team arrested Md. Prevel Islam there. [@4] Officers seized two mobile phones with the 28 kg of cannabis, in the presence of neutral witnesses. [@4] After a preliminary health check, he was handed to the relevant police station with the recovered evidence and a case was filed. [@4] Last News BD names the arresting unit as CPSC, SRB-5, Rajshahi, and the arrested man as Md. Prevel Islam, 28, son of Nazmul Haque of Rasunchak in Shibganj thana, Chapainawabganj. [@4]
