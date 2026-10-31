@@ -82,6 +82,11 @@ sources:
     publisher: يوليو
     date: 2026-10-30
     language: ar
+  - title: كشف ملابسات فيديو تعاطى موظف وعامل ديليفرى المخدرات في شارع بالإسكندرية
+    url: https://www.almasryalyoum.com/news/details/4397607
+    publisher: المصري اليوم
+    date: 2026-10-31
+    language: ar
 open_questions:
   - The reports give no date for the arrests; 30 October 2026, when both were published, is used as the incident date.
   - Neither report gives the weight of the hashish found with the employee or with the supplier.
@@ -104,22 +109,24 @@ open_questions:
   - The Youlyou page's lead image, captioned "the accused", appears to be an uncredited montage that includes a blurred video still, so no media entry was added from it.
   - 'Left out, as its quotation was not found in Cairo 24: Questioned, the two admitted the offence and said they held the drugs to use them.'
   - 'Left out, as its quotation was not found in Cairo 24: The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking.'
+  - 'The only photo on the Al-Masry Al-Youm page is captioned "المتهمان" and credited "تصوير: آخرون"; it appears to be the same Interior Ministry handout already listed from Cairo 24, so it was not added as a separate media entry.'
+  - 'Left out, as its quotation was not found in المصري اليوم: The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking.'
 ---
 
 The case began with a social-media post, backed by a video, in which the person
 who published it complained about two men, one of them riding a motorcycle,
-using drugs on a street in Alexandria. [@2,3,4,5,6,7,8,10,11] Egypt's Interior Ministry said its
+using drugs on a street in Alexandria. [@2,3,4,5,6,7,8,10,11,12] Egypt's Interior Ministry said its
 security services identified and arrested the pair and seized the motorcycle,
-which had valid licence plates. [@1,3,4,6,7,8,9,10,11] The two were a company employee and a
-delivery worker, both living in Alexandria Governorate. [@1,3,4,5,6,7,8,9,10]
+which had valid licence plates. [@1,3,4,6,7,8,9,10,11,12] The two were a company employee and a
+delivery worker, both living in Alexandria Governorate. [@1,3,4,5,6,7,8,9,10,12]
 
-Hashish was found with the employee. [@1,2,3,4,5,6,7,8,9,10] Questioned, the two admitted the
-offence and said they held the drugs to use them. [@1,3,4,5,6,7,8,9,10] The employee said he had
+Hashish was found with the employee. [@1,2,3,4,5,6,7,8,9,10,12] Questioned, the two admitted the
+offence and said they held the drugs to use them. [@1,3,4,5,6,7,8,9,10,12] The employee said he had
 obtained the hashish from an unemployed man with a criminal record living in the
-First Montazah police district, and police arrested that man. [@1,3,4,5,6,7,8,9,10,11]
+First Montazah police district, and police arrested that man. [@1,3,4,5,6,7,8,9,10,11,12]
 
 The ministry said no reports had been filed about the incident before the video
-spread online. [@1,3,4,5,6,7,8,9,10,11] The public prosecution has taken over the investigation.
+spread online. [@1,3,4,5,6,7,8,9,10,11,12] The public prosecution has taken over the investigation.
 [@2,3,4,7,8,9,10]
 
 The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4,5,6,7,8,9,10]
