@@ -44,6 +44,11 @@ sources:
     publisher: La Voz de Guate
     date: 2026-10-29
     language: es
+  - title: Guatemala decomisa 880 paquetes de marihuana en Escuintla
+    url: https://www.info7.mx/internacional/guatemala-decomisa-880-paquetes-de-marihuana-en-escuintla/4047582748
+    publisher: INFO7
+    date: 2026-10-29
+    language: es
 open_questions:
   - No arrests, charges or court steps were reported; the sources name no suspect or organisation.
   - The Interior Ministry's statement of 28 October put the load at about 1,005 pounds (453 kilograms); the PNC's later update gave 1,217 kilograms, and the report uses the later figure.
@@ -53,21 +58,22 @@ open_questions:
 
 Guatemalan police seized 880 packages of suspected marijuana in El Socorro, a
 rural subdivision of Santa Lucía Cotzumalguapa, Escuintla, on 28 October 2026.
-[@1] No arrests were reported, and police said they were still trying to
+[@1,4] No arrests were reported, and police said they were still trying to
 identify and capture those responsible. [@3] The rolls had been left at the edge
-of a dirt road, and the drug was hidden inside the fabric. [@1] Officers counted
+of a dirt road, and the drug was hidden inside the fabric. [@1,4] Officers counted
 44 rolls holding nylon bags of the drug. [@1]
 
 The operation was run by SGAIA, the National Civil Police's anti-narcotics
-analysis unit, with prosecutors from the Public Ministry present. [@1] The
+analysis unit, with prosecutors from the Public Ministry present. [@1,4] The
 Interior Ministry said the drugs belonged to a criminal organisation that
-planned to move them from Escuintla to Guatemala City. [@2] The find stopped the
+planned to move them from Escuintla to Guatemala City. [@2,4] The find stopped the
 load from continuing its journey, the ministry said. [@2]
 
 The PNC put the load's weight at 1,217 kilograms and valued it at 18,573,854
-quetzales. [@1] The force said it fixed the weight and the value after finishing
+quetzales. [@1,4] The force said it fixed the weight and the value after finishing
 its count of the packages. [@1] An initial Interior Ministry statement had given
 about 1,005 pounds, or 453 kilograms. [@2] The ministry said investigators were
 still trying to establish the drug's origin and any links to trafficking
 structures. [@2]
 
+The investigation that led to the find began after a citizen complaint. [@4]
