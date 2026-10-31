@@ -31,6 +31,11 @@ media:
     media_url: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9eoqC1sIf3StT-G-T4ARJs6-cOQykrzLeXz8V1Ggf8u4bR3Naf2O2b_xaNO2lAdbtYwonNGh8hNxcqdzhRGdXp5a6lE3MLaTFfebHtXa_OjGmTKSmqHWmcN0O1Pot9JpTveVsVSLpO3N-rtE5Y04VUIremoPam9Y5oXN-q-OSp8Daqukfbdx1nF0ses33/w640-h410/863176763_2369092703924381_4804278736922238332_n.jpg
     publisher: The Kenyan Daily Post
     caption: Sacks and bundles of the seized bhang, with packets also recovered from the car, laid out on a tarpaulin as officers stand by. The page gives no photo credit.
+  - kind: photo
+    url: https://peopledaily.digital/news/5-arrested-as-dci-seizes-over-582kg-of-cannabis-in-3-counties
+    media_url: https://peopledaily.digital/wp-content/uploads/2026/10/HV9KlPMX0AAWdDn-500x667.jpg
+    publisher: People Daily
+    caption: Part of the narcotics recovered by the DCI during the 30 October 2026 crackdown, in a photo credited to @DCI_Kenya/X.
 status: reported
 created_by_model: opencode-go/deepseek-v4.1-flash#max
 submission: a1f57c9bf9ea65cdbd2be6525ee64b28
@@ -56,6 +61,10 @@ sources:
     url: https://uzalendonews.co.ke/five-arrested-as-dci-seizes-582kg-of-suspected-cannabis-in-kisumu-kisii-and-nairobi
     publisher: Uzalendo News
     date: 2026-10-31
+  - title: 5 arrested as DCI seizes over 582kg of cannabis in 3 counties
+    url: https://peopledaily.digital/news/5-arrested-as-dci-seizes-over-582kg-of-cannabis-in-3-counties
+    publisher: People Daily
+    date: 2026-10-31
 open_questions:
   - No charge, court date or outcome for the arrested woman was reported; the DCI said suspects in the operations remained in custody pending arraignment.
   - 'The accounts differ on how the car was stopped: The Daily Post and Capital FM say officers deflated a tyre, while the DCI statement quoted by The Eastleigh Voice says an officer fired a shot at the front left tyre, and the reports do not say whether these describe the same action.'
@@ -70,17 +79,19 @@ open_questions:
 
 Police arrested 21-year-old Frida Night Odour after intercepting a car carrying
 suspected bhang in Kisumu. [@3,5] Detectives stopped the Toyota Axio at the Kisumu
-Boys Roundabout. [@3,5] The stop came during an intelligence-led operation on
+Boys Roundabout. [@3,5,6] The stop came during an intelligence-led operation on
 Friday 30 October 2026. [@2,4] The driver ignored orders to stop and tried to
 flee, so officers deflated one of the tyres to bring the car to a halt. [@1,4] In
-the commotion the driver escaped, leaving the passenger behind. [@1,4]
+the commotion the driver escaped, leaving the passenger behind. [@1,4,6]
 
 A search of the car found the suspected cannabis sativa packed in sacks,
-weighing 282.55 kg. [@1,4] The Directorate of Criminal Investigations (DCI) valued
-the cannabis at Sh8.65 million. [@3,5] Investigators had not established where the
+weighing 282.55 kg. [@1,4,6] The Directorate of Criminal Investigations (DCI) valued
+the cannabis at Sh8.65 million. [@3,5,6] Investigators had not established where the
 consignment was headed or the wider network behind it. [@2]
 
 In its statement, the DCI said the driver escaped during a scuffle and that the
 woman was arrested while fleeing. [@3] The woman and the bhang were taken into
 police custody, and detectives were still tracing the driver. [@1,2,4] She remained
-in custody pending arraignment. [@3,5]
+in custody pending arraignment. [@3,5,6]
+
+The DCI said the operation was part of a nationwide anti-narcotics drive involving the National Authority for the Campaign Against Alcohol and Drug Abuse Investigation Bureau (NANIB), the Crime Research and Intelligence Bureau (CRIB), the Rapid Deployment Unit and K-9 officers. [@6]
