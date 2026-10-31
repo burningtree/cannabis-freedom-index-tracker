@@ -32,6 +32,11 @@ sources:
     url: https://x.com/AirportGenCus/status/2115885922701214088
     publisher: Delhi Customs (Airport & General)
     date: 2026-10-29
+  - title: दिल्ली एयरपोर्ट पर मिला करोड़ों का नशीला पदार्थ, बैंकॉक से आए 2 व्यक्ति गिरफ्तार
+    url: https://hindi.newsbytesapp.com/news/india/igi-customs-seized-over-96-kg-of-suspected-marijuana-from-passengers-arriving-from-bangkok/tldr
+    publisher: NewsBytes Hindi
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The two cases were detected on 24 and 26 October 2026, so the report is dated at the later seizure rather than a single incident date.
   - The Tribune rounds the weights to 4.2 kg and 5.4 kg, while PTI and the customs post give 4,229 g and 5,426 g; the exact figures are used here.
@@ -42,12 +47,13 @@ open_questions:
   - ThePrint keeps the second case behind a "Show Full Article" button; its figures here were confirmed in the customs post and The Tribune.
   - 'Left out, as its quotation was not found in The Tribune: In the second case, on 26 October, six polythene pouches of suspected marijuana were recovered from another passenger''s trolley bag.'
   - 'Left out, as its quotation was not found in Delhi Customs (Airport & General): Customs put the second load at 5,426 grams, valued at about Rs 1.89 crore.'
+  - The NewsBytes page's only photograph shows Terminal 3 at the airport, not the seized pouches, so no media entry was added.
 ---
 
 Customs officers at Delhi's Indira Gandhi International Airport seized more than
 9.6 kg of suspected ganja, valued at about Rs 3.37 crore, from two passengers
-arriving from Bangkok in two cases within three days. [@1] Both passengers were
-arrested. [@2] The cases were detected on 24 and 26 October 2026 at Terminal 3
+arriving from Bangkok in two cases within three days. [@1,4] Both passengers were
+arrested. [@2,4] The cases were detected on 24 and 26 October 2026 at Terminal 3
 after passenger profiling, when the travellers were diverted from the Green
 Channel for X-ray screening and a search of their bags. [@1]
 
@@ -59,4 +65,3 @@ green substance in a trolley bag belonging to a passenger arriving from Bangkok.
 The substances tested prima facie positive for ganja or marijuana in both cases.
 [@3] The contraband was seized under the Narcotic Drugs and Psychotropic
 Substances Act. [@2] Customs said its investigation was in progress. [@3]
-
