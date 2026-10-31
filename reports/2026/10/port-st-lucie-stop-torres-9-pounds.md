@@ -40,6 +40,11 @@ sources:
     url: https://cw34.com/news/local/port-st-lucie-police-traffic-stop-leads-to-nearly-9-pounds-of-marijuana-seizure-1450-cash-packaged-for-distribution-intent-to-sell-
     publisher: WTVX
     date: 2026-10-30
+  - title: 'Port St. Lucie police: Traffic stop leads to nearly 9 pounds of marijuana seizure'
+    url: https://cbs12.com/news/crime/gallery/port-st-lucie-police-traffic-stop-leads-to-nearly-9-pounds-of-marijuana-seizure-1450-cash-packaged-for-distribution-intent-to-sell-?photo=2
+    publisher: WPEC
+    date: 2026-10-30
+    language: en
 open_questions:
   - Police gave no street value for the marijuana; the $1,450 in the reports is cash found in the vehicle, not a valuation.
   - No court date, plea or outcome was reported after Torres was released on bail.
@@ -47,6 +52,7 @@ open_questions:
   - CBS12's gallery lists three images under one caption, but only the lead image's content could be checked, so the other two were left out.
   - The gallery's first image shows a marked Port St. Lucie police SUV, while the report's existing media caption describes the lead CBS12 image as a composite of the driver's booking photo and the packaged marijuana; the other two gallery images share the same generic caption and could not be verified.
   - The WTVX page republishes the CBS12 article by the same author and repeats its text, so it is not an independent account of the arrest.
+  - This gallery frame shares the same generic caption as the other CBS12 images and does not say what the photograph itself shows, so it was not added as a distinct picture.
 ---
 
 The driver, Samuel Torres, 27, of Port St. Lucie, was arrested and charged with
@@ -64,7 +70,7 @@ vacuum-sealed and individually packaged bags, as well as loose suspected
 marijuana in the seats and floorboard, and investigators said the marijuana had
 been packaged for distribution. [@1,4] The traffic stop led to the seizure of
 nearly 9 pounds (about 4.1 kilograms) of marijuana and $1,450 in cash, police
-said. [@1,3,4] The 2019 Kia Optima was also seized under the Florida Contraband
+said. [@1,3,4,5] The 2019 Kia Optima was also seized under the Florida Contraband
 Forfeiture Act. [@1,4]
 
 Torres told officers he and his girlfriend had argued and that he grabbed the
