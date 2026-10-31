@@ -26,6 +26,11 @@ sources:
     publisher: Del Sur Diario
     date: 2026-10-30
     language: es
+  - title: Denunció a su hermano por amenaza de muerte y le descubrieron un vivero clandestino de marihuana
+    url: https://www.canal13sanjuan.com/policial/denuncio-a-su-hermano-por-amenaza-de-muerte-y-le-descubrieron-un-vivero-clandestino-de-marihuana_a6ae489de052cad7d0190cc18
+    publisher: Diario 13 San Juan
+    date: 2026-10-30
+    language: es
 open_questions:
   - The reports give no street or neighbourhood inside Capital.
   - No one was reported arrested; Sergio Ariel Albarracín was still being sought.
@@ -39,7 +44,7 @@ cannabis crop in a house yard after Roberto Carlos Albarracín, 36, reported tha
 his brother, Sergio Ariel Albarracín, 38, had threatened to kill him and fled.
 [@1] Officers of the Comando Urbano, the urban police command, reached the house
 after a 911 call and were met by Roberto Carlos Albarracín, who said his brother
-had pointed a gun at him and threatened him before escaping. [@2] Police told
+had pointed a gun at him and threatened him before escaping. [@2,3] Police told
 Diario El Zonda that Roberto Albarracín was agitated when the officers arrived
 and that he said the fugitive used the property to bury items of illicit origin,
 which led them to inspect the ground with his permission. [@1]
@@ -55,8 +60,9 @@ Juan, the federal prosecutor's unit in the province, ordered every plant seized
 and opened an investigation for an alleged breach of Law 23.737, Argentina's
 narcotics statute. [@1] In parallel, assistant prosecutor Daniel Tejada directed
 the complainant to formalise a criminal complaint for threats against his
-brother. [@1] Sergio Ariel Albarracín remained a fugitive and was still being
+brother. [@1,3] Sergio Ariel Albarracín remained a fugitive and was still being
 sought by police. [@1] The file was left open on both the alleged threats and
 the federal case over the seized crop, with the confiscated plants as the
 central evidence. [@1]
 
+Roberto Carlos Albarracín identified his brother, who remained a fugitive, as the person responsible for the planting. [@3]
