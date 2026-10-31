@@ -42,6 +42,11 @@ sources:
     publisher: بوابة الأهرام
     date: 2026-10-31
     language: ar
+  - title: ضبط موظف وعامل توصيل بحوزتهما مخدر الحشيش بعد تداول فيديو لتعاطيه في أحد شوارع الإسكندرية
+    url: https://alkhabrlive.com/%D8%A7%D9%84%D8%AD%D9%88%D8%A7%D8%AF%D8%AB/%D8%B6%D8%A8%D8%B7-%D9%85%D9%88%D8%B8%D9%81-%D9%88%D8%B9%D8%A7%D9%85%D9%84-%D8%AA%D9%88%D8%B5%D9%8A%D9%84-%D8%A8%D8%AD%D9%88%D8%B2%D8%AA%D9%87%D9%85%D8%A7-%D9%85%D8%AE%D8%AF%D8%B1-%D8%A7%D9%84%D8%AD%D8%B4%D9%8A%D8%B4-%D8%A8%D8%B9%D8%AF-%D8%AA%D8%AF%D8%A7%D9%88%D9%84-%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D9%84%D8%AA%D8%B9%D8%A7%D8%B7%D9%8A%D9%87-%D9%81%D9%8A-%D8%A3%D8%AD%D8%AF-%D8%B4%D9%88%D8%A7%D8%B1%D8%B9-%D8%A7%D9%84%D8%A5%D8%B3%D9%83%D9%86%D8%AF%D8%B1%D9%8A%D8%A9
+    publisher: الخبر لايف
+    date: 2026-10-30
+    language: ar
 open_questions:
   - The reports give no date for the arrests; 30 October 2026, when both were published, is used as the incident date.
   - Neither report gives the weight of the hashish found with the employee or with the supplier.
@@ -51,22 +56,24 @@ open_questions:
   - The existing report's open question says the supplier's trafficking admission was not found in Cairo 24, but the Cairo 24 article contains that passage and this account repeats it.
   - The Mawlana page's lead image is an uncredited composite that mixes a still from the street video with other footage, so it is not listed as media.
   - The Al-Ahram photograph shows the Interior Ministry headquarters, not the arrests or the hashish, so it was not added as media.
+  - Al-Khabr Live says police identified the motorcycle and found its licences valid, but does not say the motorcycle was seized.
+  - This account says the competent investigation authorities took over, rather than naming the public prosecution.
 ---
 
 The case began with a social-media post, backed by a video, in which the person
 who published it complained about two men, one of them riding a motorcycle,
-using drugs on a street in Alexandria. [@2,3,4] Egypt's Interior Ministry said its
+using drugs on a street in Alexandria. [@2,3,4,5] Egypt's Interior Ministry said its
 security services identified and arrested the pair and seized the motorcycle,
 which had valid licence plates. [@1,3,4] The two were a company employee and a
-delivery worker, both living in Alexandria Governorate. [@1,3,4]
+delivery worker, both living in Alexandria Governorate. [@1,3,4,5]
 
-Hashish was found with the employee. [@1,3,4] Questioned, the two admitted the
-offence and said they held the drugs to use them. [@1,3,4] The employee said he had
+Hashish was found with the employee. [@1,3,4,5] Questioned, the two admitted the
+offence and said they held the drugs to use them. [@1,3,4,5] The employee said he had
 obtained the hashish from an unemployed man with a criminal record living in the
-First Montazah police district, and police arrested that man. [@1,3,4]
+First Montazah police district, and police arrested that man. [@1,3,4,5]
 
 The ministry said no reports had been filed about the incident before the video
-spread online. [@1,3,4] The public prosecution has taken over the investigation.
+spread online. [@1,3,4,5] The public prosecution has taken over the investigation.
 [@2,3,4]
 
-The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4]
+The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4,5]
