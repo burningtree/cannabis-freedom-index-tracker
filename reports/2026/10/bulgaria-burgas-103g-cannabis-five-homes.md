@@ -32,6 +32,11 @@ sources:
     publisher: EraNova.bg
     date: 2026-10-30
     language: bg
+  - title: Полиция изъяла около 50 г марихуаны и 1 г кокаина у 21-летнего мужчины в Крайморие
+    url: https://burgasmedia.com/news/policiyata-izze-okolo-50-g-marihuana-i-1-g-kokain-ot-21-godishen-v-kraymorie?lang=ru
+    publisher: BurgasMedia
+    date: 2026-10-30
+    language: ru
 open_questions:
   - 'Reports differ on detentions: the police account reported by Burgas Online says three men were held for up to 24 hours, BurgasMedia says four and EraNova five.'
   - BurgasMedia counts the Kraimorie case separately from the other four men, while the police account reported by Burgas Online and EraNova's report treat all five as checks within one day.
@@ -39,6 +44,7 @@ open_questions:
   - The police did not say whether the drugs were intended for distribution.
   - The submitted article's only image is an illustration of parked cars, not of the checks, so no photo of the event was listed.
   - 'Left out, as its quotation was not found in BurgasMedia: BurgasMedia reported that four men were detained in Burgas and Primorsko with more than 50 grams of marijuana.'
+  - BurgasMedia gives the time of the Kraimorie street check as about 17:00, while the police account reported by Burgas Online gives about 17:10; the report keeps the police time.
 ---
 
 Police in the Burgas region recorded five cases of drug possession in checks
@@ -49,7 +55,7 @@ cases. [@2]
 
 The largest quantity was found in the Kraimorie quarter, where officers stopped
 a 21-year-old man at about 17:10 and then searched his home on Lorna Street; the
-case totalled about 50 grams of marijuana and about 1 gram of cocaine. [@2] In
+case totalled about 50 grams of marijuana and about 1 gram of cocaine. [@2,4] In
 Meden Rudnik, officers searched a home on Preobrazhenska Street lived in by a
 33-year-old man. [@2] They found about 33 grams of cannabis in a glass bowl and
 three foil wraps. [@2] A 22-year-old man's apartment in block 20 of the same
@@ -62,4 +68,3 @@ In total, police seized about 103 grams of cannabis and about 1 gram of cocaine,
 the directorate said. [@2] It described the Kraimorie find as separate from
 those four men. [@1] The police did not say whether the drugs were intended for
 distribution. [@2]
-
