@@ -28,6 +28,11 @@ sources:
     publisher: Karaval Daily
     date: 2026-10-30
     language: ml
+  - title: കാഞ്ഞങ്ങാട് സ്കൂട്ടറിൽ കടത്താൻ ശ്രമിച്ച കഞ്ചാവുമായി ഒരാൾ പിടിയിൽ
+    url: https://thekarmanews.com/man-arrested-with-ganja-while-trying-to-smuggle-it-on-a-scooter-in-kanhangad/
+    publisher: Karma News
+    date: 2026-10-30
+    language: ml
 open_questions:
   - Deshabhimani says the check was held 'last night' and Karaval Daily says Thursday evening; the exact time of the arrest was not published.
   - The Deshabhimani headline says 'about one and a half kilos' while its text and the other two reports give 1.300 kg; the report uses 1.3 kg.
@@ -37,13 +42,13 @@ open_questions:
 ---
 
 Kerala excise officers arrested a 30-year-old man, M J Shamsheer, on the road
-linking Kanhangad railway station with the town's bus stand. [@1] The arrest was
+linking Kanhangad railway station with the town's bus stand. [@1,3] The arrest was
 made on 29 October 2026. [@1] Shamsheer lives in the Marusu quarters at Kushal
-Nagar in Hosdurg. [@1] The cannabis was being carried on a Ntorq scooter with
-the registration KL 60 R 9740. [@1]
+Nagar in Hosdurg. [@1,3] The cannabis was being carried on a Ntorq scooter with
+the registration KL 60 R 9740. [@1,3]
 
 The excise team acted on secret information from the Kasaragod Excise
-Intelligence and Investigation Bureau, known as EI and IB. [@1] The Hosdurg
+Intelligence and Investigation Bureau, known as EI and IB. [@1,3] The Hosdurg
 circle team reached the spot after the tip. [@2] Officers stopped the scooter
 and searched it. [@2] Circle inspector V V Prasannakumar led the operation. [@2]
 The squad included Kasaragod EI and IB inspector Kesubinraj and Hosdurg
@@ -51,4 +56,3 @@ assistant excise inspector M Rajeevan. [@1]
 
 Shamsheer told the excise officers that he was taking the cannabis to sell. [@2]
 He was arrested under the Narcotic Drugs and Psychotropic Substances Act. [@2]
-
