@@ -32,24 +32,32 @@ sources:
     publisher: CPA Notícias
     date: 2026-10-30
     language: pt
+  - title: Dois jovens são presos por tráfico com vinte porções de maconha
+    url: https://leiagora.com.br/dois-jovens-sao-presos-por-trafico-com-vinte-porcoes-de-maconha/
+    publisher: Leiagora
+    date: 2026-10-30
+    language: pt
 open_questions:
   - No weight was given for the 20 portions, and the two people were not named.
   - No charge filed in court, or any later court outcome, was reported.
   - Cáceres Notícias said the backpack was to go to the home of one of those involved; CPA Notícias said it was to go to a person identified only as W.
   - Cáceres Notícias put Cáceres 220 km from Cuiabá and described the second traffic notice as driving without regular licensing; CPA Notícias said 218 km and described that notice as driving without mandatory equipment.
   - CPA Notícias published two images without captions, so they were not added; the Cáceres Notícias image is credited to the military police but its file name is an untitled design.
+  - Leiagora describes a high-speed flight and chase; Cáceres Notícias, already cited, describes a sudden change of route and behaviour the police called suspicious, not a chase.
+  - Leiagora says the pair were members of a criminal faction and were to take the drug to a residence, then to a police station to register an occurrence; the existing report says they sympathised with a faction, names a more specific destination, and says they were taken to the Centro Integrado de Segurança e Cidadania.
+  - The page’s lead image is labelled only “PM” and looks like the same military-police handout already linked from Cáceres Notícias, so it was not added again; the other images on the page belong to unrelated stories.
 ---
 
 Two 19-year-olds were arrested on the afternoon of Thursday 29 October 2026
 during Operação Centro Seguro, a military police operation near the bus terminal
 in the Junco neighbourhood of Cáceres, Mato Grosso, 220 kilometres from Cuiabá.
-[@1] Officers of the 6th Military Police Battalion stopped the two riders of a
+[@1,3] Officers of the 6th Military Police Battalion stopped the two riders of a
 black Honda XRE 190 after a sudden change of route and behaviour the police
 called suspicious. [@1] CPA Notícias placed the stop on Rua Culturama and said
 the riders looked back several times as the patrol approached. [@2]
 
 A personal search found a black backpack holding two bags with 20 large portions
-of a substance the occurrence record described as analogous to marijuana. [@1]
+of a substance the occurrence record described as analogous to marijuana. [@1,3]
 The pair told officers they sympathised with a criminal faction and had been
 instructed to collect the backpack from an isolated plot in a mango grove near a
 football field behind the Jardim das Oliveiras neighbourhood. [@1] Cáceres
@@ -67,3 +75,4 @@ criminal organisation, for the civil police to investigate. [@1] The rider was
 also issued two traffic notices, one for driving without a licence. [@1] CPA
 Notícias gave those notice numbers as PM00248702 and PM00248703. [@2]
 
+When the pair saw the military police patrol approach, the rider of the Honda XRE 190 fled at high speed and officers chased them before the stop. [@3]
