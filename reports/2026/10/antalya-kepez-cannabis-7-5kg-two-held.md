@@ -23,6 +23,11 @@ media:
     media_url: https://cdn.iha.com.tr/Contents/images/2026/10/31/20261031aw822580-4.jpg
     publisher: İhlas Haber Ajansı (İHA)
     caption: A dog beside wrapped packages in a room, in a still published with İhlas Haber Ajansı's report on the operation.
+  - kind: video
+    url: https://www.ensonhaber.com/antalyadaki-uyusturucu-operasyonunda-75-kilogram-esrar-ele-gecirildi-h1578440
+    media_url: https://vcdn.ensonhaber.com/flv/flvideo/v/2026/10/31/antalyada-uyusturucu-operasyonu-1-tutuklu_fkem.mp4
+    publisher: Ensonhaber
+    caption: Video of the operation published by Ensonhaber with its report; the opening frame shows a dog beside taped packages in a room. The page credits Ensonhaber / İhlas Haber Ajansı (İHA).
 status: reported
 created_by_model: opencode-go/deepseek-v4.1-flash#max
 submission: 7158ea0d83b0d99b63c7df31a1306028
@@ -63,6 +68,11 @@ sources:
     publisher: Aksiyon
     date: 2026-10-31
     language: tr
+  - title: Antalya'daki uyuşturucu operasyonunda 7,5 kilogram esrar ele geçirildi
+    url: https://www.ensonhaber.com/antalyadaki-uyusturucu-operasyonunda-75-kilogram-esrar-ele-gecirildi-h1578440
+    publisher: Ensonhaber
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no separate date or time for the operation; 31 October 2026 is the publication date of both accounts.
   - No full names, estimated value for the 7.5 kg of cannabis, court date or trial outcome were published.
@@ -74,21 +84,23 @@ open_questions:
   - The Habertürk page is an unedited Anadolu Agency wire copy, so it corroborates the account already in the report rather than adding independent reporting.
   - The only image on the submitted page is a generic Antalya local-news graphic, not a photograph of the operation, so no media entry was added.
   - The Aksiyon page carries a headline still and an inline 'Şüpheli Araç' image that appear to be the same police-camera handout already linked from İHA, so they were not added as separate media entries.
+  - Ensonhaber credits İhlas Haber Ajansı (İHA) for the report, so the page repeats the agency account already cited in the report rather than adding independent reporting.
+  - The page carries three uncaptioned stills of the operation; without captions or credits they could not be confirmed as distinct from the police handout frames already linked from İHA, so they were not listed as separate media.
 ---
 
 Police in Antalya detained two men in an operation against drug trafficking
 after information that they were selling and distributing drugs brought into the
-city. [@1,4] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
-Kepez district. [@1,3,4,5,7] A search of their homes found 7 kg 500 g of cannabis, known
-in Turkey as esrar, divided into 15 packets. [@1,3,4,5,7] The pair were referred to the
+city. [@1,4,8] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
+Kepez district. [@1,3,4,5,7,8] A search of their homes found 7 kg 500 g of cannabis, known
+in Turkey as esrar, divided into 15 packets. [@1,3,4,5,7,8] The pair were referred to the
 judicial authorities over trading and supplying narcotic or psychotropic
-substances. [@1,5,7]
+substances. [@1,5,7,8]
 
 The operation was run by the narcotics crimes branch of the Antalya provincial
-police directorate. [@1,4,7] Sabah reported that it followed intelligence that the
+police directorate. [@1,4,7,8] Sabah reported that it followed intelligence that the
 two men were bringing drugs obtained outside the province into the city for sale
 and distribution. [@2] Officers identified the suspects and their addresses
 before launching the raid, the paper said. [@2] Police camera footage recorded
-the operation and the material seized in the searches. [@1,7]
+the operation and the material seized in the searches. [@1,7,8]
 
-M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4,6,7]
+M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4,6,7,8]
