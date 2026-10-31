@@ -72,6 +72,11 @@ sources:
     publisher: Gazete Pano
     date: 2026-10-30
     language: tr
+  - title: Malatya’da 2 kilo esrar ele geçirildi
+    url: https://www.marmarisyenisayfa.com/haber/malatya-da-2-kilo-esrar-ele-gecirildi-778466.html
+    publisher: Marmaris Yeni Sayfa
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the searches; 30 October 2026 is the date the first accounts were published, so the operation happened on or before that evening.
   - No suspect name, age, district or neighbourhood within Malatya, charge, court date or estimated value for the drugs was published.
@@ -80,6 +85,7 @@ open_questions:
   - The page's only picture repeats the headline as its caption and carries no credit, so it could not be confirmed to show this seizure; no photo or video of the operation could be verified.
   - Gazete Pano does not state a separate date for the searches; its publication date is 30 October 2026.
   - The featured image is labelled only “malatya” and is not confirmed to show this seizure.
+  - The added account is a Marmaris Yeni Sayfa reprint credited to İhlas Haber Ajansı, not independent reporting.
 media:
   - kind: photo
     url: https://www.aksiyon.com.tr/malatya-da-sokak-saticilarina-yonelik-baskinda-2-kilo-50-gram-esrar-ve-ruhsatsiz-tufek-bulundu-385109
@@ -89,8 +95,8 @@ media:
 ---
 
 Police in Malatya detained a suspected street-level cannabis dealer after
-searching his person and his address. [@1,5,6,7,9,10,11] The searches turned up 2 kg 50 g of
-esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9,10,11] The suspect
+searching his person and his address. [@1,5,6,7,9,10,11,12] The searches turned up 2 kg 50 g of
+esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9,10,11,12] The suspect
 was taken into custody and his processing at the police station was continuing.
 [@2,5,8,11]
 
