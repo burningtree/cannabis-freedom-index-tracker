@@ -69,6 +69,11 @@ sources:
     publisher: AlbertoNews
     date: 2026-10-29
     language: es
+  - title: Guatemala incauta 1.217 kilos de marihuana valorada en 2,4 millones de dólares
+    url: https://www.infobae.com/america/agencias/2026/10/30/guatemala-incauta-1217-kilos-de-marihuana-valorada-en-24-millones-de-dolares/
+    publisher: Infobae
+    date: 2026-10-30
+    language: es
 open_questions:
   - No arrests, charges or court steps were reported; the sources name no suspect or organisation.
   - The Interior Ministry's statement of 28 October put the load at about 1,005 pounds (453 kilograms); the PNC's later update gave 1,217 kilograms, and the report uses the later figure.
@@ -79,6 +84,8 @@ open_questions:
   - AlbertoNews does not name El Socorro or the 880 packages given in the existing sources.
   - The page's URL says 24 million dollars, but the headline and body say 2.4 million; the body figure is used.
   - The article also gives year-to-date national seizure totals and a September Alta Verapaz attack, which are not this seizure.
+  - This Infobae EFE copy does not name El Socorro or 880 packages and rounds the value to 18.5 million quetzales, about 2.4 million US dollars; the report keeps the later PNC figure of 18,573,854 quetzales.
+  - The page URL says 24 million dollars, but the headline and body say 2.4 million.
 ---
 
 Guatemalan police seized 880 packages of suspected marijuana in El Socorro, a
@@ -103,4 +110,6 @@ structures. [@2,5,7]
 
 The investigation that led to the find began after a citizen complaint. [@4,6]
 
-The government valued the load at about 2.4 million US dollars, or 18.5 million quetzales. [@7]
+The government valued the load at about 2.4 million US dollars, or 18.5 million quetzales. [@7,8]
+
+The National Civil Police said the load was found about 75 kilometres south of the capital, in Santa Lucía Cotzumalguapa, Escuintla. [@8]
