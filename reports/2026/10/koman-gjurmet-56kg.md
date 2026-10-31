@@ -29,6 +29,10 @@ sources:
     publisher: RTSH
     date: 2026-10-30
     language: sq
+  - title: Drug base discovered in Koman forests, over 56 kg of cannabis seized, 4 people arrested
+    url: https://www.balkanweb.com/en/Drug-base-discovered-in-the-forests-of-Koman--over-56-kg-of-cannabis-seized--4-people-arrested/
+    publisher: Balkanweb
+    date: 2026-10-30
 media:
   - kind: photo
     url: https://rtsh.al/operacioni-gjurmet-zbulohen-mbi-56-kg-kanabis-ne-pyjet-e-komanit-arrestohen-4-persona/
@@ -40,20 +44,23 @@ open_questions:
   - The weight is given only as more than 56.7 kilograms, not as an exact figure.
   - A fifth man, A. F., 38, was investigated at liberty and was not arrested.
   - Police identified the arrested men by initials only in the accounts opened here.
+  - Balkanweb says A. F. was released on bail and processed at large, while the existing report, citing Albeu and RTSH, says he was investigated at liberty.
+  - Balkanweb does not name which two of the arrested had their vehicles searched, while the existing report names K. K. and M. P.
+  - The Balkanweb page has an Open Graph image with no caption in the article text, so it was not added as a photo of this seizure.
 ---
 
 Shkodër police arrested four men and seized more than 56.7 kilograms of suspected cannabis from
-woods in the village of Koman. [@1,2] The narcotics investigation sector, working with the
+woods in the village of Koman. [@1,2,3] The narcotics investigation sector, working with the
 operational support section, called the operation Gjurmët and said it followed several weeks of
-proactive work. [@1,2]
+proactive work. [@1,2,3]
 
 Those arrested were P. F., 45, of Gomsiqe in Vau i Dejës; M. P., 39, of Dush in Vau i Dejës;
-K. K., 33, of Shkodër; and D. N., 67, of Tirana. [@1,2] A. F., 38, of Gomsiqe, the brother of the
+K. K., 33, of Shkodër; and D. N., 67, of Tirana. [@1,2,3] A. F., 38, of Gomsiqe, the brother of the
 45-year-old, was investigated while at liberty. [@1,2] Police suspect the five moved cannabis by
-vehicles and boats into the wooded area, hid it there and prepared it for sale. [@1,2]
+vehicles and boats into the wooded area, hid it there and prepared it for sale. [@1,2,3]
 
 During the search, officers checked a campsite owned by P. F. and vehicles used by K. K. and
 M. P. [@1,2] They found ten sacks weighing more than 56.7 kilograms and seized them as material
-evidence. [@1,2] The papers went to the prosecution at the Shkodër court of first instance of
-general jurisdiction. [@1,2] Police said the inquiry was still looking for anyone else involved.
-[@1]
+evidence. [@1,2,3] The papers went to the prosecution at the Shkodër court of first instance of
+general jurisdiction. [@1,2,3] Police said the inquiry was still looking for anyone else involved.
+[@1,3]
