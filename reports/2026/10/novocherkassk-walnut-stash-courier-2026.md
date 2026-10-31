@@ -38,6 +38,11 @@ sources:
     publisher: Новости Новочеркасска
     date: 2026-10-30
     language: ru
+  - title: 'Наркотики вместо ядер: в Новочеркасске закладчик прятал марихуану в грецких орехах'
+    url: https://bloknot-rostov.ru/news/narkotiki-vmesto-yader-v-novocherkasske-zakladchik-2022115
+    publisher: Блокнот Ростов
+    date: 2026-10-30
+    language: ru
 open_questions:
   - Both articles were published on 30 October 2026 and give no separate date for the detention or the search, so that date is used for the event.
   - Neither report names the suspect or says what charge he will face, and no court hearing is reported.
@@ -49,18 +54,18 @@ open_questions:
 
 Police in Novocherkassk detained a 29-year-old resident of Oktyabrsky district
 on suspicion of illegally selling and storing drugs, the Rostov region branch of
-the Interior Ministry said. [@1] Officers searching several locations in the
-city found five walnuts, each containing a zip bag of plant matter. [@1,3] An
+the Interior Ministry said. [@1,4] Officers searching several locations in the
+city found five walnuts, each containing a zip bag of plant matter. [@1,3,4] An
 examination identified the contents as marijuana, and the total weight was 4.7
-grams. [@1,3] Don 24 reported that the five stashes were found in different parts
+grams. [@1,3,4] Don 24 reported that the five stashes were found in different parts
 of the city and that the drug had been hidden in walnut shells. [@2]
 
 According to the police, the detained man worked as a zakladchik, a courier who
-leaves hidden drug parcels for buyers, for one of the online shops. [@1,3] Don 24
+leaves hidden drug parcels for buyers, for one of the online shops. [@1,3,4] Don 24
 quoted the police as saying he planned to sell the drugs to unidentified buyers
 through stashes in the city. [@2] He was under administrative arrest, a short
 detention imposed for an administrative offence, and a measure of restraint was
-to be chosen once it ended. [@1,3] Don 24 reported that he would be remanded in
+to be chosen once it ended. [@1,3,4] Don 24 reported that he would be remanded in
 custody at that point. [@2]
 
-A criminal case was opened against him under Part 1 of Article 228.1 of the Russian Criminal Code, which covers illegal drug sales. [@3]
+A criminal case was opened against him under Part 1 of Article 228.1 of the Russian Criminal Code, which covers illegal drug sales. [@3,4]
