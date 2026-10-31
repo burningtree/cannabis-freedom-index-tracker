@@ -52,21 +52,27 @@ sources:
     publisher: Son Dakika
     date: 2026-10-30
     language: tr
+  - title: اعتقال شخصين في أضنة وضبط 8 كيلوغرامات و562 غراماً من الحشيش
+    url: https://newturkpost.com/news/131116-%D8%A7%D8%B9%D8%AA%D9%82%D8%A7%D9%84-%D8%B4%D8%AE%D8%B5%D9%8A%D9%86-%D8%A3%D8%B6%D9%86%D8%A9-%D8%B6%D8%A8%D8%B7-8-%D9%83%D9%8A%D9%84%D9%88%D8%BA%D8%B1%D8%A7%D9%85%D8%A7%D8%AA-%D8%AD%D8%B4%D9%8A%D8%B4
+    publisher: وكالة نيو ترك بوست الاخبارية
+    date: 2026-10-30
+    language: ar
 open_questions:
   - The reports give no separate date for the raid or the court hearing; 29 October 2026 is the publication date of the earliest account, so both happened on or before that evening.
   - No charge, court date, names of the two suspects or estimated value of the cannabis was published.
   - No photo or video confirmed to show the raid or the seizure was available; the only image on the submitted page repeats the headline as its caption and names no photographer or agency.
   - N Gazete attributes the search to district police teams, while the İHA-based accounts name the district police narcotics bureau; the report follows the more specific account.
+  - The Arabic page attributes its information to the Turkish newspaper Cumhuriyet; that original report was not opened, so whether the page adds reporting independent of the four Turkish outlets already cited is unclear.
 ---
 
 Police in Ceyhan, a district of Adana province, mounted an operation against
-drug trafficking at a specified address in the Çiftlikler neighbourhood. [@2,4,6] A
+drug trafficking at a specified address in the Çiftlikler neighbourhood. [@2,4,6,8] A
 police search of the address turned up 8 kg 562 g of cannabis, the drug known in
-Turkey as esrar, hidden in various places, together with a precision scale. [@1,4,5,6,7]
-Officers detained two suspects. [@1,4,5,6,7] After questioning at the police station the
+Turkey as esrar, hidden in various places, together with a precision scale. [@1,4,5,6,7,8]
+Officers detained two suspects. [@1,4,5,6,7,8] After questioning at the police station the
 pair were taken to the courthouse, where a magistrates' court ordered them held
 in pre-trial detention — tutuklama, the order that keeps a suspect in custody
-pending trial. [@1,4,5,6,7] Both were then sent to prison to await trial. [@3,6]
+pending trial. [@1,4,5,6,7,8] Both were then sent to prison to await trial. [@3,6]
 
 The operation was run by the narcotics bureau of the Ceyhan district police
 directorate, the Narkotik Suçlarla Mücadele Büro Amirliği. [@2,6] The cannabis was
