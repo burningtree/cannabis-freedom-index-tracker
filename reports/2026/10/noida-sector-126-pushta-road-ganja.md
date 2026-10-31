@@ -27,16 +27,25 @@ sources:
     publisher: Do Took Media
     date: 2026-10-30
     language: hi
+  - title: नोएडा में दो अलग-अलग थानों की पुलिस ने गांजा तस्कर और वाहन चोर को दबोचा
+    url: https://royalbulletin.in/delhi-ncr/noida/noida-police-arrest-two-accused-including-ganja-smuggler-and-vehicle-thief/article-249579
+    publisher: Royal Bulletin
+    date: 2026-10-30
+    language: hi
 open_questions:
   - Amar Ujala described the haul as “sava do kilo” (about 2.25 kg), while the police account reported 2 kg 150 g (2.15 kg); the report uses 2.15 kg.
   - Police said the accused had earlier theft, NDPS and Arms Act cases; those earlier cases were not independently confirmed.
   - No charge sheet, court appearance or custody decision has been reported.
   - Neither report carried a captioned photograph that could be confirmed as showing this arrest, so no media is linked.
+  - This account does not give a separate date for the arrest.
+  - Royal Bulletin spells the station house officer सोमनेश कुमार, while the existing report uses Sumneesh Kumar from earlier sources.
+  - The same article reports a separate Sector-20 arrest of Ankit Bhati for vehicle theft, a pistol and cash, which is not part of this cannabis case.
+  - The page image is captioned only with the headline and was not confirmed as a photograph of this arrest, so it is not linked.
 ---
 
 Sector-126 police in Noida arrested Siddharth Sharma, 26, on 29 October 2026 on
 Pushta Road near Garhi Kat in Sector 128. [@2] A search found 2 kg 150 g of
-ganja on him, police said. [@2] Police gave his address as Gali No. 2 near Japto
+ganja on him, police said. [@2,3] Police gave his address as Gali No. 2 near Japto
 Store, Garhi Shahpur, Sector 128. [@2] Amar Ujala put the quantity at “sava do
 kilo”, about 2.25 kg. [@1]
 
@@ -53,3 +62,4 @@ Kumar said a first information report (FIR), the initial police report that
 opens a criminal case in India, had been registered and further action was under
 way. [@1]
 
+Police named Sharma's father as Bhuvendra. [@3] Police registered a case at Sector-126 station under sections 8 and 20 of the NDPS Act. [@3] The arrest came during a special campaign by the Gautam Buddh Nagar police commissionerate against criminals. [@3]
