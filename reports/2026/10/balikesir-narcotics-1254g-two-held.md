@@ -33,6 +33,11 @@ sources:
     publisher: Haberler.com
     date: 2026-10-31
     language: tr
+  - title: Balıkesir'de 1 kilo 254 gram esrar ele geçirildi, 2 şüpheli gözaltına alındı
+    url: https://www.sondakika.com/amp/haber-balikesir-de-1-kilo-254-gram-esrar-ele-gecirildi-2-20383155/
+    publisher: Son Dakika
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no street, neighbourhood or time of day for the two operations, only the Balıkesir city centre.
   - The two suspects were not named, and no charge, court date or outcome was reported.
@@ -41,25 +46,25 @@ open_questions:
   - The Son Dakika item is credited to the İhlas news agency (İHA) and the Haberler.com item to the Demirören news agency (DHA); both restate the provincial police account, so they are not independent corroboration of its figures.
   - The 30 October 2026 date comes from the DHA account's 'yesterday' relative to its 31 October publication; the İHA item gives no separate date.
   - The photo published with the report shows the seized drugs in front of a police board, but not the suspects or the place of the operations.
+  - The Son Dakika page reprints the Demirören Haber Ajansı text already cited through Haberler.com, with a reworded headline, so it does not independently confirm the provincial police account.
 ---
 
 Police in the Balıkesir city centre detained two people in two separate
-narcotics operations. [@1] The operations took place on 30 October 2026. [@2]
+narcotics operations. [@1,3] The operations took place on 30 October 2026. [@2,3]
 Both suspects were held in gözaltı, the police custody in which a person is kept
 for questioning while prosecutors decide whether to bring charges or release
 them. [@1] They were processed for manufacturing and trading narcotic
-substances. [@1]
+substances. [@1,3]
 
 The searches turned up 1 kg 254 g of skunk, a high-potency cannabis preparation
-that Turkish police reports also call esrar. [@1] Officers also seized 61.84 g
+that Turkish police reports also call esrar. [@1,3] Officers also seized 61.84 g
 of liquid synthetic cannabinoid, known in Turkey as bonzai, 42 synthetic pills,
 7.06 g of powdered bonzai, 6.75 g of cannabis seed and 1.29 g of
-methamphetamine. [@1] A precision scale and a cannabis grinder were found as
-well. [@1]
+methamphetamine. [@1,2] A precision scale and a cannabis grinder were found as
+well. [@1,3]
 
 The operations were run by the narcotics crimes branch of the Balıkesir
 provincial police directorate, the Narkotik Suçlarla Mücadele Şube Müdürlüğü,
-the unit that investigates drug supply in the province. [@1] Police had
+the unit that investigates drug supply in the province. [@1,3] Police had
 identified both suspects as drug traders before the operations, the Demirören
-news agency (DHA) reported. [@2]
-
+news agency (DHA) reported. [@2,3]
