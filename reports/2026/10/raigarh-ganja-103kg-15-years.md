@@ -38,30 +38,35 @@ sources:
     publisher: Raigarh Top News
     date: 2026-10-30
     language: hi
+  - title: 'Raigarh News : 103 किलो गांजा तस्करी के आरोपी वरूण सिंह को 15 साल का कठोर कारावास, डेढ़ लाख रुपये जुर्माना'
+    url: https://rghnews.com/raigarh-news-2048/
+    publisher: RGH News
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The reports give no separate date for the judgment; 30 October 2026 is their dateline and publication date.
   - Both Hindi reports reproduce the same Raigarh police account, and no court record or independent reporting of the verdict was found.
   - The reports do not say whether Varun Singh has appealed the sentence.
   - No value was given for the 103.150 kg of ganja.
   - No photograph of the sentencing or of the seized ganja was published; the lead image shows the court building, and the only other picture is a portrait of the investigating officer.
+  - RGH News's lead image is an uncaptioned, uncredited WhatsApp file with no alt text and could not be confirmed to show the sentencing, so no photo from this source was recorded.
 ---
 
 A special NDPS court in Raigarh, Chhattisgarh, sentenced Varun Singh to 15 years
-of rigorous imprisonment for trafficking more than 103 kg of ganja. [@1] Judge
-Ashwani Kumar Chaturvedi also fined him 1.50 lakh rupees (₹150,000). [@1] The
+of rigorous imprisonment for trafficking more than 103 kg of ganja. [@1,3] Judge
+Ashwani Kumar Chaturvedi also fined him 1.50 lakh rupees (₹150,000). [@1,3] The
 court convicted him under section 20(b)(ii)(C) of the NDPS Act, India's Narcotic
 Drugs and Psychotropic Substances Act, after a trial in which the prosecution
-produced 14 witnesses and 65 documents. [@2]
+produced 14 witnesses and 65 documents. [@2,3]
 
 Chakradharnagar police arrested Singh on 10 September 2023 after stopping him on
-the Nawapali main road in Raigarh district. [@1] A search found 103.150 kg of
+the Nawapali main road in Raigarh district. [@1,3] A search found 103.150 kg of
 ganja packed in 20 packets, and he could produce no permit for transporting it.
-[@1] Police registered crime number 452/2023 under section 20(b) of the NDPS Act
+[@1,3] Police registered crime number 452/2023 under section 20(b) of the NDPS Act
 and took him into custody. [@1] They identified him as a resident of CCL Colony,
 ward 12, Baikunthpur in Koriya district, then aged 32. [@1]
 
 Inspector Prashant Rao Aher, then station house officer at Chakradharnagar, led
-the investigation. [@1] Raigarh superintendent of police Shashi Mohan Singh has
+the investigation. [@1,3] Raigarh superintendent of police Shashi Mohan Singh has
 told station heads across the district to investigate drug cases without error
 and to make sure witnesses appear in court on time. [@1]
-
