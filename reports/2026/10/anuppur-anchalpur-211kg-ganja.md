@@ -19,6 +19,11 @@ media:
     media_url: https://staticimg.amarujala.com/assets/images/4cplus/2026/10/30/palsa-garafata-ma-vahana-oura-japata-gaja_03e038db13e370cee940167a1af9dcd8.jpeg?w=414&dpr=1.0&q=80
     publisher: Amar Ujala
     caption: 'The seized vehicle and ganja in police custody after the interception near Anchalpur. Photo: Amar Ujala'
+  - kind: photo
+    url: https://www.patrika.com/anuppur-news/ganja-smuggling-car-fake-two-wheeler-number-plate-21019497
+    media_url: https://cms.patrika.com/wp-content/uploads/2026/10/Anuppur-Ganja-Smuggling.webp
+    publisher: Patrika News
+    caption: 'The seized car and the ganja recovered from it after the interception near Anchalpur. Photo: Patrika'
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 9dd8844cc7d330f305e581ea9fbf8e9a
@@ -39,6 +44,11 @@ sources:
     publisher: Hindusthan Samachar
     date: 2026-10-30
     language: hi
+  - title: 'Anuppur Crime: बाइक के नंबर से चला रहे थे कार, अंदर भरा था 211 किलो 99 ग्राम गांजा'
+    url: https://www.patrika.com/anuppur-news/ganja-smuggling-car-fake-two-wheeler-number-plate-21019497
+    publisher: Patrika News
+    date: 2026-10-30
+    language: hi
 open_questions:
   - 'The reports differ on the time: Amar Ujala and Hindusthan Samachar place the interception in the night between 29 and 30 October, while Dainik Bhaskar says Friday afternoon.'
   - No arrests, charges or court step were reported; police were still looking for the driver, other suspects and the car's owner.
@@ -53,18 +63,17 @@ Madhya Pradesh. [@3] Rajendragram station house officer Virendra Kumar Barkare
 led the blockade with his team. [@2] Officers chased him but he escaped into
 dense forest in the dark. [@2] Police registered a case against an unknown
 accused under the NDPS Act. [@2] Police were looking for the car's real owner
-and the absconding accused. [@1]
+and the absconding accused. [@1,4]
 
 The car was a Duster with a Chhattisgarh number plate, CG 16 CA 9735. [@2] A
-search found 211 kg 99 g of ganja. [@1] Police estimated the value at 21.19 lakh
-rupees (2,119,900 rupees). [@1] The bags were on the rear seat and in the boot,
+search found 211 kg 99 g of ganja. [@1,4] Police estimated the value at 21.19 lakh
+rupees (2,119,900 rupees). [@1,4] The bags were on the rear seat and in the boot,
 and police also seized the car, a mobile phone and a purse. [@2] The number
-plate was registered in Chhattisgarh to a two-wheeler. [@1] The chassis and
-engine numbers had been wiped with chemicals to hide the car's identity. [@1]
+plate was registered in Chhattisgarh to a two-wheeler. [@1,4] The chassis and
+engine numbers had been wiped with chemicals to hide the car's identity. [@1,4]
 
 Superintendent of Police Ankit Soni said the seizure came during a statewide
 campaign against illegal drug trafficking under the NDPS Act. [@2] Police had
 been told that suspicious cars were speeding from Amgawan towards Rajendragram
 carrying illegal goods. [@2] The input also mentioned two cars escorting the
 vehicle. [@2]
-
