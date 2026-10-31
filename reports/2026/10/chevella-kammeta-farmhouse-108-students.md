@@ -41,6 +41,11 @@ sources:
     publisher: Andhrajyothy
     date: 2026-10-31
     language: te
+  - title: 'Hyderabad: ఫాంహౌస్‌లో మద్యం సేవిస్తూ పట్టుబడ్డ 108 మంది విద్యార్థులు.. నలుగురికి గంజాయి పాజిటివ్‌'
+    url: https://telugu.newsmeter.in/hyderabad/chevella-farmhouse-raid-police-catch-108-students-consuming-alcohol-4-test-positive-for-ganja-778418
+    publisher: NewsMeter Telugu
+    date: 2026-10-31
+    language: te
 open_questions:
   - The reports say the 108 students were caught and that a case was registered, but they do not name anyone or say how many were formally arrested, charged or later produced in court.
   - No separate figure was given for how much liquor was seized, only that students were consuming it without permission.
@@ -52,28 +57,32 @@ open_questions:
   - Andhrajyothy says Mannan circulated the party invitation in a WhatsApp group, while the report's account based on V6 Velugu says Instagram; both say he charged Rs 1,000–2,000.
   - Only Andhrajyothy reports that Mannan was taken into custody, so the report's open question about who was formally arrested is only partly answered; the other accounts opened for this raid do not mention his detention.
   - The Andhrajyothy page's photographs are generic ganja and liquor images and a headline graphic, not pictures of the raid, so no media was added from it.
+  - The NewsMeter page's only article illustration is a posed picture of hands holding glasses of beer, not a photograph of the raid, so no media was added from it.
+  - 'Left out, as its quotation was not found in NewsMeter Telugu: On Friday, 30 October 2026, police and the Special Operations Team raided LG Farmhouse at Kammeta village, under Chevella police station limits on the outskirts of Hyderabad, after what police called credible information.'
 ---
 
 On Friday, 30 October 2026, police and the Special Operations Team raided LG
 Farmhouse at Kammeta village, under Chevella police station limits on the
 outskirts of Hyderabad, after what police called credible information. [@1,4]
 Officers found 108 students from ICFAI and IBS colleges consuming liquor without
-the permissions required for the gathering. [@1] Of those caught at the
-farmhouse, 71 were boys and 37 were girls. [@1] Telangana excise rules require
+the permissions required for the gathering. [@1,5] Of those caught at the
+farmhouse, 71 were boys and 37 were girls. [@1,5] Telangana excise rules require
 permission before liquor is served at a private event, including a party at a
 farmhouse, and a breach can be acted on under those laws. [@2]
 
 During the raid, police screened people for drugs, and four tested positive for
-cannabis consumption. [@1,4] The Hindu's account of the same Friday-night raid
+cannabis consumption. [@1,4,5] The Hindu's account of the same Friday-night raid
 also reported four positive ganja tests among the 108 students. [@2] Police
 seized 15 grams of ganja, the name used in the reports for cannabis, together
-with seven cars, three motorcycles and 70 mobile phones from the premises. [@1,4]
+with seven cars, three motorcycles and 70 mobile phones from the premises. [@1,4,5]
 
 Chevella Police Station Inspector Narendra Reddy said a case had been registered
 in connection with the incident and that a detailed investigation was under way.
-[@1,3] He said further legal action would be taken in accordance with the law.
+[@1,3,5] He said further legal action would be taken in accordance with the law.
 [@2]
 
 A man named Mannan, who had earlier organised a freshers’ day party at ICFAI University (IBS) in Dontanpally, Shankarpally mandal, advertised on Instagram that a party would be held on 30 October at a farmhouse in Chevella mandal and collected 1,000 to 2,000 rupees from each person. [@3] He kept the venue secret and sent the farmhouse location only at the last minute to those who had paid. [@3]
 
 The organiser, Mannan, was taken into custody, and police said they were investigating where the drugs came from and who brought them. [@4]
+
+Police said they would act against drugs, unauthorised parties and other unusual activity at farmhouses. [@5]
