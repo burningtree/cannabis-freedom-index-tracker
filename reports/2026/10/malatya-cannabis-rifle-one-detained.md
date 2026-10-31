@@ -62,6 +62,11 @@ sources:
     publisher: herkesduysun.com
     date: 2026-10-30
     language: tr
+  - title: 'Malatya’da Zehir Tacirlerine Darbe: 2 Kilo 50 Gram Esrar Ele Geçirildi'
+    url: https://www.malatyaguncel.com/malatya-da-zehir-tacirlerine-darbe-2-kilo-50-gram-3119524h.htm
+    publisher: Malatya Güncel
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the searches; 30 October 2026 is the date the first accounts were published, so the operation happened on or before that evening.
   - No suspect name, age, district or neighbourhood within Malatya, charge, court date or estimated value for the drugs was published.
@@ -77,8 +82,8 @@ media:
 ---
 
 Police in Malatya detained a suspected street-level cannabis dealer after
-searching his person and his address. [@1,5,6,7,9] The searches turned up 2 kg 50 g of
-esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9] The suspect
+searching his person and his address. [@1,5,6,7,9,10] The searches turned up 2 kg 50 g of
+esrar, the Turkish name for cannabis, and one unlicensed rifle. [@1,4,5,6,7,8,9,10] The suspect
 was taken into custody and his processing at the police station was continuing.
 [@2,5,8]
 
@@ -94,4 +99,6 @@ street-level dealers who sell drugs to users. [@3] Malatya Haber said police had
 identified the man as selling drugs before he was caught with the cannabis and
 the rifle. [@3]
 
-The provincial police said the searches took place on 30 October 2026. [@4]
+The provincial police said the searches took place on 30 October 2026. [@4,10]
+
+Police said they detained the suspect on the instructions of the Malatya Chief Public Prosecutor's Office. [@10]
