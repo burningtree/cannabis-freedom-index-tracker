@@ -32,6 +32,11 @@ media:
     media_url: https://i0.statig.com.br/bancodeimagens/42/0j/f4/420jf4jdr0bsvc2gc8wg92ntb.jpg
     publisher: Portal iG
     caption: 'The seized skunk load of about 3.5 tonnes. Photo: Divulgação/PRF.'
+  - kind: photo
+    url: https://www.diariogoianiense.com.br/noticia/prf-e-policia-civil-fazem-grande-apreensao-de-skunk-na-br-153-em-goias
+    media_url: https://www.diariogoianiense.com.br/uploads/images/2026/10/prf-e-policia-civil-apreendem-3-5-toneladas-de-supermaconha-em-caminhao-na-br-153-em-goias1793363722.jpg
+    publisher: Diário Goianiense
+    caption: 'Photo published with the Diário Goianiense report of the 3.5-tonne skunk seizure on the BR-153. Credit on the page: A Redação, com informações da PRF e PCDF; FONTE/CRÉDITOS: Glaucio teixeira.'
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 0d5434a64ecbbb6b8828a23255faa9fa
@@ -52,6 +57,11 @@ sources:
     publisher: Portal iG
     date: 2026-10-30
     language: pt
+  - title: PRF e Polícia Civil fazem grande apreensão de skunk na BR-153 em Goiás
+    url: https://www.diariogoianiense.com.br/noticia/prf-e-policia-civil-fazem-grande-apreensao-de-skunk-na-br-153-em-goias
+    publisher: Diário Goianiense
+    date: 2026-10-30
+    language: pt
 open_questions:
   - The reports give the weight as about 3.5 tonnes and publish no exact figure.
   - Neither report says who valued the load at R$3.5 million.
@@ -60,21 +70,24 @@ open_questions:
   - The reports do not say where the load came from or who owned it.
   - iG does not mention the R$3.5 million valuation or an intended sale in the Federal District, which Mais Goiás reported.
   - iG says the driver and the drug were sent to the Civil Police and does not mention booking in Brasília or a trafficking charge.
+  - Diário Goianiense says the driver was arrested after giving contradictory accounts of the load’s origin and destination, while the existing report, citing Mais Goiás, says he could not explain the trip and stayed silent.
+  - This article says the skunk was hidden under pallets; the existing report says the bales were hidden behind wooden pallets.
+  - The page photo is not captioned as showing the seizure, only credited to the newsroom with PRF and PCDF information and to Glaucio Teixeira, so it is unclear whether it is the same handout already linked from other outlets.
 ---
 
 The Federal Highway Police and the Civil Police of the Federal District seized
 about 3.5 tonnes of skunk from a truck on the BR-153 at Morrinhos, in southern
-Goiás, on the afternoon of Thursday 29 October 2026. [@2,3] The bales of skunk
+Goiás, on the afternoon of Thursday 29 October 2026. [@2,3,4] The bales of skunk
 were hidden behind wooden pallets and were found by sniffer dogs. [@1] The
-driver was arrested. [@2,3]
+driver was arrested. [@2,3,4]
 
 The stop followed an exchange of information between the highway police and
-Civil Police officers in the Federal District. [@1,3] When approached, the driver
+Civil Police officers in the Federal District. [@1,3,4] When approached, the driver
 could not explain where he had come from or where he was going, and stayed
 silent. [@1] After the pallets were unloaded, officers found the skunk in the
-cargo compartment. [@2,3]
+cargo compartment. [@2,3,4]
 
-He was taken to the Civil Police with the seized drug. [@2,3] At the Civil Police
+He was taken to the Civil Police with the seized drug. [@2,3,4] At the Civil Police
 station in Brasília, he was booked on a charge of interstate drug trafficking.
 [@1] The PRF did not name him and released only his age, 40. [@1,3]
 
@@ -82,4 +95,6 @@ The load was valued at R$3.5 million and, according to the investigation, was to
 be sold in the Federal District. [@1] Skunk, known in Brazil as 'super maconha'
 (super marijuana), is a cannabis product. [@1]
 
-The PRF said the driver's behaviour and the circumstances of the transport prompted a closer inspection, but did not say which signs raised suspicion. [@3] Sniffer dogs from the PRF's dog-operations group indicated drugs in the truck. [@3]
+The PRF said the driver's behaviour and the circumstances of the transport prompted a closer inspection, but did not say which signs raised suspicion. [@3] Sniffer dogs from the PRF's dog-operations group indicated drugs in the truck. [@3,4]
+
+Investigations were continuing to identify the origin and destination of the load. [@4]
