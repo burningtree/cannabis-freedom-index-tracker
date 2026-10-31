@@ -1,0 +1,80 @@
+---
+date: 2026-10-29
+country: br
+place: Riviera da Barra, Vila Velha, Espírito Santo
+coordinates: [-20.4304, -40.3384]
+precision: locality
+type: seizure
+also: [raid, arrest]
+title: Three arrested after 1.34 tonnes of cannabis found in Vila Velha flat
+summary: >-
+  Military police found 1,340 kg of cannabis in a rented apartment in Riviera da Barra, Vila Velha, Brazil, on 29 October 2026 and arrested three people aged 29 to 46. Police said the three supplied marijuana to the Terceiro Comando Puro and Primeiro Comando de Vitória gangs and that the load probably came from another state.
+figures:
+  arrested: 3
+  kg_seized: 1340
+media:
+  - kind: photo
+    url: https://www.folhavitoria.com.br/policia/mais-de-1-toneladade-maconha-sao-apreendidos-em-vila-velha-foto-impressiona/
+    media_url: https://uploads.folhavitoria.com.br/imagens/2026/10/Mais-de-700kg-de-maconha-apreendidos-em-Vila-velha--1000x582.jpg
+    publisher: Folha Vitória
+    caption: 'Cannabis seized in the apartment in Riviera da Barra, in a Military Police handout. Photo: Reprodução/PMES'
+  - kind: photo
+    url: https://www.folhavitoria.com.br/policia/mais-de-1-toneladade-maconha-sao-apreendidos-em-vila-velha-foto-impressiona/
+    media_url: https://uploads.folhavitoria.com.br/imagens/2026/10/Maconha-apreendida-em-apartamento-em-Vila-Velha-.jpg
+    publisher: Folha Vitória
+    caption: 'The cannabis seized in the Riviera da Barra apartment, photographed in the room where it was stored. Photo: Reprodução/PMES'
+  - kind: photo
+    url: https://eshoje.com.br/seguranca/policia/2026/10/trio-tonelada-de-maconha/
+    media_url: https://eshoje.com.br/wp-content/uploads/2026/10/0aecaac7-55f2-4047-950b-be214a3c1212-1024x576.webp
+    publisher: ES Hoje
+    caption: 'Cleidileia Firmino, Felipe Vieira Lima and Saulo Ferreira Junqueira, the three people arrested over the Vila Velha seizure. Photo: Reprodução'
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: d1c28c9aebc1cda2151e717ad8c9872a
+tags: [vila-velha, espirito-santo, apartment, tcp, pcv]
+sources:
+  - title: Mais de 1 tonelada de maconha é apreendida em Vila Velha; foto impressiona
+    url: https://www.folhavitoria.com.br/policia/mais-de-1-toneladade-maconha-sao-apreendidos-em-vila-velha-foto-impressiona/
+    publisher: Folha Vitória
+    date: 2026-10-29
+    language: pt
+  - title: Polícia apreende mais de 1,3 tonelada de maconha em apartamento em Vila Velha; três são presos
+    url: https://g1.globo.com/es/espirito-santo/noticia/2026/10/30/policia-apreende-mais-de-13-tonelada-de-maconha-em-apartamento-em-vila-velha-tres-sao-presos.ghtml
+    publisher: G1
+    date: 2026-10-30
+    language: pt
+  - title: Trio é preso com 1,3 tonelada de maconha que seria distribuida para facções do TCP e PCV
+    url: https://eshoje.com.br/seguranca/policia/2026/10/trio-tonelada-de-maconha/
+    publisher: ES Hoje
+    date: 2026-10-30
+    language: pt
+open_questions:
+  - Folha Vitória, published on the night of the raid, reported that two men were detained, while G1 and ES Hoje, citing the Military Police, named three people, including Cleidileia Firmino; this report uses the three-person account.
+  - No charge or court outcome for the three has been reported.
+  - No street value for the 1,340 kg was published.
+---
+
+Military police arrested three people and found more than 1.3 tonnes of cannabis
+in an apartment in Riviera da Barra, Vila Velha, on 29 October 2026. [@2] The
+three were Felipe Vieira Lima, 29, known as "Di Rocha", Saulo Ferreira
+Junqueira, 45, and Cleidileia Firmino, 46. [@2] They were taken to the Federal
+Police headquarters with the seized material. [@3]
+
+The Military Police put the load at 1 tonelada e 340 quilos, or 1,340 kg. [@1]
+The operation began after the intelligence service of the 17th Independent
+Company received information that the flat was used to store drugs. [@1] The
+information was shared with the Military Police intelligence directorate and the
+4th Battalion's intelligence service, and officers watched the flat before the
+raid. [@1] Approaching the flat, officers smelled a strong odour of drugs and
+saw one suspect holding a tablet of the drug before he ran inside. [@1] The
+officers broke the padlock on the gate to enter. [@2] Most of the cannabis was
+in one room, inside zippered bags and closed boxes, with some of it loose. [@1]
+
+Police said the three were not tied to a specific gang but supplied cannabis to
+groups selling it in Greater Vitória, including the Terceiro Comando Puro (TCP)
+and the Primeiro Comando de Vitória (PCV). [@2] Saulo already had police records
+for drug trafficking and robbery. [@1] The three had lived in the rented flat
+for about a year. [@1] The Military Police suspect the cannabis came from
+another state to be sold in Espírito Santo; the three did not say where it came
+from. [@2]
+
