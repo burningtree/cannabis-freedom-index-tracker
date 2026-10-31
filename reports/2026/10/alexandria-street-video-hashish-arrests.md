@@ -67,6 +67,11 @@ sources:
     publisher: تليجراف مصر
     date: 2026-10-30
     language: ar
+  - title: 'بالبلدي: فيديو «المساطيل» يقود الداخلية لضبط موظف وعامل ديليفري بعد «سهرة كيف» بالإسكندرية'
+    url: https://belbalady.net/7699110
+    publisher: بالبلدي
+    date: 2026-10-31
+    language: ar
 open_questions:
   - The reports give no date for the arrests; 30 October 2026, when both were published, is used as the incident date.
   - Neither report gives the weight of the hashish found with the employee or with the supplier.
@@ -82,22 +87,24 @@ open_questions:
   - The page image is captioned only with the article headline and has no photo credit, so it is not clear that it shows the arrests or the hashish and it was not added as media.
   - The Mobtada photo is captioned only "the accused" and has no credit, so it is not certain it is a distinct image of the arrests rather than a republished still.
   - The Egypt Telegraph photo captioned "the two accused" was not added; it is likely the same handout already listed from other outlets, and the other page images are advertisements or placeholders.
+  - Belbalady says it republishes automatically and credits النبأ; it adds no weight, names or arrest date.
+  - The lead image is captioned only with the headline, so it was not added as media.
 ---
 
 The case began with a social-media post, backed by a video, in which the person
 who published it complained about two men, one of them riding a motorcycle,
 using drugs on a street in Alexandria. [@2,3,4,5,6,7,8] Egypt's Interior Ministry said its
 security services identified and arrested the pair and seized the motorcycle,
-which had valid licence plates. [@1,3,4,6,7,8] The two were a company employee and a
-delivery worker, both living in Alexandria Governorate. [@1,3,4,5,6,7,8]
+which had valid licence plates. [@1,3,4,6,7,8,9] The two were a company employee and a
+delivery worker, both living in Alexandria Governorate. [@1,3,4,5,6,7,8,9]
 
-Hashish was found with the employee. [@1,3,4,5,6,7,8] Questioned, the two admitted the
-offence and said they held the drugs to use them. [@1,3,4,5,6,7,8] The employee said he had
+Hashish was found with the employee. [@1,3,4,5,6,7,8,9] Questioned, the two admitted the
+offence and said they held the drugs to use them. [@1,3,4,5,6,7,8,9] The employee said he had
 obtained the hashish from an unemployed man with a criminal record living in the
-First Montazah police district, and police arrested that man. [@1,3,4,5,6,7,8]
+First Montazah police district, and police arrested that man. [@1,3,4,5,6,7,8,9]
 
 The ministry said no reports had been filed about the incident before the video
-spread online. [@1,3,4,5,6,7,8] The public prosecution has taken over the investigation.
-[@2,3,4,7,8]
+spread online. [@1,3,4,5,6,7,8,9] The public prosecution has taken over the investigation.
+[@2,3,4,7,8,9]
 
-The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4,5,6,7,8]
+The unemployed man arrested as the supplier was found with hashish and admitted holding it for trafficking. [@3,4,5,6,7,8,9]
