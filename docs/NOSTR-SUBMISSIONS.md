@@ -225,8 +225,13 @@ new questions without duplication. Unsupported event identity or ambiguous dupli
 still need explicit handling rather than fabricated certainty.
 
 The validation checkout overlays the current trusted site files, editorial rules and reports,
-including development edits, without copying `.env` or backend state. It runs
-`npm ci --ignore-scripts` and `npm run build`. The commit accepts only the validated report and
+including development edits, without copying `.env` or backend state. The site is not built:
+each report file the run writes is checked on its own (`CheckReport` in
+`backend/internal/research/report_check.go`) against the content schema's rules
+(`src/content.config.ts`) and the report tests (`scripts/reports.test.mjs`): known fields and types,
+country, type, precision and status ids, its reports/<year>/<month>/ path and slug, and every
+citation naming a source and every source cited. A test runs the check over every existing report,
+so it cannot be stricter than the site. The commit accepts only the validated report and
 its old dated path when moving an existing report. It refuses local edits on those paths and
 concurrent changes to an existing report. Git `commit --only` excludes unrelated staged files.
 A case trailer and a persisted SHA recover publication retries without a second commit.
@@ -468,16 +473,16 @@ same source additions with optional open questions and a corrected title or summ
 sets the report's status to `reported`). The sources must be ones the answer itself cites. Updates
 whose quotations fail are dropped; an update that changes nothing is skipped. Sources already cited
 by a report being updated do not count as overlap with another case. All changed files pass the
-site build and are committed together, each refused if the report changed since research began.
+report check and are committed together, each refused if the report changed since research began.
 The request page lists the existing reports a run changes (or would have changed).
 
-Before the build, photos are compared by a perceptual fingerprint (a 64-bit difference hash):
+Before the report check, photos are compared by a perceptual fingerprint (a 64-bit difference hash):
 a photo that repeats an earlier one in the answer, or one the updated report already shows, is left
 out, so an agency handout republished by several outlets appears once. Photos that cannot be
 downloaded are kept.
 
-A failed report build shows the failing lines of the build log on the request page, without
-workspace paths or stack traces; the full log stays private in the workspace's `validation.log`.
+A draft that fails the report check shows, per file, which fields or citations are wrong on the
+request page (also kept in the workspace's `validation.log`).
 
 ## Multilingual vocabulary
 
