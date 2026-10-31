@@ -36,6 +36,11 @@ sources:
     publisher: 黄河新闻网吕梁 (Sohu)
     date: 2026-10-30
     language: zh
+  - title: 拱北海關揭偷運大麻煙和走私舊手機案
+    url: https://www.tdm.com.mo/zh-hant/news-detail/1255986?isvideo=false&lang=zh-hant&shortvideo=0&category=all
+    publisher: TDM – Teledifusão de Macau (澳門電台)
+    date: 2026-10-30
+    language: zh
 open_questions:
   - The traveler's name, age and nationality were not published, and neither account says whether he was detained, charged or released.
   - The TDM bulletin also reports a separate mobile-phone smuggling case at Qingmao Port, a different event left out of this report.
@@ -45,7 +50,7 @@ open_questions:
 
 A traveler entering Zhuhai was stopped at the Jiuzhou Port passenger terminal on
 the evening of 24 October 2026 after customs officers noticed that he looked
-nervous at the inspection channel. [@1,3] He had come in through the customs green
+nervous at the inspection channel. [@1,3,4] He had come in through the customs green
 channel, the lane reserved for travelers with nothing to declare, and officers
 pulled him aside to check the luggage and items he was carrying. [@2,3] In his
 trouser pocket they then found five cigarettes sealed inside a plastic bag and
@@ -53,10 +58,10 @@ giving off a strong, pungent smell, and took them for suspected cannabis
 cigarettes. [@2,3]
 
 The cigarettes were sent for identification, which found cannabis in all five.
-[@2,3] Their combined net weight was 1.87 g, customs said. [@1,3] Jiuzhou Customs, a
+[@2,3] Their combined net weight was 1.87 g, customs said. [@1,3,4] Jiuzhou Customs, a
 branch of Gongbei Customs, made the seizure in the port's inbound passenger
 inspection channel. [@2,3] The case was handed to the anti-smuggling department
-for further handling. [@1,3]
+for further handling. [@1,3,4]
 
 Customs used the case to remind travelers that under Chinese law smuggling,
 selling, transporting or manufacturing drugs is a criminal offence, whatever the
