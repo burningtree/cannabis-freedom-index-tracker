@@ -34,6 +34,11 @@ sources:
     publisher: Sabah
     date: 2026-10-30
     language: tr
+  - title: 'Alanya’da uyuşturucu operasyonu: 2 şüpheli tutuklandı'
+    url: https://www.iha.com.tr/antalya-haberleri/alanyada-uyusturucu-operasyonu-2-supheli-tutuklandi-508580574
+    publisher: İhlas Haber Ajansı
+    date: 2026-10-30
+    language: tr
 open_questions:
   - Neither account gives a separate date for the searches or the court appearance; 30 October 2026 is the publication date of both reports.
   - The sources count 25 pots of cannabis plants rather than individual plants, so the number of plants may be higher.
@@ -41,23 +46,23 @@ open_questions:
   - Sabah spells the neighbourhood 'Kızlar pınarı' and Akdeniz Gerçek 'Kızlarpınarı'; the report uses the latter.
   - The two accounts carry near-identical wording, suggesting both draw on the same İHA agency report rather than independent reporting.
   - 'Left out, as its quotation was not found in Sabah: The operations were coordinated by the Alanya public prosecutor''s office and carried out by the narcotics unit of the Alanya district police directorate.'
+  - The İHA page carries only the agency's default placeholder image rather than a photo of the operation, so no media entry was added from it.
 ---
 
 Police detained five people in two searches in Alanya, a district of Antalya
 province, and a court ordered two of them held in pre-trial detention. [@1] The
 first search targeted a hotel staff residence — a lojman, housing provided by an
 employer — in the Saray neighbourhood, where officers found 46 grams of esrar,
-the cannabis preparation known in Turkey. [@1] They detained M.A. (22), E.Y.
-(26), M.K.Y. (33) and S.S. (24) at that address. [@1]
+the cannabis preparation known in Turkey. [@1,3] They detained M.A. (22), E.Y.
+(26), M.K.Y. (33) and S.S. (24) at that address. [@1,3]
 
 A second search, at a house in the Kızlarpınarı neighbourhood, found 25 cannabis
-plants growing in pots. [@1] Officers detained O.Ö. (45), who was in the house.
-[@1] Police described the house as one the suspect had turned into a cannabis
+plants growing in pots. [@1,3] Officers detained O.Ö. (45), who was in the house.
+[@1,3] Police described the house as one the suspect had turned into a cannabis
 garden. [@2] All five were questioned at the police station and taken to the
 courthouse, where they were processed on allegations of drug trafficking and
-drug use. [@1]
+drug use. [@1,3]
 
 The court released E.Y., M.K.Y. and S.S. under judicial control, a measure that
-leaves a suspect free while the case proceeds. [@1] M.A. and O.Ö. were ordered
-held in pre-trial detention and sent to Alanya's L-type closed prison. [@1]
-
+leaves a suspect free while the case proceeds. [@1,3] M.A. and O.Ö. were ordered
+held in pre-trial detention and sent to Alanya's L-type closed prison. [@1,3]
