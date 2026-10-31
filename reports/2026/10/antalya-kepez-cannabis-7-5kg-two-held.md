@@ -48,6 +48,16 @@ sources:
     publisher: Habertürk Yerel Haberler
     date: 2026-10-31
     language: tr
+  - title: Antalya’da uyuşturucu operasyonu! Evden 7,5 kilo esrar çıktı
+    url: https://www.alanyaturk.com/antalyada-uyusturucu-operasyonu-evden-75-kilo-esrar-cikti
+    publisher: Alanya Türk
+    date: 2026-10-31
+    language: tr
+  - title: 'Antalya''da uyuşturucu operasyonu: 7,5 kilo esrar ele geçirildi'
+    url: https://www.cumhuriyet.com.tr/turkiye/antalya-da-uyusturucu-operasyonu-7-5-kilo-esrar-ele-gecirildi-2552029
+    publisher: Cumhuriyet
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no separate date or time for the operation; 31 October 2026 is the publication date of both accounts.
   - No full names, estimated value for the 7.5 kg of cannabis, court date or trial outcome were published.
@@ -63,10 +73,10 @@ open_questions:
 Police in Antalya detained two men in an operation against drug trafficking
 after information that they were selling and distributing drugs brought into the
 city. [@1,4] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
-Kepez district. [@1,3,4] A search of their homes found 7 kg 500 g of cannabis, known
-in Turkey as esrar, divided into 15 packets. [@1,3,4] The pair were referred to the
+Kepez district. [@1,3,4,5] A search of their homes found 7 kg 500 g of cannabis, known
+in Turkey as esrar, divided into 15 packets. [@1,3,4,5] The pair were referred to the
 judicial authorities over trading and supplying narcotic or psychotropic
-substances. [@1]
+substances. [@1,5]
 
 The operation was run by the narcotics crimes branch of the Antalya provincial
 police directorate. [@1,4] Sabah reported that it followed intelligence that the
@@ -75,4 +85,4 @@ and distribution. [@2] Officers identified the suspects and their addresses
 before launching the raid, the paper said. [@2] Police camera footage recorded
 the operation and the material seized in the searches. [@1]
 
-M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4]
+M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3,4,6]
