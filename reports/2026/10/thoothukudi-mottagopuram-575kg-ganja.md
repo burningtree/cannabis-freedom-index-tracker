@@ -43,6 +43,7 @@ open_questions:
   - Daily Thanthi described all three men as history-sheet criminals, while the district police and NellaiOnline said two of the three were.
   - Daily Thanthi says the officers were on patrol when they stopped the men; NellaiOnline says they acted on a tip-off and kept watch.
   - No court hearing, charge sheet or sentence has been reported, and no estimated value for the ganja was published.
+  - Daily Thanthi gives no separate date for the patrol, search and arrests; 29 October 2026 is its publication date, the date used here.
 ---
 
 Police in Thoothukudi, a port city in Tamil Nadu, arrested three men and seized
@@ -53,7 +54,7 @@ Officers from Thalamuthu Nagar police station were on patrol in the Mottagopuram
 area when they stopped three men and found ganja kept for sale. [@1]
 NellaiOnline said police had been watching the area after a tip-off about
 illegal ganja sales. [@2] The three were taken to Thalamuthu Nagar police
-station. [@1] Inspector Balamurugan registered a case and arrested them. [@2]
+station. [@1] Inspector Balamurugan registered a case and arrested them. [@1,2]
 
 The arrested men were Prakash, 24, of Arockiyapuram in Thoothukudi;
 Mayaganapathi, 24, of Cheranmahadevi in Tirunelveli district; and Mukilarasan,
@@ -64,4 +65,3 @@ NellaiOnline reported. [@2]
 The district police said a case was registered under the NDPS Act, India's main
 narcotics law, and that action was being taken according to law. [@3] The
 investigation was continuing. [@2]
-
