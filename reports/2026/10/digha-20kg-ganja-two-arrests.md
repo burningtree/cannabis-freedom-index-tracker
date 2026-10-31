@@ -1,0 +1,50 @@
+---
+date: 2026-10-30
+country: in
+place: Yuva Awas More, Digha, Purba Medinipur
+coordinates: [21.6274, 87.5099]
+precision: locality
+type: arrest
+also: [seizure]
+title: Two held with 20 kg of ganja trying to board bus in Digha
+summary: >-
+  Digha police arrested Krishna Rajbhar and Sheikh Razzak on 30 October 2026 after local residents stopped them with two trolley bags holding 20 kg of ganja near Yuva Awas More. Preliminary investigations suggest the cannabis was brought from Odisha and was bound for Howrah.
+figures:
+  arrested: 2
+  kg_seized: 20
+status: reported
+created_by_model: opencode-go/deepseek-v4.1-flash#max
+submission: 66b183c2ae32868c6bda800d1225e698
+tags: [digha, west-bengal, ganja, odisha-route, bus-smuggling]
+sources:
+  - title: 20 Kg ganja seized in Digha, Two suspected smugglers caught while trying to board bus
+    url: https://taazatv.com/article/20-kg-ganja-seized-in-digha-two-suspected-smugglers-caught-while-trying-to-board-bus&71693&en&All%20India
+    publisher: Taaza TV
+    date: 2026-10-31
+open_questions:
+  - The submitted Zee 24 Ghanta item is a 33-second Facebook video with no transcript or article text; only its headline question, 'Is Digha a corridor for drug smuggling?', could be read, so it is not cited for any fact.
+  - Only one detailed report of the arrest was found; Taaza TV is the sole source for the names, quantity and suspected route.
+  - The article gives the day as Friday, not a calendar date; 30 October 2026 is inferred from its 31 October 2026 publication date.
+  - The report calls the substance suspected cannabis and gives no laboratory confirmation or estimated value.
+  - No charges, court appearance or further arrests were reported.
+  - No photo or video of the arrest could be verified, and the submitted video's frames could not be viewed.
+---
+
+Two suspected drug smugglers, Krishna Rajbhar and Sheikh Razzak, were arrested
+by Digha police along with 20 kg of ganja. [@1] Police sources said the
+operation followed a tip-off and the alertness of local residents. [@1]
+According to police sources, the incident took place around 2:30 pm on Friday
+near Yuva Awas More in Digha. [@1]
+
+The two men were reportedly carrying two trolley bags and attempting to board a
+bus when the bus staff became suspicious. [@1] When the staff asked to check the
+bags, the men allegedly tried to flee. [@1] Local residents acted swiftly and
+caught the two suspects before informing Digha police. [@1] Officers soon
+reached the spot, took both men into custody and seized the suspected cannabis.
+[@1]
+
+Preliminary investigations suggest the duo had brought the cannabis from Odisha.
+[@1] Investigators believe they were planning to transport it to Howrah. [@1]
+Further investigation is under way to establish the details of the alleged
+smuggling operation. [@1]
+
