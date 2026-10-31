@@ -58,6 +58,11 @@ sources:
     publisher: Khaskhabar
     date: 2026-10-30
     language: hi
+  - title: Mumbai crime news – अंधेरीतून 66 लाखांचा हायड्रो गांजा जप्त
+    url: https://www.saamana.com/mumbai-crime-news-hydro-cannabis-worth-rs-66-lakh-seized-in-andheri/
+    publisher: Saamana
+    date: 2026-10-31
+    language: mr
 open_questions:
   - Mid-Day dates the arrests to Thursday, 29 October; the Rediff report says a Mumbai police official spoke on Friday and its summary dates the arrest to Friday.
   - No charge sheet, court date or court outcome has been reported.
@@ -72,20 +77,26 @@ open_questions:
   - The page's only picture is a thumbnail captioned with the headline and carries no credit, and it could not be confirmed to show the seizure, so no media link was added from it.
   - 'Left out, as its quotation was not found in News Danka: Sub-Inspector Ranjit Gondkupe of the MIDC police station and the anti-narcotics squad were patrolling on the night of 29 October and spotted the two men at about 7.45 pm.'
   - The Khaskhabar headline rounds the seizure's value to Rs 66 lakh, while its text gives Rs 66.36 lakh, the figure used in the report.
+  - Saamana says the men came from Satara to traffic cannabis, while the report's existing wording, drawn from other outlets, says they came to sell it.
+  - Saamana says that on seeing police the two tried to throw away a plastic bag and flee, while other cited accounts say they tried to hide a red plastic bag.
+  - Saamana spells the sub-inspector Gondkuppe (गोंदकुप्पे); the report already has Gondkupe.
+  - Saamana states the Rs 66.36 lakh figure as the cannabis's price without naming who made the estimate.
+  - Saamana gives the men's names as Omkar Pawar and Piyush Ghongade and does not give the ages or patronymics already in the report.
+  - The page's only image is a file named ganja.gif, uploaded in April 2023 and captioned ganja, and it is not confirmed to show this seizure, so no media link was added.
 ---
 
 MIDC police in Mumbai arrested two men for allegedly possessing and attempting
-to sell 1.896 kg of hydroponic cannabis in Andheri East. [@1,3,4,6,7,8] Police identified
+to sell 1.896 kg of hydroponic cannabis in Andheri East. [@1,3,4,6,7,8,9] Police identified
 the men as Omkar Rajendra Pawar, 28, and Piyush Madhukar Ghongade, 22, and said
 they were apprehended near JK Industrial Estate on Paper Box Road on Thursday.
-[@1,7] The arrests followed a tip-off that two men would arrive near the
+[@1,7,9] The arrests followed a tip-off that two men would arrive near the
 industrial estate to sell the contraband, and officers laid a trap, an MIDC
 police station official said. [@2]
 
 A search recovered 1.896 kg of hydroponic cannabis from a red bag. [@2,3,7] Police
-valued the cannabis at Rs 66.36 lakh, about 6.6 million rupees. [@1,3,5,6,8] The men had
+valued the cannabis at Rs 66.36 lakh, about 6.6 million rupees. [@1,3,5,6,8,9] The men had
 travelled from Satara district to Mumbai to sell the contraband, police said.
-[@1,3,5,6,8] Police said both were residents of Koregaon in Satara district. [@2]
+[@1,3,5,6,8,9] Police said both were residents of Koregaon in Satara district. [@2]
 
 A case was registered under the NDPS Act. [@1,3,7] Police said further investigation
 would examine the supply and distribution network. [@2,3,5,6,8] Hydroponic cannabis is
@@ -96,3 +107,5 @@ Sub-Inspector Ranjit Gondkupe of the MIDC police station and the anti-narcotics 
 When police approached, the two men tried to hide a red plastic bag and flee, and officers caught them at the scene. [@5,6,8]
 
 The case was registered on the complaint of police constable Gautam Bade. [@7]
+
+Senior Inspector Ghanshyam Nair of the MIDC police station directed Sub-Inspector Ranjit Gondkuppe's team, which was patrolling on Thursday night and spotted the two men near JK Industrial on Paper Box Road. [@9]
