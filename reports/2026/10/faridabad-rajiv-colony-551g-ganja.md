@@ -22,6 +22,11 @@ sources:
     publisher: Ground Zero News
     date: 2026-10-30
     language: hi
+  - title: क्राइम ब्रांच ने दो तस्करों को किया गिरफ्तार, 861 ग्राम गांजा बरामद
+    url: https://alivenews.co.in/faridabad-crime-branch-arrests-two-ganja-smugglers/
+    publisher: Alive News
+    date: 2026-10-30
+    language: hi
 open_questions:
   - 'The two accounts differ on the place: Hindustan reports the arrest near Ashiyana in Sector 56, while the police statement carried by Ground Zero News says near Rajiv Colony in Sector 58.'
   - No remand hearing, charge sheet or court outcome was reported.
@@ -38,11 +43,10 @@ open_questions:
 ---
 
 Officers recovered 551 grams of ganja (cannabis) from him, a police statement
-said. [@1] Premraj lives in Rajiv Colony in Sector 58, and the statement said
+said. [@1,2] Premraj lives in Rajiv Colony in Sector 58, and the statement said
 officers arrested him near the colony. [@1]
 
 Police registered a case under the Narcotic Drugs and Psychotropic Substances
-(NDPS) Act, India's main anti-drug law, at the police station concerned. [@1] A
+(NDPS) Act, India's main anti-drug law, at the police station concerned. [@1,2] A
 police spokesperson said the force's campaign against the illegal drug trade was
 continuing. [@1] Rajiv Colony is in Sector 58 of Faridabad. [@1]
-
