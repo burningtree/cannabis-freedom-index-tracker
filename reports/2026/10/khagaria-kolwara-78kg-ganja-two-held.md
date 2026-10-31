@@ -39,6 +39,11 @@ sources:
     publisher: Dainik Bhaskar
     date: 2026-10-30
     language: hi
+  - title: 'Khagaria News: 78 किलोग्राम गांजा के संग भागलपुर के कारोबारी सहित दो गिरफ्तार, भेजा न्यायिक हिरासत में'
+    url: https://www.livehindustan.com/bihar/khagaria/story-khagaria-ganja-seizure-78-160-kg-recovered-two-arrested-201793382913233.html
+    publisher: Hindustan
+    date: 2026-10-30
+    language: hi
 open_questions:
   - 'The reports give no exact time for the raid: Dainik Bhaskar says the tip reached Madaiya police late on Thursday 29 October, and the pair were sent to judicial custody on Friday 30 October, the date used here.'
   - No value was published for the 78.160 kg of ganja.
@@ -48,12 +53,12 @@ open_questions:
 ---
 
 Madaiya police arrested Janata Devi and her son-in-law Rajiv Kumar after seizing
-78.160 kg of ganja from a house in Kolwara village. [@1] Kolwara lies in the
+78.160 kg of ganja from a house in Kolwara village. [@1,4] Kolwara lies in the
 Madaiya police station area of Khagaria district. [@2] Janata Devi is the wife
 of Narad Mandal, whose house was searched, and Rajiv Kumar is from Abhiya
-village in the Gopalpur police station area of Bhagalpur district. [@1] Both
+village in the Gopalpur police station area of Bhagalpur district. [@1,4] Both
 were booked under the Narcotic Drugs and Psychotropic Substances (NDPS) Act.
-[@1] They were sent to judicial custody on Friday 30 October. [@1] Narad Mandal,
+[@1,4] They were sent to judicial custody on Friday 30 October. [@1,4] Narad Mandal,
 whom Prabhat Khabar calls the main accused, fled when police reached the house.
 [@2] Madaiya station house officer Manish Kumar said police were trying to
 arrest him. [@2]
@@ -67,4 +72,3 @@ kg. [@2] Police registered Madaiya police station case no. 60/26 under section
 evening of Thursday 29 October, Dainik Bhaskar reported. [@3] Sub-divisional
 police officer Chandan Kumar Kushwaha said the investigation of the arrested
 pair was continuing. [@1]
-
