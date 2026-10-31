@@ -21,6 +21,11 @@ media:
     media_url: https://images.assettype.com/tribune/2026-10-30/754omj3i/ARTCARDS-NIGHT-SHIFT-7.png?w=720&auto=format&q=55&rect=0%2C0%2C1366%2C768&h=405&fit=crop
     publisher: Daily Tribune
     caption: 'The American passenger is presented at NAIA Terminal 3 with the 17.46 kg of kush seized from his luggage. Photo: PDEA/PNP-AVSEC Group'
+  - kind: photo
+    url: https://thechronicle.com.ph/american-arrested-over-p17-46-m-marijuana-kush-seizure-at-naia/
+    media_url: https://i0.wp.com/thechronicle.com.ph/wp-content/uploads/2026/10/image-463.png?w=772&ssl=1
+    publisher: The Chronicle
+    caption: A law enforcement officer in gloves inspects packages of suspected drugs laid out on a table, with bags around them.
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 7d8e16ba1a878f91c1f8c45e7a8350e8
@@ -40,6 +45,10 @@ sources:
   - title: Philippine Star - A 62-year-old American citizen was... | Facebook
     url: https://www.facebook.com/PhilippineSTAR/posts/a-62-year-old-american-citizen-was-arrested-upon-arrival-at-ninoy-aquino-interna/1677492301081309/
     publisher: Philippine Star
+  - title: American arrested over P17.46-M marijuana kush seizure at NAIA
+    url: https://thechronicle.com.ph/american-arrested-over-p17-46-m-marijuana-kush-seizure-at-naia/
+    publisher: The Chronicle
+    date: 2026-10-31
 open_questions:
   - Both opened sources are Daily Tribune reports of the same event; no independent statement from PDEA or another outlet could be opened.
   - The two Tribune reports give the weight as approximately 17.46 kg and 17,464 grams; the report uses 17.46 kg.
@@ -53,6 +62,10 @@ open_questions:
   - Philippine Star valued the kush at “over P17 million,” which is compatible with but less precise than the report’s PDEA figure of P17.46 million; the report keeps the PDEA figure.
   - The attached image is captioned as possibly an image of text and is not identified as a photo of the seizure, so it was not added.
   - No full Philippine Star article of this arrest could be opened; the Facebook post is the Star text used.
+  - The Chronicle attributes the interception, bag inspection and valuation to the Bureau of Customs, while the existing report's Daily Tribune account attributes the weight and street value to PDEA; both give 15 packages and 17,464 grams.
+  - The article also reports the separate 26 October seizure of 7,335 grams and a combined four-day total of about 24.8 kilograms, left to that event's report.
+  - The Chronicle's photo carries no credit line identifying it as this seizure.
+  - 'Left out, as its quotation was not found in Daily Tribune: A 62-year-old American citizen was arrested at Ninoy Aquino International Airport (NAIA) Terminal 3 after authorities intercepted about 17.46 kilograms of high-grade marijuana in his luggage, the Philippine Drug Enforcement Agency (PDEA) reported.'
 ---
 
 A 62-year-old American citizen was arrested at Ninoy Aquino International
@@ -81,3 +94,5 @@ faces formal charges for violating Republic Act 9165, the Comprehensive
 Dangerous Drugs Act of 2002. [@1]
 
 The Philippine Star, citing Rudy Santos, said authorities valued the kush at over P17 million. [@4]
+
+According to the Bureau of Customs, the passenger carried two checked-in bags containing food packages used to conceal the suspected drugs. [@5] X-ray screening showed suspicious images in the luggage and a drug-sniffing dog indicated possible illegal substances, prompting Customs personnel to conduct a physical examination. [@5] Five packages weighing 5,122 grams and valued at about P5.12 million were in the first bag, and 10 packages weighing 12,342 grams and worth P12.34 million were in the second. [@5] BOC-NAIA District Collector Yasmin Obillos-Mapa attributed the consecutive seizures to intensified airport inspections and close coordination among law enforcement agencies. [@5] Customs Commissioner Ariel Nepomuceno commended the personnel involved in the operations and stressed the importance of sustained vigilance against illegal drug trafficking. [@5]
