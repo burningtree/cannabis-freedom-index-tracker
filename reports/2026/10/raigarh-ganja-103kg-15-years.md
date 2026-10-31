@@ -43,6 +43,11 @@ sources:
     publisher: RGH News
     date: 2026-10-30
     language: hi
+  - title: इंस्पेक्टर प्रशांत राव की प्रभावी जांच का असर, एनडीपीएस कोर्ट ने गांजा तस्कर वरुण सिंह को सुनाई 15 वर्ष की कैद, डेढ़ लाख रुपये का जुर्माना
+    url: https://kelopravah.news/raigarh-court-sentences-ganja-smuggler-15-years-jail/
+    publisher: Kelo Pravah
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The reports give no separate date for the judgment; 30 October 2026 is their dateline and publication date.
   - Both Hindi reports reproduce the same Raigarh police account, and no court record or independent reporting of the verdict was found.
@@ -53,20 +58,22 @@ open_questions:
 ---
 
 A special NDPS court in Raigarh, Chhattisgarh, sentenced Varun Singh to 15 years
-of rigorous imprisonment for trafficking more than 103 kg of ganja. [@1,3] Judge
-Ashwani Kumar Chaturvedi also fined him 1.50 lakh rupees (₹150,000). [@1,3] The
+of rigorous imprisonment for trafficking more than 103 kg of ganja. [@1,3,4] Judge
+Ashwani Kumar Chaturvedi also fined him 1.50 lakh rupees (₹150,000). [@1,3,4] The
 court convicted him under section 20(b)(ii)(C) of the NDPS Act, India's Narcotic
 Drugs and Psychotropic Substances Act, after a trial in which the prosecution
 produced 14 witnesses and 65 documents. [@2,3]
 
 Chakradharnagar police arrested Singh on 10 September 2023 after stopping him on
-the Nawapali main road in Raigarh district. [@1,3] A search found 103.150 kg of
+the Nawapali main road in Raigarh district. [@1,3,4] A search found 103.150 kg of
 ganja packed in 20 packets, and he could produce no permit for transporting it.
 [@1,3] Police registered crime number 452/2023 under section 20(b) of the NDPS Act
 and took him into custody. [@1] They identified him as a resident of CCL Colony,
-ward 12, Baikunthpur in Koriya district, then aged 32. [@1]
+ward 12, Baikunthpur in Koriya district, then aged 32. [@1,4]
 
 Inspector Prashant Rao Aher, then station house officer at Chakradharnagar, led
-the investigation. [@1,3] Raigarh superintendent of police Shashi Mohan Singh has
+the investigation. [@1,3,4] Raigarh superintendent of police Shashi Mohan Singh has
 told station heads across the district to investigate drug cases without error
-and to make sure witnesses appear in court on time. [@1]
+and to make sure witnesses appear in court on time. [@1,4]
+
+Special public prosecutor Ved Prakash Patel argued the case for the prosecution. [@4]
