@@ -35,6 +35,11 @@ sources:
     publisher: SBS World News
     date: 2026-10-31
     language: en
+  - title: Suwon Serious Crime Investigation Office Arrests Suspect for Growing Marijuana in Seoul Residential Area in Its First Narcotics Case
+    url: https://news.sbs.co.kr/amp/news.amp?news_id=N1008824279
+    publisher: SBS World News
+    date: 2026-10-31
+    language: en
 open_questions:
   - No plant count, weight or neighbourhood inside Seoul was given; a Suwon office official told the Kyung-in Ilbo the scale could not be disclosed.
   - 'Whether the cannabis was sold is unresolved: Newsis said he was understood to claim he had not distributed it, while investigators said accomplice inquiries were continuing.'
@@ -49,13 +54,13 @@ A man in his twenties, identified only as Mr A, was arrested at his home in a
 Seoul residential neighbourhood on suspicion of cultivating marijuana. [@1] The
 Narcotics Joint Investigation Division of the Suwon Regional Office of the
 Serious Crime Investigation Agency obtained an arrest warrant on 28 October 2026
-and took him at the residence. [@1,4] On 30 October the Suwon District Court
+and took him at the residence. [@1,4,5] On 30 October the Suwon District Court
 issued a detention warrant, citing a risk that he would flee or destroy
 evidence, and the division, headed by Superintendent Ahn In-soo, announced the
 arrest on 31 October. [@1]
 
 He is accused of growing cannabis for several years in that home with
-specialised facilities, under South Korea's Narcotics Control Act. [@1,4]
+specialised facilities, under South Korea's Narcotics Control Act. [@1,4,5]
 Investigators said they identified the case after the Suwon office was
 established, and that inquiries into possible accomplices were continuing. [@1]
 The Suwon District Prosecution Office asked the court for the detention warrant
@@ -64,7 +69,7 @@ the scale of the cultivation and other details of the allegation could not be
 disclosed because the investigation was still under way. [@2] He was understood
 to claim that he had not distributed the cannabis he grew. [@3]
 
-The arrest is the Suwon office's first drug case since it opened. [@1,4] Its
+The arrest is the Suwon office's first drug case since it opened. [@1,4,5] Its
 narcotics joint investigation division is the only dedicated unit of its kind
 among regional Serious Crime Investigation Agency offices, formed after the
 Government Joint Investigation Headquarters for Drug Crimes under the Suwon
