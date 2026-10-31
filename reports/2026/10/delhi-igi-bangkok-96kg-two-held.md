@@ -42,6 +42,11 @@ sources:
     publisher: Prabhasakshi
     date: 2026-10-30
     language: hi
+  - title: दिल्ली हवाई अड्डे पर 9.6 किलो से अधिक संदिग्ध गांजा जब्त, दो यात्री गिरफ्तार
+    url: https://hindi.theprint.in/india/over-9-6-kg-of-suspected-ganja-seized-at-delhi-airport-two-passengers-arrested/1051593/
+    publisher: ThePrint Hindi
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The two cases were detected on 24 and 26 October 2026, so the report is dated at the later seizure rather than a single incident date.
   - The Tribune rounds the weights to 4.2 kg and 5.4 kg, while PTI and the customs post give 4,229 g and 5,426 g; the exact figures are used here.
@@ -53,20 +58,22 @@ open_questions:
   - 'Left out, as its quotation was not found in The Tribune: In the second case, on 26 October, six polythene pouches of suspected marijuana were recovered from another passenger''s trolley bag.'
   - 'Left out, as its quotation was not found in Delhi Customs (Airport & General): Customs put the second load at 5,426 grams, valued at about Rs 1.89 crore.'
   - The NewsBytes page's only photograph shows Terminal 3 at the airport, not the seized pouches, so no media entry was added.
+  - The Hindi page is a translation of the same PTI wire story already cited in English, so it corroborates the account but is not an independent source.
+  - The page's only picture is a default archive photograph of an ISRO scientist, not the seizure, so no media entry was added from it.
 ---
 
 Customs officers at Delhi's Indira Gandhi International Airport seized more than
 9.6 kg of suspected ganja, valued at about Rs 3.37 crore, from two passengers
-arriving from Bangkok in two cases within three days. [@1,4,5] Both passengers were
-arrested. [@2,4,5] The cases were detected on 24 and 26 October 2026 at Terminal 3
+arriving from Bangkok in two cases within three days. [@1,4,5,6] Both passengers were
+arrested. [@2,4,5,6] The cases were detected on 24 and 26 October 2026 at Terminal 3
 after passenger profiling, when the travellers were diverted from the Green
-Channel for X-ray screening and a search of their bags. [@1,5]
+Channel for X-ray screening and a search of their bags. [@1,5,6]
 
 In the first case, on 24 October, officers found nine polythene pouches of a
 green substance in a trolley bag belonging to a passenger arriving from Bangkok.
-[@1,5] The substance weighed 4,229 grams and was valued at about Rs 1.48 crore.
-[@1,5]
+[@1,5,6] The substance weighed 4,229 grams and was valued at about Rs 1.48 crore.
+[@1,5,6]
 
 The substances tested prima facie positive for ganja or marijuana in both cases.
-[@3,5] The contraband was seized under the Narcotic Drugs and Psychotropic
-Substances Act. [@2,5] Customs said its investigation was in progress. [@3]
+[@3,5,6] The contraband was seized under the Narcotic Drugs and Psychotropic
+Substances Act. [@2,5,6] Customs said its investigation was in progress. [@3]
