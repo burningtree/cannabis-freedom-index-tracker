@@ -31,9 +31,19 @@ sources:
     url: https://www.thehindu.com/news/national/telangana/108-students-found-consuming-liquor-at-chevella-farmhouse-four-test-positive-for-ganja/article71646607.ece
     publisher: The Hindu
     date: 2026-10-31
+  - title: చేవెళ్ల ఫాంహౌస్ లో గాంజా పార్టీ..పాల్గొన్న 108 మంది స్టూడెంట్స్
+    url: https://www.v6velugu.com/ganja-party-busted-at-chevella-farmhouse-108-students-detained-three-test-positive-for-cannabis-
+    publisher: V6 Velugu
+    date: 2026-10-31
+    language: te
 open_questions:
   - The reports say the 108 students were caught and that a case was registered, but they do not name anyone or say how many were formally arrested, charged or later produced in court.
   - No separate figure was given for how much liquor was seized, only that students were consuming it without permission.
+  - V6 Velugu says drug tests were positive for organiser Mannan and two other students, three people, while The Siasat Daily and The Hindu, already cited, reported four positive ganja tests.
+  - V6 Velugu’s body describes 108 students as attendees and does not mention liquor, vehicles, phones or a 15-gram ganja seizure; its English URL slug says the students were detained.
+  - V6 Velugu names the officer as Chevella circle inspector Katta Narender Reddy; the existing report calls him Chevella Police Station Inspector Narendra Reddy.
+  - The same V6 Velugu article also reports a separate 29 October Eagle Force arrest of Nepali national Bikash Singh alias Jung, 30, with 150 grams of ganja near the University of Hyderabad south gate; that is a different event and is not added here.
+  - The page photo is a headline graphic of a crowd, a man with a phone and a joint, not a documentary picture of this raid, so it was not added.
 ---
 
 On Friday, 30 October 2026, police and the Special Operations Team raided LG
@@ -53,6 +63,7 @@ with seven cars, three motorcycles and 70 mobile phones from the premises. [@1]
 
 Chevella Police Station Inspector Narendra Reddy said a case had been registered
 in connection with the incident and that a detailed investigation was under way.
-[@1] He said further legal action would be taken in accordance with the law.
+[@1,3] He said further legal action would be taken in accordance with the law.
 [@2]
 
+A man named Mannan, who had earlier organised a freshers’ day party at ICFAI University (IBS) in Dontanpally, Shankarpally mandal, advertised on Instagram that a party would be held on 30 October at a farmhouse in Chevella mandal and collected 1,000 to 2,000 rupees from each person. [@3] He kept the venue secret and sent the farmhouse location only at the last minute to those who had paid. [@3]
