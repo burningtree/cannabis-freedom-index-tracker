@@ -37,10 +37,17 @@ sources:
     publisher: Politis
     date: 2026-10-30
     language: el
+  - title: 22-year-old arrested in Engomi after police seize about 6.4kg of cannabis
+    url: https://www.kiprinform.com/en/news/22-year-old-arrested-in-engomi-after-police-seize-about-6-4kg-of-cannabis/
+    publisher: Cyprus Inform
+    date: 2026-10-30
 open_questions:
   - The parcel's weight is given as 2.56kg in the police statement and by Cyprus Mail, but Politis reported 2kg 660g; with Politis's vehicle figures that would total about 6.5kg. The report uses the police statement's 2.56kg and its total of about 6.4kg.
   - No charges or trial date were reported; the investigation was at an early stage.
   - No estimate of the cannabis's street value was published.
+  - Cyprus Inform dates the taxi driver's detention to 26 October, the day the parcel arrived, while the report follows other accounts that he collected it on 29 October after a controlled delivery.
+  - Cyprus Inform describes the 3.836kg as found in a separate search, not in the suspect's vehicle as the report states on the police account.
+  - The only photograph on the Cyprus Inform page is an illustrative stock image of handcuffs, so no media from this page shows the event.
 ---
 
 A 22-year-old man was remanded in custody for eight days on Friday after police
@@ -51,23 +58,22 @@ possession with intent to supply, conspiracy to commit a felony and offences
 related to the proceeds of illegal activity. [@3]
 
 The investigation concerned a parcel containing 2.56kg of cannabis that arrived
-in Cyprus from abroad on 26 October. [@1] Police investigated the case with the
-customs department. [@1] The parcel had been declared as Lego toys. [@3] It
+in Cyprus from abroad on 26 October. [@1,4] Police investigated the case with the
+customs department. [@1,4] The parcel had been declared as Lego toys. [@3] It
 carried the details of a sender company in the United States and a recipient
 address in Engomi. [@3] Anti-drug police replaced the cannabis with dummies and
 mounted a controlled delivery. [@3] On 29 October the parcel was left at a
 parking area in Engomi under police surveillance. [@3] A 62-year-old taxi driver
-then collected it and was arrested. [@2] He told police a customer had
+then collected it and was arrested. [@2,4] He told police a customer had
 instructed him to collect it and that he did not know what it contained. [@1] He
-was released after questioning when no evidence emerged against him. [@1]
+was released after questioning when no evidence emerged against him. [@1,4]
 
 Further inquiries led police to the 22-year-old, and officers stopped his car
 for a check. [@2] In the car they found three packets holding about 100g of
 cannabis and further packages weighing about 3.84kg, police said. [@1] They also
-seized €4,330 and five mobile phones. [@1]
+seized €4,330 and five mobile phones. [@1,4]
 
 The investigation was at an early stage. [@3] Investigators planned to take
 statements and examine phone data and transactions, and asked the taxi platform
 and courier companies for information. [@3] Police are also looking into
 possible accomplices and earlier shipments. [@3]
-
