@@ -48,6 +48,11 @@ sources:
     publisher: Saray Medya
     date: 2026-10-30
     language: tr
+  - title: Mersin'de narkotik çalışmasında 2 uyuşturucu taciri yakalanıp tutuklandı
+    url: https://www.sondakika.com/3-sayfa/haber-mersin-de-narkotik-calismasinda-2-uyusturucu-tacir-20381335/
+    publisher: Son Dakika
+    date: 2026-10-30
+    language: tr
 open_questions:
   - The reports give no separate date for the operation or the court hearing; 30 October 2026 is the publication date of the earliest account, so both happened on or before that evening.
   - No weight, plant count, area or estimated value was published for the drugs and cash seized.
@@ -58,11 +63,11 @@ open_questions:
 
 Police in Mersin detained Y.K. and H.B., two suspected street dealers known in
 Turkey as torbacı, in an operation coordinated by the Mersin Chief Public
-Prosecutor's Office. [@1,4,5] Police said the two were among the suspects their
+Prosecutor's Office. [@1,4,5,6] Police said the two were among the suspects their
 teams had identified before the operation. [@1] The operation was run by the
 anti-narcotics branch of the provincial police directorate. [@1,4,5] Officers
-searched the two suspects' persons and homes. [@2,4,5] The searches found various
-amounts of synthetic drugs and esrar, the Turkish name for cannabis. [@1,4,5] The
+searched the two suspects' persons and homes. [@2,4,5,6] The searches found various
+amounts of synthetic drugs and esrar, the Turkish name for cannabis. [@1,4,5,6] The
 DHA news agency reported that police carried out an operation at an address
 where the pair were hiding. [@3] It said officers seized a large quantity of
 drugs and cash there. [@3]
@@ -71,4 +76,4 @@ The two were taken to police headquarters, where their statements were taken,
 and then brought to the courthouse. [@1,4] DHA reported that the pair were sent to
 court on drug-trafficking charges. [@3] A court ordered them held in pre-trial
 detention — tutuklama, the order that keeps a suspect in custody pending trial —
-and they were taken to prison. [@2,5]
+and they were taken to prison. [@2,5,6]
