@@ -33,30 +33,38 @@ sources:
     publisher: Dainik Bhaskar
     date: 2026-10-30
     language: hi
+  - title: 'Ghazipur News: 25 हजार का इनामी गिरफ्तार तीन जिलों में दर्ज है प्राथमिकी'
+    url: https://www.amarujala.com/uttar-pradesh/ghazipur/arrested-cases-registered-against-him-in-three-districts-ghazipur-news-c-192-1-svns1035-164120-2026-10-31
+    publisher: Amar Ujala
+    date: 2026-10-31
+    language: hi
 open_questions:
   - Neither report says whether a new case was registered over the 10.1 kg of ganja seized in Ahraura, or what charges Mahto faces in it.
   - No value was published for the 10.1 kg of ganja; the ₹11,000 is described only as money from sales.
   - The reports say Mahto was sent to jail but give no court date or first-appearance outcome.
   - The Hindustan page's summary also carries a cyber-fraud item about bank accounts, a separate matter left out of this report.
+  - Amar Ujala gives no total number of cases against Mahto; it says three at Link Road police station date from 2003 and 2011, so whether they are among the seven cases the earlier reports counted is unclear.
+  - The Amar Ujala page is filed in the newspaper's Ghazipur section and headlined 'Ghazipur News', although its dateline and text place the arrest in Ahraura, Mirzapur district.
 ---
 
 Ahraura police in Uttar Pradesh's Mirzapur district arrested Viresh Kumar Mahto
-near KD Hotel on Friday 30 October 2026 after a tip-off. [@1] Police described
-Mahto as a ganja (cannabis) smuggler with a ₹25,000 reward offered for him. [@1]
+near KD Hotel on Friday 30 October 2026 after a tip-off. [@1,3] Police described
+Mahto as a ganja (cannabis) smuggler with a ₹25,000 reward offered for him. [@1,3]
 A search found 10 kg 100 g of ganja and ₹11,000 that police described as money
-from sales. [@1] Ahraura station house officer Ajay Kumar Mishra said Mahto had
+from sales. [@1,3] Ahraura station house officer Ajay Kumar Mishra said Mahto had
 been sent to jail. [@1]
 
 Mahto was wanted in two cases under the Narcotic Drugs and Psychotropic
-Substances (NDPS) Act at Madihan police station. [@1] A resident of Babhnaulia
+Substances (NDPS) Act at Madihan police station. [@1,3] A resident of Babhnaulia
 in Daundpur police station area of Chhapra district, Bihar, he had been living
-in Gurugram, Haryana. [@1] The ₹25,000 reward had been announced by the
+in Gurugram, Haryana. [@1,3] The ₹25,000 reward had been announced by the
 superintendent of police. [@1] Police named the superintendent as Aparna Rajat
 Kaushik and said the arrest came in a campaign she ordered against drug
-traffickers. [@2]
+traffickers. [@2,3]
 
 Seven cases were registered against him in several districts, including Mathura,
 Ghaziabad and Chandauli, under the Excise Act, the NDPS Act and fraud, police
 said. [@1] Those police stations included Farah in Mathura, Kavinagar and Link
 Road in Ghaziabad, and others in Chandauli. [@2]
 
+Three cases from 2003 and 2011 are also registered against him at Link Road police station. [@3]
