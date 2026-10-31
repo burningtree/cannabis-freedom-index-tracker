@@ -43,6 +43,11 @@ sources:
     publisher: Klops.ru
     date: 2026-10-30
     language: ru
+  - title: СОБР «Викинг» и ОМОН «Град» накрыли интернет-магазин по продаже наркотиков
+    url: https://kaliningradtoday.ru/crime/30208452/
+    publisher: KaliningradToday
+    date: 2026-10-30
+    language: ru
 open_questions:
   - The reports give no separate date for the arrests; 29 October 2026 is the date of the Kaliningrad police statement and 30 October that of the news report.
   - No weight or street value was given for the hashish, cannabis or amphetamine seized, and no total is given for the drugs sold.
@@ -51,14 +56,16 @@ open_questions:
   - The police statement names colleagues from the 'Moscow region' where the news report says the Moscow oblast; the reports do not explain the difference.
   - The Klops headline refers to 10,000 deals, but the article body does not state that figure.
   - A related line on the page says police detained a Kaliningrad resident for advertising an online drug shop; the article does not say whether that person is one of the ten.
+  - The KaliningradToday account gives the group as ten people but does not state how many were detained, so the figure of ten arrests rests on the police statement and the other reports.
+  - The page's lead photograph shows a masked officer but carries no caption or credit, so it has not been confirmed as a picture of this operation and is not listed as media.
 ---
 
 Kaliningrad region's drug-control police, with colleagues from the Moscow and
 Leningrad regions and Rosgvardia's SOBR and OMON units, broke up an organised
 group selling drugs through an online shop, the regional interior ministry said.
 [@2] Ten people were detained in three regions. [@1] Police said the arrest
-operations ran simultaneously in the three regions. [@1,3] The organiser and an
-accomplice were taken to Kaliningrad, where they gave confessions. [@1,3]
+operations ran simultaneously in the three regions. [@1,3,4] The organiser and an
+accomplice were taken to Kaliningrad, where they gave confessions. [@1,3,4]
 
 The organiser lived in Leningrad region and coordinated the shop, while his
 brother in Sovetsk administered the website. [@1,3] An accomplice from the Moscow
@@ -66,7 +73,7 @@ region bought wholesale batches, and another member, from Nemansky district,
 grew cannabis and made marijuana from it. [@1,3] Couriers placed the finished
 goods in hiding places, known in Russia as zakladki, for contactless sales. [@1,3]
 Police say the group sold marijuana, hashish, mephedrone, alpha-PVP, methadone
-and LSD in the Kaliningrad and Moscow regions. [@1]
+and LSD in the Kaliningrad and Moscow regions. [@1,4]
 
 The shop handled about 10,000 drug sales, according to preliminary police
 figures. [@1] Searches of the detainees' homes found three cannabis bushes, 21
@@ -76,3 +83,5 @@ under article 228.1 of Russia's Criminal Code, which covers drug trafficking.
 [@1,3]
 
 The cases also include an attempted offence under part 3 of article 30, and the article 228.1 charges specify production, sale or sending of drugs by a group acting by prior conspiracy, including in a significant amount. [@3]
+
+The Rosgvardia units were SOBR Viking and OMON Grad of the directorate for the Kaliningrad region. [@4]
