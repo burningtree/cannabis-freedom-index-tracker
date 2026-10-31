@@ -34,6 +34,11 @@ sources:
     publisher: Europa Press
     date: 2026-10-30
     language: es
+  - title: La Guardia Civil desarticula un punto de venta marihuana en una operación contra el narcotráfico en Huévar
+    url: https://www.teleprensa.com/andalucia/sevilla/guardia-civil-desarticula-punto-venta-marihuana-operacion-narcotrafico-huevar/202610301622302545700.amp.html
+    publisher: Teleprensa
+    date: 2026-10-30
+    language: es
 open_questions:
   - The reports date the operation only as “last Tuesday”; 27 October 2026 is taken from their 30 October publication date.
   - No figure for the number of plants seized, their weight or the value of the crop was published.
@@ -47,8 +52,8 @@ open_questions:
 ---
 
 The Guardia Civil dismantled a marijuana plantation inside a building in the
-town of Huévar del Aljarafe, in Seville province. [@1,4] Officers detained the
-people described as responsible for the crop. [@1,4] The plantation was indoors,
+town of Huévar del Aljarafe, in Seville province. [@1,4,5] Officers detained the
+people described as responsible for the crop. [@1,4,5] The plantation was indoors,
 in a nave — an industrial unit or warehouse — in Guadial, an urbanización, or
 planned development, within the municipality. [@2] The operation took place on
 Tuesday 27 October 2026. [@2,4] The Guardia Civil officers travelled to the town
@@ -63,4 +68,4 @@ pueblo y pendiente de la llamada de cualquier persona que lo necesite” — tha
 although Huévar has no barracks, the Guardia Civil keeps watch on the town and
 answers anyone who calls. [@1]
 
-The town hall publicly thanked the Guardia Civil for the operation. [@2,4]
+The town hall publicly thanked the Guardia Civil for the operation. [@2,4,5]
