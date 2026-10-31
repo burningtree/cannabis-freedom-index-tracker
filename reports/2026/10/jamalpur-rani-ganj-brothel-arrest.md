@@ -41,6 +41,11 @@ sources:
     publisher: Barta 24
     date: 2026-10-30
     language: bn
+  - title: ওসির নির্দেশনায় ছদ্মবেশে ক্রেতা সেজে যৌনপল্লীতে এসআই,জামালপুরে সাড়ে ৬ কেজি গাঁজাসহ নারীসহ গ্রেফতার ২
+    url: https://www.ajkerdesh.com/archives/162125
+    publisher: Ajker Desh
+    date: 2026-10-30
+    language: bn
 open_questions:
   - Jago Bangla's opening paragraph describes the raid as taking place at night, while its police account and Banglar Alo News give the time as 5:35 pm.
   - Banglar Alo News says the pair were taken to jail at about 10 am on 30 October; Jago Bangla says noon.
@@ -49,27 +54,29 @@ open_questions:
   - Jago Bangla gives no separate caption or credit for its lead photograph, so only the Banglar Alo News photo is linked.
   - Barta24 places Israfil's home in Pathalia Pashchimpara in Jamalpur city, while the report, following Banglar Alo News, says Pathalia Uttarpara in Jamalpur Sadar upazila.
   - Barta24's lead photograph is credited only to Barta24 and captioned with the headline; it appears to be the same police photograph of the seized cannabis already linked from Banglar Alo News, so it is not listed again.
+  - Ajker Desh, like Banglar Alo News, says the pair were sent to jail at about 10 am on 30 October; the report already notes that Jago Bangla says noon.
+  - The page’s lead image has no caption or credit, so it was not added; it may be the same police photograph of the seized cannabis already linked from Banglar Alo News.
 ---
 
 Police in Jamalpur arrested Israfil, 20, and Sufia Begum, 40, and seized 6.5 kg
 of cannabis in an undercover operation in the Rani Ganj brothel area of Jamalpur
-municipality. [@1,3] The operation took place at about 5:35 pm on Thursday 29
-October 2026. [@1] Israfil is the son of Dudu Mia of Pathalia Uttarpara in
+municipality. [@1,3,4] The operation took place at about 5:35 pm on Thursday 29
+October 2026. [@1,4] Israfil is the son of Dudu Mia of Pathalia Uttarpara in
 Jamalpur Sadar upazila, a sub-district, and Sufia Begum the daughter of Lal Mia
-of Malancha in Melandah upazila. [@1] Police put the market value of the seized
-cannabis at about 195,000 taka (1 lakh 95 thousand). [@1] A case was filed
-against both under the Narcotics Control Act. [@2] They were sent to jail
-through court on 30 October. [@2]
+of Malancha in Melandah upazila. [@1,4] Police put the market value of the seized
+cannabis at about 195,000 taka (1 lakh 95 thousand). [@1,4] A case was filed
+against both under the Narcotics Control Act. [@2,4] They were sent to jail
+through court on 30 October. [@2,4]
 
 Jamalpur Sadar police said they had acted on a tip-off that cannabis was being
 sold in the brothel area. [@1] Sub-inspector Asaduzzaman entered the area by
-rickshaw posing as a buyer, the officer said. [@2] A man asked him whether he
+rickshaw posing as a buyer, the officer said. [@2,4] A man asked him whether he
 wanted 'product or a woman', he said. [@1] He said he wanted cannabis, paid, and
 was handed a packet of it; he then signalled officers already in position, who
 detained the man. [@1] In the search, officers found 2 kg of cannabis in a blue
 polythene bag and 4.5 kg wrapped in poster paper in 740 small packets (puriya)
-in a red plastic bucket. [@2] They also seized a digital scale used for weighing
-cannabis and 2,050 taka in cash from drug sales. [@2]
+in a red plastic bucket. [@2,4] They also seized a digital scale used for weighing
+cannabis and 2,050 taka in cash from drug sales. [@2,4]
 
 Officer-in-charge Nazmus Sakib said nobody linked to drugs would be spared and
 asked Jamalpur residents to help police with information. [@2] Additional
