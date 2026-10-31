@@ -47,6 +47,11 @@ sources:
     publisher: Hindustan
     date: 2026-10-30
     language: hi
+  - title: बरेली में चरस बेचते पिता-पुत्र गिरफ्तार:95 ग्राम चरस, इलेक्ट्रॉनिक कांटा और 2500 रुपए बरामद
+    url: https://www.bhaskar.com/local/uttar-pradesh/bareilly/aonla/news/bareilly-charas-smuggling-arrest-father-son-siroli-police-139539839.html
+    publisher: Dainik Bhaskar
+    date: 2026-10-30
+    language: hi
 open_questions:
   - Dainik Bhaskar gave the charas weight as 95 g in one report and about 100 g in others; this report uses about 100 g.
   - Hindustan named the father Ganga Singh, while Dainik Bhaskar named him Ganga Sahay.
@@ -55,6 +60,7 @@ open_questions:
   - The reports do not say when the case will be heard or whether the men have been formally charged in court.
   - The submitted page's only image is a generic Uttar Pradesh map graphic, not a photograph of the raid, so no media entry is included.
   - Hindustan reports villagers complaining that local police were not paying attention, while the report, following Dainik Bhaskar, says villagers alleged the trade ran with police support.
+  - The Aonla page is truncated by a paywall after the lead, so names, the kiosk, liquor and the court appearance cannot be checked in this copy.
 ---
 
 The Meerganj Circle Officer (CO), a sub-district police officer, raided a
@@ -68,10 +74,12 @@ ran the kiosk, and his father. [@4,6]
 The kiosk stood a few steps from the Hardaspur police check post. [@5,6] Charas,
 illegal liquor and other intoxicants had been sold there for a long time. [@1]
 Villagers alleged the trade ran with the local police's support. [@3] Police
-also seized an electronic scale and ₹2,500 in cash. [@5]
+also seized an electronic scale and ₹2,500 in cash. [@5,7]
 
 Police registered a first information report (FIR), the document that starts a
 criminal case in India, against Chandrapal and his father under the NDPS Act,
 India's main anti-drug law, and the Excise Act. [@3] They were produced in court
 on Friday and sent to jail. [@4,6] People in the area said police removed the
 kiosk the next day. [@4,6]
+
+Police also recovered black cigarettes. [@7]
