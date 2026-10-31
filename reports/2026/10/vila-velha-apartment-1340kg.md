@@ -48,16 +48,25 @@ sources:
     publisher: ES Hoje
     date: 2026-10-30
     language: pt
+  - title: Polícia apreende mais de 1 tonelada de maconha dentro de apartamento em Vila Velha
+    url: https://tribunaonline.com.br/policia/policia-apreende-mais-de-1-tonelada-de-maconha-dentro-de-apartamento-em-vila-velha-333875
+    publisher: Tribuna Online
+    date: 2026-10-30
+    language: pt
 open_questions:
   - Folha Vitória, published on the night of the raid, reported that two men were detained, while G1 and ES Hoje, citing the Military Police, named three people, including Cleidileia Firmino; this report uses the three-person account.
   - No charge or court outcome for the three has been reported.
   - No street value for the 1,340 kg was published.
+  - Tribuna Online said only that more than one tonne was seized, not the 1,340 kg figure already used from Folha Vitória.
+  - Citing TV Tribuna/Band, Tribuna Online said the seizure followed complaints, while Folha Vitória said it began with information received by the 17th Independent Company's intelligence service.
+  - Tribuna Online did not name the Terceiro Comando Puro or the Primeiro Comando de Vitória; it quoted the Military Police as saying the three were not tied to a specific faction but stored the drugs and distributed them to neighbourhoods where factions operate.
+  - The page's photos of the cannabis and of the three detainees appear to be the same police images already linked from Folha Vitória and ES Hoje, so they were not added again.
 ---
 
 Military police arrested three people and found more than 1.3 tonnes of cannabis
 in an apartment in Riviera da Barra, Vila Velha, on 29 October 2026. [@2] The
 three were Felipe Vieira Lima, 29, known as "Di Rocha", Saulo Ferreira
-Junqueira, 45, and Cleidileia Firmino, 46. [@2] They were taken to the Federal
+Junqueira, 45, and Cleidileia Firmino, 46. [@2,4] They were taken to the Federal
 Police headquarters with the seized material. [@3]
 
 The Military Police put the load at 1 tonelada e 340 quilos, or 1,340 kg. [@1]
@@ -78,3 +87,4 @@ for about a year. [@1] The Military Police suspect the cannabis came from
 another state to be sold in Espírito Santo; the three did not say where it came
 from. [@2]
 
+The three were arrested in the act. [@4]
