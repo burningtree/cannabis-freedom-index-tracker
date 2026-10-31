@@ -44,17 +44,25 @@ sources:
     publisher: Hindustan
     date: 2026-10-30
     language: hi
+  - title: कोलवारा में 78 किलो गांजा मिला:तीन आरोपी गिरफ्तार, मड़ैया थाने में एनडीपीएस एक्ट के तहत केस दर्ज
+    url: https://www.bhaskar.com/local/bihar/khagaria/parbatta/news/khagaria-madaiya-ganja-seizure-police-arrest-drug-case-139537420.html
+    publisher: Dainik Bhaskar
+    date: 2026-10-30
+    language: hi
 open_questions:
   - 'The reports give no exact time for the raid: Dainik Bhaskar says the tip reached Madaiya police late on Thursday 29 October, and the pair were sent to judicial custody on Friday 30 October, the date used here.'
   - No value was published for the 78.160 kg of ganja.
   - No court outcome beyond the judicial custody remand has been reported, and Narad Mandal had not been arrested in these accounts.
   - Hindustan's page sits in its Bhagalpur section and its headline names Khagaria; the other two reports place the raid in Khagaria district's Madaiya police station area.
   - Only Prabhat Khabar published a picture captioned as the recovered ganja; no photograph of the raid itself was found.
+  - Dainik Bhaskar's Hindi headline and its English alternative headline say three accused were arrested, but the article's opening paragraph says two; the existing report keeps two, matching its other sources.
+  - Only the headline and opening paragraph of the Dainik Bhaskar report were readable before its paywall prompt, so it adds no details beyond the place, the 78.160 kg and the two arrests.
+  - Dainik Bhaskar's lead image has no caption or credit and could not be confirmed as a photograph of this seizure.
 ---
 
 Madaiya police arrested Janata Devi and her son-in-law Rajiv Kumar after seizing
 78.160 kg of ganja from a house in Kolwara village. [@1,4] Kolwara lies in the
-Madaiya police station area of Khagaria district. [@2] Janata Devi is the wife
+Madaiya police station area of Khagaria district. [@2,5] Janata Devi is the wife
 of Narad Mandal, whose house was searched, and Rajiv Kumar is from Abhiya
 village in the Gopalpur police station area of Bhagalpur district. [@1,4] Both
 were booked under the Narcotic Drugs and Psychotropic Substances (NDPS) Act.
@@ -67,7 +75,7 @@ A joint team of police and district administration, led by Parbatta circle
 officer Harinath Ram and Madaiya station house officer Manish Kumar, carried out
 the search. [@2] The ganja was packed in bags and sacks hidden among maize
 stalks beside a bamboo clump behind the house. [@2] Weighed, it came to 78.160
-kg. [@2] Police registered Madaiya police station case no. 60/26 under section
+kg. [@2,5] Police registered Madaiya police station case no. 60/26 under section
 8/20(b)(ii)(C) of the NDPS Act. [@3] The tip reached Madaiya police late on the
 evening of Thursday 29 October, Dainik Bhaskar reported. [@3] Sub-divisional
 police officer Chandan Kumar Kushwaha said the investigation of the arrested
