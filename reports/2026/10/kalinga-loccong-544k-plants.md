@@ -25,6 +25,7 @@ open_questions:
   - Forensic test results on the samples sent to the Kalinga Police Forensic Unit were not yet reported.
   - The Manila Times gives the haul as P108.83 million in its opening paragraph and P108.8 million later; the report keeps the ₱108.8 million figure.
   - The same article reports a Baguio City buy-bust arrest over shabu; that is a separate event and is not counted here.
+  - The page’s social image has no caption in the article text, so it was not added as a photo of the eradication.
 sources:
   - title: Police destroy P108.8M worth of marijuana in Kalinga
     url: https://tribune.net.ph/2026/10/29/police-destroy-p1088m-worth-of-marijuana-in-kalinga
@@ -39,6 +40,11 @@ sources:
     url: https://www.manilatimes.net/2026/10/30/regions/marijuana-plants-worth-p1088m-burned/2457669/amp
     publisher: The Manila Times
     date: 2026-10-30
+  - title: Marijuana plants worth P108.8M burned
+    url: https://www.manilatimes.net/2026/10/30/regions/marijuana-plants-worth-p1088m-burned/2457669
+    publisher: The Manila Times
+    date: 2026-10-30
+    language: en
 media:
   - kind: photo
     url: https://psbalita.com/php108-8m-halaga-ng-marijuana-plants-sa-tinglayan-binunot-at-sinunog-ng-kalinga-ppo/
@@ -67,4 +73,4 @@ examination at the Kalinga Police Forensic Unit. [@1,2] Provincial police chief 
 Ngabit Jr. urged residents to report suspected drug activity and cooperate with enforcement.
 [@1,2]
 
-Regional Mobile Force Battalion 15 and the 1st Special Action Battalion of the Philippine National Police Special Action Force were among the units that carried out the operation. [@3] Police said the investigation was ongoing to identify other possible marijuana plantations in nearby areas and hold cultivators accountable. [@3]
+Regional Mobile Force Battalion 15 and the 1st Special Action Battalion of the Philippine National Police Special Action Force were among the units that carried out the operation. [@3,4] Police said the investigation was ongoing to identify other possible marijuana plantations in nearby areas and hold cultivators accountable. [@3,4]
