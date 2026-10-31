@@ -34,6 +34,11 @@ sources:
     publisher: GaliciaPress
     date: 2026-10-30
     language: es
+  - title: Investigado un matrimonio en Ponteareas por supuesta venta de droga
+    url: https://metropolitano.gal/enfoque/investigado-un-matrimonio-en-ponteareas-por-supuesta-venta-de-droga/
+    publisher: Metropolitano.gal
+    date: 2026-10-30
+    language: es
 open_questions:
   - No weight or dose count was given for the hashish, so no quantity is recorded.
   - The couple were investigated, not described as arrested or named, and no court outcome was reported.
@@ -43,7 +48,7 @@ open_questions:
 
 The Guardia Civil is investigating a married couple from Ponteareas, in
 Pontevedra, aged 69 and 56, over suspected retail drug sales, treated as an
-offence against public health. [@1] The couple are neighbours of the town, and
+offence against public health. [@1,4] The couple are neighbours of the town, and
 the force described them as suspected authors of that offence. [@2] The work was
 aimed at street dealing in the town centre and at the alarm that trade was said
 to cause. [@2] On 27 October 2026, officers on surveillance identified the pair
@@ -51,11 +56,10 @@ because there were signs they were involved in drug trafficking. [@2]
 
 A search of their belongings found several individual doses of cocaine and
 heroin and a small amount of hashish, cannabis resin, which officers said
-appeared prepared for sale to consumers. [@3] They also seized about 615 euros
+appeared prepared for sale to consumers. [@3,4] They also seized about 615 euros
 in cash, in notes of different values. [@2] The Guardia Civil said that money
-might have come from selling drugs. [@1]
+might have come from selling drugs. [@1,4]
 
 Both were placed under investigation for an offence against public health, the
 drugs and the cash were seized, and the file was sent to the duty civil and
-investigative section of the Tribunal de Instancia in Ponteareas. [@1]
-
+investigative section of the Tribunal de Instancia in Ponteareas. [@1,4]
