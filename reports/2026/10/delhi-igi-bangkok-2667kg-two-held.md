@@ -1,0 +1,61 @@
+---
+date: 2026-10-28
+country: in
+place: Terminal 3, Indira Gandhi International Airport, New Delhi
+coordinates: [28.5554, 77.0848]
+precision: locality
+type: seizure
+also: [arrest]
+title: Two arrested as 26.67 kg of hydroponic ganja seized at Delhi airport
+summary: >-
+  Customs officers at Delhi's Indira Gandhi International Airport arrested two Indian passengers who arrived from Bangkok on 28 October 2026 and seized 26.67 kg of hydroponic ganja from their luggage, valued at about Rs 9.33 crore. Officers found 26 polythene pouches, 13 in each of two trolley bags, and customs said its investigation was in progress.
+figures:
+  arrested: 2
+  kg_seized: 26.67
+  value:
+    amount: 93300000
+    currency: INR
+status: reported
+created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
+submission: 1cd0cfe739528fb7261561fc4a8e93a9
+tags: [delhi, airport, bangkok-route, hydroponic, customs]
+sources:
+  - title: 'Delhi Airport: 26.6 kg Hydroponic Ganja Seized, Two Arrested'
+    url: https://www.lokmattimes.com/national/delhi-airport-266-kg-hydroponic-ganja-seized-two-arrested-a001-w03/
+    publisher: Lokmat Times
+    date: 2026-10-30
+  - title: 26.6 kg hydroponic weed worth over Rs 9 crore seized at Delhi Airport; 2 held
+    url: https://theprint.in/india/26-6-kg-hydroponic-weed-worth-over-rs-9-crore-seized-at-delhi-airport-2-held/3086608/
+    publisher: ThePrint
+    date: 2026-10-30
+  - title: 26.67 kg of Hydroponic Weed Seized at IGI Airport
+    url: https://x.com/AirportGenCus/status/2116235353942331448
+    publisher: Delhi Customs (Airport & General)
+    date: 2026-10-30
+open_questions:
+  - PTI reported that the two passengers arrived on two separate flights from Bangkok, while the Delhi Customs post names a single flight, AI2335; the report does not resolve the difference.
+  - Customs gave no names, ages or other identifying details for the two passengers.
+  - No court appearance, remand or charge sheet was reported; customs said only that its investigation was in progress.
+  - The Lokmat Times featured image did not load in the captured page, ThePrint used a default image and the Delhi Customs post's attached image could not be checked, so no photograph of the seized packets was confirmed and no media entry was added.
+  - The Lokmat Times report is a syndicated PTI story that the page says was refined using artificial intelligence; ThePrint carries the same PTI text and the customs post gives the same weight and value.
+  - 'Left out, as its quotation was not found in ThePrint: The pouches were packed 13 to each of two black trolley bags.'
+---
+
+Customs officials at Delhi's Indira Gandhi International Airport seized 26.67 kg
+of suspected hydroponic ganja from two Indian passengers arriving from Bangkok.
+[@1] The seizure was made at Terminal 3. [@3] Both were diverted from the Green
+Channel for X-ray screening after profiling. [@3] The two passengers were
+arrested on 28 October under Section 43(b) of the Narcotic Drugs and
+Psychotropic Substances Act, 1985. [@1] The substance was seized under Section
+43(a) of the same act. [@1]
+
+Officers found 26 polythene pouches of a green substance suspected to be
+marijuana or hydroponic weed. [@2] Customs valued the haul at about Rs 9.33
+crore. [@1] A diagnostic test indicated prima facie that the substance was
+marijuana or hydroponic weed. [@2]
+
+Customs said cases were booked against the two under sections 8, 20, 23 and 29
+of the NDPS Act and that its investigation was in progress. [@3] Hydroponic
+ganja is a high-potency variety of cannabis grown in nutrient-rich water instead
+of soil. [@1]
+
