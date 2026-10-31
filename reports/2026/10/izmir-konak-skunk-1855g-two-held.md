@@ -33,6 +33,11 @@ sources:
     publisher: DHA (Demirören Haber Ajansı)
     date: 2026-10-31
     language: tr
+  - title: İzmir Konak'ta operasyonda 1 kilo 855 gram skunk ve 4 gram kokain ele geçirildi
+    url: https://www.sondakika.com/amp/haber-izmir-konak-ta-operasyonda-1-kilo-855-gram-skunk-v-20383073/
+    publisher: Son Dakika
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports say only that the raid took place 'yesterday' (dün) relative to their 31 October 2026 publication, and give no time of day or street.
   - No charge, court date or outcome was reported for the two suspects, who were not named.
@@ -42,17 +47,16 @@ open_questions:
 ---
 
 Police in İzmir searched an address in Konak, one of the city's central
-districts, on 30 October 2026. [@1] Two suspects were detained and held in
+districts, on 30 October 2026. [@1,3] Two suspects were detained and held in
 gözaltı, the police custody in which a person is kept for questioning while
-prosecutors decide whether to bring charges or release them. [@2] The searches
+prosecutors decide whether to bring charges or release them. [@2,3] The searches
 turned up 1 kg 855 g of skunk, a high-potency herbal cannabis preparation that
-Turkish police and newspapers call skunk, and 4 g of cocaine. [@1]
+Turkish police and newspapers call skunk, and 4 g of cocaine. [@1,3]
 
 The operation was carried out by teams from the narcotics crimes branch of the
 İzmir provincial police directorate, the Narkotik Suçlarla Mücadele Şube
-Müdürlüğü, the unit that investigates drug supply across the province. [@2] The
+Müdürlüğü, the unit that investigates drug supply across the province. [@2,3] The
 İzmir chief public prosecutor's office, the Cumhuriyet Başsavcılığı, which
 oversees criminal investigations in the province, coordinated the work,
 described by the police as aimed at preventing the trafficking of narcotics.
-[@1] Officers had identified the address in Konak before the raid. [@2]
-
+[@1,3] Officers had identified the address in Konak before the raid. [@2,3]
