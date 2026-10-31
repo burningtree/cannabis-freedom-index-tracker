@@ -47,6 +47,11 @@ sources:
     publisher: Hérault Tribune
     date: 2026-10-29
     language: fr
+  - title: 'Montpellier : à 13 ans, il est interpellé avec un maillet et du cannabis'
+    url: https://www.infoccitanie.fr/montpellier-a-13-ans-il-est-interpelle-avec-un-maillet-et-du-cannabis/
+    publisher: InfOccitanie
+    date: 2026-10-30
+    language: fr
 open_questions:
   - InfOccitanie dates the arrest to 'Tuesday 28 October'; Actu.fr and Midi Libre say Wednesday, and 28 October 2026 was a Wednesday.
   - No weight or quantity was published for the cannabis resin.
@@ -59,16 +64,16 @@ A 13-year-old boy was caught as about ten youths dressed in black and carrying
 iron bars fled from police. [@2,4] The intervention took place in Montpellier's
 Croix d'Argent district shortly before 11pm on Wednesday 28 October 2026. [@2,4] A
 resident had called the emergency number 17 to alert the police to the group.
-[@3] An anti-crime squad (BAC) crew had been sent after the report. [@1,4]
+[@3] An anti-crime squad (BAC) crew had been sent after the report. [@1,4,5]
 
 During the check, officers found a cigarette packet containing a hand-rolled
 cigarette and several small pieces of cannabis resin, as well as pliers. [@2,4] A
 mallet and a 100 ml tear-gas canister were also recovered. [@2,4] A large stone
-was found in one of his pockets. [@1,4] He told officers that another youth, aged
+was found in one of his pockets. [@1,4,5] He told officers that another youth, aged
 16, had slipped the stone into his pocket and that he meant to get rid of it.
 [@2,4]
 
-He was placed in police custody for questioning. [@3,4] There he denied owning
-some of the items, including the mallet and the tear gas. [@1,4] After the custody
+He was placed in police custody for questioning. [@3,4,5] There he denied owning
+some of the items, including the mallet and the tear gas. [@1,4,5] After the custody
 ended, he was brought before the Montpellier juvenile prosecutor's office on the
 morning of 29 October. [@2]
