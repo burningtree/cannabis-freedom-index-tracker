@@ -128,6 +128,11 @@ sources:
     publisher: Analisadaily.com
     date: 2026-10-30
     language: id
+  - title: Polisi Bongkar Gudang Ganja Berkedok Kandang Ayam, 18 Kg Disita
+    url: https://www.viral24.co.id/polisi-bongkar-gudang-ganja-berkedok-kandang-ayam-18-kg-disita/
+    publisher: Viral24.co.id
+    date: 2026-10-30
+    language: id
 open_questions:
   - No court date or formal charge was reported; the two arrested men are described as suspects.
   - No estimate of the cannabis's street value was published.
@@ -141,24 +146,25 @@ open_questions:
   - The EKSISNEWS page image has no caption or credit, so it was not added as media.
   - This account does not say the two arrested men were childhood friends, and it does not give a separate date for the search of the chicken coop.
   - Analisadaily's photo caption calls the seizure 18 kg of sabu and names Iptu Haryono; the article text describes dried ganja and does not mention Haryono in the body.
+  - Viral24's photo caption places both arrests in the fast-food restaurant car park, while its article text and the existing report say DS was arrested on Jalan Brigjen Katamso.
 ---
 
 Narcotics detectives at Medan city police raided a warehouse disguised as a
 chicken coop in Deli Serdang on the night of Wednesday 28 October 2026. [@1,10,13] The
-coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5,6,8,10,11,12,15,16,17] Police arrested two
-close friends and seized 18 kg of dried cannabis. [@1,5,6,7,8,10,13,15] Police identified the two
+coop stood in Desa Marindal I, Patumbak, Deli Serdang. [@3,5,6,8,10,11,12,15,16,17,18] Police arrested two
+close friends and seized 18 kg of dried cannabis. [@1,5,6,7,8,10,13,15,18] Police identified the two
 as MF, 28, of Jalan Cinta Karya in Medan Polonia, and DS, 19, of Jalan Bajak V
 in Medan. [@3,12,15] MF was caught in the parking area of a fast-food restaurant on
-Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1,9,10,12,13,15] DS
-was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5,9,10,11,13,16,17] Officers found
-another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6,8,9,10,11,12,13,15,16,17]
+Jalan AH Nasution in Medan with 2 ons, or 200 grams, of dried cannabis. [@1,9,10,12,13,15,18] DS
+was caught on Jalan Brigjen Katamso with 1 kg of cannabis. [@1,5,9,10,11,13,16,17,18] Officers found
+another 17 kg of dried cannabis in a safety box inside the coop. [@3,5,6,8,9,10,11,12,13,15,16,17,18]
 
 The coop was remote and far from houses. [@2,7,8,9,11,13,15,17] Police said the building did not
 look suspicious from outside because it resembled an ordinary house. [@2,5,6,8,11,12,14,15,17] Police
 said the cannabis came from Aceh and the operation had run for about three
 months, supplying Medan and the surrounding area. [@2,6,7,8,9,10,11] Police named a third man,
-FS, as the suspected controller of MF and DS. [@1,5,6,7,8,9,10,11,12,13,15,17] FS was placed on a wanted
-list and was being hunted, police said. [@1,15] The two detained men face more than
+FS, as the suspected controller of MF and DS. [@1,5,6,7,8,9,10,11,12,13,15,17,18] FS was placed on a wanted
+list and was being hunted, police said. [@1,15,18] The two detained men face more than
 five years in prison over the trafficking allegation, Metro TV reported. [@4,7]
 
 Police put the total cannabis seized in the case at about 18.2 kg. [@5,16] Police said DS was suspected of acting as a distributor who stored cannabis before it was supplied to several locations. [@5,6,9,16,17]
