@@ -30,12 +30,18 @@ sources:
     publisher: Public Vani
     date: 2026-10-30
     language: hi
+  - title: '6 महीने से फरार गांजा तस्करी का आरोपी गिरफ्तार: हार्डवेयर दुकान से पकड़ाया; पोल्ट्री फार्म से 2kg गांजा किया जब्त'
+    url: https://www.bhaskar.com/local/mp/mauganj/video/mauganj-police-arrest-ganja-smuggler-satish-gupta-naigarhi-139537951.html?type=video
+    publisher: Dainik Bhaskar
+    date: 2026-10-30
+    language: hi
 open_questions:
   - The calendar day of Satish Gupta's arrest is not named; Dainik Bhaskar, published on 30 October 2026, said it was 22 hours earlier, so 29 October is used.
   - Dainik Bhaskar's headline said 2 kg was seized from the poultry farm; Public Vani reported 2 kilograms 340 grams, which is the figure used here.
   - No charge sheet or court outcome for Satish Gupta was reported.
   - Dainik Bhaskar's page was paywalled after the opening paragraph.
   - A photo and a short video appeared with the coverage, but neither caption confirmed they showed this arrest or seizure, so they are not listed.
+  - The opened video page did not include the article body, so it corroborates only the headline and not the names, place or 2.34 kg figure already recorded.
 ---
 
 Naigarhi police in Mauganj district, Madhya Pradesh, arrested Satish Gupta after
@@ -54,11 +60,10 @@ During questioning Kuldeep said he had obtained the ganja from Satish Gupta.
 [@2] A case was then registered under the Narcotic Drugs and Psychotropic
 Substances Act, Kuldeep was sent to jail, and Satish was recorded as absconding.
 [@2] Dainik Bhaskar's headline later described that poultry-farm seizure as 2 kg
-of ganja. [@1]
+of ganja. [@1,3]
 
 Police had kept an informer network looking for the missing accused, and
 arrested him at the shop after a tip. [@2] The officers credited with the arrest
 were inspector Anil Kakde, sub-inspector Anantvijay Singh, R.P. Verma, head
 constable Ramkumar Bhaskar, Rashiraman Sahu, and constables Avinash Singh and
 Prakash Kushwaha. [@2]
-
