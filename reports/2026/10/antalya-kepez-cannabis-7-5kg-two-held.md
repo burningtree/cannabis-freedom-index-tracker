@@ -38,19 +38,26 @@ sources:
     publisher: Sabah
     date: 2026-10-31
     language: tr
+  - title: Antalya'da 7,5 kilo esrar; bir şüpheli tutuklandı
+    url: https://www.saraymedya.com/foto/antalya-da-7-5-kilo-esrar-bir-supheli-tutuklandi_319532/
+    publisher: Saray Medya
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The reports give no separate date or time for the operation; 31 October 2026 is the publication date of both accounts.
   - No full names, estimated value for the 7.5 kg of cannabis, court date or trial outcome were published.
   - İHA does not say where the drugs came from, while Sabah says they were obtained outside the province; the report follows Sabah on that point.
   - Only Turkish-language news reports were found; no police statement or court record was opened.
   - 'Left out, as its quotation was not found in Sabah: A court ordered M.S.K. held in pre-trial detention — tutuklama, custody pending trial — while O.Ü. was released under judicial control, a supervision order that falls short of custody.'
+  - The article names the trafficking charge only against O.Ü. and does not say on what charge M.S.K. was held.
+  - The gallery republishes İHA's police-camera stills, which appear to be the same handout frames already linked from the agency's page in this report, so its copies were not listed as separate pictures.
 ---
 
 Police in Antalya detained two men in an operation against drug trafficking
 after information that they were selling and distributing drugs brought into the
 city. [@1] Officers caught the suspects, identified only as M.S.K. and O.Ü., in
-Kepez district. [@1] A search of their homes found 7 kg 500 g of cannabis, known
-in Turkey as esrar, divided into 15 packets. [@1] The pair were referred to the
+Kepez district. [@1,3] A search of their homes found 7 kg 500 g of cannabis, known
+in Turkey as esrar, divided into 15 packets. [@1,3] The pair were referred to the
 judicial authorities over trading and supplying narcotic or psychotropic
 substances. [@1]
 
@@ -61,3 +68,4 @@ and distribution. [@2] Officers identified the suspects and their addresses
 before launching the raid, the paper said. [@2] Police camera footage recorded
 the operation and the material seized in the searches. [@1]
 
+M.S.K. was remanded in pre-trial detention, known in Turkey as tutuklama, while O.Ü. was released under judicial control, a supervision order that falls short of custody. [@3]
