@@ -22,6 +22,11 @@ sources:
     publisher: Kaler Kantho
     date: 2026-10-30
     language: bn
+  - title: নারায়ণগঞ্জে পুলিশের বিশেষ অভিযানে ১৪০ জন গ্রেপ্তার
+    url: https://www.kalbela.com/country-news/344364
+    publisher: Kalbela
+    date: 2026-10-30
+    language: bn
 open_questions:
   - Narayanganj Post dates the arrests to Thursday 29 October, while Kaler Kantho reported the results on Friday 30 October for the preceding 24 hours; the report uses 29 October.
   - No charges, court appearances or case numbers were reported for the 140 people arrested.
@@ -30,22 +35,28 @@ open_questions:
   - Both pages illustrate the report with a file photo, so no photograph of the operation itself could be recorded.
   - 'Left out, as its quotation was not found in Narayanganj Post: The arrests were made on Thursday 29 October 2026 by the district''s seven police stations and its detective branch (DB).'
   - 'Left out, as its quotation was not found in Narayanganj Post: Narayanganj district police superintendent Habibur Rahman said such special drives would continue to keep law and order normal and control drugs.'
+  - 'Left out, as its quotation was not found in Kalbela: In all, police reported seizing 295 yaba tablets, 61 bottles of Skaf, 45 bottles of Fyradil, 63 cans of beer and 100 grams (0.1 kg) of cannabis.'
+media:
+  - kind: photo
+    url: https://www.kalbela.com/country-news/344364
+    media_url: https://www.kalbela.com/assets/news_photos/2026/10/30/image_344364_1793340451.webp
+    publisher: Kalbela
+    caption: 'Some of the people arrested in the Narayanganj sweep. Photo: Kalbela'
 ---
 
 Police in Narayanganj district arrested 140 people in a 24-hour special drive.
-[@1] Additional superintendent of police (crime and operations) Tareq Al Mehdi
-announced the results on Friday morning. [@1] Of the 140, police counted 13 drug
+[@1,2] Additional superintendent of police (crime and operations) Tareq Al Mehdi
+announced the results on Friday morning. [@1,2] Of the 140, police counted 13 drug
 traffickers and 88 drug users, along with 19 people wanted on arrest warrants,
 14 defendants in regular cases, one thief, four held under other sections and
-one member of a banned organisation. [@1]
+one member of a banned organisation. [@1,2]
 
 Fatullah Model police station made 66 of the arrests, including 52 drug users.
-[@1] Siddhirganj police arrested 25 people and seized 61 bottles of Skaf, 45
-bottles of Fyradil and 270 yaba tablets. [@1] Bandar police arrested seven
-people and seized the 100 grams of cannabis. [@1] In all, police reported
+[@1,2] Siddhirganj police arrested 25 people and seized 61 bottles of Skaf, 45
+bottles of Fyradil and 270 yaba tablets. [@1,2] Bandar police arrested seven
+people and seized the 100 grams of cannabis. [@1,2] In all, police reported
 seizing 295 yaba tablets, 61 bottles of Skaf, 45 bottles of Fyradil, 63 cans of
 beer and 100 grams (0.1 kg) of cannabis. [@1]
 
 Tareq Al Mehdi said officers arrested people involved in various crimes and
-recovered yaba, cannabis and other drugs during the drive. [@1]
-
+recovered yaba, cannabis and other drugs during the drive. [@1,2]
