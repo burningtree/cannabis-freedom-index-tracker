@@ -46,6 +46,10 @@ sources:
     url: https://oklahoma.gov/oag/news/newsroom/2026/october/fugitive-caught-after-two-days-on-drummonds-10-most-wanted-list.html
     publisher: Oklahoma Attorney General's Office
     date: 2026-10-29
+  - title: Marijuana trafficking suspect on Oklahoma’s 10 Most Wanted list arrested in Illinois
+    url: https://kfor.com/video/marijuana-trafficking-suspect-on-oklahoma%E2%80%99s-10-most-wanted-list-arrested-in-illinois/12319252/
+    publisher: KFOR.com Oklahoma City
+    date: 2026-10-29
 open_questions:
   - No cannabis was reported seized when Bozovic was arrested; the 25 pounds is the quantity alleged in the 2024 charges and is not counted as a seizure.
   - The reports give no court date in Ottawa County and do not say whether Bozovic will contest being returned to Oklahoma.
@@ -59,7 +63,7 @@ open_questions:
 ---
 
 Mihailo Bozovic, 45, was arrested on Tuesday 27 October 2026 in Countryside,
-Illinois, a suburb of Chicago. [@2,4] He had been added to Attorney General
+Illinois, a suburb of Chicago. [@2,4,6] He had been added to Attorney General
 Gentner Drummond's 10 Most Wanted list two days before. [@3] An agent with the
 Oklahoma Attorney General's Office found that Bozovic was likely living in
 Countryside. [@1] The agent worked with the Countryside Police Department, which
