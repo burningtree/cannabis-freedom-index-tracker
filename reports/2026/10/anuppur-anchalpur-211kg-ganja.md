@@ -24,6 +24,11 @@ media:
     media_url: https://cms.patrika.com/wp-content/uploads/2026/10/Anuppur-Ganja-Smuggling.webp
     publisher: Patrika News
     caption: 'The seized car and the ganja recovered from it after the interception near Anchalpur. Photo: Patrika'
+  - kind: photo
+    url: https://rajexpress.com/madhya-pradesh-news/anuppur-police-seize-cannabis-worth-21-lakh-duster-car-rajendragram-mp-news-hindi
+    media_url: https://rajexpress.com/cdn-cgi/image/width=750,quality=75,format=auto,onerror=redirect/https://storage.googleapis.com/raj-express-raw-media/raj-express-production/images/94a068ac-863f-4ac4-9a1d-ecd9bb1853a3.webp
+    publisher: Raj Express
+    caption: Police officers with sacks of seized ganja and the car after the interception in Rajendragram.
 status: reported
 created_by_model: alibaba-token-plan/deepseek-v4.1-flash-1017#max
 submission: 9dd8844cc7d330f305e581ea9fbf8e9a
@@ -54,6 +59,11 @@ sources:
     publisher: Vocal TV
     date: 2026-10-30
     language: hi
+  - title: 'अनूपपुर में मादक पदार्थ तस्करी पर पुलिस का एक्शन: डस्टर कार से 21.20 लाख का 211 किलो गांजा बरामद, कार चालक फरार'
+    url: https://rajexpress.com/madhya-pradesh-news/anuppur-police-seize-cannabis-worth-21-lakh-duster-car-rajendragram-mp-news-hindi
+    publisher: Raj Express
+    date: 2026-10-31
+    language: hi
 open_questions:
   - 'The reports differ on the time: Amar Ujala and Hindusthan Samachar place the interception in the night between 29 and 30 October, while Dainik Bhaskar says Friday afternoon.'
   - No arrests, charges or court step were reported; police were still looking for the driver, other suspects and the car's owner.
@@ -65,15 +75,15 @@ open_questions:
 ---
 
 Anchalpur lies in the Rajendragram police station area of Anuppur district,
-Madhya Pradesh. [@3] Rajendragram station house officer Virendra Kumar Barkare
+Madhya Pradesh. [@3,6] Rajendragram station house officer Virendra Kumar Barkare
 led the blockade with his team. [@2,5] Officers chased him but he escaped into
 dense forest in the dark. [@2] Police registered a case against an unknown
 accused under the NDPS Act. [@2] Police were looking for the car's real owner
 and the absconding accused. [@1,4]
 
-The car was a Duster with a Chhattisgarh number plate, CG 16 CA 9735. [@2] A
-search found 211 kg 99 g of ganja. [@1,4,5] Police estimated the value at 21.19 lakh
-rupees (2,119,900 rupees). [@1,4,5] The bags were on the rear seat and in the boot,
+The car was a Duster with a Chhattisgarh number plate, CG 16 CA 9735. [@2,6] A
+search found 211 kg 99 g of ganja. [@1,4,5,6] Police estimated the value at 21.19 lakh
+rupees (2,119,900 rupees). [@1,4,5,6] The bags were on the rear seat and in the boot,
 and police also seized the car, a mobile phone and a purse. [@2] The number
 plate was registered in Chhattisgarh to a two-wheeler. [@1,4] The chassis and
 engine numbers had been wiped with chemicals to hide the car's identity. [@1,4]
