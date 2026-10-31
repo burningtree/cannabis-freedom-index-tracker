@@ -43,6 +43,11 @@ sources:
     publisher: Son Dakika
     date: 2026-10-31
     language: tr
+  - title: Kasap dükkanı kenevir serası çıktı
+    url: https://www.egealternatif.com/haber/kasap-dukkani-kenevir-serasi-cikti_99768/
+    publisher: Ege Alternatif Gazetesi
+    date: 2026-10-31
+    language: tr
 open_questions:
   - The sources give no separate date for the operation, detention or court appearance; 31 October 2026 is the publication date of the earliest accounts.
   - No charge, trial date, sentence or estimated value of the cannabis was published; tutuklama is pre-trial detention, not a conviction.
@@ -51,6 +56,7 @@ open_questions:
   - The only image on the submitted page is a generic "Bursa Haberleri" graphic, not a photo of the operation, so no media entry is included.
   - The four gallery photographs carry only the article headline as their caption and name no photographer or agency credit.
   - The Aksiyon page carries two pictures captioned only with the headline and naming no photographer or agency; no separate media entry was added because the report already links the agency photo set from this raid.
+  - The pictures on this page carry only the headline as their caption and name no photographer or agency; the report already links the İHA photo set from another outlet, so no new media entry was added.
 media:
   - kind: photo
     url: https://www.afyonturkeligazetesi.com/kasap-dukkaninin-altindan-uyusturucu-serasi-cikti-114-kok-kenevir-ele-gecirildi/148684
@@ -81,7 +87,7 @@ media:
 
 Police in Yıldırım, a district of Bursa, found a cannabis grow in the basement
 of a butcher's shop converted into a grow room with climate-control and lighting
-equipment. [@2,3,4,5] They detained a suspect identified only by the initials A.T.;
+equipment. [@2,3,4,5,6] They detained a suspect identified only by the initials A.T.;
 after questioning at the police station he was taken to court, where a judge
 ordered him held in pre-trial detention, known in Turkey as tutuklama. [@1,3,5] He
 was sent to prison after the court order. [@2,3,4]
@@ -89,11 +95,11 @@ was sent to prison after the court order. [@2,3,4]
 Officers seized 114 cannabis plants in pots, 1 kg 885 g of esrar (cannabis) in
 four transparent bags, another 105 g in two bags and 924 g of cannabis left to
 dry, along with the climate-control and lighting equipment, liquid fertilisers
-and chemicals. [@1,3,4,5] İhlas Haber Ajansı put the esrar total at 1 kg 990 g. [@2,5]
+and chemicals. [@1,3,4,5] İhlas Haber Ajansı put the esrar total at 1 kg 990 g. [@2,5,6]
 
 The operation followed about a month of physical surveillance, after which
 police said the basement had been converted into a cannabis greenhouse and
 cannabis grown there was prepared for sale at another address. [@1] It was run
 by Yıldırım district police teams working against drug manufacture and
-trafficking. [@2,3,4,5] Searches were carried out at several addresses under a
+trafficking. [@2,3,4,5,6] Searches were carried out at several addresses under a
 decision by judicial authorities. [@2,3,4]
